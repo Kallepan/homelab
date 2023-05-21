@@ -1,6 +1,6 @@
 # Homelab
 
-A collection of scripts and configs for my k8s cluster.
+A collection of yaml files and configs for my kubernetes clusters.
 
 ## Current Settings
 
