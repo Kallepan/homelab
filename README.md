@@ -1,10 +1,8 @@
 # Homelab
 
-A collection of yaml files and configs for my kubernetes clusters.
+A collection of manifests, markdown files, and other resources for my homelab.
 
-## Current Settings
+## Networks
 
-The hosts are running on 10.0.3.0/24
-
-- CIDR: 10.255.0.0/16
-- metallb: 10.0.255.0-10.0.255.254
+- 10.0.0.0/16
+- 10.1.0.0/16
