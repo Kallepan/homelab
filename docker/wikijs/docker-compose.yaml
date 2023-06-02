@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  wikijs:
+    dns:
+      - 10.0.0.5
+    container_name: wikijs
+    image: ghcr.io/requarks/wiki:2
+    environment:
+      DB_TYPE: CHANGEME
+      DB_HOST: CHANGEME
+      DB_PORT: CHANGEME
+      DB_USER: CHANGEME
+      DB_PASS: CHANGEME
+      DB_NAME: CHANGEME
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.wikijs.entrypoints=websecure
+      - traefik.http.routers.wikijs.rule=Host(`wiki.srv-0.server.home`)
+      - traefik.http.routers.wikijs.tls=true
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true

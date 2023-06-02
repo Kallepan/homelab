@@ -1,0 +1,22 @@
+version: '3'
+services:
+  baserow:
+    container_name: baserow
+    image: baserow/baserow:latest
+    restart: unless-stopped
+    environment:
+      - BASEROW_PUBLIC_URL=https://baserow.srv-0.server.home
+      - DATABASE_URL=postgresql://baserow:baserow@10.0.0.8:5432/baserow
+    volumes:
+      - ./data:/baserow/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.baserow.rule=Host(`baserow.srv-0.server.home`)"
+      - "traefik.http.routers.baserow.entrypoints=websecure"
+      - "traefik.http.routers.baserow.tls=true"
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true

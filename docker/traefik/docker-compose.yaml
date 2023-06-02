@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  traefik:
+    restart: always
+    image: traefik:latest
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "2222:2222"
+      # (Optional) Expose Dashboard
+      # - "8080:8080"  # Don't do this in production!
+    volumes:
+      - ./config:/etc/traefik
+      - traefik-ssl-certs:/ssl-certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  traefik-ssl-certs:
+    driver: local

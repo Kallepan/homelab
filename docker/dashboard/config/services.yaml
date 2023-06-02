@@ -1,0 +1,114 @@
+---
+- Rancher-K3S:
+  - ArgoCD:
+      icon: /icons/argocd.png
+      href: https://argocd.main-0.kubernetes.home/
+      description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+
+- K8S:
+  - Grafana:
+      icon: /icons/grafana.png
+      href: https://grafana.kubernetes.home
+      description: Grafana is a multi-platform open source analytics and interactive visualization web application.
+  - Argo CD:
+      icon: /icons/argocd.png
+      href: https://argocd.kubernetes.home
+      description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+  - Traefik:
+      icon: /icons/traefik.png
+      href: https://traefik.kubernetes.home
+      description: Traefik is an open-source Edge Router that makes publishing your services a fun and easy experience.
+  - Longhorn:
+      icon: /icons/longhorn.png
+      href: https://longhorn.kubernetes.home/#/dashboard
+      description: Longhorn is a distributed block storage system for Kubernetes.
+
+- K3S:
+  - Argo CD:
+      icon: /icons/argocd.png
+      href: https://argocd.main-0.kubernetes.home
+      description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+  - SCoAR:
+      icon: /icons/scoar.png
+      href: https://scoar.dev.kubernetes.home
+      description: Sars-CoV-2 Analysis of Receptors (SCoAR) is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
+  - Astro Blog:
+      icon: /icons/astro.png
+      href: https://blog.dev.kubernetes.home
+      description: Astro Blog is a simple blog application.
+  - Nginx Test:
+      icon: /icons/nginx.png
+      href: http://app-test-1.dev.kubernetes.home/
+      description: Nginx Test is a simple web application.
+  - Pathfinder:
+      icon: /icons/react.png
+      href: http://pathfinder.dev.kubernetes.home
+      description: Pathfinder is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
+  - Go JWT:
+      icon: /icons/golang.png
+      href: http://go-jwt.dev.kubernetes.home/api/v1/ping
+      description: Go JWT is a simple web application that allows users to generate JWT tokens.
+
+- Infrastructure:
+    - Pfsense:
+        icon: /icons/pfsense.png
+        href: http://10.0.0.1
+        description: pfSense is a free and open source firewall and router that also features unified threat management, load balancing, multi WAN, and more.
+    - Harvester:
+        icon: /icons/harvester.png
+        href: https://srv-harvester.server.home/dashboard
+        description: Harvester is an open source hyperconverged infrastructure (HCI) software built on top of Kubernetes.
+    - Databases:
+        icon: /icons/adminer.png
+        href: http://srv-1.server.home:8080/
+        description: Adminer is a full-featured database management tool written in PHP.
+    - Proxmox:
+        icon: /icons/proxmox.png
+        href: https://192.168.0.235:8006/
+        description: Proxmox VE is a complete open-source platform for enterprise virtualization.
+    - Rancher:
+        icon: /icons/rancher.png
+        href: https://rancher.kubernetes.home
+        description: Rancher is a complete software stack for teams adopting containers.
+    - Portainer:
+        icon: /icons/portainer.png
+        href: https://srv-0.server.home:9443
+        description: Portainer is an open-source lightweight management UI which allows you to easily manage your Docker environments.
+    - TrueNAS SCALE:
+        icon: /icons/truenas.png
+        href: https://nas.server.home
+        description: TrueNAS SCALE is a powerful, free, and open-source NAS solution.
+
+- Selfhosted:
+    - AdGuard Home:
+        icon: /icons/adguard-home.png
+        href: http://adguard.server.home/
+        description: AdGuard Home is a network-wide software for blocking ads & tracking.
+    - GitLab:
+        icon: /icons/gitlab.png
+        href: https://gitlab.server.home/
+        description: GitLab is a complete DevOps platform.
+    - Dozzle:
+        icon: /icons/dozzle.png
+        href: https://dozzle.srv-0.server.home/
+        description: Dozzle is a simple container log viewer for Docker.
+    - Uptime Kuma:
+        icon: /icons/uptime-kuma.png
+        href: https://uptime.srv-0.server.home/
+        description: Uptime Kuma is a fancy self-hosted monitoring tool.
+    - Baserow:
+        icon: /icons/baserow.png
+        href: https://baserow.srv-0.server.home/
+        description: Baserow is a self-hosted documentation page.
+    - Wiki JS:
+        icon: /icons/wikijs.png
+        href: https://wiki.srv-0.server.home/
+        description: Wiki.js is a powerful and extensible open-source Wiki software.
+    - Passbolt:
+        icon: /icons/passbolt.png
+        href: https://passbolt.srv-0.server.home/
+        description: Passbolt is an open source password manager for teams.
+    - Nextcloud:
+        icon: /icons/nextcloud.png
+        href: https://nextcloud.srv-0.server.home/
+        description: NextCloud

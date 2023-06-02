@@ -1,0 +1,32 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/settings
+title: HomeLab
+base: https://dashboard.srv-0.server.home/
+showStats: true
+
+
+layout:
+  Infrastructure:
+    icon: /icons/netboot.png
+    style: row
+    columns: 4
+  Selfhosted:
+    icon: /icons/selfhosted.png
+    style: row
+    columns: 4
+  K8S:
+    icon: /icons/k8s.png
+  K3S:
+    icon: /icons/k3s.png
+  Rancher-K3S:
+    icon: /icons/k3s.png
+
+quicklaunch:
+    searchDescriptions: false
+    hideInternetSearch: false
+    hideVisitURL: false
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

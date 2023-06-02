@@ -1,0 +1,20 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          href: https://github.com/Kallepan
+    - DockerHub:
+        - abbr: DO
+          href: https://hub.docker.com/u/kallepan
+
+- Social:
+    - LinkedIn:
+        - abbr: LI
+          href: https://linkedin.com/kajeepan
+- Mail:
+    - Gmail:
+        - abbr: GM
+          href: http://kajeepan.kandeepan@gmail.com

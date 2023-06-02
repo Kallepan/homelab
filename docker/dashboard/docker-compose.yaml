@@ -1,0 +1,24 @@
+version: '3.8'
+
+networks:
+  traefik_default:
+    external: true
+
+services:
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    volumes:
+      - ./config:/config
+      - ./icons:/app/public/icons # pull the gitlab icons folder into the here!
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped
+    networks:
+      - traefik_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dashboard.entrypoints=websecure
+      - traefik.http.routers.dashboard.rule=Host(`dashboard.srv-0.server.home`)
+      - traefik.http.routers.dashboard.tls=true

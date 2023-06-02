@@ -1,0 +1,19 @@
+version: "3"
+services:
+  dozzle:
+    restart: always
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dozzle.entrypoints=websecure
+      - traefik.http.routers.dozzle.rule=Host(`dozzle.srv-0.server.home`)
+      - traefik.http.routers.dozzle.tls=true
+    networks:
+      - traefik_default
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  traefik_default:
+    external: true

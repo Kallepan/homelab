@@ -1,0 +1,22 @@
+---
+version: '3'
+services:
+  app:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uptime.entrypoints=websecure
+      - traefik.http.routers.uptime.rule=Host(`uptime.srv-0.server.home`)
+      - traefik.http.routers.uptime.tls=true
+    volumes:
+      - ./data:/app/data
+    networks:
+      - traefik_default
+    dns:
+      - 10.0.0.5
+
+networks:
+  traefik_default:
+    external: true
