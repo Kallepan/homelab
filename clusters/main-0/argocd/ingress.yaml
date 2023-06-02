@@ -4,20 +4,20 @@ metadata:
   name: argocd-server
   namespace: argocd
   annotations:
-    kubernetes.io/ingress.class: traefik-external
+    kubernetes.io/ingress.class: traefik
 spec:
   entryPoints:
     - web
     - websecure
   routes:
     - kind: Rule
-      match: Host(`argocd.dev.kubernetes.home`)
+      match: Host(`argocd.main-0.kubernetes.home`)
       priority: 10
       services:
         - name: argocd-server
           port: 80
     - kind: Rule
-      match: Host(`argocd.dev.kubernetes.home`) && Headers(`Content-Type`, `application/grpc`)
+      match: Host(`argocd.main-0.kubernetes.home`) && Headers(`Content-Type`, `application/grpc`)
       priority: 11
       services:
         - name: argocd-server
