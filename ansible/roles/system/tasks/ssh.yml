@@ -1,0 +1,32 @@
+---
+- name: Ensure SSH daemon is running.
+  service:
+    name: "{{ security_sshd_name }}"
+    state: "{{ security_sshd_state }}"
+
+- name: Update SSH configuration to be more secure.
+  lineinfile:
+    dest: "{{ security_ssh_config_path }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    validate: 'sshd -T -f %s'
+    mode: 0644
+  with_items:
+    - regexp: "^PasswordAuthentication"
+      line: "PasswordAuthentication no"
+    - regexp: "^PermitRootLogin"
+      line: "PermitRootLogin no"
+    - regexp: "^Port"
+      line: "Port {{ ssh_port }}"
+    - regexp: "^UseDNS"
+      line: "UseDNS no"
+    - regexp: "^PermitEmptyPasswords"
+      line: "PermitEmptyPasswords no"
+    - regexp: "^ChallengeResponseAuthentication"
+      line: "ChallengeResponseAuthentication no"
+    - regexp: "^GSSAPIAuthentication"
+      line: "GSSAPIAuthentication no"
+    - regexp: "^X11Forwarding"
+      line: "X11Forwarding no"
+  notify: restart ssh

@@ -1,0 +1,3 @@
+---
+- include_tasks: dns.yaml
+- include_tasks: registry.yaml

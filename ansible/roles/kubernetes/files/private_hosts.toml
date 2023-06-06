@@ -1,0 +1,5 @@
+server = "https://registry.server.home"
+
+[host."https://registry.server.home"]
+  capabilities = ["pull", "resolve"]
+  skip_verify = true

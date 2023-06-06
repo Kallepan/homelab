@@ -1,0 +1,97 @@
+username: user
+packages:
+  - nano
+  - curl
+  - wget
+  - htop
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
+  - python3-pip
+  - virtualenv
+  - python3-setuptools
+
+NODEJS_VERSION: "18"
+
+### Docker settings
+docker_edition: 'ce'
+docker_packages:
+  - "docker-{{ docker_edition }}"
+  - "docker-{{ docker_edition }}-cli"
+  - "docker-{{ docker_edition }}-rootless-extras"
+  - "containerd.io"
+docker_packages_state: present
+
+# Service options.
+docker_service_manage: true
+docker_service_state: started
+docker_service_enabled: true
+docker_restart_handler_state: restarted
+
+# Docker Compose Plugin options.
+docker_install_compose_plugin: true
+docker_compose_package: docker-compose-plugin
+docker_compose_package_state: present
+
+# Docker Compose options.
+docker_install_compose: true
+docker_compose_version: "v2.11.1"
+docker_compose_arch: "{{ ansible_architecture }}"
+docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-{{ docker_compose_arch }}"
+docker_compose_path: /usr/local/bin/docker-compose
+
+# Enable repo setup
+docker_add_repo: true
+
+# Docker repo URL.
+docker_repo_url: https://download.docker.com/linux
+
+# Used only for Debian/Ubuntu. Switch 'stable' to 'nightly' if needed.
+docker_apt_release_channel: stable
+docker_apt_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+docker_apt_repository: "deb [arch={{ docker_apt_arch }}] {{ docker_repo_url }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} {{ docker_apt_release_channel }}"
+docker_apt_ignore_key_error: true
+docker_apt_gpg_key: "{{ docker_repo_url }}/{{ ansible_distribution | lower }}/gpg"
+
+# Used only for RedHat/CentOS/Fedora.
+docker_yum_repo_url: "{{ docker_repo_url }}/{{ (ansible_distribution == 'Fedora') | ternary('fedora','centos') }}/docker-{{ docker_edition }}.repo"
+docker_yum_repo_enable_nightly: '0'
+docker_yum_repo_enable_test: '0'
+docker_yum_gpg_key: "{{ docker_repo_url }}/centos/gpg"
+
+# A list of users who will be added to the docker group.
+docker_users: []
+
+# Docker daemon options as a dict
+docker_daemon_options: {}
+
+###
+# ssh config
+security_ssh_port: 22
+security_ssh_password_authentication: "no"
+security_ssh_permit_root_login: "no"
+security_ssh_usedns: "no"
+security_ssh_permit_empty_password: "no"
+security_ssh_challenge_response_auth: "no"
+security_ssh_gss_api_authentication: "no"
+security_ssh_x11_forwarding: "no"
+security_sshd_state: started
+security_ssh_restart_handler_state: restarted
+security_ssh_allowed_users: []
+security_ssh_allowed_groups: []
+
+security_sudoers_passwordless: []
+security_sudoers_passworded: []
+
+security_autoupdate_enabled: true
+security_autoupdate_blacklist: []
+
+# Autoupdate mail settings used on Debian/Ubuntu only.
+security_autoupdate_reboot: "false"
+security_autoupdate_reboot_time: "03:00"
+security_autoupdate_mail_to: ""
+security_autoupdate_mail_on_error: true
+
+security_fail2ban_enabled: true
+security_fail2ban_custom_configuration_template: "jail.local.j2"

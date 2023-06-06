@@ -1,0 +1,15 @@
+username: kube
+
+nameserver: 10.0.0.5
+nameserver_2: 10.0.0.1
+
+containerd_config_location: /etc/containerd/certs.d
+
+# Containerd private repo settings
+create_folders:
+  - /etc/containerd/certs.d
+  - /etc/containerd/certs.d/registry.server.home
+  - /etc/containerd/certs.d/docker.io
+
+private_hosts_location: /etc/containerd/certs.d/registry.server.home/hosts.toml\
+docker_hosts_location: /etc/containerd/certs.d/docker.io/hosts.toml

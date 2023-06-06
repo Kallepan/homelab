@@ -1,0 +1,32 @@
+- name: Add config location to containerd config
+  ansible.builtin.replace:
+    path: /etc/containerd/config.toml
+    regexp: '(\s+){{ item.regexp }}(\s+)?$'
+    replace: '\1{{ item.replace }}\2'
+    mode: 0644
+  with_items:
+    - regexp: "config_path = \"\""
+      replace: "config_path = \"{{ containerd_config_location }}\""
+
+- name: Create folders
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop: "{{ create_folders }}"
+
+- name: Create hosts.toml for private registry
+  ansible.builtin.copy:
+    src: files/private_hosts.toml
+    dest: "{{ private_hosts_location }}"
+    group: root
+    owner: root
+    mode: 0644
+
+- name: Create hosts.toml for official docker repo
+  ansible.builtin.copy:
+    src: files/docker_hosts.toml
+    dest: "{{ docker_hosts_location }}"
+    group: root
+    owner: root
+    mode: 0644
+  notify: restart containerd

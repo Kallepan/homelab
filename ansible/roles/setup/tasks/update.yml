@@ -1,0 +1,10 @@
+- name: Update Aptitude
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install required packages
+  package:
+    name: "{{ packages }}"
+    state: latest
+    update_cache: true

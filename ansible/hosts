@@ -1,0 +1,4 @@
+# Note this is a sample inventory file. You will need to change the values to match your environment.
+# You can also use the -i flag to specify a different inventory file.
+[main]
+CHANGEME ansible_host=x.x.x.x ansible_user=CHANGEME ansible_connection=ssh ansible_ssh_private_key_file=CHANGEME

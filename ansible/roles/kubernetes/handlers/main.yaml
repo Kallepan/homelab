@@ -1,0 +1,6 @@
+- name: restart containerd
+  service:
+    name: containerd
+    state: restarted
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: true

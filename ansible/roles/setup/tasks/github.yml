@@ -1,0 +1,22 @@
+- name: Setup SSH Config File
+  copy:
+    dest: "/home/{{ username }}/.ssh/config"
+    content: |
+      Host gitlab.docker.home
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/gitlab_ed25519
+      
+      Host github.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/github
+
+- name: Copy SSH Private Keys
+  copy:
+    src: "/home/user/.ssh/github"
+    dest: "/home/{{ username }}/.ssh/github"
+    mode: "0644"
+    remote_src: false
+  copy:
+    src: "/home/user/.ssh/gitlab_ed25519"
+    dest: "/home/{{ username }}/.ssh/gitlab_ed25519"
+    mode: "0644"

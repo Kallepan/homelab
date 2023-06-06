@@ -1,0 +1,11 @@
+- name: restart ssh
+  service:
+    name: sshd
+    state: restarted
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
+  ignore_errors: "{{ ansible_check_mode }}"
+  when: true
