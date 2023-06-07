@@ -15,6 +15,10 @@ layout:
     icon: /icons/selfhosted.png
     style: row
     columns: 4
+  Own Apps:
+    icon: /icons/amp.png
+    style: row
+    columns: 4
   K8S:
     icon: /icons/k8s.png
   K3S:

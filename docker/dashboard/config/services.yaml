@@ -28,26 +28,6 @@
       icon: /icons/argocd.png
       href: https://argocd.main-0.kubernetes.home
       description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
-  - SCoAR:
-      icon: /icons/scoar.png
-      href: https://scoar.dev.kubernetes.home
-      description: Sars-CoV-2 Analysis of Receptors (SCoAR) is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
-  - Astro Blog:
-      icon: /icons/astro.png
-      href: https://blog.dev.kubernetes.home
-      description: Astro Blog is a simple blog application.
-  - Nginx Test:
-      icon: /icons/nginx.png
-      href: http://app-test-1.dev.kubernetes.home/
-      description: Nginx Test is a simple web application.
-  - Pathfinder:
-      icon: /icons/react.png
-      href: http://pathfinder.dev.kubernetes.home
-      description: Pathfinder is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
-  - Go JWT:
-      icon: /icons/golang.png
-      href: http://go-jwt.dev.kubernetes.home/api/v1/ping
-      description: Go JWT is a simple web application that allows users to generate JWT tokens.
 
 - Infrastructure:
     - Pfsense:
@@ -111,4 +91,30 @@
     - Nextcloud:
         icon: /icons/nextcloud.png
         href: https://nextcloud.srv-0.server.home/
-        description: NextCloud
+        description: NextCloud is a file sharing server.
+    - Semaphore:
+        icon: /icons/semaphore.png
+        href: https://semaphore.srv-0.server.home/
+        description: Sempahore is a self-hosted ansible web UI.
+
+- Own Apps:
+  - SCoAR:
+      icon: /icons/scoar.png
+      href: https://scoar.dev.kubernetes.home
+      description: Sars-CoV-2 Analysis of Receptors (SCoAR) is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
+  - Astro Blog:
+      icon: /icons/astro.png
+      href: https://blog.dev.kubernetes.home
+      description: Astro Blog is a simple blog application.
+  - Nginx Test:
+      icon: /icons/nginx.png
+      href: http://app-test-1.dev.kubernetes.home/
+      description: Nginx Test is a simple web application.
+  - Pathfinder:
+      icon: /icons/react.png
+      href: http://pathfinder.dev.kubernetes.home
+      description: Pathfinder is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
+  - Go JWT:
+      icon: /icons/golang.png
+      href: http://go-jwt.dev.kubernetes.home/api/v1/ping
+      description: Go JWT is a simple web application that allows users to generate JWT tokens.
