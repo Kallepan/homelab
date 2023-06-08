@@ -1,0 +1,10 @@
+---
+- name: Delete DNS File
+  ansible.builtin.file:
+    state: absent
+    path: /etc/resolv.conf
+
+- name: Add Nameserver
+  ansible.builtin.copy:
+    content: "nameserver {{ nameserver }}\nnameserver {{ nameserver_2 }}\noptions edns0 trust-ad\nsearch server.home"
+    dest: "/etc/resolv.conf"

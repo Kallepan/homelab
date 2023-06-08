@@ -1,5 +1,5 @@
 username: user
-packages: 
+packages:
   - nano
   - curl
   - wget

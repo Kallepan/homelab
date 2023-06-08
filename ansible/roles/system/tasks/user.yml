@@ -23,7 +23,7 @@
   lineinfile:
     dest: /etc/sudoers
     regexp: "^%wheel"
-    line: "{{ username}} ALL=(ALL) NOPASSWD: ALL"
+    line: "{{ username }} ALL=(ALL) NOPASSWD: ALL"
     validate: "/usr/sbin/visudo -cf %s"
 
 - name: Supress login message (hushlogin)
@@ -31,7 +31,7 @@
     path: "/home/{{ username }}"/.hushlogin
     mode: 0644
     owner: "{{ username }}"
-    group: "{{ username  }}"
+    group: "{{ username }}"
     state: touch
     modification_time: preserve
     access_time: preserve
