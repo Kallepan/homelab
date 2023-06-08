@@ -1,6 +1,5 @@
 ---
-- hosts:
-    - "main"
+- hosts: all
   become: yes
   roles:
     - role: update
