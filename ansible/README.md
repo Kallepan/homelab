@@ -1,5 +1,7 @@
 # Ansible
 
+Note: This project is not meant to be run using the CLI. It is designed to be imported in ansible semaphore or ansible tower.
+
 ## How to install
 
 ```bash
@@ -13,11 +15,11 @@ pip install -r requirements.txt
 - To run a playbook with vault password and become password:
 
 ```bash
-anisble-playbook test.yaml -K --ask-vault-pass
+anisble-playbook update.yaml -K --ask-vault-pass
 ```
 
 - or without vault password:
 
 ```bash
-ansible-playbook test.yaml 
+ansible-playbook update.yaml 
 ```
