@@ -23,7 +23,7 @@ layout:
     icon: /icons/k8s.png
   K3S:
     icon: /icons/k3s.png
-  Rancher-K3S:
+  K3S Dev:
     icon: /icons/k3s.png
 
 quicklaunch:

@@ -1,5 +1,7 @@
 ---
-- Rancher-K3S:
+- K3S Dev: []
+
+- K3S:
   - ArgoCD:
       icon: /icons/argocd.png
       href: https://argocd.main-0.kubernetes.home/
@@ -22,12 +24,6 @@
       icon: /icons/longhorn.png
       href: https://longhorn.kubernetes.home/#/dashboard
       description: Longhorn is a distributed block storage system for Kubernetes.
-
-- K3S:
-  - Argo CD:
-      icon: /icons/argocd.png
-      href: https://argocd.main-0.kubernetes.home
-      description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
 - Infrastructure:
     - Pfsense:
@@ -100,21 +96,21 @@
 - Own Apps:
   - SCoAR:
       icon: /icons/scoar.png
-      href: https://scoar.dev.kubernetes.home
+      href: https://scoar.main-0.kubernetes.home
       description: Sars-CoV-2 Analysis of Receptors (SCoAR) is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
   - Astro Blog:
       icon: /icons/astro.png
-      href: https://blog.dev.kubernetes.home
+      href: https://blog.main-0.kubernetes.home
       description: Astro Blog is a simple blog application.
   - Nginx Test:
       icon: /icons/nginx.png
-      href: http://app-test-1.dev.kubernetes.home/
+      href: http://app-test-1.main-0.kubernetes.home/
       description: Nginx Test is a simple web application.
   - Pathfinder:
       icon: /icons/react.png
-      href: http://pathfinder.dev.kubernetes.home
+      href: http://pathfinder.main-0.kubernetes.home
       description: Pathfinder is a web application that allows users to explore the interactions between the SARS-CoV-2 virus and monoclonal antibodies.
   - Go JWT:
       icon: /icons/golang.png
-      href: http://go-jwt.dev.kubernetes.home/api/v1/ping
+      href: http://go-jwt.main-0.kubernetes.home/api/v1/ping
       description: Go JWT is a simple web application that allows users to generate JWT tokens.
