@@ -173,6 +173,3 @@ speaker:
   tolerations: []
   updateStrategy:
     type: RollingUpdate
-global:
-  cattle:
-    systemProjectId: p-g8wls
