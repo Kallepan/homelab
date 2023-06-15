@@ -1,8 +1,30 @@
 ssl_dir: /etc/ssl/homelab
+domain_name: server.home
+provider: selfsigned
+
+# Key settings
 key:
   path: "{{ ssl_dir }}/certificate.key"
   size: 4096
   type: RSA # Others include DSA, ECC, Ed25519, Ed448, X25519, X448
 
+# CSR Settings
 csr:
-  common_name: "{{ inventory_hostname }}"
+  path: "{{ ssl_dir }}/certificate.csr"
+  country_name: DE
+  state_or_province_name: Berlin
+  locality_name: Berlin
+  organization_name: Homelab
+  organizational_unit_name: Homelab
+  email_address: admin@example.com
+  subject_alt_names: # List of DNS names and/or IP addresses
+    - DNS:*.{{ domain_name }}
+    - DNS:{{ domain_name }}
+
+# ca settings
+ca:
+  path: "{{ ssl_dir }}/certificate.pem"
+
+# Certificate settings
+cert:
+  path: "{{ ssl_dir }}/certificate.crt"

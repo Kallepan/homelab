@@ -1,0 +1,54 @@
+- name: Ensure directory exists for local self-signed TLS certs.
+  file:
+    path: "{{ ssl_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Create private key for self-signed TLS certificate.
+  openssl_privatekey:
+    path: "{{ key.path }}"
+    size: "{{ key.size }}"
+    type: "{{ key.type }}"
+    passphrase: ssl_passphrase
+    cipher: auto
+    backup: yes
+  run_once: yes
+
+- name: Create certificate signing request (CSR) for self-signed TLS certificate.
+  openssl_csr:
+    path: "{{ csr.path }}"
+    privatekey_path: "{{ key.path }}"
+    privatekey_passphrase: ssl_passphrase
+    common_name: domain_name
+    country_name: "{{ csr.country_name }}"
+    state_or_province_name: "{{ csr.state_or_province_name }}"
+    locality_name: "{{ csr.locality_name }}"
+    organization_name: "{{ csr.organization_name }}"
+    organizational_unit_name: "{{ csr.organizational_unit_name }}"
+    email_address: "{{ csr.email_address }}"
+    subject_alt_name: "{{ csr.subject_alt_names }}"
+  run_once: yes
+
+- name: Create self-signed CA certificate from CSR
+  community.crypto.x509_certificate:
+    path: "{{ ca.path }}"
+    csr_path: "{{ csr.path }}"
+    privatekey_path: "{{ key.path }}"
+    privatekey_passphrase: ssl_passphrase
+    provider: "{{ provider }}"
+    backup: yes
+  run_once: yes
+
+- name: Create self-signed TLS certificate.
+  openssl_certificate:
+    path: "{{ cert.path }}"
+    privatekey_path: "{{ key.path }}"
+    privatekey_passphrase: ssl_passphrase
+    csr_path: "{{ csr.path }}"
+    provider: "{{ provider }}"
+    backup: yes
+    selfsigned_not_before: "-1d"
+    selfsigned_not_after: "+10y"
+  run_once: yes
+
+# TODO: TEST the certificates
