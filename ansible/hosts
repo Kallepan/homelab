@@ -2,3 +2,6 @@
 # You can also use the -i flag to specify a different inventory file.
 [main]
 CHANGEME ansible_host=x.x.x.x ansible_user=CHANGEME ansible_connection=ssh ansible_ssh_private_key_file=CHANGEME
+
+[test]
+testing ansible_host=192.168.0.99 ansible_user=root ansible_connection=ssh ansible_ssh_private_key_file=/home/user/.ssh/id_rsa
