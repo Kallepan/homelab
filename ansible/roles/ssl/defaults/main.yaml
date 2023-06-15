@@ -1,0 +1,8 @@
+ssl_dir: /etc/ssl/homelab
+key:
+  path: "{{ ssl_dir }}/certificate.key"
+  size: 4096
+  type: RSA # Others include DSA, ECC, Ed25519, Ed448, X25519, X448
+
+csr:
+  common_name: "{{ inventory_hostname }}"

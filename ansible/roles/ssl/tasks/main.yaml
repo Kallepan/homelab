@@ -1,0 +1,4 @@
+---
+- include_vars: vault.yaml
+- include_tasks: requirements.yaml
+- include_tasks: self-signed.yaml
