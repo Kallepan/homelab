@@ -80,10 +80,6 @@
         icon: /icons/wikijs.png
         href: https://wiki.srv-0.server.home/
         description: Wiki.js is a powerful and extensible open-source Wiki software.
-    - Passbolt:
-        icon: /icons/passbolt.png
-        href: https://passbolt.srv-0.server.home/
-        description: Passbolt is an open source password manager for teams.
     - Nextcloud:
         icon: /icons/nextcloud.png
         href: https://nextcloud.srv-0.server.home/
