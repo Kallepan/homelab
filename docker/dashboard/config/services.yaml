@@ -92,7 +92,10 @@
         icon: /icons/semaphore.png
         href: https://semaphore.srv-0.server.home/
         description: Sempahore is a self-hosted ansible web UI.
-
+    - MeTube:
+        icon: /icons/metube.png
+        href: https://metube.srv-0.server.home/
+        description: MeTube is a self-hosted youtube downloader.
 - Own Apps:
   - SCoAR:
       icon: /icons/scoar.png
