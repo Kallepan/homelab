@@ -1,0 +1,18 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    networks:
+      - traefik_default
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./vw-data:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vaultwarden.entrypoints=websecure
+      - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.srv-0.server.home`)
+      - traefik.http.routers.vaultwarden.tls=true
+networks:
+  traefik_default:
+    external: true

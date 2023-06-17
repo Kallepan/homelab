@@ -59,7 +59,7 @@
     - AdGuard Home:
         icon: /icons/adguard-home.png
         href: http://adguard.server.home/
-        description: AdGuard Home is a network-wide software for blocking ads & tracking.
+        description: AdGuard Home is a software for blocking ads & tracking.
     - GitLab:
         icon: /icons/gitlab.png
         href: https://gitlab.server.home/
@@ -92,6 +92,15 @@
         icon: /icons/metube.png
         href: https://metube.srv-0.server.home/
         description: MeTube is a self-hosted youtube downloader.
+    - Vaultwarden:
+        icon: /icons/vaultwarden.png
+        href: https://vaultwarden.srv-0.server.home/
+        description: Vaultwarden is a self-hosted password manager.
+    - It-Tools:
+        icon: /icons/it-tools.png
+        href: https://it-tools.srv-0.server.home/
+        description: It-tools is a collection of tools useful for IT professionals.
+
 - Own Apps:
   - SCoAR:
       icon: /icons/scoar.png
