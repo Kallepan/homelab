@@ -1,6 +1,4 @@
 ---
-- K3S Dev: []
-
 - K3S:
   - ArgoCD:
       icon: /icons/argocd.png
