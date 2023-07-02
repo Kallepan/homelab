@@ -97,7 +97,8 @@ sudo systemctl enable kubelet
 sudo kubeadm config images pull
 
 # Initialize Control Plane
-sudo kubeadm init
+sudo kubeadm init \
+  --pod-network-cidr=10.244.0.0/16
 ```
 
 ### To Export kubeconfig
