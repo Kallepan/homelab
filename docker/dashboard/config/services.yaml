@@ -6,18 +6,14 @@
       description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
 
 - K8S:
-  - Grafana:
-      icon: /icons/grafana.png
-      href: https://grafana.kubernetes.home
-      description: Grafana is a multi-platform open source analytics and interactive visualization web application.
   - Argo CD:
       icon: /icons/argocd.png
       href: https://argocd.kubernetes.home
       description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
-  - Traefik:
-      icon: /icons/traefik.png
-      href: https://traefik.kubernetes.home
-      description: Traefik is an open-source Edge Router that makes publishing your services a fun and easy experience.
+  - Dashboard:
+      icon: /icons/kubernetes.png
+      href: https://kubernetes-dashboard.kubernetes.home
+      description: Kubernetes Dashboard is a general purpose, web-based UI for Kubernetes clusters.
   - Longhorn:
       icon: /icons/longhorn.png
       href: https://longhorn.kubernetes.home/#/dashboard
