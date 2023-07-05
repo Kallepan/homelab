@@ -1,4 +1,6 @@
 logs/*
 logs/
 *.pem
+*.key
+*.crt
 acme.json
