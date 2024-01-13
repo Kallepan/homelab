@@ -295,8 +295,7 @@ global:
         internalPort: 8076
       type: ClusterIP
     tls:
-      enabled: true
-      secretName: gitaly-tls
+      enabled: false
     persistence:
       enabled: true
       size: 50Gi

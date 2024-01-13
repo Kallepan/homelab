@@ -33,6 +33,19 @@ config:
               virtualization.
             href: https://192.168.0.2:8006/
             icon: proxmox.png
+    - GitLab:
+        - GitLab:
+            description: GitLab is a complete DevOps platform.
+            href: https://gitlab.srv-k8s.server.io/
+            icon: gitlab.png
+        - MinIO:
+            description: MinIO is a high performance object storage server.
+            href: https://minio.srv-k8s.server.io/
+            icon: minio.png
+        - Registry:
+            description: GitLab Container Registry is a secure and private registry for Docker images.
+            href: https://registry.srv-k8s.server.io/
+            icon: gitlab.png
     - System:
         - Argo CD:
             description: >-
