@@ -1,0 +1,9 @@
+# cat server_cert.cnf
+
+[v3_req]
+basicConstraints = CA:FALSE
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 10.0.0.3
+DNS.1 = rancher.server.io

@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  mealie:
+    container_name: mealie
+    image: hkotel/mealie:latest
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Berlin
+      PUID: 1000
+      PGID: 1000
+      RECIPE_PUBLISH: 'true'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mealie.entrypoints=websecure
+      - traefik.http.routers.mealie.rule=Host(`mealie.srv-docker-0.server.home`)
+      - traefik.http.routers.mealie.tls=true
+    networks:
+      - traefik_default
+    volumes:
+    - ./data:/app/data
+
+networks:
+  traefik_default:
+    external: true

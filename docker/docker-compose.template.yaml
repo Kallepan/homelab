@@ -1,0 +1,18 @@
+---
+version: "3"
+services:
+  CHANGEME:
+    image: CHANGEME
+    container_name: CHANGEME
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.CHANGEME.entrypoints=websecure
+      - traefik.http.routers.CHANGEME.rule=Host(`CHANGEME.srv-docker-0.server.home`)
+      - traefik.http.routers.CHANGEME.tls=true
+    restart: unless-stopped
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true

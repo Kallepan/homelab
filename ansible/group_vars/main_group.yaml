@@ -1,0 +1,7 @@
+username: user
+packages:
+  - nano
+  - curl
+  - wget
+  - htop
+shell: /bin/bash

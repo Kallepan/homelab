@@ -1,0 +1,189 @@
+config:
+  bookmarks:
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/kallepan
+        - DockerHub:
+            - abbr: DO
+              href: https://hub.docker.com/u/kallepan
+    - Social:
+        - LinkedIn:
+            - abbr: LI
+              href: https://linkedin.com/kajeepan
+    - Mail:
+        - Gmail:
+            - abbr: GM
+              href: http://kajeepan.kandeepan@gmail.com
+  docker: null
+  kubernetes:
+    mode: cluster
+  services:
+    - Infrastructure:
+        - Pfsense:
+            description: >-
+              pfSense is a free and open source firewall and router that also
+              features unified threat management, load balancing, multi WAN, and
+              more.
+            href: http://pfsense.server.io
+            icon: pfsense.png
+        - Proxmox:
+            description: >-
+              Proxmox VE is a complete open-source platform for enterprise
+              virtualization.
+            href: https://192.168.0.2:8006/
+            icon: proxmox.png
+    - System:
+        - Argo CD:
+            description: >-
+              Argo CD is a declarative, GitOps continuous delivery tool for
+              Kubernetes.
+            href: https://argocd.srv-k8s.server.io
+            icon: argocd.png
+        - Rancher:
+            description: >-
+              Rancher is a complete software stack for teams adopting
+              containers.
+            href: https://rancher.server.io
+            icon: rancher.png
+        - GitLab:
+            description: GitLab is a complete DevOps platform.
+            href: https://gitlab.srv-k8s.server.io/
+            icon: gitlab.png
+        - Uptime Kuma:
+            description: Uptime Kuma is a fancy self-hosted monitoring tool.
+            href: https://uptime.srv-k8s.server.io/
+            icon: uptime-kuma.png
+    - Selfhosted:
+        - AdGuard Home:
+            description: AdGuard Home is a software for blocking ads & tracking.
+            href: http://adguard.server.home/
+            icon: adguard-home.png
+        - Dozzle:
+            description: Dozzle is a simple container log viewer for Docker.
+            href: https://dozzle.srv-docker-0.server.home/
+            icon: dozzle.png
+        - Baserow:
+            description: Baserow is a self-hosted tool to create and manage databases.
+            href: https://baserow.srv-docker-0.server.home/
+            icon: baserow.png
+        - Bookstack:
+            description: >-
+              BookStack is a simple, self-hosted, easy-to-use platform for
+              organising and storing information.
+            href: https://bookstack.srv-docker-0.server.home/
+            icon: bookstack.png
+        - Nextcloud:
+            description: NextCloud is a file sharing server.
+            href: https://nextcloud.srv-docker-0.server.home/
+            icon: nextcloud.png
+        - Semaphore:
+            description: Sempahore is a self-hosted ansible web UI.
+            href: https://semaphore.srv-docker-0.server.home/
+            icon: semaphore.png
+        - Hashicorp Vault:
+            description: Vault is a tool for securely accessing secrets.
+            href: https://vault.srv-k8s.server.io/
+            icon: vault.png
+        - Keycloak:
+            description: >-
+              Keycloak is an open source identity and access management
+              solution.
+            href: https://keycloak.srv-docker-0.server.home/
+            icon: keycloak.png
+        - MeTube:
+            description: MeTube is a self-hosted youtube downloader.
+            href: https://metube.srv-docker-0.server.home/
+            icon: metube.png
+        - Vaultwarden:
+            description: Vaultwarden is a self-hosted password manager.
+            href: https://vaultwarden.srv-docker-0.server.home/
+            icon: vaultwarden.png
+        - Mealie:
+            description: Mealie is a self-hosted recipe manager and meal planner.
+            href: https://mealie.srv-docker-0.server.home/
+            icon: mealie.png
+        - It-Tools:
+            description: It-tools is a collection of tools useful for IT professionals.
+            href: https://it-tools.srv-docker-0.server.home/
+            icon: it-tools.png
+  settings:
+    title: HomeLab
+    base: https://dashboard.srv-k8s.server.io/
+    showStats: false
+    quicklaunch:
+      searchDescriptions: false
+      hideInternetSearch: false
+      hideVisitURL: false
+    layout:
+      Infrastructure:
+        icon: netboot.png
+        style: row
+        columns: 4
+      System:
+        icon: netboot.png
+        style: row
+        columns: 4
+      Selfhosted:
+        icon: selfhosted.png
+        style: row
+        columns: 4
+  widgets:
+    - resources:
+        backend: kubernetes
+        cpu: true
+        expanded: true
+        memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+      kubernetes:
+        cluster:
+          cpu: true
+          label: cluster
+          memory: true
+          show: true
+          showLabel: true
+        nodes:
+          cpu: true
+          memory: true
+          show: true
+          showLabel: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+controller:
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+  strategy: RollingUpdate
+enableRbac: true
+image:
+  repository: ghcr.io/benphelps/homepage
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: homepage.srv-k8s.server.io
+        paths:
+          - path: /
+            pathType: Prefix
+    ingressClassName: traefik
+    tls:
+      - hosts:
+          - homepage.srv-k8s.server.io
+        secretName: homepage-tls-secret
+persistence:
+  logs:
+    enabled: true
+    mountPath: /app/config/logs
+    type: emptyDir
+service:
+  main:
+    ports:
+      http:
+        port: 3000
+serviceAccount:
+  create: true
+  name: homepage
+

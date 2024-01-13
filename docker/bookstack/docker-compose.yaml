@@ -1,0 +1,31 @@
+---
+version: "3"
+services:
+  bookstack:
+    dns:
+      - 10.0.0.5
+    image: lscr.io/linuxserver/bookstack
+    container_name: bookstack
+    environment:
+      PUID: 1000
+      PGID: 1000
+      APP_URL: https://bookstack.srv-docker-0.server.home
+      DB_HOST: CHANGEME
+      DB_PORT: CHANGEME
+      DB_USER: bookstack
+      DB_PASS: CHANGEME
+      DB_DATABASE: bookstack_app
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.bookstack.entrypoints=websecure
+      - traefik.http.routers.bookstack.rule=Host(`bookstack.srv-docker-0.server.home`)
+      - traefik.http.routers.bookstack.tls=true
+    volumes:
+      - ./bookstack_app_data:/config
+    restart: unless-stopped
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true

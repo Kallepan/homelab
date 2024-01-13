@@ -1,0 +1,10 @@
+---
+- name: Check if root CA certificate exists
+  become: no
+  local_action: "stat path={{ install_root_cert_pem }}"
+  register: result
+  failed_when: not result.stat.exists
+
+- import_tasks: prepare.yml
+- import_tasks: install.yml
+- import_tasks: configure.yml

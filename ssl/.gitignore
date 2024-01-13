@@ -1,0 +1,8 @@
+*.pem
+*.key
+*.crt
+acme.json
+index.*
+crlnumber
+serial*
+*.enc

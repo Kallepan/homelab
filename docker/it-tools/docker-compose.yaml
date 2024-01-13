@@ -1,0 +1,15 @@
+services:
+  it-tools:
+    image: corentinth/it-tools:latest
+    restart: unless-stopped
+    container_name: it-tools
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.it-tools.entrypoints=websecure
+      - traefik.http.routers.it-tools.rule=Host(`it-tools.srv-docker-0.server.home`)
+      - traefik.http.routers.it-tools.tls=true
+    networks:
+      - traefik_default
+networks:
+  traefik_default:
+    external: true

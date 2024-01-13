@@ -1,0 +1,12 @@
+---
+- name: Copy the certificate
+  copy:
+    src: "{{ install_root_cert_pem }}"
+    dest: /usr/local/share/ca-certificates/{{ root_cert_name }}
+  register: copy_result
+
+- name: Check if the certificate exists
+  stat:
+    path: /usr/local/share/ca-certificates/{{ root_cert_name }}
+  register: stat_result
+  failed_when: not stat_result.stat.exists

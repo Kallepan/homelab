@@ -1,0 +1,16 @@
+# Contains the variables for the common role
+
+# Common Packages
+common_packages:
+  - nano
+  - curl
+  - wget
+  - htop
+  - qemu-guest-agent
+
+
+# SSH Configuration
+security_ssh_config_path: /etc/ssh/sshd_config
+security_sshd_name: sshd
+security_sshd_state: restarted
+ssh_port: 22

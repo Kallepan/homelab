@@ -1,0 +1,36 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/settings
+title: HomeLab
+base: https://dashboard.srv-docker-0.server.home/
+showStats: true
+
+
+layout:
+  Infrastructure:
+    icon: /icons/netboot.png
+    style: row
+    columns: 4
+  Selfhosted:
+    icon: /icons/selfhosted.png
+    style: row
+    columns: 4
+  Own Apps:
+    icon: /icons/amp.png
+    style: row
+    columns: 4
+  Production:
+    icon: /icons/k8s.png
+  Staging:
+    icon: /icons/k3s.png
+  Dev:
+    icon: /icons/k3s.png
+
+quicklaunch:
+    searchDescriptions: false
+    hideInternetSearch: false
+    hideVisitURL: false
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

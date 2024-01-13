@@ -1,0 +1,31 @@
+services:
+  semaphore:
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    image: semaphoreui/semaphore:latest
+    environment:
+      SEMAPHORE_DB_USER: CHANGEME
+      SEMAPHORE_DB_PASS: CHANGEME
+      SEMAPHORE_DB_HOST: CHANGEME
+      SEMAPHORE_DB_PORT: CHANGEME
+      SEMAPHORE_DB_DIALECT: CHANGEME
+      SEMAPHORE_DB: CHANGEME
+      SEMAPHORE_PLAYBOOK_PATH: /tmp/semaphore/
+      SEMAPHORE_ADMIN_PASSWORD: CHANGEME
+      SEMAPHORE_ADMIN_NAME: CHANGEME
+      SEMAPHORE_ADMIN_EMAIL: CHANGEME
+      SEMAPHORE_ADMIN: CHANGEME
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: CHANGEME
+      SEMAPHORE_LDAP_ACTIVATED: 'no' # if you wish to use ldap, set to: 'yes'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.semaphore.entrypoints=websecure
+      - traefik.http.routers.semaphore.rule=Host(`semaphore.srv-docker-0.server.home`)
+      - traefik.http.routers.semaphore.tls=true
+    networks:
+      - traefik_default
+
+networks:
+  traefik_default:
+    external: true

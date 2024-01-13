@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - /srv/mariadb/data:/var/lib/mysql
+      - /srv/mariadb/conf.d:/etc/mysql/conf.d
+    env_file:
+      - .env
+
+  neo4j:
+    image: neo4j:community
+    container_name: neo4j
+    restart: always
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - /srv/neo4j/data:/data
+      - /srv/neo4j/logs:/logs
+    env_file:
+      - .env
+
+  psql:
+    image: postgres:16
+    container_name: postgres
+    command: "postgres -c config_file=/config/postgresql.conf"
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - /srv/psql/config:/config/
+      - /srv/psql/data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis
+    restart: always
+    entrypoint: redis-server --loglevel warning --requirepass ${REDIS_PASSWORD}
+    ports:
+      - 6379:6379
+      - 8001:8001
+    env_file:
+      - .env
+    volumes:
+      - /srv/redis/data:/data
+      - /srv/redis/config/redis-stack.conf:/redis-stack.conf
+
+  mongodb:
+    image: mongo:4.4.20
+    restart: always
+    container_name: mongodb
+    env_file:
+      - .env
+    ports:
+      - 27017:27017
+    volumes:
+      - /srv/mongodb/data:/data/db

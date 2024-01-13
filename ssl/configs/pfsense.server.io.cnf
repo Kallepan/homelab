@@ -1,0 +1,11 @@
+# cat server_cert.cnf
+
+[v3_req]
+basicConstraints = CA:FALSE
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 10.0.0.1
+IP.2 = 172.16.0.1
+IP.3 = 192.168.0.226
+DNS.1 = pfsense.server.io

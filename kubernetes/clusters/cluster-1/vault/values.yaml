@@ -1,0 +1,478 @@
+csi:
+  agent:
+    enabled: true
+    extraArgs: []
+    image:
+      pullPolicy: IfNotPresent
+      repository: hashicorp/vault
+      tag: 1.15.2
+    logFormat: standard
+    logLevel: info
+    resources: {}
+  daemonSet:
+    annotations: {}
+    extraLabels: {}
+    kubeletRootDir: /var/lib/kubelet
+    providersDir: /etc/kubernetes/secrets-store-csi-providers
+    securityContext:
+      container: {}
+      pod: {}
+    updateStrategy:
+      maxUnavailable: ''
+      type: RollingUpdate
+  debug: false
+  enabled: false
+  extraArgs: []
+  hmacSecretName: ''
+  image:
+    pullPolicy: IfNotPresent
+    repository: hashicorp/vault-csi-provider
+    tag: 1.4.1
+  livenessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+  pod:
+    affinity: {}
+    annotations: {}
+    extraLabels: {}
+    nodeSelector: {}
+    tolerations: []
+  priorityClassName: ''
+  readinessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 3
+  resources: {}
+  serviceAccount:
+    annotations: {}
+    extraLabels: {}
+  volumeMounts: null
+  volumes: null
+global:
+  enabled: true
+  externalVaultAddr: ''
+  imagePullSecrets: []
+  namespace: ''
+  openshift: false
+  psp:
+    annotations: >
+      seccomp.security.alpha.kubernetes.io/allowedProfileNames:
+      docker/default,runtime/default
+
+      apparmor.security.beta.kubernetes.io/allowedProfileNames: runtime/default
+
+      seccomp.security.alpha.kubernetes.io/defaultProfileName:  runtime/default
+
+      apparmor.security.beta.kubernetes.io/defaultProfileName:  runtime/default
+    enable: false
+  serverTelemetry:
+    prometheusOperator: false
+  tlsDisable: true
+injector:
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
+              app.kubernetes.io/instance: "{{ .Release.Name }}"
+              component: webhook
+          topologyKey: kubernetes.io/hostname
+  agentDefaults:
+    cpuLimit: 500m
+    cpuRequest: 250m
+    memLimit: 128Mi
+    memRequest: 64Mi
+    template: map
+    templateConfig:
+      exitOnRetryFailure: true
+      staticSecretRenderInterval: ''
+  agentImage:
+    repository: hashicorp/vault
+    tag: 1.15.2
+  annotations: {}
+  authPath: auth/kubernetes
+  certs:
+    caBundle: ''
+    certName: tls.crt
+    keyName: tls.key
+    secretName: null
+  enabled: '-'
+  externalVaultAddr: ''
+  extraEnvironmentVars: {}
+  extraLabels: {}
+  failurePolicy: Ignore
+  hostNetwork: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: hashicorp/vault-k8s
+    tag: 1.3.1
+  leaderElector:
+    enabled: true
+  livenessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    successThreshold: 1
+    timeoutSeconds: 5
+  logFormat: standard
+  logLevel: info
+  metrics:
+    enabled: false
+  namespaceSelector: {}
+  nodeSelector: {}
+  objectSelector: {}
+  podDisruptionBudget: {}
+  port: 8080
+  priorityClassName: ''
+  readinessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 2
+    successThreshold: 1
+    timeoutSeconds: 5
+  replicas: 1
+  resources: {}
+  revokeOnShutdown: false
+  securityContext:
+    container: {}
+    pod: {}
+  service:
+    annotations: {}
+  serviceAccount:
+    annotations: {}
+  startupProbe:
+    failureThreshold: 12
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    timeoutSeconds: 5
+  strategy: {}
+  tolerations: []
+  topologySpreadConstraints: []
+  webhook:
+    annotations: {}
+    failurePolicy: Ignore
+    matchPolicy: Exact
+    namespaceSelector: {}
+    objectSelector: |
+      matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: NotIn
+        values:
+        - {{ template "vault.name" . }}-agent-injector
+    timeoutSeconds: 30
+  webhookAnnotations: {}
+server:
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "vault.name" . }}
+              app.kubernetes.io/instance: "{{ .Release.Name }}"
+              component: server
+          topologyKey: kubernetes.io/hostname
+  annotations: {}
+  auditStorage:
+    accessMode: ReadWriteOnce
+    annotations: {}
+    enabled: false
+    labels: {}
+    mountPath: /vault/audit
+    size: 10Gi
+    storageClass: longhorn
+  authDelegator:
+    enabled: true
+  dataStorage:
+    accessMode: ReadWriteOnce
+    annotations: {}
+    enabled: true
+    labels: {}
+    mountPath: /vault/data
+    size: 10Gi
+    storageClass: longhorn
+  dev:
+    devRootToken: root
+    enabled: false
+  enabled: '-'
+  enterpriseLicense:
+    secretKey: license
+    secretName: ''
+  extraArgs: ''
+  extraContainers: null
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/vault-ca/ca.crt
+  extraInitContainers: null
+  extraLabels: {}
+  extraPorts: null
+  extraSecretEnvironmentVars: []
+  extraVolumes: []
+  ha:
+    apiAddr: null
+    clusterAddr: null
+    config: >
+      ui = true
+
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+
+      storage "consul" {
+        path = "vault"
+        address = "HOST_IP:8500"
+      }
+
+
+      service_registration "kubernetes" {}
+
+
+      # Example configuration for using auto-unseal, using Google Cloud KMS. The
+
+      # GKMS keys must already exist, and the cluster must have a service
+      account
+
+      # that is authorized to access GCP KMS.
+
+      #seal "gcpckms" {
+
+      #   project     = "vault-helm-dev-246514"
+
+      #   region      = "global"
+
+      #   key_ring    = "vault-helm-unseal-kr"
+
+      #   crypto_key  = "vault-helm-unseal-key"
+
+      #}
+
+
+      # Example configuration for enabling Prometheus metrics.
+
+      # If you are using Prometheus Operator you can enable a ServiceMonitor
+      resource below.
+
+      # You may wish to enable unauthenticated metrics in the listener block
+      above.
+
+      #telemetry {
+
+      #  prometheus_retention_time = "30s"
+
+      #  disable_hostname = true
+
+      #}
+    disruptionBudget:
+      enabled: true
+      maxUnavailable: null
+    enabled: false
+    raft:
+      config: |
+        ui = true
+
+        listener "tcp" {
+          tls_disable = 1
+          address = "[::]:8200"
+          cluster_address = "[::]:8201"
+          # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+          #telemetry {
+          #  unauthenticated_metrics_access = "true"
+          #}
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+        }
+
+        service_registration "kubernetes" {}
+      enabled: false
+      setNodeId: false
+    replicas: 3
+  hostAliases: []
+  hostNetwork: false
+  image:
+    pullPolicy: IfNotPresent
+    repository: hashicorp/vault
+    tag: 1.15.2
+  ingress:
+    activeService: true
+    annotations: {}
+    enabled: true
+    extraPaths: []
+    hosts:
+      - host: vault.srv-k8s.server.io
+        paths: []
+    ingressClassName: ''
+    labels: {}
+    pathType: Prefix
+    tls: []
+  livenessProbe:
+    enabled: false
+    execCommand: []
+    failureThreshold: 2
+    initialDelaySeconds: 60
+    path: /v1/sys/health?standbyok=true
+    periodSeconds: 5
+    port: 8200
+    successThreshold: 1
+    timeoutSeconds: 3
+  logFormat: ''
+  logLevel: ''
+  networkPolicy:
+    egress: []
+    enabled: false
+    ingress:
+      - from:
+          - namespaceSelector: {}
+        ports:
+          - port: 8200
+            protocol: TCP
+          - port: 8201
+            protocol: TCP
+  nodeSelector: {}
+  persistentVolumeClaimRetentionPolicy: {}
+  postStart: []
+  preStopSleepSeconds: 5
+  priorityClassName: ''
+  readinessProbe:
+    enabled: true
+    failureThreshold: 2
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    port: 8200
+    successThreshold: 1
+    timeoutSeconds: 3
+  resources: {}
+  route:
+    activeService: true
+    annotations: {}
+    enabled: false
+    host: chart-example.local
+    labels: {}
+    tls:
+      termination: passthrough
+  service:
+    active:
+      annotations: {}
+      enabled: true
+    annotations: {}
+    enabled: true
+    externalTrafficPolicy: Cluster
+    instanceSelector:
+      enabled: true
+    ipFamilies: []
+    ipFamilyPolicy: ''
+    port: 8200
+    publishNotReadyAddresses: true
+    standby:
+      annotations: {}
+      enabled: true
+    targetPort: 8200
+  serviceAccount:
+    annotations: {}
+    create: true
+    createSecret: false
+    extraLabels: {}
+    name: ''
+    serviceDiscovery:
+      enabled: true
+  shareProcessNamespace: false
+  standalone:
+    config: >
+      ui = true
+
+
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+        # Enable unauthenticated metrics access (necessary for Prometheus Operator)
+        #telemetry {
+        #  unauthenticated_metrics_access = "true"
+        #}
+      }
+
+      storage "file" {
+        path = "/vault/data"
+      }
+
+
+      # Example configuration for using auto-unseal, using Google Cloud KMS. The
+
+      # GKMS keys must already exist, and the cluster must have a service
+      account
+
+      # that is authorized to access GCP KMS.
+
+      #seal "gcpckms" {
+
+      #   project     = "vault-helm-dev"
+
+      #   region      = "global"
+
+      #   key_ring    = "vault-helm-unseal-kr"
+
+      #   crypto_key  = "vault-helm-unseal-key"
+
+      #}
+
+
+      # Example configuration for enabling Prometheus metrics in your config.
+
+      #telemetry {
+
+      #  prometheus_retention_time = "30s"
+
+      #  disable_hostname = true
+
+      #}
+    enabled: '-'
+  statefulSet:
+    annotations: {}
+    securityContext:
+      container: {}
+      pod: {}
+  terminationGracePeriodSeconds: 10
+  tolerations: []
+  topologySpreadConstraints: []
+  updateStrategyType: OnDelete
+  volumeMounts: 
+  - mountPath: /vault/userconfig/vault-ca
+    name: vault-ca
+    readOnly: true
+  volumes: 
+  # Binds a custom ca: kubectl create secret generic vault-ca --from-file=ca.crt
+  - name: vault-ca
+    secret:
+      secretName: vault-ca
+      defaultMode: 420
+serverTelemetry:
+  prometheusRules:
+    enabled: false
+    rules: []
+    selectors: {}
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 10s
+    selectors: {}
+ui:
+  activeVaultPodOnly: false
+  annotations: {}
+  enabled: false
+  externalPort: 8200
+  externalTrafficPolicy: Cluster
+  publishNotReadyAddresses: true
+  serviceIPFamilies: []
+  serviceIPFamilyPolicy: ''
+  serviceNodePort: null
+  serviceType: ClusterIP
+  targetPort: 8200

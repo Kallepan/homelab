@@ -1,0 +1,24 @@
+# Note this is a sample inventory file. You will need to change the values to match your environment.
+# You can also use the -i flag to specify a different inventory file.
+# [main]
+# CHANGEME ansible_host=x.x.x.x ansible_user=CHANGEME ansible_connection=ssh ansible_ssh_private_key_file=CHANGEME
+
+[vms]
+srv-docker-1 ansible_host=10.0.0.3 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+srv-docker-2 ansible_host=10.0.0.4 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+bastion ansible_host=10.0.0.10 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+
+[k8s]
+rancher-1 ansible_host=10.0.3.0 ansible_user=kube ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-master-1 ansible_host=10.0.3.1 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-master-2 ansible_host=10.0.3.2 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-master-3 ansible_host=10.0.3.3 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-worker-1 ansible_host=10.0.3.4 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-worker-2 ansible_host=10.0.3.5 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+k8s-storage-1 ansible_host=10.0.3.6 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+
+[k3s]
+k3s-node ansible_host=10.0.3.10 ansible_user=kube ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+
+[testing]
+test-1 ansible_host=10.0.254.255 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab

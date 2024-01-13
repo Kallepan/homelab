@@ -1,0 +1,10 @@
+---
+- name: Make sure the ca-certificates folder exists
+  file:
+    path: /usr/local/share/ca-certificates
+    state: directory
+
+- name: Make sure ca-certificates package is installed
+  apt:
+    name: ca-certificates
+    state: present

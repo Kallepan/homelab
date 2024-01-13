@@ -1,0 +1,4 @@
+---
+- name: Update CA Trust
+  command: update-ca-certificates
+  when: copy_result.changed
