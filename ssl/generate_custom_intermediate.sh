@@ -2,7 +2,7 @@
 
 # Step 2.1
 
-NAME=srv-k8s
+NAME=srv-docker-1
 
 ### intermediate ca ###
 openssl genrsa -out customIntermediateCA/private/${NAME}.intermediate.key.pem 4096

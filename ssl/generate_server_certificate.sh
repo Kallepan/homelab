@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOMAIN_NAME=vault.srv-k8s.server.io
+DOMAIN_NAME=srv-docker-1.server.io
 
 # Step 3
 
