@@ -33,6 +33,16 @@ config:
               virtualization.
             href: https://192.168.0.2:8006/
             icon: proxmox.png
+        - Portainer:
+            description: >-
+              Portainer is an open-source lightweight management UI which
+              allows you to easily manage your Docker environments.
+            href: https://srv-docker-1.server.io:9443/
+            icon: portainer.png
+        - Adminer:
+            description: Adminer is a full-featured database management tool.
+            href: http://srv-docker-2.server.io:8080/
+            icon: adminer.png
     - GitLab:
         - GitLab:
             description: GitLab is a complete DevOps platform.
