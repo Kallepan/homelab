@@ -11,8 +11,8 @@ A simple docker-compose.yaml file containing redis, psql, neo4j and mongoDB. Fur
 sudo chown db:db /srv/
 
 # copy other files
-scp -r -i ./ssh/homelab databases/* db@10.0.0.4:/srv/
+scp -r -i ./ssh/homelab databases/* db@10.4.0.4:/srv/
 
 # modify .env values
-scp -i ./ssh/homelab .env.example db@10.0.0.4:/srv/.env
+scp -i ./ssh/homelab .env.example db@10.4.0.4:/srv/.env
 ```

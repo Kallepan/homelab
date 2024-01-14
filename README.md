@@ -4,8 +4,15 @@
 
 - [Homelab](#homelab)
   - [Table of Contents](#table-of-contents)
+  - [Networks](#networks)
   - [Description](#description)
   - [Folders](#folders)
+
+## Networks
+
+- 10.0.0.0/16: `lan-0`
+- 10.1.0.0/16: `lan-1`
+- 172.16.0.0/12: `internal` not provisioned yet
 
 ## Description
 
