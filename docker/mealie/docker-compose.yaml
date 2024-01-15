@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
   mealie:
@@ -6,19 +6,27 @@ services:
     image: hkotel/mealie:latest
     restart: unless-stopped
     environment:
-      TZ: Europe/Berlin
-      PUID: 1000
-      PGID: 1000
-      RECIPE_PUBLISH: 'true'
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=1000
+      - BASE_URL=https://mealie.srv-docker-1.server.io
+      - DB_ENGINE=postgresql
+      - POSTGRES_USER=mealie
+      - POSTGRES_PASSWORD=mealie
+      - POSTGRES_SERVER=srv-docker-2.server.io
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=mealie
     labels:
       - traefik.enable=true
       - traefik.http.routers.mealie.entrypoints=websecure
-      - traefik.http.routers.mealie.rule=Host(`mealie.srv-docker-0.server.home`)
+      - traefik.http.routers.mealie.rule=Host(`mealie.srv-docker-1.server.io`)
       - traefik.http.routers.mealie.tls=true
+      - traefik.http.services.mealie.loadbalancer.server.port=9000
+      - com.centurylinklabs.watchtower.enable=true
     networks:
       - traefik_default
     volumes:
-    - ./data:/app/data
+    - /srv/mealie/data:/app/data
 
 networks:
   traefik_default:

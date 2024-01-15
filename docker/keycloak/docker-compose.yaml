@@ -1,5 +1,4 @@
----
-version: "3"
+version: "3.7"
 
 services:
   keycloak:
@@ -9,17 +8,19 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.routers.keycloak.entrypoints=websecure
-        - traefik.http.routers.keycloak.rule=Host(`keycloak.srv-docker-0.server.home`)
+        - traefik.http.routers.keycloak.rule=Host(`keycloak.srv-docker-1.server.io`)
         - traefik.http.routers.keycloak.tls=true
+        - traefik.http.services.keycloak.loadbalancer.server.port=8080
+        - com.centurylinklabs.watchtower.enable=true
       environment:
         KC_DB: postgres
-        KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+        KC_DB_URL: jdbc:postgresql://srv-docker-2.server.io:5432/keycloak
         KC_DB_USER: keycloak
         KC_DB_SCHEMA: public
-        KC_DB_PASSWORD: ${KC_DB_PASSWORD}
-        KC_HOSTNAME: keycloak.srv-docker-0.server.home # see above traefik.http.routers.keycloak.rule
+        KC_DB_PASSWORD: CHANGEME
+        KC_HOSTNAME: keycloak.srv-docker-1.server.io # see above traefik.http.routers.keycloak.rule
         KEYCLOAK_ADMIN: admin
-        KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+        KEYCLOAK_ADMIN_PASSWORD: CHANGEME
         KC_PROXY: edge
       networks:
         - traefik_default

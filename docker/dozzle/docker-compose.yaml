@@ -1,4 +1,5 @@
-version: "3"
+version: "3.7"
+
 services:
   dozzle:
     restart: always
@@ -7,8 +8,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.dozzle.entrypoints=websecure
-      - traefik.http.routers.dozzle.rule=Host(`dozzle.srv-docker-0.server.home`)
+      - traefik.http.routers.dozzle.rule=Host(`dozzle.srv-docker-1.server.io`)
       - traefik.http.routers.dozzle.tls=true
+      - traefik.http.services.dozzle.loadbalancer.server.port=8080
+      - com.centurylinklabs.watchtower.enable=true
     networks:
       - traefik_default
     volumes:

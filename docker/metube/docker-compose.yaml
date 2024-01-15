@@ -5,12 +5,14 @@ services:
     container_name: metube
     restart: unless-stopped
     volumes:
-      - ./downloads:/downloads
+      - /srv/metube/downloads:/downloads
     labels:
       - traefik.enable=true
       - traefik.http.routers.metube.entrypoints=websecure
-      - traefik.http.routers.metube.rule=Host(`metube.srv-docker-0.server.home`)
+      - traefik.http.routers.metube.rule=Host(`metube.srv-docker-1.server.io`)
       - traefik.http.routers.metube.tls=true
+      - traefik.http.services.metube.loadbalancer.server.port=8081
+      - com.centurylinklabs.watchtower.enable=true
     networks:
       - traefik_default
 

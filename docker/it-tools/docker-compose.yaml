@@ -1,3 +1,5 @@
+version: "3.7"
+
 services:
   it-tools:
     image: corentinth/it-tools:latest
@@ -6,10 +8,13 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.it-tools.entrypoints=websecure
-      - traefik.http.routers.it-tools.rule=Host(`it-tools.srv-docker-0.server.home`)
+      - traefik.http.routers.it-tools.rule=Host(`it-tools.srv-docker-1.server.io`)
       - traefik.http.routers.it-tools.tls=true
+      - traefik.http.services.it-tools.loadbalancer.server.port=80
+      - com.centurylinklabs.watchtower.enable=true
     networks:
       - traefik_default
+
 networks:
   traefik_default:
     external: true
