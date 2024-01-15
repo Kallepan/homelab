@@ -12,11 +12,18 @@ services:
       # (Optional) Expose Dashboard
       # - "8080:8080"  # Don't do this in production!
     volumes:
-      - ./config:/etc/traefik
+      - /srv/traefik/config:/etc/traefik
       - traefik-ssl-certs:/ssl-certs
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - traefik_default
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.CHANGEME.rule=Host(`traefik.srv-docker-1.server.io`)
+      - traefik.http.routers.CHANGEME.tls=true
+      - traefik.http.services.CHANGEME.loadbalancer.server.port=8080
 
 networks:
   traefik_default:

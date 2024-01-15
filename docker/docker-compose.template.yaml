@@ -7,8 +7,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.CHANGEME.entrypoints=websecure
-      - traefik.http.routers.CHANGEME.rule=Host(`CHANGEME.srv-docker-0.server.home`)
+      - traefik.http.routers.CHANGEME.rule=Host(`CHANGEME.srv-docker-1.server.io`)
       - traefik.http.routers.CHANGEME.tls=true
+      - traefik.http.services.CHANGEME.loadbalancer.server.port=3000
+      - com.centurylinklabs.watchtower.enable=true
     restart: unless-stopped
     networks:
       - traefik_default

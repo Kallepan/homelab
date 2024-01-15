@@ -65,8 +65,8 @@ tls:
     default:
       defaultCertificate:
       # (Optional) Use your own certificates
-        certFile: /etc/traefik/certs/srv-docker-0.server.home.crt
-        keyFile: /etc/traefik/certs/srv-docker-0.server.home.key
+        certFile: /etc/traefik/certs/srv-docker-1.server.home.cert
+        keyFile: /etc/traefik/certs/srv-docker-1.server.home.key
 # (Optional) Disable TLS version 1.0 and 1.1
 #   options:
 #     default:
