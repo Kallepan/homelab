@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mc:
+    container_name: minecraft
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    ports:
+      - 25565:25565
+    environment:
+      EULA: "TRUE"
+      TZ: "Europe/Berlin"
+      MAX_PLAYERS: 5
+      ENABLE_WHITELIST: "TRUE"
+      ENFORCE_WHITELIST: "TRUE"
+      OPS: "randomkalle"
+    volumes:
+      - /srv/minecraft:/data
