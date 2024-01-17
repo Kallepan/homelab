@@ -35,8 +35,7 @@ envFrom: []
 experimental:
   kubernetesGateway:
     enabled: false
-  plugins:
-    enabled: false
+  plugins: {}
 extraObjects: []
 globalArguments:
   - '--global.sendanonymoususage=false'
@@ -139,13 +138,17 @@ ports:
       options: ''
 priorityClassName: ''
 providers:
+  file:
+    content: ''
+    enabled: false
+    watch: true
   kubernetesCRD:
     allowCrossNamespace: false
     allowEmptyServices: false
     allowExternalNameServices: false
     enabled: true
-    ingress-class: traefik-external
     namespaces: []
+    ingress-class: traefik-external
   kubernetesIngress:
     allowEmptyServices: false
     allowExternalNameServices: false
@@ -184,6 +187,7 @@ service:
 serviceAccount:
   name: ''
 serviceAccountAnnotations: {}
+startupProbe: null
 tlsOptions: {}
 tlsStore: {}
 tolerations: []
