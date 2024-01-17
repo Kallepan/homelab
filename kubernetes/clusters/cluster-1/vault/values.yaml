@@ -309,11 +309,15 @@ server:
     extraPaths: []
     hosts:
       - host: vault.srv-k8s.server.io
-        paths: []
-    ingressClassName: ''
+        paths:
+          - /
+    ingressClassName: 'traefik'
     labels: {}
     pathType: Prefix
-    tls: []
+    tls:
+      - hosts:
+        - vault.srv-k8s.server.io
+        secretName: vault-tls-secret
   livenessProbe:
     enabled: false
     execCommand: []
