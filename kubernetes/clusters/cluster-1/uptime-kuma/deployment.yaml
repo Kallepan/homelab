@@ -54,8 +54,20 @@ spec:
             - name: data
               mountPath: /app/data
               readOnly: false
+            - name: ca-chain
+              mountPath: /etc/ssl/cert/ca-chain.cert.pem
+              readOnly: true
+              subPath: ca-chain.cert.pem
+          env:
+            - name: NODE_EXTRA_CA_CERTS
+              value: /etc/ssl/cert/ca-chain.cert.pem
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: dashboard-pvc
             readOnly: false
+        - configMap:
+            defaultMode: 420
+            optional: true
+            name: ca-chain
+          name: ca-chain
