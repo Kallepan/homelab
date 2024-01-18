@@ -63,8 +63,8 @@ config:
             href: https://registry.srv-k8s.server.io/
             icon: gitlab.png
         - Pages:
-            description: GitLab Pages is a static site hosting service.
-            href: https://kalle.pages.srv-k8s.server.io/landing
+            description: GitLab Pages is a static site hosting service. This is an example of a static site hosted on GitLab Pages.
+            href: https://kalle.pages.srv-k8s.server.io/landing/public/index.html
             icon: gitlab.png
     - Docker:
         - Nextcloud:
