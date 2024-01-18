@@ -4,6 +4,6 @@
   apt:
     upgrade: yes
     update_cache: yes
-  become: yes
+  become: true
   become_user: root
   tags: [common, packages]

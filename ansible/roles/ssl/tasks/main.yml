@@ -1,6 +1,6 @@
 ---
 - name: Check if root CA certificate exists
-  become: no
+  become: false
   local_action: "stat path={{ install_root_cert_pem }}"
   register: result
   failed_when: not result.stat.exists
