@@ -305,7 +305,7 @@ global:
   gitlabBase:
     image:
       repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
-  gitlabVersion: 16.7.3
+  gitlabVersion: 16.8.0
   hosts:
     domain: srv-k8s.server.io
     externalIP: 10.0.255.0
@@ -335,6 +335,7 @@ global:
     tls:
       enabled: true
       secretName: gitlab-tls
+    useNewIngressForCerts: false
     class: traefik
   initialRootPassword: {}
   kas:
