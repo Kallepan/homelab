@@ -456,6 +456,8 @@ global:
     hostKeys: {}
     tcp:
       proxyProtocol: false
+    traefik:
+      entryPoint: ssh
   smtp:
     address: smtp.mailgun.org
     authentication: plain
@@ -839,11 +841,7 @@ shared-secrets:
   tolerations: []
 traefik:
   install: false
-  ports:
-    gitlab-shell:
-      expose: true
-      exposedPort: 22
-      port: 2222
+  ports: {}
 upgradeCheck:
   annotations: {}
   configMapAnnotations: {}
