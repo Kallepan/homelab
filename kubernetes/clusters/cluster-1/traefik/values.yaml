@@ -108,6 +108,11 @@ podSecurityContext:
 podSecurityPolicy:
   enabled: false
 ports:
+  ssh:
+    expose: true
+    exposedPort: 22
+    port: 2222
+    protocol: TCP
   metrics:
     expose: false
     exposedPort: 9100
