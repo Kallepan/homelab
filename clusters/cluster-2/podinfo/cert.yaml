@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: podinfo-cert
+  namespace: default
+spec:
+  secretName: podinfo-tls
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+  - podinfo.srv-k3s.server.io
