@@ -21,20 +21,24 @@ gitlab-runner:
     config: |
       [[runners]]
         [runners.kubernetes]
-        image = "ubuntu:22.04"
+          image = "ubuntu:22.04"
+          privileged = true
         {{- if .Values.global.minio.enabled }}
         [runners.cache]
           Type = "s3"
           Path = "gitlab-runner"
           Shared = true
           [runners.cache.s3]
-            ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
+            ServerAddress = "minio.{{ .Values.global.hosts.domain }}"
             BucketName = "runner-cache"
-            BucketLocation = "us-east-1"
+            BucketLocation = "eu-west-1"
             Insecure = false
+            AuthenticationType = "access-key"
         {{ end }}
     locked: false
     secret: nonempty
+    cache:
+      secretName: gitlab-minio-secret
   certsSecretName: gitlab-runner-tls
 gitlab-zoekt:
   gateway:
