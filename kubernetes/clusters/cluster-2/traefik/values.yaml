@@ -1,0 +1,200 @@
+additionalArguments: []
+additionalVolumeMounts: []
+affinity: {}
+autoscaling:
+  enabled: false
+certResolvers: {}
+commonLabels: {}
+deployment:
+  additionalContainers: []
+  additionalVolumes: []
+  annotations: {}
+  dnsConfig: {}
+  enabled: true
+  imagePullSecrets: []
+  initContainers: []
+  kind: Deployment
+  labels: {}
+  lifecycle: {}
+  minReadySeconds: 0
+  podAnnotations: {}
+  podLabels: {}
+  replicas: 1
+  shareProcessNamespace: false
+  terminationGracePeriodSeconds: 60
+env:
+  - name: POD_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: POD_NAMESPACE
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.namespace
+envFrom: []
+experimental:
+  kubernetesGateway:
+    enabled: false
+  plugins: {}
+extraObjects: []
+globalArguments:
+  - '--global.sendanonymoususage=false'
+  - '--global.checknewversion=false'
+hostNetwork: false
+image:
+  pullPolicy: IfNotPresent
+  registry: docker.io
+  repository: traefik
+  tag: ''
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+ingressRoute:
+  dashboard:
+    annotations: {}
+    enabled: true
+    entryPoints:
+      - traefik
+    labels: {}
+    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+    middlewares: []
+    tls: {}
+  healthcheck:
+    annotations: {}
+    enabled: false
+    entryPoints:
+      - traefik
+    labels: {}
+    matchRule: PathPrefix(`/ping`)
+    middlewares: []
+    tls: {}
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 2
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+logs:
+  access:
+    enabled: false
+    fields:
+      general:
+        defaultmode: keep
+        names: {}
+      headers:
+        defaultmode: drop
+        names: {}
+    filters: {}
+  general:
+    level: ERROR
+metrics:
+  prometheus:
+    entryPoint: metrics
+nodeSelector: {}
+persistence:
+  accessMode: ReadWriteOnce
+  annotations: {}
+  enabled: false
+  name: data
+  path: /data
+  size: 128Mi
+podDisruptionBudget:
+  enabled: false
+podSecurityContext:
+  fsGroupChangePolicy: OnRootMismatch
+  runAsGroup: 65532
+  runAsNonRoot: true
+  runAsUser: 65532
+podSecurityPolicy:
+  enabled: false
+ports:
+  metrics:
+    expose: false
+    exposedPort: 9100
+    port: 9100
+    protocol: TCP
+  traefik:
+    expose: false
+    exposedPort: 9000
+    port: 9000
+    protocol: TCP
+  web:
+    expose: true
+    exposedPort: 80
+    port: 8000
+    protocol: TCP
+  websecure:
+    expose: true
+    exposedPort: 443
+    http3:
+      enabled: false
+    middlewares: []
+    port: 8443
+    protocol: TCP
+    tls:
+      certResolver: ''
+      domains: []
+      enabled: true
+      options: ''
+priorityClassName: ''
+providers:
+  file:
+    content: ''
+    enabled: false
+    watch: true
+  kubernetesCRD:
+    allowCrossNamespace: false
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+    namespaces: []
+  kubernetesIngress:
+    allowEmptyServices: false
+    allowExternalNameServices: false
+    enabled: true
+    namespaces: []
+    publishedService:
+      enabled: false
+rbac:
+  enabled: true
+  namespaced: false
+readinessProbe:
+  failureThreshold: 1
+  initialDelaySeconds: 2
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+resources: {}
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+service:
+  annotations: {}
+  annotationsTCP: {}
+  annotationsUDP: {}
+  enabled: true
+  externalIPs: []
+  labels: {}
+  loadBalancerSourceRanges: []
+  single: true
+  spec:
+    loadBalancerIP: 10.0.255.128
+  type: LoadBalancer
+serviceAccount:
+  name: ''
+serviceAccountAnnotations: {}
+startupProbe: null
+tlsOptions: {}
+tlsStore: {}
+tolerations: []
+topologySpreadConstraints: []
+tracing: {}
+updateStrategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  type: RollingUpdate
+volumes: []
