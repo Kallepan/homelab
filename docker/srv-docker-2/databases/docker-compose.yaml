@@ -1,6 +1,20 @@
 version: '3.8'
 
 services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: always
+    ports:
+      - 9000:9000
+      - 9002:9001
+    volumes:
+      - /srv/minio/data:/mnt/data
+      - /srv/minio/config:/etc/config.env
+    env_file:
+      - .env
+    command: server --console-address ":9001"
+
   mariadb:
     image: mariadb:11
     container_name: mariadb

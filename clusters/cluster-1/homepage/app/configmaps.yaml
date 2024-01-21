@@ -51,7 +51,7 @@ data:
           icon: adminer.png
       - MinIO:
           description: MinIO is a high performance object storage server.
-          href: https://minio.srv-k8s.server.io/
+          href: http://srv-docker-2.server.io:9002/browser/
           icon: minio.png
       - Nextcloud:
           description: Nextcloud is a suite of client-server software for creating and
@@ -63,6 +63,10 @@ data:
           description: GitLab is a complete DevOps platform.
           href: https://gitlab.srv-k8s.server.io/
           icon: gitlab.png
+      - GitLab minio:
+          description: Minio used by GitLab for object storage.
+          href: https://minio.srv-k8s.server.io/
+          icon: minio.png
       - Registry:
           description: GitLab Container Registry is a secure and private registry for
             Docker images.
