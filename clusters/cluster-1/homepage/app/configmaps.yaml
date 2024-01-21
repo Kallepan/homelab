@@ -62,7 +62,7 @@ data:
             of a static site hosted on GitLab Pages.
           href: https://kalle.pages.srv-k8s.server.io/landing/public/index.html
           icon: gitlab.png
-    - Docker:
+    - Selfhosted:
       - Nextcloud:
           description: Nextcloud is a suite of client-server software for creating and
             using file hosting services.
@@ -96,7 +96,6 @@ data:
           description: Keycloak is an open source identity and access management solution.
           href: https://keycloak.srv-docker-1.server.io/
           icon: keycloak.png
-    - System:
       - Argo CD:
           description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
           href: https://argocd.srv-k8s.server.io
@@ -134,12 +133,7 @@ data:
         icon: gitlab.png
         style: row
         columns: 4
-      Docker:
-        header: true
-        icon: docker.png
-        style: row
-        columns: 4
-      System:
+      Selfhosted:
         header: true
         icon: netboot.png
         style: row
