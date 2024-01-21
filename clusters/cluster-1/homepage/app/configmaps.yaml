@@ -30,6 +30,7 @@ data:
           description: Proxmox VE is a complete open-source platform for enterprise virtualization.
           href: https://192.168.0.2:8006/
           icon: proxmox.png
+    - Containers:
       - Rancher:
           description: Rancher is a complete software stack for teams adopting containers.
           href: https://rancher.server.io
@@ -39,19 +40,29 @@ data:
             you to easily manage your Docker environments.
           href: https://portainer.srv-k8s.server.io/
           icon: portainer.png
+      - Argo CD:
+          description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+          href: https://argocd.srv-k8s.server.io
+          icon: argocd.png
+    - Storage:
       - Adminer:
           description: Adminer is a full-featured database management tool.
           href: http://srv-docker-2.server.io:8080/
           icon: adminer.png
-    - GitLab:
-      - GitLab:
-          description: GitLab is a complete DevOps platform.
-          href: https://gitlab.srv-k8s.server.io/
-          icon: gitlab.png
       - MinIO:
           description: MinIO is a high performance object storage server.
           href: https://minio.srv-k8s.server.io/
           icon: minio.png
+      - Nextcloud:
+          description: Nextcloud is a suite of client-server software for creating and
+            using file hosting services.
+          href: https://nextcloud.srv-docker-1.server.io/
+          icon: nextcloud.png
+    - Git:
+      - GitLab:
+          description: GitLab is a complete DevOps platform.
+          href: https://gitlab.srv-k8s.server.io/
+          icon: gitlab.png
       - Registry:
           description: GitLab Container Registry is a secure and private registry for
             Docker images.
@@ -62,20 +73,34 @@ data:
             of a static site hosted on GitLab Pages.
           href: https://kalle.pages.srv-k8s.server.io/landing/public/index.html
           icon: gitlab.png
-    - Selfhosted:
-      - Nextcloud:
-          description: Nextcloud is a suite of client-server software for creating and
-            using file hosting services.
-          href: https://nextcloud.srv-docker-1.server.io/
-          icon: nextcloud.png
+    - Monitoring:
+      - Traefik Dashboard:
+          description: Traefik is a modern HTTP reverse proxy and load balancer.
+          href: https://traefik.srv-docker-1.server.io/
+          icon: traefik.png
+      - Uptime Kuma:
+          description: Uptime Kuma is a fancy self-hosted monitoring tool.
+          href: https://uptime.srv-k8s.server.io/
+          icon: uptime-kuma.png
+      - Dozzle:
+          description: Dozzle is a simple container log viewer for Docker.
+          href: https://dozzle.srv-docker-1.server.io/
+          icon: dozzle.png
+      - Grafana:
+          description: Grafana is a multi-platform open source analytics and interactive
+            visualization web application.
+          href: https://grafana.srv-k8s.server.io/
+          icon: grafana.png
+    - Docs:
+      - Wiki:
+          description: Mediawiki is a free and open-source wiki software.
+          href: https://wiki.srv-docker-1.server.io/
+          icon: mediawiki.png
+    - Misc:
       - Semaphore:
           description: Sempahore is a self-hosted ansible web UI.
           href: https://semaphore.srv-docker-1.server.io/
           icon: semaphore.png
-      - Traefik:
-          description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.srv-docker-1.server.io/
-          icon: traefik.png
       - MeTube:
           description: MeTube is a self-hosted youtube downloader.
           href: https://metube.srv-docker-1.server.io/
@@ -88,36 +113,22 @@ data:
           description: It-tools is a collection of tools useful for IT professionals.
           href: https://it-tools.srv-docker-1.server.io/
           icon: it-tools.png
-      - Dozzle:
-          description: Dozzle is a simple container log viewer for Docker.
-          href: https://dozzle.srv-docker-1.server.io/
-          icon: dozzle.png
       - Keycloak:
           description: Keycloak is an open source identity and access management solution.
           href: https://keycloak.srv-docker-1.server.io/
           icon: keycloak.png
-      - Argo CD:
-          description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
-          href: https://argocd.srv-k8s.server.io
-          icon: argocd.png
-      - Uptime Kuma:
-          description: Uptime Kuma is a fancy self-hosted monitoring tool.
-          href: https://uptime.srv-k8s.server.io/
-          icon: uptime-kuma.png
       - Hashicorp Vault:
           description: Vault is a tool for securely accessing secrets.
           href: https://vault.srv-k8s.server.io/
           icon: vault.png
-      - Wiki:
-          description: Mediawiki is a free and open-source wiki software.
-          href: https://wiki.srv-docker-1.server.io/
-          icon: mediawiki.png
   custom.css: ''
   custom.js: ''
   settings.yaml: |
     title: HomeLab
     base: https://homepage.srv-k8s.server.io/
     showStats: false
+    theme: dark
+    color: slate
     quicklaunch:
       searchDescriptions: false
       hideInternetSearch: false
@@ -128,12 +139,32 @@ data:
         icon: netboot.png
         style: row
         columns: 4
-      GitLab:
+      Containers:
+        header: true
+        icon: docker.png
+        style: row
+        columns: 4
+      Storage:
+        header: true
+        icon: storage.png
+        style: row
+        columns: 4
+      Monitoring:
+        header: true
+        icon: monitoring.png
+        style: row
+        columns: 4
+      Docs:
+        header: true
+        icon: docs.png
+        style: row
+        columns: 4
+      Git:
         header: true
         icon: gitlab.png
         style: row
         columns: 4
-      Selfhosted:
+      Misc:
         header: true
         icon: netboot.png
         style: row
@@ -160,9 +191,6 @@ data:
           memory: true
           show: true
           showLabel: true
-      search:
-        provider: duckduckgo
-        target: _blank
 kind: ConfigMap
 metadata:
   labels:
