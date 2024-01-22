@@ -150,27 +150,27 @@ data:
         columns: 4
       Storage:
         header: true
-        icon: storage.png
+        icon: baserow.png
         style: row
         columns: 4
       Monitoring:
         header: true
-        icon: monitoring.png
+        icon: bazarr.png
         style: row
         columns: 4
       Docs:
         header: true
-        icon: docs.png
+        icon: coder.png
         style: row
         columns: 4
       Git:
         header: true
-        icon: gitlab.png
+        icon: git.png
         style: row
         columns: 4
       Misc:
         header: true
-        icon: netboot.png
+        icon: selfhosted.png
         style: row
         columns: 4
   widgets.yaml: |
