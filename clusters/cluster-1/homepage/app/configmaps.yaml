@@ -30,6 +30,12 @@ data:
           description: Proxmox VE is a complete open-source platform for enterprise virtualization.
           href: https://192.168.0.2:8006/
           icon: proxmox.png
+      - KASM:
+          description: Kasm Workspaces is a containerized application delivery platform
+            that enables browser-based access to isolated applications and desktops
+            running on Linux or Windows servers.
+          href: https://srv-kasm-1.server.io/
+          icon: kasm.png
     - Containers:
       - Rancher:
           description: Rancher is a complete software stack for teams adopting containers.

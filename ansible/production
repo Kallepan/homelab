@@ -7,7 +7,8 @@
 # lan-1
 srv-docker-1 ansible_host=10.1.0.3 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
 srv-docker-2 ansible_host=10.1.0.4 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
-srv-docker-3 ansible_host=10.1.0.5 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+
+srv-kasm-1 ansible_host=10.1.0.20 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
 
 # lan-0
 bastion ansible_host=10.0.0.10 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
