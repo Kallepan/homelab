@@ -1,0 +1,9 @@
+# cat server_cert.cnf
+
+[v3_req]
+basicConstraints = CA:FALSE
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 10.1.0.20
+DNS.1 = srv-kasm-1.server.io
