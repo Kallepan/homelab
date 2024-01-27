@@ -96,10 +96,15 @@ data:
           description: Dozzle is a simple container log viewer for Docker.
           href: https://dozzle.srv-docker-1.server.io/
           icon: dozzle.png
-      - Grafana:
+      - K3S Monitoring:
           description: Grafana is a multi-platform open source analytics and interactive
             visualization web application.
-          href: https://grafana.srv-k8s.server.io/
+          href: https://monitoring.srv-k3s.server.io/
+          icon: grafana.png
+      - K8S Monitoring:
+          description: Grafana is a multi-platform open source analytics and interactive
+            visualization web application.
+          href: https://monitoring.srv-k8s.server.io/
           icon: grafana.png
     - Docs:
       - Wiki:

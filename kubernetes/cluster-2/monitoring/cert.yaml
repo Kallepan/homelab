@@ -1,0 +1,27 @@
+# This is a sample file on how to create a tls certificate in a namespace
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-cert
+  namespace: cattle-monitoring-system 
+spec:
+  secretName: grafana-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - monitoring.srv-k3s.server.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: alertmanager-cert
+  namespace: cattle-monitoring-system
+spec:
+  secretName: alertmanager-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - alertmanager.srv-k3s.server.io
