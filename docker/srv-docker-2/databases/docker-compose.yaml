@@ -50,6 +50,7 @@ services:
     volumes:
       - /srv/psql/config:/config/
       - /srv/psql/data:/var/lib/postgresql/data
+      - /srv/psql/dump:/dump
     env_file:
       - .env
 
