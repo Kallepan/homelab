@@ -1,3 +1,15 @@
-# Kubernetes
+# Clusters
 
-This folder contains all of the Kubernetes manifests and Helm values files I use to manage my homelab. These are used in rancher instead of Flux to configure my Kubernetes clusters.
+A repository for storing my [flux cd cluster manifests](/kubernetes/flux-manifests])and [helm values](/kubernetes/helm-values). The file structure is going to be as follows:
+
+```
+├── README.md
+├── kubernetes
+|   ├── flux-manifests
+|   │   ├── cluster-1
+|   │   |   ├── namespace-1
+|   │   │   |   ├── app-1
+|   │   │   |   ├── app-2
+|   ├── helm-values
+...
+```
