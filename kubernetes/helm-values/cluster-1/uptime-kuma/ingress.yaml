@@ -1,0 +1,46 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: kuma-system
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`uptime.srv-k8s.server.io`)
+      priority: 10
+      services:
+        - name: dashboard
+          port: 3001
+  tls:
+    secretName: dashboard-tls-secret
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard-redirect
+  namespace: kuma-system
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`uptime.srv-k8s.server.io`)
+      priority: 10
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: dashboard
+          port: 3001
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-https
+  namespace: kuma-system
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true

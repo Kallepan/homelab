@@ -1,0 +1,53 @@
+enterpriseEdition:
+  enabled: false
+  image:
+    pullPolicy: Always
+    repository: portainer/portainer-ee
+    tag: 2.19.4
+feature:
+  flags: ''
+image:
+  pullPolicy: Always
+  repository: portainer/portainer-ce
+  tag: 2.19.4
+imagePullSecrets: []
+ingress:
+  annotations: {}
+  enabled: true
+  hosts:
+    - host: portainer.srv-k8s.server.io
+      paths:
+        - path: /
+          pathType: Prefix
+  ingressClassName: 'traefik'
+  tls:
+    - hosts:
+      - portainer.srv-k8s.server.io
+      secretName: portainer-tls
+mtls:
+  enable: false
+  existingSecret: ''
+nodeSelector: {}
+persistence:
+  annotations: {}
+  enabled: true
+  existingClaim: null
+  size: 2Gi
+  storageClass: longhorn
+replicaCount: 1
+resources: {}
+service:
+  annotations: {}
+  edgeNodePort: 30776
+  edgePort: 8000
+  httpNodePort: 30777
+  httpPort: 9000
+  httpsNodePort: 30779
+  httpsPort: 9443
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  name: portainer-sa-clusteradmin
+tls:
+  existingSecret: ''
+  force: false

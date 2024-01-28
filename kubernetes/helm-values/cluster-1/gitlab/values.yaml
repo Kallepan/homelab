@@ -1,0 +1,869 @@
+certmanager:
+  install: false
+  installCRDs: false
+  nameOverride: certmanager
+  rbac:
+    create: false
+gitlab:
+  toolbox:
+    antiAffinityLabels:
+      matchLabels:
+        app: gitaly
+    replicas: 1
+gitlab-runner:
+  install: true
+  podAnnotations:
+    gitlab.com/prometheus_port: 9252
+    gitlab.com/prometheus_scrape: 'true'
+  rbac:
+    create: true
+  runners:
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+          image = "ubuntu:22.04"
+          privileged = true
+        {{- if .Values.global.minio.enabled }}
+        [runners.cache]
+          Type = "s3"
+          Path = "gitlab-runner"
+          Shared = true
+          [runners.cache.s3]
+            ServerAddress = "minio.{{ .Values.global.hosts.domain }}"
+            BucketName = "runner-cache"
+            BucketLocation = "eu-west-1"
+            Insecure = false
+            AuthenticationType = "access-key"
+        {{ end }}
+    locked: false
+    secret: nonempty
+    cache:
+      secretName: gitlab-minio-secret
+  certsSecretName: gitlab-runner-tls
+gitlab-zoekt:
+  gateway:
+    basicAuth:
+      enabled: true
+      secretName: '{{ include "gitlab.zoekt.gateway.basicAuth.secretName" $ }}'
+  indexer:
+    internalApi:
+      enabled: false
+      gitlabUrl: '{{ include "gitlab.zoekt.indexer.internalApi.gitlabUrl" $ }}'
+      secretKey: '{{ include "gitlab.zoekt.indexer.internalApi.secretKey" $ }}'
+      secretName: '{{ include "gitlab.zoekt.indexer.internalApi.secretName" $ }}'
+  install: false
+global:
+  affinity:
+    podAntiAffinity:
+      topologyKey: kubernetes.io/hostname
+  antiAffinity: soft
+  appConfig:
+    applicationSettingsCacheSeconds: 60
+    artifacts:
+      bucket: gitlab-artifacts
+      connection: {}
+      enabled: true
+      proxy_download: true
+    backups:
+      bucket: gitlab-backups
+      tmpBucket: tmp
+    ciSecureFiles:
+      bucket: gitlab-ci-secure-files
+      connection: {}
+      enabled: false
+    contentSecurityPolicy:
+      enabled: false
+      report_only: true
+    cron_jobs: {}
+    defaultProjectsFeatures:
+      builds: true
+      issues: true
+      mergeRequests: true
+      snippets: true
+      wiki: true
+    defaultTheme: null
+    dependencyProxy:
+      bucket: gitlab-dependency-proxy
+      connection: {}
+      enabled: false
+      proxy_download: true
+    duoAuth:
+      enabled: false
+    enableImpersonation: null
+    enableSeatLink: true
+    enableUsagePing: true
+    externalDiffs:
+      bucket: gitlab-mr-diffs
+      connection: {}
+      enabled: false
+      proxy_download: true
+      when: null
+    extra:
+      bizible: null
+      googleAnalyticsId: null
+      googleTagManagerNonceId: null
+      matomoDisableCookies: null
+      matomoSiteId: null
+      matomoUrl: null
+      oneTrustId: null
+    gitlab_docs:
+      enabled: false
+      host: ''
+    gitlab_kas: {}
+    graphQlTimeout: null
+    gravatar:
+      plainUrl: null
+      sslUrl: null
+    incomingEmail:
+      address: ''
+      authToken: {}
+      clientSecret:
+        key: secret
+      deleteAfterDelivery: true
+      deliveryMethod: webhook
+      enabled: false
+      expungeDeleted: false
+      host: imap.gmail.com
+      idleTimeout: 60
+      inboxMethod: imap
+      logger:
+        logPath: /dev/stdout
+      mailbox: inbox
+      password:
+        key: password
+        secret: ''
+      pollInterval: 60
+      port: 993
+      ssl: true
+      startTls: false
+      user: ''
+    initialDefaults: {}
+    issueClosingPattern: null
+    kerberos:
+      dedicatedPort:
+        enabled: false
+        https: true
+        port: 8443
+      enabled: false
+      keytab:
+        key: keytab
+      krb5Config: ''
+      servicePrincipalName: ''
+      simpleLdapLinkingAllowedRealms: []
+    ldap:
+      preventSignin: false
+      servers: {}
+    lfs:
+      bucket: git-lfs
+      connection: {}
+      enabled: true
+      proxy_download: true
+    maxRequestDurationSeconds: null
+    microsoft_graph_mailer:
+      azure_ad_endpoint: https://login.microsoftonline.com
+      client_id: ''
+      client_secret:
+        key: secret
+        secret: ''
+      enabled: false
+      graph_endpoint: https://graph.microsoft.com
+      tenant: ''
+      user_id: ''
+    object_store:
+      connection: {}
+      enabled: false
+      proxy_download: true
+      storage_options: {}
+    omniauth:
+      allowBypassTwoFactor: []
+      allowSingleSignOn:
+        - saml
+      autoLinkLdapUser: false
+      autoLinkSamlUser: false
+      autoLinkUser: []
+      autoSignInWithProvider: null
+      blockAutoCreatedUsers: true
+      enabled: false
+      externalProviders: []
+      providers: []
+      syncProfileAttributes:
+        - email
+      syncProfileFromProvider: []
+    packages:
+      bucket: gitlab-packages
+      connection: {}
+      enabled: true
+      proxy_download: true
+    sentry:
+      clientside_dsn: null
+      dsn: null
+      enabled: false
+      environment: null
+    serviceDeskEmail:
+      address: ''
+      authToken: {}
+      clientSecret:
+        key: secret
+      deleteAfterDelivery: true
+      deliveryMethod: webhook
+      enabled: false
+      expungeDeleted: false
+      host: imap.gmail.com
+      idleTimeout: 60
+      inboxMethod: imap
+      logger:
+        logPath: /dev/stdout
+      mailbox: inbox
+      password:
+        key: password
+        secret: ''
+      pollInterval: 60
+      port: 993
+      ssl: true
+      startTls: false
+      user: ''
+    sidekiq:
+      routingRules: []
+    smartcard:
+      CASecret: null
+      clientCertificateRequiredHost: null
+      enabled: false
+      requiredForGitAccess: false
+      sanExtensions: false
+    suggested_reviewers: {}
+    terraformState:
+      bucket: gitlab-terraform-state
+      connection: {}
+      enabled: false
+    uploads:
+      bucket: gitlab-uploads
+      connection: {}
+      enabled: true
+      proxy_download: true
+    usernameChangingEnabled: true
+    webhookTimeout: null
+  application:
+    allowClusterRoles: true
+    create: false
+    links: []
+  batch:
+    cronJob:
+      apiVersion: ''
+  certificates:
+    customCAs:
+      - keys:
+          - homelab-ca.crt
+        secret: homelab-ca
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/certificates
+  common:
+    labels: {}
+  deployment:
+    annotations: {}
+  edition: ce
+  email:
+    display_name: GitLab
+    from: ''
+    reply_to: ''
+    smime:
+      certName: tls.crt
+      enabled: false
+      keyName: tls.key
+      secretName: ''
+    subject_suffix: ''
+  extraEnv: {}
+  extraEnvFrom: {}
+  geo:
+    enabled: false
+    nodeName: null
+    psql:
+      password: {}
+    registry:
+      replication:
+        enabled: false
+        primaryApiUrl: null
+    role: primary
+  gitaly:
+    authToken: {}
+    enabled: true
+    external: []
+    internal:
+      names:
+        - default
+    service:
+      externalPort: 8075
+      internalPort: 8075
+      name: gitaly
+      tls:
+        externalPort: 8076
+        internalPort: 8076
+      type: ClusterIP
+    tls:
+      enabled: false
+    persistence:
+      enabled: true
+      size: 50Gi
+      storageClass: longhorn
+  gitlab:
+    license: {}
+  gitlabBase:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/gitlab-base
+  gitlabVersion: 16.8.0
+  hosts:
+    domain: srv-k8s.server.io
+    externalIP: 10.0.255.0
+    gitlab: {}
+    hostSuffix: null
+    https: true
+    kas: {}
+    minio: {}
+    pages: {}
+    registry: {}
+    smartcard: {}
+    ssh: null
+    tls: {}
+  hpa:
+    apiVersion: ''
+  image: {}
+  ingress:
+    annotations:
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/router.tls: 'true'
+    apiVersion: ''
+    configureCertmanager: false
+    enabled: true
+    path: /
+    pathType: Prefix
+    provider: traefik
+    tls:
+      enabled: true
+      secretName: gitlab-tls
+    useNewIngressForCerts: false
+    class: traefik
+  initialRootPassword: {}
+  kas:
+    enabled: false
+    service:
+      apiExternalPort: 8153
+    tls:
+      enabled: false
+      verify: true
+  keda:
+    enabled: false
+  kubectl:
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/kubectl
+    securityContext:
+      fsGroup: 65534
+      runAsUser: 65534
+  minio:
+    credentials: {}
+    enabled: true
+  monitoring:
+    enabled: false
+  oauth:
+    gitlab-pages: {}
+  pages:
+    accessControl: false
+    apiSecret: {}
+    artifactsServer: true
+    authSecret: {}
+    enabled: true
+    externalHttp: []
+    externalHttps: []
+    host: null
+    https: null
+    localStore:
+      enabled: false
+    objectStore:
+      bucket: gitlab-pages
+      connection: {}
+      enabled: true
+    path: null
+    port: null
+  pdb:
+    apiVersion: ''
+  pod:
+    labels: {}
+  praefect:
+    authToken: {}
+    autoMigrate: true
+    dbSecret: {}
+    enabled: false
+    ntpHost: pool.ntp.org
+    psql:
+      sslMode: disable
+    replaceInternalGitaly: true
+    service:
+      externalPort: 8075
+      internalPort: 8075
+      name: praefect
+      tls:
+        externalPort: 8076
+        internalPort: 8076
+      type: ClusterIP
+    tls:
+      enabled: false
+    virtualStorages:
+      - gitalyReplicas: 3
+        maxUnavailable: 1
+        name: default
+  priorityClassName: ''
+  psql:
+    ci: {}
+    connectTimeout: null
+    keepalives: null
+    keepalivesCount: null
+    keepalivesIdle: null
+    keepalivesInterval: null
+    main: {}
+    password: {}
+    tcpUserTimeout: null
+  rails:
+    bootsnap:
+      enabled: true
+  railsSecrets: {}
+  redis:
+    auth:
+      enabled: true
+  registry:
+    api:
+      port: 5000
+      protocol: http
+      serviceName: registry
+    bucket: registry
+    certificate: {}
+    enabled: true
+    host: null
+    httpSecret: {}
+    notificationSecret: {}
+    notifications: {}
+    redis:
+      cache:
+        password: {}
+    tls:
+      enabled: true
+      secretName: registry-tls
+    tokenIssuer: gitlab-issuer
+  runner:
+    registrationToken: {}
+  service:
+    annotations: {}
+    labels: {}
+  serviceAccount:
+    annotations: {}
+    create: true
+    enabled: false
+  shell:
+    authToken: {}
+    hostKeys: {}
+    tcp:
+      proxyProtocol: false
+    traefik:
+      entryPoint: ssh
+  smtp:
+    address: smtp.mailgun.org
+    authentication: plain
+    enabled: false
+    open_timeout: 30
+    openssl_verify_mode: peer
+    password:
+      key: password
+      secret: ''
+    pool: false
+    port: 2525
+    read_timeout: 60
+    starttls_auto: false
+    user_name: ''
+  spamcheck:
+    enabled: false
+  time_zone: Europe/Berlin
+  tracing:
+    connection:
+      string: ''
+    urlTemplate: ''
+  webservice:
+    workerTimeout: 60
+  workhorse:
+    serviceName: webservice-default
+    tls:
+      enabled: false
+  zoekt:
+    gateway:
+      basicAuth: {}
+    indexer:
+      internalApi: {}
+haproxy:
+  controller:
+    extraArgs:
+      - '--configmap-tcp-services=$(POD_NAMESPACE)/$(POD_NAMESPACE)-haproxy-tcp'
+    service:
+      tcpPorts:
+        - name: ssh
+          port: 22
+          targetPort: 22
+      type: LoadBalancer
+  install: false
+nginx-ingress:
+  controller:
+    addHeaders:
+      Referrer-Policy: strict-origin-when-cross-origin
+    admissionWebhooks:
+      enabled: false
+    config:
+      annotation-value-word-blocklist: >-
+        load_module,lua_package,_by_lua,location,root,proxy_pass,serviceaccount,{,},',"
+      hsts: 'true'
+      hsts-include-subdomains: 'false'
+      hsts-max-age: '63072000'
+      server-name-hash-bucket-size: '256'
+      server-tokens: 'false'
+      ssl-ciphers: >-
+        ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4
+      ssl-protocols: TLSv1.3 TLSv1.2
+      upstream-keepalive-connections: 100
+      upstream-keepalive-requests: 1000
+      upstream-keepalive-time: 30s
+      upstream-keepalive-timeout: 5
+      use-http2: 'true'
+    ingressClassByName: false
+    ingressClassResource:
+      name: '{{ include "ingress.class.name" $ | quote }}'
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          gitlab.com/prometheus_port: '10254'
+          gitlab.com/prometheus_scrape: 'true'
+          prometheus.io/port: '10254'
+          prometheus.io/scrape: 'true'
+    minAvailable: 1
+    publishService:
+      enabled: true
+    replicaCount: 2
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    scope:
+      enabled: true
+    service:
+      externalTrafficPolicy: Local
+  defaultBackend:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 5Mi
+  enabled: false
+  rbac:
+    create: true
+    scope: false
+  serviceAccount:
+    create: true
+  tcpExternalConfig: 'true'
+nginx-ingress-geo:
+  controller:
+    addHeaders:
+      Referrer-Policy: strict-origin-when-cross-origin
+    admissionWebhooks:
+      enabled: false
+    config:
+      annotation-value-word-blocklist: >-
+        load_module,lua_package,_by_lua,location,root,proxy_pass,serviceaccount,{,},',"
+      hsts: 'true'
+      hsts-include-subdomains: 'false'
+      hsts-max-age: '63072000'
+      server-name-hash-bucket-size: '256'
+      server-tokens: 'false'
+      ssl-ciphers: >-
+        ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4
+      ssl-protocols: TLSv1.3 TLSv1.2
+      upstream-keepalive-connections: 100
+      upstream-keepalive-requests: 1000
+      upstream-keepalive-time: 30s
+      upstream-keepalive-timeout: 5
+      use-forwarded-headers: true
+      use-http2: 'true'
+    electionID: ingress-controller-leader-geo
+    ingressClassByName: false
+    ingressClassResource:
+      controllerValue: k8s.io/nginx-ingress-geo
+      name: '{{ include "gitlab.geo.ingress.class.name" $ | quote }}'
+    metrics:
+      enabled: true
+      service:
+        annotations:
+          gitlab.com/prometheus_port: '10254'
+          gitlab.com/prometheus_scrape: 'true'
+          prometheus.io/port: '10254'
+          prometheus.io/scrape: 'true'
+    minAvailable: 1
+    publishService:
+      enabled: true
+    replicaCount: 2
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    scope:
+      enabled: true
+    service:
+      externalTrafficPolicy: Local
+  defaultBackend:
+    resources:
+      requests:
+        cpu: 5m
+        memory: 5Mi
+  enabled: false
+  externalIpTpl: '{{ .Values.global.hosts.externalGeoIP }}'
+  rbac:
+    create: true
+    scope: false
+  serviceAccount:
+    create: true
+  tcpExternalConfig: 'true'
+postgresql:
+  auth:
+    existingSecret: '{{ include "gitlab.psql.password.secret" . }}'
+    password: bogus-satisfy-upgrade
+    postgresPassword: bogus-satisfy-upgrade
+    secretKeys:
+      adminPasswordKey: postgresql-postgres-password
+      userPasswordKey: '{{ include "gitlab.psql.password.key" $ }}'
+    usePasswordFiles: false
+  image:
+    tag: 14.8.0
+  install: true
+  metrics:
+    enabled: true
+    service:
+      annotations:
+        gitlab.com/prometheus_port: '9187'
+        gitlab.com/prometheus_scrape: 'true'
+        prometheus.io/port: '9187'
+        prometheus.io/scrape: 'true'
+  primary:
+    extraVolumeMounts:
+      - mountPath: /docker-entrypoint-preinitdb.d/init_revision.sh
+        name: custom-init-scripts
+        subPath: init_revision.sh
+    initdb:
+      scriptsConfigMap: '{{ include "gitlab.psql.initdbscripts" $}}'
+    podAnnotations:
+      postgresql.gitlab/init-revision: '1'
+  storageClass: longhorn
+prometheus:
+  alertmanager:
+    enabled: false
+  alertmanagerFiles:
+    alertmanager.yml: {}
+  install: true
+  kubeStateMetrics:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  pushgateway:
+    enabled: false
+  rbac:
+    create: true
+  server:
+    image:
+      tag: v2.38.0
+    retention: 15d
+    strategy:
+      type: Recreate
+    persistentVolume:
+      enabled: true
+      size: 4Gi
+      storageClass: longhorn
+  serverFiles:
+    prometheus.yml:
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets:
+                - localhost:9090
+        - bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+          job_name: kubernetes-apiservers
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - action: keep
+              regex: default;kubernetes;https
+              source_labels:
+                - __meta_kubernetes_namespace
+                - __meta_kubernetes_service_name
+                - __meta_kubernetes_endpoint_port_name
+          scheme: https
+          tls_config:
+            ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            insecure_skip_verify: true
+        - job_name: kubernetes-pods
+          kubernetes_sd_configs:
+            - role: pod
+          relabel_configs:
+            - action: keep
+              regex: true
+              source_labels:
+                - __meta_kubernetes_pod_annotation_gitlab_com_prometheus_scrape
+            - action: replace
+              regex: (https?)
+              source_labels:
+                - __meta_kubernetes_pod_annotation_gitlab_com_prometheus_scheme
+              target_label: __scheme__
+            - action: replace
+              regex: (.+)
+              source_labels:
+                - __meta_kubernetes_pod_annotation_gitlab_com_prometheus_path
+              target_label: __metrics_path__
+            - action: replace
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+              source_labels:
+                - __address__
+                - __meta_kubernetes_pod_annotation_gitlab_com_prometheus_port
+              target_label: __address__
+            - action: labelmap
+              regex: __meta_kubernetes_pod_label_(.+)
+            - action: replace
+              source_labels:
+                - __meta_kubernetes_namespace
+              target_label: kubernetes_namespace
+            - action: replace
+              source_labels:
+                - __meta_kubernetes_pod_name
+              target_label: kubernetes_pod_name
+        - job_name: kubernetes-service-endpoints
+          kubernetes_sd_configs:
+            - role: endpoints
+          relabel_configs:
+            - action: keep
+              regex: true
+              source_labels:
+                - >-
+                  __meta_kubernetes_service_annotation_gitlab_com_prometheus_scrape
+            - action: replace
+              regex: (https?)
+              source_labels:
+                - >-
+                  __meta_kubernetes_service_annotation_gitlab_com_prometheus_scheme
+              target_label: __scheme__
+            - action: replace
+              regex: (.+)
+              source_labels:
+                - >-
+                  __meta_kubernetes_service_annotation_gitlab_com_prometheus_path
+              target_label: __metrics_path__
+            - action: replace
+              regex: ([^:]+)(?::\d+)?;(\d+)
+              replacement: $1:$2
+              source_labels:
+                - __address__
+                - >-
+                  __meta_kubernetes_service_annotation_gitlab_com_prometheus_port
+              target_label: __address__
+            - action: labelmap
+              regex: __meta_kubernetes_service_label_(.+)
+            - action: replace
+              source_labels:
+                - __meta_kubernetes_namespace
+              target_label: kubernetes_namespace
+            - action: replace
+              source_labels:
+                - __meta_kubernetes_service_name
+              target_label: kubernetes_name
+            - action: replace
+              source_labels:
+                - __meta_kubernetes_pod_node_name
+              target_label: kubernetes_node
+        - job_name: kubernetes-services
+          kubernetes_sd_configs:
+            - role: service
+          metrics_path: /probe
+          params:
+            module:
+              - http_2xx
+          relabel_configs:
+            - action: keep
+              regex: true
+              source_labels:
+                - >-
+                  __meta_kubernetes_service_annotation_gitlab_com_prometheus_probe
+            - source_labels:
+                - __address__
+              target_label: __param_target
+            - replacement: blackbox
+              target_label: __address__
+            - source_labels:
+                - __param_target
+              target_label: instance
+            - action: labelmap
+              regex: __meta_kubernetes_service_label_(.+)
+            - source_labels:
+                - __meta_kubernetes_namespace
+              target_label: kubernetes_namespace
+            - source_labels:
+                - __meta_kubernetes_service_name
+              target_label: kubernetes_name
+redis:
+  architecture: standalone
+  auth:
+    existingSecret: gitlab-redis-secret
+    existingSecretKey: redis-password
+    usePasswordFiles: true
+  cluster:
+    enabled: false
+  install: true
+  metrics:
+    enabled: true
+  storageClass: longhorn
+shared-secrets:
+  annotations: {}
+  enabled: true
+  env: production
+  podLabels: {}
+  rbac:
+    create: true
+  resources:
+    requests:
+      cpu: 50m
+  securityContext:
+    fsGroup: 65534
+    runAsUser: 65534
+  selfsign:
+    caSubject: GitLab Helm Chart
+    expiry: 3650d
+    image:
+      repository: registry.gitlab.com/gitlab-org/build/cng/cfssl-self-sign
+    keyAlgorithm: rsa
+    keySize: '4096'
+  serviceAccount:
+    create: true
+    enabled: true
+    name: null
+  tolerations: []
+traefik:
+  install: false
+  ports: {}
+upgradeCheck:
+  annotations: {}
+  configMapAnnotations: {}
+  enabled: true
+  image: {}
+  priorityClassName: ''
+  resources:
+    requests:
+      cpu: 50m
+  securityContext:
+    fsGroup: 65534
+    runAsUser: 65534
+  tolerations: []
+minio:
+  ingress:
+    tls:
+      enabled: true
+      secretName: minio-tls
+  persistence:
+    size: 50Gi
+    storageClass: longhorn
