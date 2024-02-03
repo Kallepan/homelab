@@ -28,5 +28,8 @@ k3s-server-1 ansible_host=10.0.3.10 ansible_user=user ansible_connection=ssh ans
 k3s-server-2 ansible_host=10.0.3.11 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
 k3s-server-3 ansible_host=10.0.3.12 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
 
+[minikube]
+minikube ansible_host=10.0.254.253 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
+
 [testing]
 test-1 ansible_host=10.0.254.255 ansible_user=user ansible_connection=ssh ansible_ssh_private_key_file=/workspaces/homelab/ssh/homelab
