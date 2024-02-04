@@ -1,0 +1,67 @@
+# Install kubernetes tools
+
+- name: Delete old kubernetes GPG key
+  become: true
+  become_user: root
+  file:
+    path: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+    state: absent
+  tags: [kubernetes, kubeadm]
+
+- name: Download kubernetes GPG key
+  become: true
+  become_user: root
+  get_url:
+    force: yes
+    url: "{{ kubernetes_key_url }}"
+    dest: /tmp/kubernetes-archive-keyring.gpg_amored
+  tags: [kubernetes, kubeadm]
+
+- name: Install kubernetes GPG key
+  become: true
+  become_user: root
+  shell: cat /tmp/kubernetes-archive-keyring.gpg_amored | gpg --dearmor --yes -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+  tags: [kubernetes, kubeadm]
+
+- name: Delete old kubernetes repository file
+  become: true
+  become_user: root
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: absent
+  tags: [kubernetes, kubeadm]
+
+- name: Add new Kubernetes apt repository
+  become: true
+  become_user: root
+  apt_repository:
+    filename: kubernetes
+    repo: "{{ kubernetes_apt_repository }}"
+    state: present
+    update_cache: yes
+  tags: [kubernetes, kubeadm]
+
+- name: Install kubeadm, kubelet and kubectl
+  become: true
+  become_user: root
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - kubeadm
+    - kubelet
+    - kubectl
+  tags: [kubernetes, kubeadm]
+
+- name: Hold kubeadm, kubelet and kubectl
+  become: true
+  become_user: root
+  ansible.builtin.dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  with_items:
+    - kubeadm
+    - kubelet
+    - kubectl
+  tags: [kubernetes, kubeadm]

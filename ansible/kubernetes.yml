@@ -1,0 +1,5 @@
+# This rule prepares the kubernetes cluster for the kubeadm init command
+---
+- hosts: k8s
+  roles:
+    - kubernetes

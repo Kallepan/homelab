@@ -1,0 +1,19 @@
+# Setup tasks 
+
+- name: Create /etc/apt/keyrings directory
+  become: true
+  become_user: root
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: 0755
+  tags: [kubernetes, kubeadm]
+
+- name: Ensure containerd config directory exists
+  become: true
+  become_user: root
+  file:
+    path: /etc/containerd
+    state: directory
+    mode: 0755
+  tags: [kubernetes, containerd]

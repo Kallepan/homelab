@@ -1,6 +1,6 @@
 # Installs the packages listed in the variable `common_packages`
 
-- name: Install packages
+- name: Install common packages
   apt:
     name: "{{ common_packages }}"
     state: present

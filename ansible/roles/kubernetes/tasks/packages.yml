@@ -1,0 +1,10 @@
+# Install the necessary packages for Kubernetes
+
+- name: Install Kubernetes packages
+  become: true
+  become_user: root
+  apt:
+    name: "{{ kubernetes_packages }}"
+    state: present
+    update_cache: yes
+  tags: [kubernetes, packages]

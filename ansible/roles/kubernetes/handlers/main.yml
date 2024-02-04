@@ -1,0 +1,6 @@
+#
+- name: apply sysctl settings
+  become: true
+  become_user: root
+  command: /sbin/sysctl --system
+  

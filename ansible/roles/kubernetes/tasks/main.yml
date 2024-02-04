@@ -1,0 +1,8 @@
+---
+- include_tasks: preflight.yml
+- include_tasks: swapoff.yml
+- include_tasks: update.yml
+- include_tasks: kernel_modules.yml
+- include_tasks: packages.yml
+- include_tasks: containerd.yml
+- include_tasks: kubernetes.yml

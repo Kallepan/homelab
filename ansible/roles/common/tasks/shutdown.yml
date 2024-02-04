@@ -1,0 +1,6 @@
+# shutdown nodes
+
+- name: Shutdown nodes
+  become: true
+  become_user: root
+  command: shutdown -h now

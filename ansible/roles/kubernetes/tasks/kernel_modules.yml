@@ -1,0 +1,45 @@
+# Set the kernel modules to be loaded on boot
+
+- name: Create the modules-load.d directory
+  become: true
+  become_user: root
+  file:
+    path: /etc/modules-load.d
+    state: directory
+  tags: [kubernetes, kernel]
+
+- name: Set the kernel modules to be loaded on boot
+  become: true
+  become_user: root
+  lineinfile:
+    create: true
+    dest: /etc/modules-load.d/containerd.conf
+    line: "{{ item }}"
+  with_items: "{{ kernel_modules }}"
+  tags: [kubernetes, kernel]
+
+- name: Load the kernel modules
+  become: true
+  become_user: root
+  command: /sbin/modprobe {{ item }}
+  with_items: "{{ kernel_modules }}"
+  tags: [kubernetes, kernel]
+
+- name: Create the sysctl.d directory
+  become: true
+  become_user: root
+  file:
+    path: /etc/sysctl.d
+    state: directory
+  tags: [kubernetes, kernel]
+
+- name: Enable sysctl settings
+  become: true
+  become_user: root
+  lineinfile:
+    create: true
+    dest: /etc/sysctl.d/99-kubernetes-cri.conf
+    line: "{{ item }}"
+  with_items: "{{ kernel_sysctl }}"
+  tags: [kubernetes, kernel]
+  notify: apply sysctl settings
