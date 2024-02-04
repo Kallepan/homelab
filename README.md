@@ -23,10 +23,9 @@ This repository contains all of the configuration files and scripts I use to man
 - .devcontainer: VSCode devcontainer configuration
 - ansible: Ansible playbooks, roles, and inventories
 - clusters: Kubernetes cluster configuration files used by Flux to manage clusters
-- databases: Docker Compose files for databases used in my homelab
-- docker: Docker Compose files for other services used in my homelab
+- docker: Docker Compose files for services running on docker (e.g. databases, apps)
 - docs: Collection of Markdown files for documentation
-- kubernetes: Kubernetes manifests, values files (for Helm)
+- kubernetes: Kubernetes manifests, values files (for Helm) and flux gitops configuration
 - scripts: Scripts for various tasks
 - ssh: SSH configuration files such as keys and config files
 - ssl: SSL certificates and keys (a small PKI)
