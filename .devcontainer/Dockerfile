@@ -19,7 +19,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     python3-wheel \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+    && rm kubectl
+
 # Install python dependencies
 RUN pip3 install --no-cache-dir \
     ansible \
+    ansible-lint \
     cryptography
