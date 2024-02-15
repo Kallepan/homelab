@@ -5,16 +5,16 @@ NAMESPACE=mibi
 SERVICE_ACCOUNT=mibi
 SECRET_NAME=${SERVICE_ACCOUNT}-token
 
+ROLE=${SERVICE_ACCOUNT}-role
+
 # Target cluster 
-SERVER=https://192.168.21.137:6443
+SERVER=https://srv-k8s-1.labmed.de:6443
+CLUSTER_NAME=srv-k8s-1
 
 # Path to kubeconfigs
 ADMIN_KUBE_CONFIG=/Users/kalle/.kube/dev.yaml
 OUTPUT_KUBE_CONFIG=/Users/kalle/.kube/mibi.yaml
 #### End Variables ####
-
-# Fetch variables from the admin kubeconfig
-CLUSTER_NAME=$(kubectl --kubeconfig=$ADMIN_KUBE_CONFIG config view -o jsonpath='{.clusters[0].name}')
 
 # Create the namespace
 kubectl create namespace $NAMESPACE --kubeconfig=$ADMIN_KUBE_CONFIG
@@ -41,7 +41,6 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: ${SECRET_NAME}
-  namespace: ${NAMESPACE}
   annotations:
     kubernetes.io/service-account.name: ${SERVICE_ACCOUNT}
 type: kubernetes.io/service-account-token
@@ -51,12 +50,15 @@ type: kubernetes.io/service-account-token
 # use sed to replace the namespace 
 sed -i '' "s/namespace: default/namespace: $NAMESPACE/g" role.yaml
 # use sed to replace the role name
-sed -i '' "s/name: default/name: $SERVICE_ACCOUNT/g" role.yaml
+sed -i '' "s/name: default/name: $ROLE/g" role.yaml
 ### End Replacements ###
 
-sed -i '' "s/
 # Create the role using role.yaml
 kubectl --kubeconfig=$ADMIN_KUBE_CONFIG apply -f role.yaml
+
+# reset
+sed -i '' "s/namespace: $NAMESPACE/namespace: default/g" role.yaml
+sed -i '' "s/name: $ROLE/name: default/g" role.yaml
 
 # Apply the binding
 echo "
@@ -71,7 +73,7 @@ subjects:
   name: ${SERVICE_ACCOUNT}
 roleRef:
   kind: Role
-  name: ${SERVICE_ACCOUNT}-role
+  name: ${ROLE}
   apiGroup: rbac.authorization.k8s.io
 " | kubectl apply --kubeconfig=$ADMIN_KUBE_CONFIG -f -
 

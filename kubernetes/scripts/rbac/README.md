@@ -8,8 +8,9 @@ Create a namespace and user for the mibi group. The user should have access to t
 - kubectl
 - kubeconfig to existing cluster
 - variables defined in the bash script:
-    - `NAMESPACE`
-    - `SERVICE_ACCOUNT`
-    - `SERVER`
-    - `ADMIN_KUBE_CONFIG`
-    - `OUTPUT_KUBE_CONFIG`
+    - `NAMESPACE` - the name of the namespace
+    - `SERVICE_ACCOUNT` - the name of the service account
+    - `SECRET_NAME` - the name of the secret e.g. token
+    - `SERVER` - the server address for the cluster
+    - `ADMIN_KUBE_CONFIG` - the kubeconfig file for the admin
+    - `OUTPUT_KUBE_CONFIG` - the kubeconfig file for the user
