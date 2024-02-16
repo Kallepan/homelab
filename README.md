@@ -12,6 +12,7 @@
 
 - 10.0.0.0/16: `lan-0`
 - 10.1.0.0/16: `lan-1`
+- 10.244.0.0/16: `reserved` kubernetes cluster
 - 172.16.0.0/12: `internal` not provisioned yet
 
 ## Description
