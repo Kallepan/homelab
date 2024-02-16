@@ -22,4 +22,5 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # Install python dependencies
 RUN pip3 install --no-cache-dir \
     ansible \
+    ansible-lint \
     cryptography

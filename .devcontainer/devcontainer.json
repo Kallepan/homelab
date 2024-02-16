@@ -30,7 +30,10 @@
 				"GitHub.copilot-chat",
 				"ms-kubernetes-tools.vscode-kubernetes-tools",
 				"redhat.ansible"
-			]
+			],
+			"settings": {
+				"ansible.python.interpreterPath": "/bin/python3"
+			}
 		}
 	}
 
