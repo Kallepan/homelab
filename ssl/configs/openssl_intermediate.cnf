@@ -53,7 +53,7 @@ stateOrProvinceName_default = NRW
 localityName_default = Essen
 0.organizationName_default = Homelab
 organizationalUnitName_default = Kalle
-commonName_default = srv-kasm-1.server.io
+commonName_default = nas-1.server.io
 emailAddress_default = kajeepan.kandeepan@gmail.com
 
 [ v3_intermediate_ca ]                                      # Intermediate CA certificate extensions

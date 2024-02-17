@@ -1,6 +1,10 @@
 #!/bin/bash
 
-DOMAIN_NAME=srv-kasm-1.server.io
+# Rename to your domain name
+DOMAIN_NAME=nas-1.server.io
+
+# create
+echo configs/${DOMAIN_NAME}.cnf
 
 # Step 3
 
