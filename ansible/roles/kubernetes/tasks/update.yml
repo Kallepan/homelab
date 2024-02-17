@@ -1,9 +1,9 @@
 # Updates packages to the latest version
 
 - name: Update all packages
-  apt:
-    upgrade: yes
-    update_cache: yes
+  ansible.builtin.apt:
+    upgrade: true
+    update_cache: true
   become: true
   become_user: root
   tags: [common, packages]

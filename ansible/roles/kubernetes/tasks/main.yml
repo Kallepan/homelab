@@ -1,8 +1,17 @@
 ---
-- include_tasks: preflight.yml
-- include_tasks: swapoff.yml
-- include_tasks: update.yml
-- include_tasks: kernel_modules.yml
-- include_tasks: packages.yml
-- include_tasks: containerd.yml
-- include_tasks: kubernetes.yml
+- name: Include preflight tasks
+  ansible.builtin.include_tasks: preflight.yml
+- name: Include swapoff tasks
+  ansible.builtin.include_tasks: swapoff.yml
+- name: Include update tasks
+  ansible.builtin.include_tasks: update.yml
+- name: Include kernel modules tasks
+  ansible.builtin.include_tasks: kernel_modules.yml
+- name: Include packages tasks
+  ansible.builtin.include_tasks: packages.yml
+- name: Include containerd tasks
+  ansible.builtin.include_tasks: containerd.yml
+- name: Include kubernetes tasks
+  ansible.builtin.include_tasks: kubernetes.yml
+- name: Include kube_vip tasks
+  ansible.builtin.include_tasks: kube_vip.yml

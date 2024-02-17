@@ -1,0 +1,48 @@
+# Generate the kube-vip manifest adapted from the official documentation:
+# https://kube-vip.io/hot-takes/manifests/
+---
+- name: Pull kube-vip image
+  ansible.builtin.command: "ctr image pull ghcr.io/kube-vip/kube-vip:{{ kubernetes_kvversion }}"
+  become: true
+  become_user: root
+  when: inventory_hostname == "k8s-master-1"
+  tags: [kubernetes, kube-vip]
+  register: kube_vip_image
+  changed_when: kube_vip_image.stdout != 0
+
+- name: Generate the kube-vip manifest
+  become: true
+  become_user: root
+  ansible.builtin.command: |
+    ctr run --rm --net-host ghcr.io/kube-vip/kube-vip:{{ kubernetes_kvversion }} vip /kube-vip \
+    manifest pod \
+    --interface {{ kubernetes_interface }} \
+    --address {{ kubernetes_vip }} \
+    --controlplane \
+    --services \
+    --arp \
+    --leaderElection
+  register: kube_vip_manifest
+  changed_when: kube_vip_manifest.stdout != ""
+  when: inventory_hostname == "k8s-master-1"
+  tags: [kubernetes, kube-vip]
+
+- name: Write kube-vip manifest
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    content: "{{ kube_vip_manifest.stdout }}"
+    dest: /etc/kubernetes/manifests/kube-vip.yaml
+    mode: "0644"
+  when: inventory_hostname == "k8s-master-1"
+  tags: [kubernetes, kube-vip]
+
+# The following is necessary on kubernetes 1.29 for now. Uncomment this and then run kubeadm init.
+# Afterwards undo the following change and now you can use the kube-vip manifest as is.
+# - name: Modify kube-vip manifest
+#   become: true
+#   become_user: root
+#   ansible.builtin.command: "sed -i 's#path: /etc/kubernetes/admin.conf#path: /etc/kubernetes/super-admin.conf#' /etc/kubernetes/manifests/kube-vip.yaml"
+#   when: inventory_hostname == "k8s-master-1"
+#   tags: [kubernetes, kube-vip]
+#   changed_when: false

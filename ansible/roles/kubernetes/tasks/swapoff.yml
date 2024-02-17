@@ -3,11 +3,11 @@
 - name: Check if /etc/fstab exists
   become: true
   become_user: root
-  stat:
+  ansible.builtin.stat:
     path: "/etc/fstab"
-    get_attributes: no
-    get_checksum: no
-    get_mime: no
+    get_attributes: false
+    get_checksum: false
+    get_mime: false
   register: fstab_file
   tags: [kubernetes, swapoff]
 
@@ -35,5 +35,7 @@
 - name: Disable swap
   become: true
   become_user: root
-  command: /sbin/swapoff -a
+  ansible.builtin.command: /sbin/swapoff -a
   tags: [kubernetes, swapoff]
+  register: swapoff_output
+  changed_when: swapoff_output.stdout != 0

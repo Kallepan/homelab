@@ -11,7 +11,6 @@ source venv bin activate
 pip install -r requirements.txt
 
 # Or spawn a dev container
-code .
 ```
 
 ## How to run

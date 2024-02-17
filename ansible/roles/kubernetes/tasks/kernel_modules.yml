@@ -3,43 +3,49 @@
 - name: Create the modules-load.d directory
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     path: /etc/modules-load.d
     state: directory
+    mode: "0644"
   tags: [kubernetes, kernel]
 
 - name: Set the kernel modules to be loaded on boot
   become: true
   become_user: root
-  lineinfile:
+  ansible.builtin.lineinfile:
     create: true
     dest: /etc/modules-load.d/containerd.conf
     line: "{{ item }}"
-  with_items: "{{ kernel_modules }}"
+    mode: "0644"
+  with_items: "{{ kubernetes_kernel_modules }}"
   tags: [kubernetes, kernel]
 
 - name: Load the kernel modules
   become: true
   become_user: root
-  command: /sbin/modprobe {{ item }}
-  with_items: "{{ kernel_modules }}"
+  ansible.builtin.command: /sbin/modprobe {{ item }}
+  with_items: "{{ kubernetes_kernel_modules }}"
   tags: [kubernetes, kernel]
+  register: modprobe_output
+  changed_when: modprobe_output.stdout != 0
 
 - name: Create the sysctl.d directory
   become: true
   become_user: root
-  file:
+  ansible.builtin.file:
     path: /etc/sysctl.d
     state: directory
+    mode: "0644"
   tags: [kubernetes, kernel]
 
 - name: Enable sysctl settings
   become: true
   become_user: root
-  lineinfile:
+  ansible.builtin.lineinfile:
     create: true
     dest: /etc/sysctl.d/99-kubernetes-cri.conf
     line: "{{ item }}"
-  with_items: "{{ kernel_sysctl }}"
+    mode: "0644"
+  with_items: "{{ kubernetes_kernel_sysctl }}"
   tags: [kubernetes, kernel]
   notify: apply sysctl settings
