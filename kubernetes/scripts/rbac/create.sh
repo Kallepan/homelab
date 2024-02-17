@@ -1,20 +1,22 @@
 #!/bin/bash
 
 #### Variables ####
-NAMESPACE=mibi
-SERVICE_ACCOUNT=mibi
+NAMESPACE=
+SERVICE_ACCOUNT=
 SECRET_NAME=${SERVICE_ACCOUNT}-token
 
 ROLE=${SERVICE_ACCOUNT}-role
 
 # Target cluster 
-SERVER=https://srv-k8s-1.labmed.de:6443
-CLUSTER_NAME=srv-k8s-1
+SERVER=
 
 # Path to kubeconfigs
-ADMIN_KUBE_CONFIG=/Users/kalle/.kube/dev.yaml
-OUTPUT_KUBE_CONFIG=/Users/kalle/.kube/mibi.yaml
+ADMIN_KUBE_CONFIG=
+OUTPUT_KUBE_CONFIG=
 #### End Variables ####
+
+# Fetch variables from the admin kubeconfig
+CLUSTER_NAME=$(kubectl --kubeconfig=$ADMIN_KUBE_CONFIG config view -o jsonpath='{.clusters[0].name}')
 
 # Create the namespace
 kubectl create namespace $NAMESPACE --kubeconfig=$ADMIN_KUBE_CONFIG
