@@ -8,15 +8,13 @@ SECRET_NAME=${SERVICE_ACCOUNT}-token
 ROLE=${SERVICE_ACCOUNT}-role
 
 # Target cluster 
-SERVER=
+SERVER= # e.g: https://srv-k8s-1.labmed.de:6443
+CLUSTER_NAME= # e.g.: srv-k8s-1
 
 # Path to kubeconfigs
 ADMIN_KUBE_CONFIG=
 OUTPUT_KUBE_CONFIG=
 #### End Variables ####
-
-# Fetch variables from the admin kubeconfig
-CLUSTER_NAME=$(kubectl --kubeconfig=$ADMIN_KUBE_CONFIG config view -o jsonpath='{.clusters[0].name}')
 
 # Create the namespace
 kubectl create namespace $NAMESPACE --kubeconfig=$ADMIN_KUBE_CONFIG
@@ -43,8 +41,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: ${SECRET_NAME}
+  namespace: ${NAMESPACE}
   annotations:
     kubernetes.io/service-account.name: ${SERVICE_ACCOUNT}
+    kubernetes.io/service-account.namespace: ${NAMESPACE}
 type: kubernetes.io/service-account-token
 " | kubectl apply --kubeconfig=$ADMIN_KUBE_CONFIG -f -
 
