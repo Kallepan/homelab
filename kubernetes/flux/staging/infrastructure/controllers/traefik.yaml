@@ -22,6 +22,7 @@ metadata:
   namespace: traefik-system
 spec:
   interval: 10m
+  timeout: 5m
   chart:
     spec:
       chart: traefik
