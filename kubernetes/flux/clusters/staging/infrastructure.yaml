@@ -50,7 +50,7 @@ spec:
   patches:
     - patch: |
         - op: replace
-          path: /spec/adresses
+          path: /spec/addresses
           value:
             - 10.0.255.128-10.0.255.254
       target:
