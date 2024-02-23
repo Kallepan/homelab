@@ -6,3 +6,4 @@ resources:
   - pvc.yaml
   - ingress.yaml
   - cert.yaml
+  - namespace.yaml
