@@ -34,7 +34,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-namespace
+  name: infra-configs
   namespace: flux-system
 spec:
   dependsOn:
@@ -47,3 +47,12 @@ spec:
     name: flux-system
   path: ./kubernetes/flux/infrastructure/configs
   prune: true
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/adresses
+          value:
+            - 10.0.255.128-10.0.255.254
+      target:
+        kind: IPAddressPool
+        name: main-pool
