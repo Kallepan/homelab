@@ -56,3 +56,12 @@ spec:
       target:
         kind: IPAddressPool
         name: main-pool
+    - patch: |
+        - op: replace
+          path: /spec/dnsNames
+          value:
+            - '*.srv-k3s.server.io'
+      target:
+        kind: Certificate
+        name: traefik-cert
+        namespace: traefik-system

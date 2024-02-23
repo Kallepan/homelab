@@ -1,0 +1,85 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: traefik-system
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: traefik
+  namespace: traefik-system
+spec:
+  interval: 24h
+  url: https://traefik.github.io/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik-system
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: traefik
+      version: 26.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+        namespace: traefik-system
+  values:
+    ingressRoute:
+      dashboard:
+        enabled: true
+        entryPoints:
+          - websecure
+        matchRule: Host(`traefik.srv-k3s.server.io`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+        tls:
+          secretName: traefik-tls
+    globalArguments:
+      - '--global.sendanonymoususage=false'
+      - '--global.checknewversion=false'
+    logs:
+      general:
+        level: ERROR
+    ports:
+      ssh:
+        expose: true
+        exposedPort: 22
+        port: 2222
+        protocol: TCP
+      metrics:
+        expose: false
+        exposedPort: 9100
+        port: 9100
+        protocol: TCP
+      traefik:
+        expose: false
+        exposedPort: 9000
+        port: 9000
+        protocol: TCP
+      web:
+        expose: true
+        exposedPort: 80
+        port: 8000
+        protocol: TCP
+      websecure:
+        expose: true
+        exposedPort: 443
+        http3:
+          enabled: false
+        middlewares: []
+        port: 8443
+        protocol: TCP
+        tls:
+          certResolver: ''
+          domains: []
+          enabled: true
+          options: ''
+    service:
+      type: LoadBalancer
+      spec:
+        loadBalancerIP: 10.0.255.128

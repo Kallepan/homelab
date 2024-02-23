@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - metallb-pools.yaml
+  - traefik-cert.yaml
