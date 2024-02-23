@@ -10,4 +10,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - ''
+    - traefik.srv-k3s.server.io

@@ -11,7 +11,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./kubernetes/flux/infrastructure/controllers
+  path: ./kubernetes/flux/staging/infrastructure/controllers
   prune: true
   wait: true
 ---
@@ -27,7 +27,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./kubernetes/flux/infrastructure/crds
+  path: ./kubernetes/flux/staging/infrastructure/crds
   prune: true
   wait: true
 ---
@@ -45,31 +45,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./kubernetes/flux/infrastructure/configs
+  path: ./kubernetes/flux/staging/infrastructure/configs
   prune: true
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/addresses
-          value:
-            - 10.0.255.128-10.0.255.254
-      target:
-        kind: IPAddressPool
-        name: main-pool
-    - patch: |
-        - op: replace
-          path: /spec/dnsNames
-          value:
-            - '*.srv-k3s.server.io'
-      target:
-        kind: Certificate
-        name: traefik-cert
-        namespace: traefik-system
-    - patch: |
-        - op: replace
-          path: spec/values/service/spec/loadBalancerIP
-          value: 10.0.255.128
-      target:
-        kind: HelmRelease
-        name: traefik
-        namespace: traefik-system
