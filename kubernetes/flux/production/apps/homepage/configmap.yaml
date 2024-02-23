@@ -71,21 +71,17 @@ data:
     - Git:
       - GitLab:
           description: GitLab is a complete DevOps platform.
-          href: https://gitlab.srv-k8s.server.io/
+          href: https://gitlab.server.io/
           icon: gitlab.png
-      - GitLab minio:
-          description: Minio used by GitLab for object storage.
-          href: https://minio.srv-k8s.server.io/
-          icon: minio.png
       - Registry:
           description: GitLab Container Registry is a secure and private registry for
             Docker images.
-          href: https://registry.srv-k8s.server.io/
+          href: https://registry.gitlab.server.io/
           icon: gitlab.png
       - Pages:
           description: GitLab Pages is a static site hosting service. This is an example
             of a static site hosted on GitLab Pages.
-          href: https://kalle.pages.srv-k8s.server.io/landing/public/index.html
+          href: https://pages.gitlab.server.io/landing/public/index.html
           icon: gitlab.png
     - Monitoring:
       - Traefik Kubernetes Production:
@@ -108,16 +104,6 @@ data:
           description: Dozzle is a simple container log viewer for Docker.
           href: https://dozzle.srv-docker-1.server.io/
           icon: dozzle.png
-      - K3S Monitoring:
-          description: Grafana is a multi-platform open source analytics and interactive
-            visualization web application.
-          href: https://monitoring.srv-k3s.server.io/
-          icon: grafana.png
-      - K8S Monitoring:
-          description: Grafana is a multi-platform open source analytics and interactive
-            visualization web application.
-          href: https://monitoring.srv-k8s.server.io/
-          icon: grafana.png
     - Docs:
       - Wiki:
           description: Mediawiki is a free and open-source wiki software.
