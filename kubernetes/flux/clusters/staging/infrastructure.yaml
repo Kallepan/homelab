@@ -65,3 +65,11 @@ spec:
         kind: Certificate
         name: traefik-cert
         namespace: traefik-system
+    - patch: |
+        - op: replace
+          path: spec/values/service/spec/loadBalancerIP
+          value: 10.0.255.128
+      target:
+        kind: HelmRelease
+        name: traefik
+        namespace: traefik-system
