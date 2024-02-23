@@ -8,14 +8,14 @@ spec:
   chart:
     spec:
       chart: vault
-      version: "1.15.x"
+      version: "0.27.x"
       sourceRef:
         kind: HelmRepository
-        name: vault
+        name: hashicorp
         namespace: vault
       interval: 12h
   values:
-    global:
+    server:
       dataStorage:
         enabled: true
         size: 10Gi
