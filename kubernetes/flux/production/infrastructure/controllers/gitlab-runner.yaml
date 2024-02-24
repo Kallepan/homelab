@@ -42,11 +42,12 @@ spec:
     gitlabUrl: https://gitlab.server.io
     rbac:
       create: "true"
+    concurrent: 10
     runners:
       secret: gitlab-runner-secret
       config: |
-        concurrent = 4
         [[runners]]
           [runners.kubernetes]
+            privileged = true
             image = "ubuntu:22.04"
     certsSecretName: gitlab-runner-certs
