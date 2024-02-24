@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mirth_connect:
+    container_name: mirth_connect
+    image: nextgenhealthcare/connect:latest
+    environment:
+      DATABASE: postgres
+      DATABASE_URL: jdbc:postgresql://srv-docker-2.server.io:5432/mirth_db
+      DATABASE_USERNAME: mirth_db
+      DATABASE_PASSWORD: CHANGEME
+      KEYSTORE_KEYPASS: CHANGEME
+      KEYSTORE_STOREPASS: CHANGEME
+    ports:
+      - "8080:8080/tcp"
+      - "8443:8443/tcp"
+    volumes:
+      - /srv/mirth/extensions:/opt/connect/custom-extensions
+      - /srv/mirth/:/opt/connect/appdata
+    restart: unless-stopped
