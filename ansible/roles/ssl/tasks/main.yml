@@ -1,10 +1,6 @@
 ---
-- name: Check if root CA certificate exists
-  become: false
-  local_action: "stat path={{ install_root_cert_pem }}"
-  register: result
-  failed_when: not result.stat.exists
+- name: Include Preparation Tasks
+  ansible.builtin.include_tasks: prepare.yml
 
-- import_tasks: prepare.yml
-- import_tasks: install.yml
-- import_tasks: configure.yml
+- name: Include Installation Tasks
+  ansible.builtin.include_tasks: install.yml

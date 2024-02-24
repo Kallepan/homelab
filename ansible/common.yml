@@ -1,5 +1,6 @@
 ---
-- hosts: all
-  become: yes
+- name: Common Setup Tasks
+  hosts: all:!bastion
+  become: true
   roles:
     - role: common

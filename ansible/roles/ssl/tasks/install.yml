@@ -1,12 +1,15 @@
 ---
 - name: Copy the certificate
-  copy:
-    src: "{{ install_root_cert_pem }}"
-    dest: /usr/local/share/ca-certificates/{{ root_cert_name }}
+  ansible.builtin.copy:
+    src: "{{ ssl_install_root_cert_pem }}"
+    dest: /usr/local/share/ca-certificates/{{ ssl_root_cert_name }}
+    mode: '0644'
   register: copy_result
 
-- name: Check if the certificate exists
-  stat:
-    path: /usr/local/share/ca-certificates/{{ root_cert_name }}
+- name: Check if the certificate was copied
+  ansible.builtin.stat:
+    path: /usr/local/share/ca-certificates/{{ ssl_root_cert_name }}
   register: stat_result
-  failed_when: not stat_result.stat.exists
+  failed_when: stat_result.stat.exists == False
+  changed_when: copy_result.changed == True
+  notify: Update CA Trust

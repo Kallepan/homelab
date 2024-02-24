@@ -1,6 +1,6 @@
 ---
-- hosts: all
-  become: yes
+- name: Install SSL Certificates
+  hosts: all
+  become: true
   roles:
     - role: ssl
-

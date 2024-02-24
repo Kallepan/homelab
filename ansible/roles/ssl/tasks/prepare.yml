@@ -1,10 +1,11 @@
 ---
 - name: Make sure the ca-certificates folder exists
-  file:
+  ansible.builtin.file:
     path: /usr/local/share/ca-certificates
     state: directory
+    mode: '0755'
 
 - name: Make sure ca-certificates package is installed
-  apt:
+  ansible.builtin.apt:
     name: ca-certificates
     state: present
