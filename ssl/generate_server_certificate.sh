@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Rename to your domain name
-DOMAIN_NAME=nas-1.server.io
+DOMAIN_NAME=pages.server.io
 
 # create
 echo configs/${DOMAIN_NAME}.cnf
