@@ -36,7 +36,7 @@ data:
             running on Linux or Windows servers.
           href: https://srv-kasm-1.server.io/
           icon: kasm.png
-    - Containers:
+    - Management:
       - Rancher:
           description: Rancher is a complete software stack for teams adopting containers.
           href: https://rancher.server.io
@@ -68,6 +68,10 @@ data:
           description: TrueNAS is the world's #1 Open Source storage OS.
           href: https://nas-1.server.io/
           icon: truenas.png
+      - Semaphore:
+          description: Sempahore is a self-hosted ansible web UI.
+          href: https://semaphore.srv-docker-1.server.io/
+          icon: semaphore.png
     - Git:
       - GitLab:
           description: GitLab is a complete DevOps platform.
@@ -76,12 +80,12 @@ data:
       - Registry:
           description: GitLab Container Registry is a secure and private registry for
             Docker images.
-          href: https://registry.gitlab.server.io/
+          href: https://gitlab.server.io:5050/
           icon: gitlab.png
       - Pages:
           description: GitLab Pages is a static site hosting service. This is an example
             of a static site hosted on GitLab Pages.
-          href: https://pages.gitlab.server.io/landing/public/index.html
+          href: https://pages.server.io/landing/public/index.html
           icon: gitlab.png
     - Monitoring:
       - Traefik Kubernetes Production:
@@ -109,23 +113,11 @@ data:
           description: Mediawiki is a free and open-source wiki software.
           href: https://wiki.srv-docker-1.server.io/
           icon: mediawiki.png
-    - Misc:
-      - Semaphore:
-          description: Sempahore is a self-hosted ansible web UI.
-          href: https://semaphore.srv-docker-1.server.io/
-          icon: semaphore.png
-      - MeTube:
-          description: MeTube is a self-hosted youtube downloader.
-          href: https://metube.srv-docker-1.server.io/
-          icon: metube.png
-      - Mealie:
-          description: Mealie is a self-hosted recipe manager and meal planner.
-          href: https://mealie.srv-docker-1.server.io
-          icon: mealie.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
           href: https://it-tools.srv-docker-1.server.io/
           icon: it-tools.png
+    - Security:
       - Keycloak:
           description: Keycloak is an open source identity and access management solution.
           href: https://keycloak.srv-docker-1.server.io/
@@ -134,6 +126,15 @@ data:
           description: Vault is a tool for securely accessing secrets.
           href: https://vault.srv-k8s.server.io/
           icon: vault.png
+    - Misc:
+      - MeTube:
+          description: MeTube is a self-hosted youtube downloader.
+          href: https://metube.srv-docker-1.server.io/
+          icon: metube.png
+      - Mealie:
+          description: Mealie is a self-hosted recipe manager and meal planner.
+          href: https://mealie.srv-docker-1.server.io
+          icon: mealie.png
   custom.css: ''
   custom.js: ''
   settings.yaml: |
@@ -152,7 +153,7 @@ data:
         icon: netboot.png
         style: row
         columns: 4
-      Containers:
+      Management:
         header: true
         icon: docker.png
         style: row
@@ -175,6 +176,11 @@ data:
       Git:
         header: true
         icon: git.png
+        style: row
+        columns: 4
+      Security:
+        header: true
+        icon: hashicorp.png
         style: row
         columns: 4
       Misc:
