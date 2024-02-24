@@ -50,6 +50,12 @@ data:
           description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
           href: https://argocd.srv-k8s.server.io
           icon: argocd.png
+      - Netboot XYZ:
+          description: Netboot.xyz is a way to PXE boot various operating system installers
+            or utilities from one place within the BIOS without the need of having to
+            go retrieve the media to run the tool.
+          href: https://netboot.srv-docker-1.server.io/
+          icon: netboot.png
     - Storage:
       - Adminer:
           description: Adminer is a full-featured database management tool.

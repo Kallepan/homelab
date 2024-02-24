@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  netbootxyz:
+    container_name: netbootxyz
+    image: lscr.io/linuxserver/netbootxyz:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PORT_RANGE=30000-30010
+      - SUBFOLDER=/
+    volumes:
+      - /srv/netbootxyz/config:/config
+      - /srv/netbootxyz/assets:/assets
+    ports:
+      - 3000:3000
+      - 69:69/udp
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.netbootxyz.entrypoints=websecure
+      - traefik.http.routers.netbootxyz.rule=Host(`netbootxyz.srv-docker-1.server.io`)
+      - traefik.http.routers.netbootxyz.tls=true
+      - traefik.http.services.netbootxyz.loadbalancer.server.port=80
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik_default
+networks:
+  traefik_default:
+    external: true
