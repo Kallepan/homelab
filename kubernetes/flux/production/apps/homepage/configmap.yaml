@@ -121,7 +121,7 @@ data:
           icon: mediawiki.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
-          href: https://it-tools.srv-docker-1.server.io/
+          href: https://it-tools.srv-k8s.server.io/
           icon: it-tools.png
     - Security:
       - Keycloak:
