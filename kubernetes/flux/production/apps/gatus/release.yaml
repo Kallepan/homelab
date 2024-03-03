@@ -39,7 +39,28 @@ spec:
       storage:
         type: sqlite
         path: /data/data.db
-      endpoints: []
+      endpoints:
+        - name: Rancher
+          url: https://rancher.srv-k8s.server.io
+          client:
+            insecure: true
+            timeout: 5s
+          conditions:
+            - "[STATUS] == 200"
+        - name: GitLab
+          url: https://gitlab.srv-k8s.server.io
+          client:
+            insecure: true
+            timeout: 5s
+          conditions:
+            - "[STATUS] == 200"
+        - name: Gatus
+          url: https://gatus.srv-k8s.server.io
+          client:
+            insecure: true
+            timeout: 5s
+          conditions:
+            - "[STATUS] == 200"
       ui:
         title: Gatus
         description: "Gatus is a simple service health checker."
