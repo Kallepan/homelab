@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gatus
+  namespace: gatus
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gatus
+      version: "3.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: gatus
+        namespace: gatus
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    persistence:
+      enabled: true
+      size: 200Mi
+      accessModes: [ReadWriteOnce]
+      storageClassName: longhorn
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      hosts: ["gatus.srv-k8s.server.io"]
+      tls:
+        - secretName: gatus-tls
+          hosts:
+            - gatus.srv-k8s.server.io

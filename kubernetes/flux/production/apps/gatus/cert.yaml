@@ -1,0 +1,14 @@
+# This is a sample file on how to create a tls certificate in a namespace
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gatus-cert
+  namespace: gatus
+spec:
+  secretName: gatus-tls
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - gatus.srv-k8s.server.io

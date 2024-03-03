@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: gatus
+  namespace: gatus
+spec:
+  interval: 30m
+  url: https://minicloudlabs.github.io/helm-charts
+  timeout: 3m
