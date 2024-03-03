@@ -35,3 +35,11 @@ spec:
         - secretName: gatus-tls
           hosts:
             - gatus.srv-k8s.server.io
+    config:
+      storage:
+        type: sqlite
+        path: /data/data.db
+      endpoints: []
+      ui:
+        title: Gatus
+        description: "Gatus is a simple service health checker."
