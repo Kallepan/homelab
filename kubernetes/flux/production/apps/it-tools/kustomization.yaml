@@ -7,3 +7,5 @@ resources:
   - service.yaml
   - ingress.yaml
   - cert.yaml
+  - secret.yaml
+  - serviceaccount.yaml
