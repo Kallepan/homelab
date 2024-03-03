@@ -7,6 +7,10 @@ metadata:
   labels:
     app.kubernetes.io/name: it-tools
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: it-tools
+  replicas: 1
   template:
     metadata:
       labels:
