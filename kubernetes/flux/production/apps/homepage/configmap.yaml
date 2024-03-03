@@ -107,9 +107,9 @@ data:
           href: https://traefik.srv-docker-1.server.io/
           icon: traefik.png
       - Uptime Kuma:
-          description: Uptime Kuma is a fancy self-hosted monitoring tool.
-          href: https://uptime.srv-k8s.server.io/
-          icon: uptime-kuma.png
+          description: Gatus is a simple service health dashboard for your infrastructure.
+          href: https://gatus.srv-k8s.server.io/
+          icon: gatus.png
       - Dozzle:
           description: Dozzle is a simple container log viewer for Docker.
           href: https://dozzle.srv-docker-1.server.io/
