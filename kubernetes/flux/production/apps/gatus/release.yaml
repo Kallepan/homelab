@@ -40,15 +40,29 @@ spec:
         type: sqlite
         path: /data/data.db
       endpoints:
+        - name: PfSense
+          url: "icmp://10.0.0.1"
+          interval: 5m
+          conditions:
+            - "[CONNECTED] == true"
+        - name: DNS
+          url: 10.0.0.1
+          interval: 5m
+          dns:
+            query-name: srv-k8s.server.io
+            query-type: A
+          conditions:
+            - "[BODY] == 10.0.255.0"
+            - "[DNS_RCODE] == NOERROR"
         - name: Rancher
-          url: https://rancher.srv-k8s.server.io
+          url: https://rancher.server.io
           client:
             insecure: true
             timeout: 5s
           conditions:
             - "[STATUS] == 200"
         - name: GitLab
-          url: https://gitlab.srv-k8s.server.io
+          url: https://gitlab.server.io
           client:
             insecure: true
             timeout: 5s

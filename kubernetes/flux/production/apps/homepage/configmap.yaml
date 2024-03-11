@@ -106,7 +106,7 @@ data:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
           href: https://traefik.srv-docker-1.server.io/
           icon: traefik.png
-      - Uptime Kuma:
+      - Gatus:
           description: Gatus is a simple service health dashboard for your infrastructure.
           href: https://gatus.srv-k8s.server.io/
           icon: gatus.png
