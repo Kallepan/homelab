@@ -43,11 +43,18 @@ spec:
     rbac:
       create: "true"
     concurrent: 10
+    secrets:
+      - name: gitlab-runner-ca-secret
+        mountPath: /etc/gitlab-runner/certs
     runners:
       secret: gitlab-runner-secret
       config: |
         [[runners]]
           [runners.kubernetes]
             privileged = true
-            image = "ubuntu:22.04"
+            image = "ubuntu:latest"
+          [[runners.kubernetes.volumes.secret]]
+            name = "gitlab-runner-ca-secret"
+            mount_path = "/etc/gitlab-runner/certs"
+            read_only = true
     certsSecretName: gitlab-runner-certs
