@@ -54,6 +54,13 @@ spec:
           conditions:
             - "[BODY] == 10.0.255.0"
             - "[DNS_RCODE] == NOERROR"
+        - name: Argo CD
+          url: https://argocd.srv-k8s.server.io
+          client:
+            insecure: true
+            timeout: 5s
+          conditions:
+            - "[STATUS] == 200"
         - name: Rancher
           url: https://rancher.server.io
           client:
