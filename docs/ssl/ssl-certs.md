@@ -8,15 +8,15 @@ X.509 is an ITU standard defining the format of public key certificates. X.509 a
 
 1. Generate RSA
 
-```bash
-openssl genrsa -aes256 -out ca-key.pem 4096
-```
+    ```bash
+    openssl genrsa -aes256 -out ca-key.pem 4096
+    ```
 
 2. Generate a public CA Cert
 
-```bash
-openssl req -new -x509 -sha256 -days 365 -key ca-key.pem -out ca.pem
-```
+    ```bash
+    openssl req -new -x509 -sha256 -days 365 -key ca-key.pem -out ca.pem
+    ```
 
 ### Optional Stage: View Certificate's Content
 
@@ -29,32 +29,30 @@ openssl x509 -in ca.pem -purpose -noout -text
 
 1. Create a RSA key
 
-```bash
-openssl genrsa -out cert-key.pem 4096
-```
+    ```bash
+    openssl genrsa -out cert-key.pem 4096
+    ```
 
 2. Create a Certificate Signing Request (CSR)
 
-```bash
-openssl req -new -sha256 -subj "/CN=yourcn" -key cert-key.pem -out cert.csr
-```
+    ```bash
+    openssl req -new -sha256 -subj "/CN=yourcn" -key cert-key.pem -out cert.csr
+    ```
 
 3. Create a `extfile` with all the alternative names
 
-```bash
-echo "subjectAltName=DNS:your-dns.record,IP:257.10.10.1" >> extfile.cnf
-```
+    ```bash
+    echo "subjectAltName=DNS:your-dns.record,IP:257.10.10.1" >> extfile.cnf
 
-```bash
-# optional
-echo extendedKeyUsage = serverAuth >> extfile.cnf
-```
+    # optional
+    echo extendedKeyUsage = serverAuth >> extfile.cnf
+    ```
 
 4. Create the certificate
 
-```bash
-openssl x509 -req -sha256 -days 365 -in cert.csr -CA ca.pem -CAkey ca-key.pem -out cert.pem -extfile extfile.cnf -CAcreateserial
-```
+    ```bash
+    openssl x509 -req -sha256 -days 365 -in cert.csr -CA ca.pem -CAkey ca-key.pem -out cert.pem -extfile extfile.cnf -CAcreateserial
+    ```
 
 ## Certificate Formats
 

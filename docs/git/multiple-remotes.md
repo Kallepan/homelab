@@ -1,5 +1,4 @@
-# How to add multiple remotes to a git repository
-
+# Add multiple remotes
 
 ```bash
 # add initial remote (skip if already done)

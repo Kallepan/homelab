@@ -85,6 +85,9 @@ Inline `code` has `back-ticks around` it.
 #### Blocks of Code
 
 <pre>
+This is a block of code using the `pre` tag.
+</pre>
+
 ```javascript
 var s = "JavaScript syntax highlighting";
 alert(s);
@@ -99,6 +102,7 @@ print s
 No language indicated, so no syntax highlighting.
 But let's throw in a <b>tag</b>.
 ```
+
 </pre>
 
 ### Tables
@@ -116,7 +120,7 @@ The outer pipes (|) are optional, and you don't need to make the raw Markdown li
 ### Task list
 
 To create a task list start line with square brackets with an empty space.
-Ex: [ <space> ] and add text for task.
+Ex: [ < space > ] and add text for task.
 To check the task replace the space between the bracket with "x".
 
 ```markdown
