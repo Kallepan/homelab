@@ -1,4 +1,4 @@
-# CA 
+# CA
 
 Scripts to generate ssl certificates and own CA. Probably should not be used in production :D.
 
@@ -33,7 +33,7 @@ Configs are found within the [configs](ca/configs) folder.
     - generates a root certificate using [this](ca/configs/openssl_root.cnf) config file
 2. [generate_intermediate.sh](ca/generate_intermediate.sh)
     - generates an intermediate certificate using [this](ca/configs/openssl_intermediate.cnf) config file.
-3. [generate_custom_intermediate.sh](ca/generate_custom_intermediate.sh) 
+3. [generate_custom_intermediate.sh](ca/generate_custom_intermediate.sh)
     - optional step to create a second intermediary CA. Useful for software which requires its own CA.
     - Simply change the $NAME variable to any desired value
     - create a .cnf file in [configs](ca/configs) folder with the same name as $NAME.domain.com.cnf
