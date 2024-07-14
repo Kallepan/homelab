@@ -1,0 +1,171 @@
+apiVersion: v1
+data:
+  bookmarks.yaml: |
+    - Developer:
+      - Github:
+        - abbr: GH
+          href: https://github.com/kallepan
+      - DockerHub:
+        - abbr: DO
+          href: https://hub.docker.com/u/kallepan
+    - Social:
+      - LinkedIn:
+        - abbr: LI
+          href: https://linkedin.com/kajeepan
+    - Mail:
+      - Gmail:
+        - abbr: GM
+          href: http://kajeepan.kandeepan@gmail.com
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+  services.yaml: |
+    - Networking:
+      - WireGuard:
+          description: WireGuard is a free and open-source software application and
+            communication protocol that implements virtual private network techniques
+            to create secure point-to-point connections in routed or bridged configurations.
+          href: http://192.168.0.4:51820
+          icon: wireguard.png
+    - Infrastructure:
+      - Proxmox:
+          description: Proxmox VE is a complete open-source platform for enterprise virtualization.
+          href: https://192.168.0.2:8006/
+          icon: proxmox.png
+      - Rancher:
+          description: Rancher is a complete software stack for teams adopting containers.
+          href: https://srv-rancher.server.io
+          icon: rancher.png
+      - KASM:
+          description: Kasm Workspaces is a containerized application delivery platform
+            that enables browser-based access to isolated applications and desktops
+            running on Linux or Windows servers.
+          href: https://srv-kasm.server.io/
+          icon: kasm.png
+    - Management:
+      - Portainer:
+          description: Portainer is an open-source lightweight management UI which allows
+            you to easily manage your Docker environments.
+          href: https://portainer.srv-k8s.server.io/
+          icon: portainer.png
+      - Netboot XYZ:
+          description: Netboot.xyz is a way to PXE boot various operating system installers
+            or utilities from one place within the BIOS without the need of having to
+            go retrieve the media to run the tool.
+          href: https://netboot.srv-docker.server.io/
+          icon: netboot.png
+      - Traefik Kubernetes Production:
+          description: Traefik is a modern HTTP reverse proxy and load balancer.
+          href: https://traefik.srv-k8s.server.io/dashboard/
+          icon: traefik.png
+      - Traefik Docker:
+          description: Traefik is a modern HTTP reverse proxy and load balancer.
+          href: https://traefik.srv-docker.server.io/
+          icon: traefik.png
+    - Storage:
+      - Nextcloud:
+          description: Nextcloud is a suite of client-server software for creating and
+            using file hosting services.
+          href: https://nextcloud.srv-k8s.server.io/
+          icon: nextcloud.png
+      - Minio:
+          description: MinIO is a high performance, distributed object storage system.
+          href: https://tenant.minio.srv-k8s.server.io/
+          icon: minio.png
+    - GitOps:
+      - GitLab:
+          description: GitLab is a complete DevOps platform.
+          href: https://gitlab.srv-k8s.server.io/users/sign_in?auto_sign_in=false
+          icon: gitlab.png
+      - Argo CD:
+          description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
+          href: https://argocd.srv-k8s.server.io
+          icon: argocd.png
+      - Flux CI/CD:
+          description: Flux is a tool that automatically ensures that the state of a
+            cluster matches the config in git.
+          href: https://flux.srv-k8s.server.io/
+          icon: flux-cd.png
+    - Monitoring & Logging:
+      - Grafana:
+          description: Grafana is the open source analytics & monitoring solution for
+            every database.
+          href: https://monitoring.srv-k8s.server.io/
+          icon: grafana.png
+    - Docs:
+      - Wiki:
+          description: Mediawiki is a free and open-source wiki software.
+          href: https://wiki.srv-k8s.server.io/
+          icon: mediawiki.png
+      - It-Tools:
+          description: It-tools is a collection of tools useful for IT professionals.
+          href: https://it-tools.srv-k8s.server.io/
+          icon: it-tools.png
+    - Security and Identity:
+      - Keycloak:
+          description: Keycloak is an open source identity and access management solution.
+          href: https://sso.srv-k8s.server.io/
+          icon: keycloak.png
+  custom.css: ""
+  custom.js: ""
+  settings.yaml: |
+    title: HomeLab
+    base: https://homepage.srv-k8s.server.io/
+    showStats: false
+    theme: dark
+    color: slate
+    headerStyle: boxed
+    quicklaunch:
+      searchDescriptions: false
+      hideInternetSearch: false
+      hideVisitURL: false
+    layout:
+      Networking:
+        icon: mdi-network
+      Infrastructure:
+        icon: mdi-server
+      Management:
+        icon: mdi-auto-fix
+      Storage:
+        icon: mdi-database
+      GitOps:
+        icon: mdi-git
+      Monitoring & Logging:
+        icon: mdi-format-list-checks
+      Docs:
+        icon: mdi-file-document
+      Security and Identity:
+        icon: mdi-security
+  widgets.yaml: |
+    - resources:
+        backend: kubernetes
+        cpu: true
+        expanded: true
+        memory: true
+    - datetime:
+        format:
+          timeStyle: short
+        text_size: x1
+    - kubernetes:
+        cluster:
+          cpu: true
+          label: cluster
+          memory: true
+          show: true
+          showLabel: true
+        nodes:
+          cpu: true
+          memory: true
+          show: true
+          showLabel: true
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: homepage
+    app.kubernetes.io/instance: homepage-production
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/component: web
+    app.kubernetes.io/part-of: homepage
+    app.kubernetes.io/managed-by: flux
+  name: homepage
+  namespace: homepage

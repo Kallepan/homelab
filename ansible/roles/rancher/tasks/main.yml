@@ -1,0 +1,78 @@
+# Install and setup rancher
+---
+- name: Add Rancher Helm Chart
+  ansible.builtin.shell: helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+  register: ret
+  changed_when: ("has been added to your repositories" in ret.stdout)
+
+- name: Check if the namespace cattle-system exists
+  ansible.builtin.shell: "{{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }} get namespace cattle-system"
+  register: namespace_check
+  ignore_errors: true
+
+- name: Create namespace cattle-system
+  ansible.builtin.shell: "{{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }} create namespace cattle-system"
+  when: namespace_check.rc != 0
+
+- name: Check if secret tls-rancher-ingress exists
+  ansible.builtin.shell: "{{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }} -n cattle-system get secret tls-rancher-ingress"
+  register: tls_secret_check
+  ignore_errors: true
+
+- name: Copy the TLS certificate to the rancher server
+  ansible.builtin.copy:
+    src: "{{ rancher_tls_crt }}"
+    dest: /tmp/tls.crt
+    owner: root
+    group: root
+    mode: "0644"
+  when: tls_secret_check.rc != 0
+
+- name: Copy the TLS key to the rancher server
+  ansible.builtin.copy:
+    src: "{{ rancher_tls_key }}"
+    dest: /tmp/tls.key
+    owner: root
+    group: root
+    mode: "0644"
+  when: tls_secret_check.rc != 0
+
+- name: Create TLS Secret
+  ansible.builtin.shell: >
+    {{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }}
+    -n cattle-system create secret tls tls-rancher-ingress
+    --cert=/tmp/tls.crt
+    --key=/tmp/tls.key
+  when: tls_secret_check.rc != 0
+
+- name: Check if secret tls-ca exists
+  ansible.builtin.shell: "{{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }} -n cattle-system get secret tls-ca"
+  register: ca_secret_check
+  ignore_errors: true
+
+- name: Copy the private CA certificate to the rancher server
+  ansible.builtin.copy:
+    src: "{{ rancher_private_ca_crt }}"
+    dest: /tmp/cacerts.pem
+    owner: root
+    group: root
+    mode: "0644"
+  when: ca_secret_check.rc != 0
+
+- name: Create CA Secret
+  ansible.builtin.shell: >
+    {{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }}
+    -n cattle-system create secret generic tls-ca
+    --from-file=cacerts.pem=/tmp/cacerts.pem
+  when: ca_secret_check.rc != 0
+  changed_when: true
+
+- name: Install Rancher
+  ansible.builtin.shell: >
+    helm install rancher rancher-latest/rancher
+    --namespace cattle-system
+    --set hostname={{ rancher_hostname }}
+    --set bootstrapPassword={{ rancher_password }}
+    --set ingress.tls.source=secret
+    --set privateCA=true
+  changed_when: true

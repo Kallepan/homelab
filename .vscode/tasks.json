@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Create Cluster",
+            "command": "ansible-playbook",
+            "args": [
+                "--inventory=inventory/test/hosts.yaml",
+                "--become",
+                "--become-user=root",
+                "--extra-vars=ansible_user=ubuntu",
+                "--extra-vars=ansible_ssh_private_key_file=../keys/homelab",
+                "cluster.yml"
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/kubespray"
+            }
+        },
+        {
+            "label": "Upgrade Cluster",
+            "command": "ansible-playbook",
+            "args": [
+                "--inventory=inventory/test/hosts.yaml",
+                "--become",
+                "--become-user=root",
+                "--extra-vars=ansible_user=ubuntu",
+                "--extra-vars=ansible_ssh_private_key_file=../keys/homelab",
+                "upgrade-cluster.yml"
+            ],
+        },
+        {
+            "label": "Reset Cluster",
+            "command": "ansible-playbook",
+            "args": [
+                "--inventory=inventory/test/hosts.yaml",
+                "--become",
+                "--become-user=root",
+                "--extra-vars=ansible_user=ubuntu",
+                "--extra-vars=ansible_ssh_private_key_file=../keys/homelab",
+                "reset.yml"
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/kubespray"
+            }
+        }
+    ]
+}

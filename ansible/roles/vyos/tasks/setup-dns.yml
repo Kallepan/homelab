@@ -1,0 +1,40 @@
+---
+- name: Prepare DNS Access Control List Commands
+  ansible.builtin.set_fact:
+    dns_commands: |
+      {% set cmds = [] %}
+      {% for allow_from in vyos_dns_configs.allow_from %}
+      {% set _ = cmds.append("set service dns forwarding allow-from " ~ allow_from) %}
+      {% endfor %}
+      {% for listen_address in vyos_dns_configs.listen_addresses %}
+      {% set _ = cmds.append("set service dns forwarding listen-address " ~ listen_address) %}
+      {% endfor %}
+      {{ cmds }}
+
+- name: Configure DNS Access Control List
+  vyos.vyos.vyos_config:
+    lines: "{{ dns_commands }}"
+    save: true
+
+- name: Setup DNS
+  vyos.vyos.vyos_config:
+    lines:
+      - set service dns forwarding cache-size '1000'
+      - set service dns forwarding system
+    save: true
+
+- name: Construct Records Command
+  ansible.builtin.set_fact:
+    records_commands: |
+      {% set cmds = [] %}
+      {% for record in vyos_dns_configs.records %}
+      {% if record.type == "A" %}
+      {% set _ = cmds.append("set service dns forwarding authoritative-domain " ~ record.domain ~ " records a " ~ record.name ~ " address " ~ record.address) %}
+      {% endif %}
+      {% endfor %}
+      {{ cmds }}
+
+- name: Set A records
+  vyos.vyos.vyos_config:
+    lines: "{{ records_commands }}"
+    save: true

@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: flux.srv-k8s.server.io
+      http:
+        paths:
+          - backend:
+              service:
+                name: capacitor
+                port:
+                  number: 9000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - flux.srv-k8s.server.io
+      secretName: flux-tls-secret

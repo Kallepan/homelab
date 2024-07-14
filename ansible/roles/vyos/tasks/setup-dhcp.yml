@@ -1,0 +1,18 @@
+---
+- name: Apply DHCPv4 Configuration
+  loop: "{{ vyos_dhcpv4_configs }}"
+  loop_control:
+    loop_var: dhcp_config
+  ansible.builtin.include_tasks: setup-dhcp4-inner.yml
+
+- name: Enable DNS record per client lease
+  vyos.vyos.vyos_config:
+    lines:
+      - set service dhcp-server hostfile-update
+    save: true
+
+- name: Apply DHCPv6 Configuration
+  loop: "{{ vyos_dhcpv6_configs }}"
+  loop_control:
+    loop_var: dhcp_config
+  ansible.builtin.include_tasks: setup-dhcp6-inner.yml

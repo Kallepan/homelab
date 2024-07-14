@@ -1,0 +1,23 @@
+concurrent = 1
+check_interval = 0
+
+[[runners]]
+  name = "Docker Runner"
+  url = "https://gitlab.srv-k8s.server.io/"
+  token = <REDACTED>
+  tls-ca-file = "/etc/gitlab-runner/certs/gitlab.srv-k8s.server.io.crt"
+  limit = 0
+  executor = "docker"
+  [runners.custom_build_dir]
+  [runners.docker]
+    tls_verify = false
+    image = "docker:dind"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    disable_cache = false
+    volumes = ["/cache", "/home/docker/apps:/apps"]
+    shm_size = 0
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]

@@ -1,0 +1,13 @@
+---
+- name: Setup NATTING
+  vyos.vyos.vyos_config:
+    lines:
+      - set nat source rule {{ ansible_loop.index * 100 }} outbound-interface name '{{ nat_config.outbound_interface }}'
+      - set nat source rule {{ ansible_loop.index * 100 }} source address '{{ nat_config.source }}'
+      - set nat source rule {{ ansible_loop.index * 100 }} translation address '{{ nat_config.translation }}'
+    save: true
+  loop: "{{ vyos_nat_configs }}"
+  loop_control:
+    loop_var: nat_config
+    extended: true
+  when: vyos_nat_configs is defined

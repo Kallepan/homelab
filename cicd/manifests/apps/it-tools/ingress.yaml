@@ -1,0 +1,18 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tools-ingress
+  namespace: it-tools
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`it-tools.srv-k8s.server.io`)
+      priority: 10
+      services:
+        - name: tools-svc
+          port: 80
+  tls:
+    secretName: tools-tls

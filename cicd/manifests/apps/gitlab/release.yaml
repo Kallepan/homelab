@@ -1,0 +1,130 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  interval: 1h
+  timeout: 30m
+  chart:
+    spec:
+      chart: gitlab
+      version: "8.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab-charts
+        namespace: gitlab
+  values:
+    certmanager:
+      install: false
+      installCRDs: false
+    gitlab-runner:
+      install: false
+    gitlab:
+      toolbox:
+        backups:
+          objectStorage:
+            config:
+              secret: gitlab-minio-creds
+              key: s3cmd
+              bucket: gitlab-backup
+              tmpBucket: gitlab-backup-tmp
+    global:
+      appConfig:
+        usernameChangingEnabled: false
+        object_store:
+          enabled: true
+          connection:
+            secret: gitlab-minio-connection
+            key: connection.yml
+        omniauth:
+          enabled: true
+          autoSignInWithProvider: openid_connect
+          allowSingleSignOn:
+            - openid_connect
+          blockAutoCreatedUsers: true
+          providers:
+            - secret: gitlab-keycloak-omniauth
+              key: omniauth.yml
+      certificates:
+        customCAs:
+          - secret: gitlab-ca
+            keys:
+              - gitlab.srv-k8s.server.io.crt
+      gitlab:
+        toolbox:
+          backups:
+            objectStorage:
+              config:
+                secret: gitlab-minio-connection
+                key: connection.yml
+      edition: ce
+      gitaly:
+        enabled: true
+        persistence:
+          enabled: true
+          size: 50Gi
+          storageClass: longhorn-single-replica
+      psql:
+        serviceName: gitlab-postgres-rw
+        port: 5432
+        database: gitlab
+        username: gitlab
+        password:
+          useSecret: true
+          secret: gitlab-postgres-app
+          key: password
+      hosts:
+        domain: srv-k8s.server.io
+        externalIP: 10.0.255.0
+        gitlab: {}
+        hostSuffix: null
+        https: true
+        kas: {}
+        minio: {}
+        pages: {}
+        registry: {}
+        smartcard: {}
+        ssh: ~
+        tls: {}
+      ingress:
+        class: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+        configureCertmanager: false
+        enabled: true
+        path: /
+        pathType: Prefix
+        provider: traefik
+        tls:
+          enabled: true
+          secretName: gitlab-tls-secret
+      minio:
+        enabled: false
+      monitoring:
+        enabled: true
+      pages:
+        enabled: true
+      registry:
+        tls:
+          enabled: true
+          secretName: registry-tls-secret
+      shell:
+        traefik:
+          entryPoint: ssh
+      time_zone: Europe/Berlin
+    traefik:
+      install: false
+    postgresql:
+      install: false
+    prometheus:
+      install: false
+    redis:
+      install: true
+      metrics:
+        enabled: true
+      storageClass: longhorn-single-replica
+    nginx-ingress:
+      enabled: false

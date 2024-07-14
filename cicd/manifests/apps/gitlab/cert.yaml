@@ -1,0 +1,28 @@
+---
+# GitLab certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gitlab-cert
+  namespace: gitlab
+spec:
+  secretName: gitlab-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - gitlab.srv-k8s.server.io
+---
+# Registry certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: registry-cert
+  namespace: gitlab
+spec:
+  secretName: registry-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - registry.srv-k8s.server.io

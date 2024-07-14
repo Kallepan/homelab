@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mediawiki
+  namespace: mediawiki
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: wiki.srv-k8s.server.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mediawiki
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - wiki.srv-k8s.server.io
+      secretName: mediawiki-tls-secret

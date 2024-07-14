@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: mediawiki-cert
+  namespace: mediawiki
+spec:
+  secretName: mediawiki-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - wiki.srv-k8s.server.io

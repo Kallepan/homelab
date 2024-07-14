@@ -1,0 +1,147 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: monitoring
+spec:
+  interval: 1h
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  interval: 5m
+  timeout: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "61.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: monitoring
+  values:
+    grafana:
+      enabled: true
+      extraSecretMounts:
+        - name: grafana-generic-oauth-secret
+          defaultMode: 0440
+          secretName: grafana-generic-oauth-secret
+          mountPath: /etc/secrets/auth_generic_oauth
+          readOnly: true
+      grafan.ini:
+        auth.generic_oauth:
+          auto_login: false
+          allow_assign_grafana_admin: false
+          allow_sign_up: true
+          api_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/userinfo
+          auth_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/auth
+          token_url: https://sso.srv-k8s.server.io/ealms/kubeflow/protocol/openid-connect/token
+          client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+          client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+          enabled: true
+          email_attribute_path: email
+          login_attribute_path: preferred_username
+          name: Keycloak-OAuth
+          role_attribute_path: >-
+            (resource_access.grafana.role == 'admin' && 'Admin') ||
+            (resource_access.grafana.role == 'editor' && 'Editor') ||
+            (resource_access.grafana.role == 'viewer' && 'Viewer') || 'Viewer'
+          scopes: openid email profile offline_access roles
+          skip_org_role_sync: false
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - monitoring.srv-k8s.server.io
+        tls:
+          - secretName: monitoring-tls-secret
+            hosts:
+              - monitoring.srv-k8s.server.io
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        enabled: true
+        type: pvc
+        size: 2Gi
+        storageClassName: longhorn-single-replica
+      sidecar:
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "1"
+          namespace: monitoring
+    prometheus:
+      prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: minio-job
+            metrics_path: /minio/v2/metrics/cluster
+            scheme: https
+            static_configs:
+              - targets:
+                  - minio.srv-k8s.server.io
+          - job_name: "blackbox"
+            metrics_path: /probe
+            params:
+              module: [http_2xx]
+            static_configs:
+              - targets:
+                  - https://google.com
+                  - https://argocd.srv-k8s.server.io
+                  - https://srv-rancher.server.io
+                  - https://gitlab.srv-k8s.server.io
+                  - https://tenant.minio.srv-k8s.server.io
+                  - https://monitoring.srv-k8s.server.io/
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115 # TODO
+          - job_name: "istiod"
+            kubernetes_sd_configs:
+              - role: endpoints
+                namespaces:
+                  names:
+                    - istio-system
+            relabel_configs:
+              - source_labels:
+                  [
+                    __meta_kubernetes_service_name,
+                    __meta_kubernetes_endpoint_port_name,
+                  ]
+                action: keep
+                regex: istiod;http-monitoring
+          - job_name: "envoy-stats"
+            metrics_path: /stats/prometheus
+            kubernetes_sd_configs:
+              - role: pod
+
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_pod_container_port_name]
+                action: keep
+                regex: ".*-envoy-prom"
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+            storageClassName: longhorn-single-replica
+    server:
+      global:
+        scrape_interval: 15s
+        evaluation_interval: 1m
+        scrape_timeout: 10s

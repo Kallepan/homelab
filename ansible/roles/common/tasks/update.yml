@@ -1,0 +1,7 @@
+# Updates packages to the latest version
+
+- name: Update all packages
+  ansible.builtin.package:
+    upgrade: true
+    update_cache: true
+  when: inventory_hostname != 'vyos'

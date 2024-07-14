@@ -1,0 +1,60 @@
+---
+- name: Generate pki wireguard_keys
+  vyos.vyos.vyos_command:
+    commands:
+      - generate pki wireguard key-pair
+    wait_for:
+      - result[0] contains "Private key:" and result[1] contains "Public key:"
+  register: wireguard_keys
+  when: vyos_wireguard.refresh_keys
+
+- name: Generate symmetric key
+  vyos.vyos.vyos_command:
+    commands:
+      - generate pki wireguard preshared-key
+    wait_for:
+      - result[0] contains "Pre-shared key:"
+  register: wireguard_symmetric_key
+  when: vyos_wireguard.refresh_keys
+
+- name: Extract Wireguard keys
+  ansible.builtin.set_fact:
+    wireguard_public_key: "{{ (wireguard_keys.stdout | regex_search(\"Public key: (.+=)\", '\\1'))[0] }}"
+    wireguard_private_key: "{{ (wireguard_keys.stdout | regex_search(\"Private key: (.+=).+Public\", '\\1'))[0] }}"
+    wireguard_symmetric_key: "{{ (wireguard_symmetric_key.stdout | regex_search(\"Pre-shared key: (.+=)\", '\\1'))[0] }}"
+  when: vyos_wireguard.refresh_keys
+
+- name: Construct Wireguard Configuration Commands
+  ansible.builtin.set_fact:
+    wireguard_configuration_commands: |
+      {% set cmds = [] %}
+      {% for ip in vyos_wireguard.allowed_ips %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ vyos_wireguard.peer_name ~ " allowed-ips " ~ ip) %}
+      {% endfor %}
+      {% if vyos_wireguard.refresh_keys %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " private-key " ~ wireguard_private_key) %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ vyos_wireguard.peer_name ~ " preshared-key " ~ wireguard_symmetric_key) %}
+      {% endif %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " address " ~ vyos_wireguard.interface_ip) %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " description " ~ vyos_wireguard.description) %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ vyos_wireguard.peer_name ~ " public-key " ~ vyos_wireguard.public_key) %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ vyos_wireguard.peer_name ~ " persistent-keepalive " ~ vyos_wireguard.keepalive_duration) %}
+      {% set _ = cmds.append("set interfaces wireguard " ~ vyos_wireguard.interface ~ " port " ~ vyos_wireguard.listen_port) %}
+      {{ cmds }}
+
+- name: Configure Wireguard interface
+  vyos.vyos.vyos_config:
+    lines: "{{ wireguard_configuration_commands }}"
+    save: true
+
+# Print the pre-shared key
+- name: Print Pre-shared Key
+  ansible.builtin.debug:
+    msg: "Pre-shared key: {{ wireguard_symmetric_key }}"
+  when: vyos_wireguard.refresh_keys
+
+# Print the public key
+- name: Print Public Key
+  ansible.builtin.debug:
+    msg: "Public key: {{ wireguard_public_key }}"
+  when: vyos_wireguard.refresh_keys

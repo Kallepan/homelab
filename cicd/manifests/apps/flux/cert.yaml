@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: flux-cert
+  namespace: flux-system
+spec:
+  secretName: flux-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - flux.srv-k8s.server.io

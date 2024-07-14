@@ -1,0 +1,9 @@
+---
+- name: Setup Interfaces
+  vyos.vyos.vyos_config:
+    lines:
+      - set interfaces ethernet {{ item.name }} address '{{ item.ipv4 }}'
+      - set interfaces ethernet {{ item.name }} address '{{ item.ipv6 }}'
+      - set interfaces ethernet {{ item.name }} description '{{ item.description }}'
+    save: true
+  loop: "{{ vyos_interfaces }}"

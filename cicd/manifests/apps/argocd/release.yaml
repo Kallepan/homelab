@@ -1,0 +1,35 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: argo-cd
+      version: "7.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: argocd
+        namespace: argocd
+  values:
+    configs:
+      params:
+        server.insecure: true
+    server:
+      extraArgs:
+        - --insecure
+      ingress:
+        enabled: true
+        hosts:
+          - host: argocd.srv-k8s.server.io
+            paths:
+              - path: /
+                pathType: Prefix
+        ingressClassName: traefik
+        tls:
+          - hosts:
+              - argocd.srv-k8s.server.io
+            secretName: argocd-tls-secret

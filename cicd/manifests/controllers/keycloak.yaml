@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: keycloak
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  interval: 1h
+  url: https://github.com/keycloak/keycloak-k8s-resources
+  ref:
+    tag: "25.0.1"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  interval: 1h
+  targetNamespace: keycloak
+  sourceRef:
+    kind: GitRepository
+    name: keycloak
+  path: ./kubernetes
+  prune: true
+  timeout: 5m

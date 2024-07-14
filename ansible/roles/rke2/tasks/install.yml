@@ -1,0 +1,59 @@
+---
+- name: Create RKE2 dir
+  ansible.builtin.file:
+    path: /etc/rancher/rke2
+    state: directory
+    mode: "0755"
+
+- name: Copy rke2-config.yaml
+  ansible.builtin.copy:
+    src: files/rke2-config.yaml
+    dest: /etc/rancher/rke2/config.yaml
+    mode: "0644"
+
+- name: Get installed version of RKE2
+  ansible.builtin.command:
+    cmd: /usr/local/bin/rke2 --version | awk '{print $3}'
+  register: rke2_version
+  ignore_errors: true
+  changed_when: false
+
+- name: Download RKE2 installation script
+  ansible.builtin.get_url:
+    url: https://get.rke2.io
+    dest: /tmp/rke2-install.sh
+    mode: "0755"
+
+- name: Install RKE2
+  ansible.builtin.command:
+    cmd: /tmp/rke2-install.sh
+    creates: /var/lib/rancher/rke2
+  register: rke2_install
+  changed_when: (rke2_version.stdout not in rke2_install.stdout) or (rke2_version.failed)
+
+- name: Enable and start RKE2
+  ansible.builtin.systemd:
+    name: rke2-server
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Wait for RKE2 to start
+  ansible.builtin.wait_for:
+    host: localhost
+    port: 6443
+    state: present
+    timeout: 300
+
+- name: Create .kube directory
+  ansible.builtin.file:
+    path: /root/.kube
+    state: directory
+    mode: "0700"
+
+- name: Copy kubeconfig
+  ansible.builtin.copy:
+    src: /etc/rancher/rke2/rke2.yaml
+    dest: /root/.kube/config
+    remote_src: true
+    mode: "0600"

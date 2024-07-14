@@ -1,0 +1,64 @@
+# Description: This Ansible task file installs Rootful Docker on the target host.
+---
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /tmp/docker_gpg_key.asc
+    mode: "0644"
+  become: true
+  become_user: root
+
+- name: Copy Docker GPG key
+  ansible.builtin.copy:
+    src: /tmp/docker_gpg_key.asc
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: "0644"
+    remote_src: true
+  become: true
+  become_user: root
+
+- name: Check if repository is already added
+  ansible.builtin.stat:
+    path: /etc/apt/sources.list.d/docker-ce.list
+  register: docker_repo_file
+  become: true
+  become_user: root
+
+- name: Check if the Docker repository is current
+  ansible.builtin.shell: grep -oP '(?<=ubuntu )\w+' /etc/apt/sources.list.d/docker-ce.list
+  register: docker_repo
+  when: docker_repo_file.stat.exists
+  changed_when: false
+  become: true
+  become_user: root
+
+- name: Check if the current distribution matches
+  ansible.builtin.set_fact:
+    is_current_distribution: "{{ ansible_distribution_release == docker_repo.stdout }}"
+  when: docker_repo_file.stat.exists
+  become: true
+  become_user: root
+
+- name: Remove Docker repository if it is not current
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/docker-ce.list
+    state: absent
+  when: docker_repo_file.stat.exists and not is_current_distribution
+  become: true
+  become_user: root
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    state: present
+    filename: docker-ce.list
+  become: true
+  become_user: root
+
+- name: Install Docker
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    state: present
+    update_cache: true
+  become: true
+  become_user: root

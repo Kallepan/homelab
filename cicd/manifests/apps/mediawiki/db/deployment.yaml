@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediawiki-db
+  namespace: mediawiki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mediawiki-db
+  template:
+    metadata:
+      labels:
+        app: mediawiki-db
+    spec:
+      containers:
+        - name: mediawiki-db
+          image: mariadb:11
+          imagePullPolicy: Always
+          env:
+            - name: MARIADB_RANDOM_ROOT_PASSWORD
+              value: "yes"
+            - name: MARIADB_DATABASE
+              value: mediawiki
+            - name: MARIADB_USER
+              value: mediawiki
+            - name: MARIADB_PASSWORD
+              value: mediawiki
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mediawiki-db-pvc
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mediawiki-db-pvc
+          persistentVolumeClaim:
+            claimName: mediawiki-db-pvc

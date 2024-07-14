@@ -1,0 +1,41 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+  namespace: kyverno
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kyverno
+      version: "3.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: kyverno
+  values:
+    admissionController:
+      replicas: 3
+    backgroundController:
+      replicas: 2
+    cleanupController:
+      replicas: 2
+    reportsController:
+      replicas: 2
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno-policies
+  namespace: kyverno
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kyverno-policies
+      version: "3.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+        namespace: kyverno

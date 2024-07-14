@@ -1,0 +1,8 @@
+# Installs the packages listed in the variable `common_packages`
+
+- name: Install common packages
+  ansible.builtin.apt:
+    name: "{{ common_packages }}"
+    state: present
+    update_cache: true
+  when: inventory_hostname != 'vyos'

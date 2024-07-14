@@ -1,0 +1,85 @@
+defaults: &defaults
+  ansible_connection: ssh
+  ansible_ssh_private_key_file: /workspaces/homelab/keys/homelab
+  ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+all:
+  hosts:
+    vyos:
+      ansible_host: 192.168.0.10
+    srv-docker:
+      ansible_host: 10.0.4.0
+      ansible_user: ubuntu
+      <<: *defaults
+    srv-kasm:
+      ansible_host: 10.0.4.10
+      ansible_user: ubuntu
+      <<: *defaults
+    srv-rancher:
+      ansible_host: 10.0.2.0
+      ansible_user: rancher
+      <<: *defaults
+    srv-test-1:
+      ansible_host: 10.0.0.200
+      ansible_user: ubuntu
+      <<: *defaults
+    srv-test-2:
+      ansible_host: 172.16.1.10
+      ansible_user: ubuntu
+      <<: *defaults
+    node1:
+      ansible_host: 10.0.3.0
+      ansible_user: ubuntu
+      <<: *defaults
+    node2:
+      ansible_host: 10.0.3.1
+      ansible_user: ubuntu
+      <<: *defaults
+    node3:
+      ansible_host: 10.0.3.2
+      ansible_user: ubuntu
+      <<: *defaults
+    node4:
+      ansible_host: 10.0.3.4
+      ansible_user: ubuntu
+      <<: *defaults
+    node5:
+      ansible_host: 10.0.3.5
+      ansible_user: ubuntu
+      <<: *defaults
+    node6:
+      ansible_host: 10.0.3.6
+      ansible_user: ubuntu
+      <<: *defaults
+    node7:
+      ansible_host: 10.0.3.7
+      ansible_user: ubuntu
+      <<: *defaults
+    node8:
+      ansible_host: 10.0.3.8
+      ansible_user: ubuntu
+      <<: *defaults
+  children:
+    kasm:
+      hosts:
+        srv-kasm:
+    docker:
+      hosts:
+        srv-docker:
+    suse:
+      hosts:
+        srv-rancher:
+    test:
+      hosts:
+        srv-test-1:
+        srv-test-2:
+    k8s_cluster:
+      hosts:
+        node1:
+        node2:
+        node3:
+        node4:
+        node5:
+        node6:
+        node7:
+        node8:

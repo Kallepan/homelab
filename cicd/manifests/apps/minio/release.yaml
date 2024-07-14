@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minio-operator
+  namespace: minio
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: operator
+      version: "5.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+        namespace: minio
+  values:
+    console:
+      ingress:
+        number: 9090
+        enabled: true
+        ingressClassName: traefik
+        host: minio.srv-k8s.server.io
+        tls:
+          - secretName: minio-tls-secret
+            hosts:
+              - minio.srv-k8s.server.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minio-tenant
+  namespace: minio
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: tenant
+      version: "5.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+        namespace: minio
+  values:
+    tenant:
+      metrics:
+        enabled: false
+        port: 9000
+        protocol: http
+      certificate:
+        requestAutoCert: false
+      pools:
+        - name: pool-0
+          servers: 1 # standalone
+          size: 10Gi
+          storageClassName: longhorn-single-replica
+    ingress:
+      api:
+        enabled: true
+        ingressClassName: traefik
+        host: api.minio.srv-k8s.server.io
+        tls:
+          - secretName: minio-tls-secret
+            hosts:
+              - api.minio.srv-k8s.server.io
+      console:
+        enabled: true
+        ingressClassName: traefik
+        host: tenant.minio.srv-k8s.server.io
+        tls:
+          - secretName: minio-tls-secret
+            hosts:
+              - tenant.minio.srv-k8s.server.io

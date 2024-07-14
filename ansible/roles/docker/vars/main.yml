@@ -1,0 +1,26 @@
+docker_necessary_packages:
+  - curl
+  - apt-transport-https
+  - ca-certificates
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+# Set this variable to non-root user if you want to run docker as non-root user
+docker_user: docker
+
+# This is simply the name of the output script file
+docker_rootless_installation_filename: dockerd-rootless-setuptool.sh
+
+# Set this variable to true if you want to install portainer agent
+docker_install_portainer_agent: true
+docker_portainer_agent_port: 9001
+docker_portainer_agent_version: 2.19.5
+
+# Path to the certificates
+docker_cert_crt: /workspaces/homelab/pki/output/intermediate_ca_2/certs/server.io.crt
+docker_cert_key: /workspaces/homelab/pki/output/intermediate_ca_2/private/server.io.key

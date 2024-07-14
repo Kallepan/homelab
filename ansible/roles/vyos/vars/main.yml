@@ -1,0 +1,205 @@
+vyos_hostname: "vyos"
+vyos_timezone: Europe/Berlin
+# chore: update the latest image URL
+# images: https://github.com/vyos/vyos-rolling-nightly-builds/releases/
+vyos_latest_image_url: https://github.com/vyos/vyos-rolling-nightly-builds/releases/download/1.5-rolling-202406280020/vyos-1.5-rolling-202406280020-amd64.iso
+
+vyos_interfaces:
+  - name: eth1
+    ipv4: "10.0.0.1/16"
+    ipv6: "fd00:0:0:1::1/64"
+    description: "LAN1"
+  - name: eth2
+    ipv4: "10.1.0.1/16"
+    ipv6: "fd00:0:0:2::1/64"
+    description: "LAN2"
+  - name: eth3
+    description: "DMZ"
+    ipv4: "172.16.1.1/24"
+    ipv6: "fd00::1/64"
+
+vyos_dhcpv4_configs:
+  - network_name: "LAN1"
+    subnet: "10.0.0.0/16"
+    ranges:
+      - id: "0"
+        start: "10.0.255.10"
+        end: "10.0.255.245"
+    domain_name: "server.io"
+    default_router: "10.0.0.1"
+    dns_server: "10.0.0.1"
+    subnet_id: "1"
+    lease_time: "86400"
+    static_mappings:
+      - mac: "bc:24:11:21:fb:bd"
+        ip: "10.0.0.200"
+        description: "srv-test-1"
+      - mac: "bc:24:11:26:8d:d9"
+        ip: "10.0.0.201"
+        description: "srv-test-2"
+      - mac: "bc:24:11:4e:75:62"
+        ip: "10.0.2.0"
+        description: "srv-rancher"
+      - mac: "bc:24:11:e9:af:90"
+        ip: "10.0.2.1"
+        description: "srv-harvester"
+      - mac: "bc:24:11:05:ea:16"
+        ip: "10.0.3.0"
+        description: "node1"
+      - mac: "bc:24:11:5b:d3:ae"
+        ip: "10.0.3.1"
+        description: "node2"
+      - mac: "bc:24:11:5c:f9:7a"
+        ip: "10.0.3.2"
+        description: "node3"
+      - mac: "bc:24:11:c4:60:00"
+        ip: "10.0.3.4"
+        description: "node4"
+      - mac: "bc:24:11:6f:c5:7d"
+        ip: "10.0.3.5"
+        description: "node5"
+      - mac: "bc:24:11:a6:cb:a4"
+        ip: "10.0.3.6"
+        description: "node6"
+      - mac: "bc:24:11:a0:12:d5"
+        ip: "10.0.3.7"
+        description: "node7"
+      - mac: "bc:24:11:29:2a:71"
+        ip: "10.0.3.8"
+        description: "node8"
+      - mac: "bc:24:11:de:ea:85"
+        ip: "10.0.4.0"
+        description: "srv-docker-1"
+      - mac: "bc:24:11:f1:41:6a"
+        ip: "10.0.4.10"
+        description: "srv-kasm"
+  - network_name: "LAN2"
+    subnet: "10.1.0.0/16"
+    ranges:
+      - id: "0"
+        start: "10.1.255.10"
+        end: "10.1.255.245"
+    domain_name: "server.io"
+    default_router: "10.1.0.1"
+    dns_server: "10.1.0.1"
+    subnet_id: "2"
+    lease_time: "86400"
+  - network_name: "DMZ"
+    subnet: "172.16.1.0/24"
+    ranges:
+      - id: "0"
+        start: "172.16.1.10"
+        end: "172.16.1.245"
+    domain_name: "server.io"
+    default_router: "172.16.1.1"
+    dns_server: "8.8.8.8" # Google DNS
+    subnet_id: "3"
+    lease_time: "86400"
+
+vyos_dhcpv6_configs:
+  - network_name: "LAN1"
+    subnet: "fd00:0:0:1::/64"
+    subnet_id: "1"
+    ranges:
+      - id: "0"
+        start: "fd00:0:0:1::1"
+        end: "fd00:0:0:1::ffff"
+    domain_name: "server.io"
+    name_server: "fd00:0:0:1::1"
+  - network_name: "LAN2"
+    subnet: "fd00:0:0:2::/64"
+    subnet_id: "2"
+    ranges:
+      - id: "0"
+        start: "fd00:0:0:2::1"
+        end: "fd00:0:0:2::ffff"
+    domain_name: "server.io"
+    name_server: "fd00:0:0:2::1"
+  - network_name: "DMZ"
+    subnet: "fd00::/64"
+    subnet_id: "3"
+    ranges:
+      - id: "0"
+        start: "fd00::1:0"
+        end: "fd00::1:ffff"
+    domain_name: "server.io"
+    name_server: "2001:4860:4860::8888" # Google DNS
+
+vyos_dns_configs:
+  search_domain: "server.io"
+  upstream_dns:
+    - "8.8.8.8"
+  allow_from:
+    - "10.0.0.0/8"
+    - "fd00::/8"
+    - "10.100.0.0/30"
+  listen_addresses:
+    - "10.0.0.1"
+    - "fd00:0:0:1::1"
+  records:
+    - domain: "server.io"
+      type: "A"
+      name: "@"
+      address: "10.0.0.1"
+    - domain: "srv-k8s.server.io"
+      type: "A"
+      name: "any"
+      address: "10.0.255.1"
+    - domain: "srv-docker.server.io"
+      type: "A"
+      name: "any"
+      address: "10.0.4.0"
+    - domain: "srv-docker.server.io"
+      type: "A"
+      name: "@"
+      address: "10.0.4.0"
+    - domain: "srv-kasm.server.io"
+      type: "A"
+      name: "@"
+      address: "10.0.4.10"
+    - domain: "srv-rancher.server.io"
+      type: "A"
+      name: "@"
+      address: "10.0.2.0"
+
+vyos_nat_configs:
+  - outbound_interface: eth0
+    source: "10.0.0.0/16"
+    translation: "masquerade"
+  - outbound_interface: eth0
+    source: "10.1.0.0/16"
+    translation: "masquerade"
+  - outbound_interface: eth0
+    source: "172.16.1.0/24"
+    translation: "masquerade"
+
+vyos_ssh_config:
+  key_type: "ssh-ed25519"
+  pub_key_path: "files/homelab.pub"
+  disable_password_authentication: false
+
+vyos_wireguard:
+  # The name of the wireguard interface
+  interface: wg01
+
+  # The name of the peer
+  peer_name: Homelab
+  description: VPN
+
+  # interface ip
+  interface_ip: "10.100.0.1/30"
+
+  # The port we listen on
+  listen_port: "51820"
+
+  # The allowed ips for the peer. i.e. which subnets are allowed to be accessed
+  allowed_ips:
+    - "10.100.0.2/32"
+
+  # The public key from the client
+  public_key: "n1EO5Qs9humFy8bsaueupnL8bcH01MoQEbQPeQdNK10="
+
+  keepalive_duration: "15"
+
+  # Wether new pre-shred and public keys should be configured
+  refresh_keys: false

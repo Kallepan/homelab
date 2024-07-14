@@ -1,0 +1,7 @@
+---
+- name: Common Setup Tasks
+  hosts: all
+  become: true
+  roles:
+    - role: roles/common
+    - role: roles/ssl

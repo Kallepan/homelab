@@ -1,0 +1,14 @@
+# This is a sample file on how to create a tls certificate in a namespace
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: portainer-tls
+  namespace: portainer
+spec:
+  secretName: portainer-tls
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - portainer.srv-k8s.server.io

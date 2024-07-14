@@ -1,0 +1,22 @@
+---
+stages:
+  - deploy
+
+deploy:
+  image: ubuntu:latest
+  stage: deploy
+  only:
+    - main # Only deploy on main branch
+  before_script:
+    # Install SSH
+    - apt-get -yq update
+    - apt-get -yq install ssh
+    # Setup SSH key
+    - install -m 600 /dev/null ~/.ssh/id_rsa
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    # Setup known hosts
+    - ssh-keyscan -H $DEPLOY_SERVER >> ~/.ssh/known_hosts
+  script:
+    - ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_SERVER 'cd $DEPLOY_PATH && docker-compose down && docker-compose up -d --force-recreate && exit'
+  after_script:
+    - rm -rf ~/.ssh/id_rsa

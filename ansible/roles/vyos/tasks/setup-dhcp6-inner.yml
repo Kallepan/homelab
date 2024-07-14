@@ -1,0 +1,17 @@
+---
+- name: Construct DHCP6 config command
+  ansible.builtin.set_fact:
+    dhcp6_config_commands: |
+      {% set cmds = [] %}
+      {% for range in dhcp_config.ranges %}
+      {% set _ = cmds.append("set service dhcpv6-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " range " ~ range.id ~ " start '" ~ range.start ~ "'") %}
+      {% set _ = cmds.append("set service dhcpv6-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " range " ~ range.id ~ " stop '" ~ range.end ~ "'") %}
+      {% endfor %}
+      {% set _ = cmds.append("set service dhcpv6-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " option name-server '" ~ dhcp_config.name_server ~ "'") %}
+      {% set _ = cmds.append("set service dhcpv6-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " subnet-id '" ~ dhcp_config.subnet_id ~ "'") %}
+      {{ cmds }}
+
+- name: Activate DHCPv6 Server
+  vyos.vyos.vyos_config:
+    lines: "{{ dhcp6_config_commands }}"
+    save: true

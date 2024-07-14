@@ -1,0 +1,66 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: gitlab-postgres
+  namespace: gitlab
+spec:
+  instances: 1
+  storage:
+    size: 20Gi
+    storageClass: longhorn-single-replica
+  bootstrap:
+    initdb:
+      database: gitlab
+      owner: gitlab
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://backups/gitlab
+      endpointURL: http://api.minio.srv-k8s.server.io
+      # When recovering from WAL or backup, change this value so that the new WAL
+      # is written to a new directory in the bucket.
+      # serverName: cluster-1
+      serverName: cluster-1
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
+    retentionPolicy: 7d
+    # bootstrap:
+    #   recovery:
+    #     source: gitlab-postgres
+    # externalClusters:
+    #   - name: gitlab-postgres
+    #     barmanObjectStore:
+    #       destinationPath: s3://backups/gitlab
+    #       endpointURL: http://api.minio.srv-k8s.server.io
+    #       # When recovering from WAL or backup, change the value of
+    #       # backup.barmanObjectStore.serverName so that the new WAL is written
+    #       # to a new directory in the bucket.
+    #       serverName: cluster-1
+    #       s3Credentials:
+    #         accessKeyId:
+    #           name: s3-creds
+    #           key: ACCESS_KEY_ID
+    #         secretAccessKey:
+    #           name: s3-creds
+    #           key: ACCESS_SECRET_KEY
+    #       wal:
+    #         maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: gitlab-postgres-backup
+  namespace: gitlab
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: gitlab-postgres
+  method: barmanObjectStore
+  schedule: "@daily"

@@ -1,0 +1,27 @@
+# Description: This file contains the tasks to create the certificates for Traefik lb.
+---
+- name: Create Directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0764"
+  with_items:
+    - "/home/{{ docker_user }}/traefik"
+    - "/home/{{ docker_user }}/traefik/certs"
+  become: true
+  become_user: "{{ docker_user }}"
+
+- name: Copy Certificates
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - src: "{{ docker_cert_crt }}"
+      dest: "/home/{{ docker_user }}/traefik/certs/traefik.crt"
+      mode: "0644"
+    - src: "{{ docker_cert_key }}"
+      dest: "/home/{{ docker_user }}/traefik/certs/traefik.key"
+      mode: "0640"
+  become: true
+  become_user: root

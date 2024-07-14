@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: nextcloud
+      version: "5.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+  values:
+    nextcloud:
+      host: nextcloud.srv-k8s.server.io
+    ingress:
+      enabled: true
+      className: traefik
+      tls:
+        - secretName: nextcloud-tls-secret
+          hosts:
+            - nextcloud.srv-k8s.server.io
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-postgres-rw:5432
+      user: nextcloud
+      database: nextcloud
+    persistence:
+      enabled: true
+      size: 10Gi
+      storageClass: longhorn-single-replica
+      accessMode: ReadWriteOnce
+    metrics:
+      enabled: true
+      tlsSkipVerify: true
+    phpClientHttpsFix:
+      enabled: true
+      protocol: https
