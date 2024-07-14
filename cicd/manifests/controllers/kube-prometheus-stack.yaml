@@ -38,14 +38,14 @@ spec:
           secretName: grafana-generic-oauth-secret
           mountPath: /etc/secrets/auth_generic_oauth
           readOnly: true
-      grafan.ini:
+      grafana.ini:
         auth.generic_oauth:
           auto_login: false
           allow_assign_grafana_admin: false
           allow_sign_up: true
           api_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/userinfo
           auth_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/auth
-          token_url: https://sso.srv-k8s.server.io/ealms/kubeflow/protocol/openid-connect/token
+          token_url: https://sso.srv-k8s.server.io/realms/kubeflow/protocol/openid-connect/token
           client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
           client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
           enabled: true
