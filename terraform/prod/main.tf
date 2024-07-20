@@ -125,7 +125,7 @@ resource "kubernetes_secret" "gitlab-runner-token-secret" {
   type = "Opaque"
 }
 
-resource "kubernetes_secret" "gitlab-ca" {
+resource "kubernetes_secret" "gitlab-runner-ca" {
   metadata {
     name      = "gitlab-ca"
     namespace = "gitlab-runner"
@@ -202,6 +202,19 @@ resource "kubernetes_secret" "gitlab-minio-connection" {
 
   data = {
     "connection.yml" = file("files/gitlab-minio-connection.yml")
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_secret" "gitlab-ca" {
+  metadata {
+    name      = "gitlab-ca"
+    namespace = "gitlab"
+  }
+
+  data = {
+    "gitlab.srv-k8s.server.io.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
   }
 
   type = "Opaque"
