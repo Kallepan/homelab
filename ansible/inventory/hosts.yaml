@@ -19,6 +19,18 @@ all:
       ansible_host: 10.0.2.0
       ansible_user: rancher
       <<: *defaults
+    rke2-node-1:
+      ansible_host: 10.0.2.10
+      ansible_user: ubuntu
+      <<: *defaults
+    rke2-node-2:
+      ansible_host: 10.0.2.11
+      ansible_user: ubuntu
+      <<: *defaults
+    rke2-node-3:
+      ansible_host: 10.0.2.12
+      ansible_user: ubuntu
+      <<: *defaults
     srv-test-1:
       ansible_host: 10.0.0.200
       ansible_user: ubuntu

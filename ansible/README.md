@@ -22,7 +22,6 @@ Currently, the following playbooks are available:
 
 - `common.yml`: Installs common packages and tools, setup ssl certificates, and configure the ssh daemon.
 - `docker.yml`: Installs (rootless) Docker and Docker Compose
-- `dhcp.yml`: Renews dhcp leases
 - `rancher.yml`: Installs Rancher using rke2
-- `shutdown.yml`: Shuts down the machine
 - `ssl.yml`: Installs SSL certificates
+- `vyos.yml`: Configures VyOS

@@ -1,9 +1,0 @@
----
-- name: Renew DHCP Leases
-  hosts: all
-  become: true
-  tasks:
-    - name: Renew DHCP Leases
-      ansible.builtin.command:
-        cmd: dhcpcd
-      changed_when: true
