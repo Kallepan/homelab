@@ -62,6 +62,7 @@ keys/*
 # SSL
 *.crt
 *.csr
+*.pem
 
 # PHP
 LocalSettings.php
