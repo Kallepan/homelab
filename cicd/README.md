@@ -1,15 +1,21 @@
 # CICD
 
-This folder contains the configuration for the CI/CD pipeline. I use Terraform to bootstrap Flux in the kubernetes cluster. The Flux will then deploy the resources, such as Ingress, LoadBalancer, CSI, and the applications themselves. The applications are stored in the `apps` folder. Core components are stored in the `core` folder.
+This folder contains flux configuration for the production cluster and fleet configuration for the staging cluster.
 
-## Steps
+## Directory Structure
 
-```bash
-
-# Place the kubeconfig to access the cluster inside the cicd folder
-cd cicd/terraform
-
-# Install necessary resources
-terraform init
-terraform apply # confirm the plan
+```shell
+cicd
+├── README.md
+├── manifests - Flux configuration for the production cluster
+├── prod - Production cluster configuration, which uses the manifests
+└── staging - Fleet configuration for the staging cluster
 ```
+
+## Production Cluster
+
+The production cluster is managed by [Flux](https://fluxcd.io/). The repository is broken into core, configs, controllers, and apps. The core directory contains the base configuration for the cluster.
+
+## Staging Cluster
+
+The staging cluster is managed by [Fleet](https://fleet.rancher.io/).
