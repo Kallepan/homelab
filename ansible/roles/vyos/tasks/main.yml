@@ -17,3 +17,5 @@
   ansible.builtin.include_tasks: update.yml
 - name: Setup Firewall
   ansible.builtin.include_tasks: setup-firewall.yml
+- name: Setup TFTP
+  ansible.builtin.include_tasks: setup-tftp.yml

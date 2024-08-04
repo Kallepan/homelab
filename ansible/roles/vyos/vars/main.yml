@@ -30,6 +30,7 @@ vyos_dhcpv4_configs:
     dns_server: "10.0.0.1"
     subnet_id: "1"
     lease_time: "86400"
+    tftp_server_name: "10.0.0.1"
     static_mappings:
       - mac: "bc:24:11:21:fb:bd"
         ip: "10.0.0.200"
@@ -213,3 +214,11 @@ vyos_wireguard:
 
   # Wether new pre-shred and public keys should be configured
   refresh_keys: false
+
+# TFTP Server Configuration
+vyos_tftp:
+  enabled: true
+  directory: "/config/tftpboot"
+  address: "10.0.0.1"
+  allow_upload: true
+  

@@ -242,6 +242,13 @@
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 400 action 'accept'
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 400 destination port '123'
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 400 protocol 'udp'
+      # TFTP
+      - set firewall ipv4 name LANv4-to-LOCALv4 rule 500 action 'accept'
+      - set firewall ipv4 name LANv4-to-LOCALv4 rule 500 destination port '69'
+      - set firewall ipv4 name LANv4-to-LOCALv4 rule 500 protocol 'udp'
+      - set firewall ipv6 name LANv6-to-LOCALv6 rule 500 action 'accept'
+      - set firewall ipv6 name LANv6-to-LOCALv6 rule 500 destination port '69'
+      - set firewall ipv6 name LANv6-to-LOCALv6 rule 500 protocol 'udp'
       # DNS
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 600 action 'accept'
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 600 destination port '53'
