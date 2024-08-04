@@ -1,5 +1,8 @@
 defaultNamespace: metallb-system
 
+labels:
+  app: metallb
+
 helm:
   chart: metallb
   namespace: metallb-system

@@ -1,0 +1,6 @@
+defaultNamespace: metallb-system
+
+dependsOn:
+  - selector:
+      matchLabels:
+        app: metallb

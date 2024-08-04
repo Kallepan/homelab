@@ -154,7 +154,7 @@ vyos_dns_configs:
     - domain: "srv-rke2.server.io"
       type: "A"
       name: "any"
-      address: "10.0.255.2"
+      address: "10.0.255.10"
     - domain: "srv-docker.server.io"
       type: "A"
       name: "any"
