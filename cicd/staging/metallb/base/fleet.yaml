@@ -1,0 +1,7 @@
+defaultNamespace: metallb-system
+
+helm:
+  chart: metallb
+  namespace: metallb-system
+  repo: https://metallb.github.io/metallb
+  releaseName: metallb
