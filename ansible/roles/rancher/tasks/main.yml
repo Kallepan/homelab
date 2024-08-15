@@ -74,5 +74,6 @@
     --set hostname={{ rancher_hostname }}
     --set bootstrapPassword={{ rancher_password }}
     --set ingress.tls.source=secret
+    --set ingress.ingressClassName=nginx
     --set privateCA=true
   changed_when: true

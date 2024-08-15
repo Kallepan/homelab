@@ -3,4 +3,4 @@
 # See: https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-cluster-setup/rke2-for-rancher
 # token: change-me
 tls-san:
-  - rancher.server.io
+  - srv-rancher.server.home

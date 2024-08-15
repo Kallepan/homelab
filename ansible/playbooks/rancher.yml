@@ -5,6 +5,6 @@
   hosts: srv-rancher
   become: true
   roles:
-    - role: roles/rke2  
+    - role: roles/rke2
     - role: roles/helm
     - role: roles/rancher

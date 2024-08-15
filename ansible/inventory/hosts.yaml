@@ -17,26 +17,26 @@ all:
       <<: *defaults
     srv-rancher:
       ansible_host: 10.0.2.0
-      ansible_user: rancher
+      ansible_user: ubuntu
       <<: *defaults
     rke2-node-1:
-      ansible_host: 10.0.2.10
+      ansible_host: 10.1.1.10
       ansible_user: ubuntu
       <<: *defaults
     rke2-node-2:
-      ansible_host: 10.0.2.11
+      ansible_host: 10.1.1.11
       ansible_user: ubuntu
       <<: *defaults
     rke2-node-3:
-      ansible_host: 10.0.2.12
+      ansible_host: 10.1.1.12
       ansible_user: ubuntu
       <<: *defaults
-    srv-test-1:
+    test-1:
       ansible_host: 10.0.0.200
       ansible_user: ubuntu
       <<: *defaults
-    srv-test-2:
-      ansible_host: 172.16.1.10
+    test-2:
+      ansible_host: 10.1.0.200
       ansible_user: ubuntu
       <<: *defaults
     node1:
@@ -83,8 +83,8 @@ all:
         srv-rancher:
     test:
       hosts:
-        srv-test-1:
-        srv-test-2:
+        test-1:
+        test-2:
     k8s_cluster:
       hosts:
         node1:

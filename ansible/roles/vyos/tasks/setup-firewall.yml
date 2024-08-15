@@ -297,6 +297,35 @@
       - set firewall zone lan1 from local firewall ipv6-name 'LOCALv6-to-LANv6'
       - set firewall zone lan2 from local firewall ipv6-name 'LOCALv6-to-LANv6'
 
+### LAN to LAN ###
+- name: Setup LAN to LAN
+  vyos.vyos.vyos_config:
+    lines:
+      ### LAN to LAN ###
+      # Drop all traffic by default
+      - set firewall ipv4 name LANv4-to-LANv4 default-action 'drop'
+      - set firewall ipv4 name LANv4-to-LANv4 default-log
+      - set firewall ipv6 name LANv6-to-LANv6 default-action 'drop'
+      - set firewall ipv6 name LANv6-to-LANv6 default-log
+      # Accept established/related connections
+      - set firewall ipv4 name LANv4-to-LANv4 rule 1 action 'accept'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 1 state established
+      - set firewall ipv4 name LANv4-to-LANv4 rule 1 state related
+      - set firewall ipv6 name LANv6-to-LANv6 rule 1 action 'accept'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 1 state established
+      - set firewall ipv6 name LANv6-to-LANv6 rule 1 state related
+      # Drop invalid connections
+      - set firewall ipv4 name LANv4-to-LANv4 rule 2 action 'drop'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 2 state invalid
+      - set firewall ipv6 name LANv6-to-LANv6 rule 2 action 'drop'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 2 state invalid
+      # Assign the rules
+      - set firewall zone lan1 from lan2 firewall name 'LANv4-to-LANv4'
+      - set firewall zone lan2 from lan1 firewall name 'LANv4-to-LANv4'
+      - set firewall zone lan1 from lan2 firewall ipv6-name 'LANv6-to-LANv6'
+      - set firewall zone lan2 from lan1 firewall ipv6-name 'LANv6-to-LANv6'
+    save: true
+
 ### WIREGUARD ###
 ### WG01 to LAN ###
 - name: Setup WG01 to LAN

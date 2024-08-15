@@ -13,8 +13,8 @@
   ansible.builtin.include_tasks: setup-nat.yml
 - name: Setup Wireguard VPN
   ansible.builtin.include_tasks: setup-wireguard.yml
-- name: Add image
-  ansible.builtin.include_tasks: update.yml
+# - name: Add image
+#   ansible.builtin.include_tasks: update.yml
 - name: Setup Firewall
   ansible.builtin.include_tasks: setup-firewall.yml
 - name: Setup TFTP
