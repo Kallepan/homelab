@@ -1,11 +1,13 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive && \ 
+export DEBIAN_FRONTEND=noninteractive && \
     sudo apt-get update && \
     sudo apt-get install -y \
         python3-paramiko \
+        python3-pip \
         pipx \
-    && sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+    && sudo apt-get clean \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 # install requirements
 pipx install --include-deps ansible
