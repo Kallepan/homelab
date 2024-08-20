@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   gitlab-runner:
     image: gitlab/gitlab-runner:latest
