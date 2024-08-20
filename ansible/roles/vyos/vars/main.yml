@@ -219,7 +219,7 @@ vyos_wireguard:
   keepalive_duration: "15"
 
   # Wether new pre-shred and public keys should be configured
-  refresh_keys: true
+  refresh_keys: false
 
 # TFTP Server Configuration
 vyos_tftp:

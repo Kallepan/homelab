@@ -319,6 +319,20 @@
       - set firewall ipv4 name LANv4-to-LANv4 rule 2 state invalid
       - set firewall ipv6 name LANv6-to-LANv6 rule 2 action 'drop'
       - set firewall ipv6 name LANv6-to-LANv6 rule 2 state invalid
+      # ICMP
+      - set firewall ipv4 name LANv4-to-LANv4 rule 100 action 'accept'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 100 protocol 'icmp'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 100 icmp type-name 'echo-request'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 100 action 'accept'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 100 protocol 'ipv6-icmp'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 100 icmpv6 type-name 'echo-request'
+      # Allow HTTP/HTTPS
+      - set firewall ipv4 name LANv4-to-LANv4 rule 200 action 'accept'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 200 destination port '80,443'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 200 protocol 'tcp'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 200 action 'accept'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 200 destination port '80,443'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 200 protocol 'tcp'
       # Assign the rules
       - set firewall zone lan1 from lan2 firewall name 'LANv4-to-LANv4'
       - set firewall zone lan2 from lan1 firewall name 'LANv4-to-LANv4'
