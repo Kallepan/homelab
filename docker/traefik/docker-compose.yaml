@@ -20,6 +20,6 @@ services:
     image: traefik/whoami
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.srv-docker.server.io`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.srv-core.server.home`)"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.whoami.entrypoints=websecure"

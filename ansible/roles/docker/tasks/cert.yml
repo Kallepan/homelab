@@ -18,10 +18,10 @@
     mode: "{{ item.mode }}"
   with_items:
     - src: "{{ docker_cert_crt }}"
-      dest: "/home/{{ docker_user }}/traefik/certs/traefik.crt"
+      dest: "/home/{{ docker_user }}/traefik/config/certs/cert.pem"
       mode: "0644"
     - src: "{{ docker_cert_key }}"
-      dest: "/home/{{ docker_user }}/traefik/certs/traefik.key"
+      dest: "/home/{{ docker_user }}/traefik/config/certs/key.pem"
       mode: "0640"
   become: true
   become_user: root
