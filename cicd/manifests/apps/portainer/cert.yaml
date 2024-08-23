@@ -11,4 +11,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - portainer.srv-k8s.server.io
+    - portainer.prod.server.home

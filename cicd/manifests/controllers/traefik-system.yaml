@@ -37,7 +37,7 @@ spec:
         enabled: true
         entryPoints:
           - websecure
-        matchRule: Host(`traefik.srv-k8s.server.io`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+        matchRule: Host(`traefik.prod.server.home`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
         tls:
           secretName: traefik-tls
     globalArguments:
@@ -101,4 +101,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - traefik.srv-k8s.server.io
+    - traefik.prod.server.home

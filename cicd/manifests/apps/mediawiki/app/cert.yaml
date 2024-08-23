@@ -9,4 +9,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - wiki.srv-k8s.server.io
+    - wiki.prod.server.home

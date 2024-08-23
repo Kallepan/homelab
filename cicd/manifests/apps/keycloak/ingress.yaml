@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: sso.srv-k8s.server.io
+    - host: sso.prod.server.home
       http:
         paths:
           - backend:
@@ -19,5 +19,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - sso.srv-k8s.server.io
+        - sso.prod.server.home
       secretName: keycloak-tls-secret

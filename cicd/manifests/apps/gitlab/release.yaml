@@ -51,7 +51,7 @@ spec:
         customCAs:
           - secret: gitlab-ca
             keys:
-              - gitlab.srv-k8s.server.io.crt
+              - gitlab.prod.server.home.crt
       gitlab:
         toolbox:
           backups:
@@ -76,7 +76,7 @@ spec:
           secret: gitlab-postgres-app
           key: password
       hosts:
-        domain: srv-k8s.server.io
+        domain: prod.server.home
         externalIP: 10.0.255.0
         gitlab: {}
         hostSuffix: null

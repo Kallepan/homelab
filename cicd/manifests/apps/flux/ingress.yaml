@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: flux.srv-k8s.server.io
+    - host: flux.prod.server.home
       http:
         paths:
           - backend:
@@ -19,5 +19,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - flux.srv-k8s.server.io
+        - flux.prod.server.home
       secretName: flux-tls-secret

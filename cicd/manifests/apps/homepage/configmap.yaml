@@ -34,83 +34,83 @@ data:
           icon: proxmox.png
       - Rancher:
           description: Rancher is a complete software stack for teams adopting containers.
-          href: https://srv-rancher.server.io
+          href: https://srv-rancher.server.home
           icon: rancher.png
       - KASM:
           description: Kasm Workspaces is a containerized application delivery platform
             that enables browser-based access to isolated applications and desktops
             running on Linux or Windows servers.
-          href: https://srv-kasm.server.io/
+          href: https://srv-kasm.server.home/
           icon: kasm.png
     - Management:
       - Portainer:
           description: Portainer is an open-source lightweight management UI which allows
             you to easily manage your Docker environments.
-          href: https://portainer.srv-k8s.server.io/
+          href: https://portainer.prod.server.home/
           icon: portainer.png
       - Netboot XYZ:
           description: Netboot.xyz is a way to PXE boot various operating system installers
             or utilities from one place within the BIOS without the need of having to
             go retrieve the media to run the tool.
-          href: https://netboot.srv-docker.server.io/
+          href: https://server.home/
           icon: netboot.png
       - Traefik Kubernetes Production:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.srv-k8s.server.io/dashboard/
+          href: https://traefik.prod.server.home/dashboard/
           icon: traefik.png
       - Traefik Docker:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.srv-docker.server.io/
+          href: https://traefik.srv-core.server.home/
           icon: traefik.png
     - Storage:
       - Nextcloud:
           description: Nextcloud is a suite of client-server software for creating and
             using file hosting services.
-          href: https://nextcloud.srv-k8s.server.io/
+          href: https://nextcloud.prod.server.home/
           icon: nextcloud.png
       - Minio:
           description: MinIO is a high performance, distributed object storage system.
-          href: https://tenant.minio.srv-k8s.server.io/
+          href: https://tenant.minio.prod.server.home/
           icon: minio.png
     - GitOps:
       - GitLab:
           description: GitLab is a complete DevOps platform.
-          href: https://gitlab.srv-k8s.server.io/users/sign_in?auto_sign_in=false
+          href: https://gitlab.prod.server.home/users/sign_in?auto_sign_in=false
           icon: gitlab.png
       - Argo CD:
           description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
-          href: https://argocd.srv-k8s.server.io
+          href: https://argocd.prod.server.home
           icon: argocd.png
       - Flux CI/CD:
           description: Flux is a tool that automatically ensures that the state of a
             cluster matches the config in git.
-          href: https://flux.srv-k8s.server.io/
+          href: https://flux.prod.server.home/
           icon: flux-cd.png
     - Monitoring & Logging:
       - Grafana:
           description: Grafana is the open source analytics & monitoring solution for
             every database.
-          href: https://monitoring.srv-k8s.server.io/
+          href: https://monitoring.prod.server.home/
           icon: grafana.png
     - Docs:
       - Wiki:
           description: Mediawiki is a free and open-source wiki software.
-          href: https://wiki.srv-k8s.server.io/
+          href: https://wiki.prod.server.home/
           icon: mediawiki.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
-          href: https://it-tools.srv-k8s.server.io/
+          href: https://it-tools.prod.server.home/
           icon: it-tools.png
     - Security and Identity:
       - Keycloak:
           description: Keycloak is an open source identity and access management solution.
-          href: https://sso.srv-k8s.server.io/
+          href: https://sso.prod.server.home/
           icon: keycloak.png
   custom.css: ""
   custom.js: ""
   settings.yaml: |
     title: HomeLab
-    base: https://homepage.srv-k8s.server.io/
+    base: https://homepage.prod.server.home/
     showStats: false
     theme: dark
     color: slate

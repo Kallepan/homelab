@@ -10,4 +10,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - flux.srv-k8s.server.io
+    - flux.prod.server.home

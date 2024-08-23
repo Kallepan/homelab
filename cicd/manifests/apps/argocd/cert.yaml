@@ -11,4 +11,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - argocd.srv-k8s.server.io
+    - argocd.prod.server.home

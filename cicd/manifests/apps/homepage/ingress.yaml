@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - host: homepage.srv-k8s.server.io
+    - host: homepage.prod.server.home
       http:
         paths:
           - backend:
@@ -25,5 +25,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - homepage.srv-k8s.server.io
+        - homepage.prod.server.home
       secretName: homepage-tls-secret

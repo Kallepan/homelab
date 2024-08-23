@@ -10,4 +10,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - nextcloud.srv-k8s.server.io
+    - nextcloud.prod.server.home

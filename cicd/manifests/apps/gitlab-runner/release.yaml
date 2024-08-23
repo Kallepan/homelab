@@ -16,7 +16,7 @@ spec:
         namespace: gitlab
   values:
     certsSecretName: gitlab-ca
-    gitlabUrl: https://gitlab.srv-k8s.server.io
+    gitlabUrl: https://gitlab.prod.server.home
     rbac:
       create: true
     runners:
@@ -33,7 +33,7 @@ spec:
             Path = "gitlab-runner"
             Shared = true
             [runners.cache.s3]
-              ServerAddress = "api.minio.srv-k8s.server.io"
+              ServerAddress = "api.minio.prod.server.home"
               BucketName = "runner-cache"
               BucketLocation = "eu-west-1"
               Insecure = false

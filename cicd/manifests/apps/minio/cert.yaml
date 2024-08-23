@@ -11,6 +11,6 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - minio.srv-k8s.server.io
-    - tenant.minio.srv-k8s.server.io
-    - api.minio.srv-k8s.server.io
+    - minio.prod.server.home
+    - tenant.minio.prod.server.home
+    - api.minio.prod.server.home

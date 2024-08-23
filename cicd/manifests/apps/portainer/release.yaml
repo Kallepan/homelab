@@ -19,14 +19,14 @@ spec:
       annotations: {}
       enabled: true
       hosts:
-        - host: portainer.srv-k8s.server.io
+        - host: portainer.prod.server.home
           paths:
             - path: /
               pathType: Prefix
       ingressClassName: "traefik"
       tls:
         - hosts:
-            - portainer.srv-k8s.server.io
+            - portainer.prod.server.home
           secretName: portainer-tls
     persistence:
       enabled: true

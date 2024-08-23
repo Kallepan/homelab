@@ -69,7 +69,7 @@ spec:
           prober: dns
           timeout: 5s
           dns:
-            query_name: "server.io"
+            query_name: "server.home"
             query_type: "A"
             valid_rcodes:
               - NOERROR
@@ -79,4 +79,4 @@ spec:
               fail_if_all_match_regexp:
                 - ".*127.0.0.1"
               fail_if_not_matches_regexp:
-                - "srv-rancher.server.io.\t300\tIN\tA\t10.0.3.0"
+                - "srv-rancher.server.home.\t300\tIN\tA\t10.0.3.0"

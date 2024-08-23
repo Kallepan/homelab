@@ -11,4 +11,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - monitoring.srv-k8s.server.io
+    - monitoring.prod.server.home

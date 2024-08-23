@@ -18,7 +18,7 @@ spec:
   http:
     httpEnabled: true
   hostname:
-    hostname: sso.srv-k8s.server.io
+    hostname: sso.prod.server.home
   ingress:
     enabled: false
   proxy:

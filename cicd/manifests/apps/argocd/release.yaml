@@ -24,12 +24,12 @@ spec:
       ingress:
         enabled: true
         hosts:
-          - host: argocd.srv-k8s.server.io
+          - host: argocd.prod.server.home
             paths:
               - path: /
                 pathType: Prefix
         ingressClassName: traefik
         tls:
           - hosts:
-              - argocd.srv-k8s.server.io
+              - argocd.prod.server.home
             secretName: argocd-tls-secret

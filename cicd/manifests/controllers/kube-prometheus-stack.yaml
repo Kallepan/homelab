@@ -43,9 +43,9 @@ spec:
           auto_login: false
           allow_assign_grafana_admin: false
           allow_sign_up: true
-          api_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/userinfo
-          auth_url: https://sso.srv-k8s.server.io/realms/homelab/protocol/openid-connect/auth
-          token_url: https://sso.srv-k8s.server.io/realms/kubeflow/protocol/openid-connect/token
+          api_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/userinfo
+          auth_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/auth
+          token_url: https://sso.prod.server.home/realms/kubeflow/protocol/openid-connect/token
           client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
           client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
           enabled: true
@@ -62,11 +62,11 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - monitoring.srv-k8s.server.io
+          - monitoring.prod.server.home
         tls:
           - secretName: monitoring-tls-secret
             hosts:
-              - monitoring.srv-k8s.server.io
+              - monitoring.prod.server.home
       persistence:
         accessModes:
           - ReadWriteOnce
@@ -88,7 +88,7 @@ spec:
             scheme: https
             static_configs:
               - targets:
-                  - minio.srv-k8s.server.io
+                  - minio.prod.server.home
           - job_name: "blackbox"
             metrics_path: /probe
             params:
@@ -96,11 +96,11 @@ spec:
             static_configs:
               - targets:
                   - https://google.com
-                  - https://argocd.srv-k8s.server.io
-                  - https://srv-rancher.server.io
-                  - https://gitlab.srv-k8s.server.io
-                  - https://tenant.minio.srv-k8s.server.io
-                  - https://monitoring.srv-k8s.server.io/
+                  - https://argocd.prod.server.home
+                  - https://srv-rancher.server.home
+                  - https://gitlab.prod.server.home
+                  - https://tenant.minio.prod.server.home
+                  - https://monitoring.prod.server.home/
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target

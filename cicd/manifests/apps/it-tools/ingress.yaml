@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`it-tools.srv-k8s.server.io`)
+      match: Host(`it-tools.prod.server.home`)
       priority: 10
       services:
         - name: tools-svc

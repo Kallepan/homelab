@@ -16,14 +16,14 @@ spec:
         namespace: nextcloud
   values:
     nextcloud:
-      host: nextcloud.srv-k8s.server.io
+      host: nextcloud.prod.server.home
     ingress:
       enabled: true
       className: traefik
       tls:
         - secretName: nextcloud-tls-secret
           hosts:
-            - nextcloud.srv-k8s.server.io
+            - nextcloud.prod.server.home
     internalDatabase:
       enabled: false
     externalDatabase:
