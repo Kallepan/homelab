@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: prometheus-blackbox-exporter
-      version: "8.x.x"
+      version: "9.x.x"
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
