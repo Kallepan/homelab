@@ -1,19 +1,21 @@
 services:
   traefik:
     image: traefik:v3.1
-    # Enable the traefik dashboard
-    command: --api.insecure=true --providers.docker
     ports:
       - "80:80"
       - "443:443"
-      # -- The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
     volumes:
       # Listen to the Docker events
       - /run/user/3000/docker.sock:/var/run/docker.sock:ro
       - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./config/certs:/etc/traefik/certs:ro
       - ./config/dynamic:/etc/traefik/dynamic:ro # Configuration for the dynamic configuration
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.srv-core.server.home`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
     restart: unless-stopped
 
   whoami:

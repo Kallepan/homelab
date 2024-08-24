@@ -1,3 +1,6 @@
+api:
+  dashboard: true
+
 global:
   checkNewVersion: true
   sendAnonymousUsage: false
@@ -13,8 +16,6 @@ entryPoints:
           scheme: https
   websecure:
     address: ":443"
-  dashboard:
-    address: ":8080"
 
 serversTransport:
   insecureSkipVerify: true
