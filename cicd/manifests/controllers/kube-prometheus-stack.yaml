@@ -33,7 +33,7 @@ spec:
     grafana:
       enabled: true
       extraSecretMounts:
-        - name: grafana-generic-oauth-secret
+        - name: grafana-generic-oauth-secret-mount
           defaultMode: 0440
           secretName: grafana-generic-oauth-secret
           mountPath: /etc/secrets/auth_generic_oauth
@@ -42,6 +42,7 @@ spec:
         server:
           root_url: https://monitoring.prod.server.home
         auth.generic_oauth:
+          tls_skip_verify_insecure: true
           auto_login: false
           allow_assign_grafana_admin: false
           allow_sign_up: true
