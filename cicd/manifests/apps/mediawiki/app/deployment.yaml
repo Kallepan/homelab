@@ -49,9 +49,9 @@ spec:
           volumeMounts:
             - name: mediawiki-persistent-storage
               mountPath: /var/www/html/images
-            # - name: localsettings
-            #   mountPath: /var/www/html/LocalSettings.php
-            #   subPath: LocalSettings.php
+            - name: localsettings
+              mountPath: /var/www/html/LocalSettings.php
+              subPath: LocalSettings.php
           resources:
             requests:
               memory: "64Mi"
@@ -65,6 +65,6 @@ spec:
         - name: mediawiki-persistent-storage
           persistentVolumeClaim:
             claimName: mediawiki-pvc
-        # - name: localsettings
-        #   configMap:
-        #     name: localsettings
+        - name: localsettings
+          configMap:
+            name: localsettings
