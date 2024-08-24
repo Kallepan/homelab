@@ -39,13 +39,15 @@ spec:
           mountPath: /etc/secrets/auth_generic_oauth
           readOnly: true
       grafana.ini:
+        server:
+          root_url: https://monitoring.prod.server.home
         auth.generic_oauth:
           auto_login: false
           allow_assign_grafana_admin: false
           allow_sign_up: true
           api_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/userinfo
           auth_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/auth
-          token_url: https://sso.prod.server.home/realms/kubeflow/protocol/openid-connect/token
+          token_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/token
           client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
           client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
           enabled: true
