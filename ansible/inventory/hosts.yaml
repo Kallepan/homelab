@@ -31,6 +31,10 @@ all:
       ansible_host: 10.1.1.12
       ansible_user: ubuntu
       <<: *defaults
+    rke2-wasm:
+      ansible_host: 10.0.1.20
+      ansible_user: ubuntu
+      <<: *defaults
     test-1:
       ansible_host: 10.0.0.200
       ansible_user: ubuntu
@@ -81,6 +85,12 @@ all:
     suse:
       hosts:
         srv-rancher:
+    rke2:
+      hosts:
+        rke2-node-1:
+        rke2-node-2:
+        rke2-node-3:
+        rke2-wasm:
     test:
       hosts:
         test-1:
