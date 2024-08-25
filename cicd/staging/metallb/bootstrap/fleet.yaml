@@ -1,9 +1,0 @@
-defaultNamespace: metallb-system
-
-labels:
-  app: metallb
-  tier: bootstrap
-
-helm:
-  chart: metallb
-  repo: https://metallb.github.io/metallb
