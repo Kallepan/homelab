@@ -1,0 +1,9 @@
+defaultNamespace: kwasm-operator
+
+labels:
+  app: kwasm-operator
+  tier: bootstrap
+
+helm:
+  chart: kwasm-operator
+  repo: http://kwasm.sh/kwasm-operator/
