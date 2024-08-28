@@ -1,12 +1,22 @@
----
+# An overly complicated GitLab CI template for deploying a Docker Compose project to a remote server.
+# This template is meant to be used as a starting point for your own GitLab CI configuration.
+
+variables:
+  DEPLOY_SERVER: srv-core.server.home
+  REMOTE_SSH_USER: deploy
+  DOCKER_USER: docker
+  # Path to the Docker Compose project on the remote server
+  DOCKER_COMPOSE_PATH: /home/docker/project
+
 stages:
   - deploy
 
 deploy:
   image: ubuntu:latest
   stage: deploy
+  # Only deploy on main branch
   only:
-    - main # Only deploy on main branch
+    - main
   before_script:
     # Install SSH
     - apt-get -yq update
@@ -17,6 +27,16 @@ deploy:
     # Setup known hosts
     - ssh-keyscan -H $DEPLOY_SERVER >> ~/.ssh/known_hosts
   script:
-    - ssh -o StrictHostKeyChecking=no $DEPLOY_USER@$DEPLOY_SERVER 'cd $DEPLOY_PATH && docker-compose down && docker-compose up -d --force-recreate && exit'
+    # Deploy the Docker Compose project
+    - |
+      ssh -o StrictHostKeyChecking=no $REMOTE_SSH_USER@$DEPLOY_SERVER << EOF
+      sudo -n true || exit 1
+      sudo su $DOCKER_USER || exit 1
+      cd $DOCKER_COMPOSE_PATH || exit 1
+      docker compose down || true
+      docker compose up -d --force-recreate --remove-orphans || exit 1
+      exit
+      EOF
   after_script:
+    # Cleanup
     - rm -rf ~/.ssh/id_rsa
