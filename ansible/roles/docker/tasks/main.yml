@@ -14,4 +14,5 @@
   ansible.builtin.include_tasks: postflight.yml
 
 - name: Copy Certificates for Traefik
+  ansible.builtin.include_tasks: traefik_cert.yml
   when: traefik_cert is defined
