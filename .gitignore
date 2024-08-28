@@ -49,6 +49,7 @@ kubeconfig.y*ml
 
 # Exclude sensitive variables from the environment
 .env
+*.env
 
 # PKI
 pki/output
