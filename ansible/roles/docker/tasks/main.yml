@@ -14,8 +14,4 @@
   ansible.builtin.include_tasks: postflight.yml
 
 - name: Copy Certificates for Traefik
-  ansible.builtin.include_tasks: cert.yml
-
-- name: Install Docker Apps
-  ansible.builtin.include_tasks: apps.yml
-  when: docker_user != 'root'
+  when: traefik_cert is defined
