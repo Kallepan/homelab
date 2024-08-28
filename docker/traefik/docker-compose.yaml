@@ -17,6 +17,8 @@ services:
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
     restart: unless-stopped
+    networks:
+      - traefik
 
   whoami:
     image: traefik/whoami
@@ -25,3 +27,9 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.srv-core.server.home`)"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.whoami.entrypoints=websecure"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
