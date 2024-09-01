@@ -15,5 +15,5 @@ variable "rancher_secret_key" {
 variable "kubernetes_version" {
   description = "The version of Kubernetes to use"
   type        = string
-  default     = "v1.30.2+rke2r1"
+  default     = "v1.30.4+rke2r1"
 }
