@@ -87,6 +87,12 @@ data:
           href: https://flux.prod.server.home/
           icon: flux-cd.png
     - Monitoring & Logging:
+      - Wazuh:
+          description: Wazuh is a free, open-source and enterprise-ready security monitoring
+            solution for threat detection, integrity monitoring, incident response
+            and compliance.
+          href: https://wazuh.srv-core.server.home/
+          icon: wazuh.png
       - Grafana:
           description: Grafana is the open source analytics & monitoring solution for
             every database.
