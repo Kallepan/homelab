@@ -48,6 +48,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -153,6 +154,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -258,6 +260,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -364,6 +367,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -471,6 +475,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -576,6 +581,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -680,49 +686,8 @@ data:
           "type": "timeseries"
         },
         {
-          "gridPos": {
-            "h": 10,
-            "w": 9,
-            "x": 0,
-            "y": 18
-          },
-          "id": 8,
-          "options": {
-            "alertInstanceLabelFilter": "{severity!=\"none\"}",
-            "alertName": "",
-            "dashboardAlerts": false,
-            "datasource": "Prometheus",
-            "folder": "",
-            "groupBy": [
-              "namespace"
-            ],
-            "groupMode": "default",
-            "maxItems": 20,
-            "sortOrder": 1,
-            "stateFilter": {
-              "error": true,
-              "firing": true,
-              "noData": false,
-              "normal": true,
-              "pending": false
-            },
-            "viewMode": "list"
-          },
-          "pluginVersion": "9.1.5",
-          "targets": [
-            {
-              "editorMode": "code",
-              "expr": "ALERTS{alertstate=\"firing\"}",
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Alerts",
-          "type": "alertlist"
-        },
-        {
           "datasource": {
+            "default": true,
             "type": "prometheus",
             "uid": "prometheus"
           },
@@ -738,33 +703,37 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "none",
+                "fillOpacity": 50,
+                "gradientMode": "opacity",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
                 "insertNulls": false,
-                "lineInterpolation": "stepBefore",
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
                 "lineWidth": 2,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "showPoints": "never",
+                "showPoints": "auto",
                 "spanNulls": true,
                 "stacking": {
                   "group": "A",
-                  "mode": "normal"
+                  "mode": "none"
                 },
                 "thresholdsStyle": {
                   "mode": "off"
                 }
               },
+              "decimals": 2,
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -774,27 +743,31 @@ data:
                   },
                   {
                     "color": "red",
-                    "value": 1
+                    "value": 80
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "percentunit"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
-            "w": 7,
-            "x": 9,
+            "h": 9,
+            "w": 8,
+            "x": 0,
             "y": 18
           },
-          "id": 10,
+          "id": 15,
           "options": {
             "legend": {
-              "calcs": [],
-              "displayMode": "list",
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Last *",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "single",
@@ -808,14 +781,15 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(ALERTS) by (alertname)",
+              "exemplar": false,
+              "expr": "max without(instance,node)(\n    (\n    kubelet_volume_stats_capacity_bytes\n    -\n    kubelet_volume_stats_available_bytes\n    )\n    /\n    kubelet_volume_stats_capacity_bytes\n)",
               "instant": false,
-              "legendFormat": "{{label_name}}",
+              "legendFormat": "{{persistentvolumeclaim}}",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Alerts over time",
+          "title": "Volume Usage",
           "type": "timeseries"
         },
         {
@@ -840,9 +814,9 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 9,
             "w": 8,
-            "x": 16,
+            "x": 8,
             "y": 18
           },
           "id": 14,
@@ -885,7 +859,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.1.5",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -902,6 +876,128 @@ data:
           ],
           "title": "Pods Per Namespace",
           "type": "heatmap"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": true,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 8,
+            "x": 16,
+            "y": 18
+          },
+          "id": 16,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "-avg(rate(node_network_receive_bytes_total{namespace=~\"$namespace\"}[$__rate_interval])) by(pod)",
+              "hide": false,
+              "instant": false,
+              "interval": "",
+              "legendFormat": "{{nodename}}",
+              "range": true,
+              "refId": "Bytes Received"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "avg (rate(node_network_transmit_bytes_total{namespace=~\"$namespace\"}[$__rate_interval])) by (pod)",
+              "hide": false,
+              "legendFormat": "{{nodename}}",
+              "range": true,
+              "refId": "Bytes Sent"
+            }
+          ],
+          "title": "Network Traffic by Pod",
+          "transformations": [
+            {
+              "id": "renameByRegex",
+              "options": {
+                "regex": "(.*):\\d+",
+                "renamePattern": "$1"
+              }
+            }
+          ],
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -927,7 +1023,7 @@ data:
             "h": 10,
             "w": 11,
             "x": 0,
-            "y": 28
+            "y": 27
           },
           "id": 9,
           "options": {
@@ -970,7 +1066,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.1.5",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -1053,7 +1149,7 @@ data:
             "h": 5,
             "w": 13,
             "x": 11,
-            "y": 28
+            "y": 27
           },
           "id": 12,
           "options": {
@@ -1071,7 +1167,7 @@ data:
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "11.1.5",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -1106,6 +1202,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -1157,7 +1254,7 @@ data:
             "h": 5,
             "w": 13,
             "x": 11,
-            "y": 33
+            "y": 32
           },
           "id": 13,
           "options": {
@@ -1405,7 +1502,7 @@ data:
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 38
+            "y": 37
           },
           "id": 11,
           "options": {
@@ -1428,7 +1525,7 @@ data:
               }
             ]
           },
-          "pluginVersion": "11.1.5",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -1560,6 +1657,146 @@ data:
             }
           ],
           "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepBefore",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "normal"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 15,
+            "x": 0,
+            "y": 45
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "sum(ALERTS) by (alertname)",
+              "instant": false,
+              "legendFormat": "{{label_name}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Alerts over time",
+          "type": "timeseries"
+        },
+        {
+          "gridPos": {
+            "h": 7,
+            "w": 9,
+            "x": 15,
+            "y": 45
+          },
+          "id": 8,
+          "options": {
+            "alertInstanceLabelFilter": "{severity!=\"none\"}",
+            "alertName": "",
+            "dashboardAlerts": false,
+            "datasource": "Prometheus",
+            "folder": "",
+            "groupBy": [
+              "namespace"
+            ],
+            "groupMode": "default",
+            "maxItems": 20,
+            "sortOrder": 1,
+            "stateFilter": {
+              "error": true,
+              "firing": true,
+              "noData": false,
+              "normal": true,
+              "pending": false
+            },
+            "viewMode": "list"
+          },
+          "pluginVersion": "9.1.5",
+          "targets": [
+            {
+              "editorMode": "code",
+              "expr": "ALERTS{alertstate=\"firing\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Alerts",
+          "type": "alertlist"
         }
       ],
       "schemaVersion": 39,
@@ -1625,7 +1862,7 @@ data:
         ]
       },
       "time": {
-        "from": "now-3h",
+        "from": "now-5m",
         "to": "now"
       },
       "timepicker": {},
