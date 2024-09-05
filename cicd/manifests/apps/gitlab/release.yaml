@@ -6,7 +6,7 @@ metadata:
   namespace: gitlab
 spec:
   interval: 1h
-  timeout: 1m
+  timeout: 30m
   chart:
     spec:
       chart: gitlab
