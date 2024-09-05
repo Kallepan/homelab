@@ -1,7 +1,7 @@
 ---
 services:
   wazuh.manager:
-    image: wazuh/wazuh-manager:4.8.2
+    image: wazuh/wazuh-manager:4.9.0
     hostname: wazuh.manager
     restart: unless-stopped
     ports:
@@ -37,7 +37,7 @@ services:
       - traefik
 
   wazuh.indexer:
-    image: wazuh/wazuh-indexer:4.8.2
+    image: wazuh/wazuh-indexer:4.9.0
     hostname: wazuh.indexer
     restart: unless-stopped
     ports:
@@ -57,7 +57,7 @@ services:
       - traefik
 
   wazuh.dashboard:
-    image: wazuh/wazuh-dashboard:4.8.2
+    image: wazuh/wazuh-dashboard:4.9.0
     hostname: wazuh.dashboard
     restart: unless-stopped
     env_file:
