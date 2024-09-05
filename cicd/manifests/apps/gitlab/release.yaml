@@ -126,7 +126,5 @@ spec:
       metrics:
         enabled: true
       defaultStorageClass: longhorn-single-replica
-      global:
-        defaultStorageClass: longhorn-single-replica
     nginx-ingress:
       enabled: false
