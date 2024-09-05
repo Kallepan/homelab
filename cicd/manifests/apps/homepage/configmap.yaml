@@ -60,7 +60,7 @@ data:
           icon: traefik.png
       - Traefik Docker:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.srv-core.server.home/
+          href: https://traefik.srv-core.server.home/dashboard/
           icon: traefik.png
     - Storage:
       - Nextcloud:
