@@ -6,3 +6,4 @@ resources:
   - cnpg-operator.yaml
   - keycloak.yaml
   - kube-prometheus-stack.yaml
+  - mattermost-operator.yaml
