@@ -1,0 +1,14 @@
+apiVersion: installation.mattermost.com/v1beta1
+kind: Mattermost
+metadata:
+  name: mattermost
+  namespace: mattermost
+spec:
+  size: 100users
+  ingress:
+    enabled: true
+    host: mattermost.prod.server.home
+    tlsSecret: mattermost-tls-secret
+  database:
+    external:
+      secret: mattermost-database-secret
