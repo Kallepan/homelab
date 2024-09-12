@@ -5,6 +5,7 @@ metadata:
   namespace: mattermost
 spec:
   size: 100users
+  image:
   ingress:
     enabled: true
     host: mattermost.prod.server.home
@@ -14,6 +15,6 @@ spec:
       secret: mattermost-database-secret
   fileStore:
     external:
-      url: http://api.minio.prod.server.home
+      url: api.minio.prod.server.home
       bucket: mattermost
       secret: mattermost-minio-creds
