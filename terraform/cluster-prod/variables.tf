@@ -50,3 +50,11 @@ variable "gitlab_runner_token" {
   type        = string
   sensitive   = true
 }
+
+### Mattermost ###
+
+variable "mattermost_db_password" {
+  description = "The password for Mattermost database"
+  type        = string
+  sensitive   = true
+}

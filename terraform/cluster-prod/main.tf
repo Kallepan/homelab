@@ -246,6 +246,19 @@ resource "kubernetes_secret" "s3-creds-postgres-mattermost" {
   type = "Opaque"
 }
 
+resource "kubernetes_secret" "mattermost-database-url" {
+  metadata {
+    name      = "mattermost-database-url"
+    namespace = "mattermost"
+  }
+
+  data = {
+    "DB_CONNECTION_STRING" = "postgres://mattermost:${var.mattermost_db_password}@mattermost-postgres-rw:5432/mattermost?sslmode=disable"
+  }
+
+  type = "Opaque"
+}
+
 ### Nextcloud ###
 resource "kubernetes_secret" "s3-creds-postgres-nextcloud" {
   metadata {
