@@ -248,7 +248,7 @@ resource "kubernetes_secret" "s3-creds-postgres-mattermost" {
 
 resource "kubernetes_secret" "mattermost-database-url" {
   metadata {
-    name      = "mattermost-database-url"
+    name      = "mattermost-database-secret"
     namespace = "mattermost"
   }
 
