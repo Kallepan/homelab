@@ -17,3 +17,4 @@ resources:
   - gitlab
   - gitlab-runner
   - kyverno
+  - mattermost

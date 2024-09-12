@@ -1,0 +1,66 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mattermost-postgres
+  namespace: mattermost
+spec:
+  instances: 1
+  storage:
+    size: 5Gi
+    storageClass: longhorn-single-replica
+  bootstrap:
+    initdb:
+      database: mattermost
+      owner: mattermost
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://backups/mattermost
+      endpointURL: http://api.minio.prod.server.home
+      # When recovering from WAL or backup, change this value so that the new WAL
+      # is written to a new directory in the bucket.
+      # serverName: cluster-1
+      serverName: cluster-1
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
+    retentionPolicy: 7d
+    # bootstrap:
+    #   recovery:
+    #     source: mattermost-postgres
+    # externalClusters:
+    #   - name: mattermost-postgres
+    #     barmanObjectStore:
+    #       destinationPath: s3://backups/mattermost
+    #       endpointURL: http://api.minio.prod.server.home
+    #       # When recovering from WAL or backup, change the value of
+    #       # backup.barmanObjectStore.serverName so that the new WAL is written
+    #       # to a new directory in the bucket.
+    #       serverName: cluster-1
+    #       s3Credentials:
+    #         accessKeyId:
+    #           name: s3-creds
+    #           key: ACCESS_KEY_ID
+    #         secretAccessKey:
+    #           name: s3-creds
+    #           key: ACCESS_SECRET_KEY
+    #       wal:
+    #         maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: mattermost-postgres-backup
+  namespace: mattermost
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: mattermost-postgres
+  method: barmanObjectStore
+  schedule: "@daily"
