@@ -22,6 +22,9 @@ spec:
     gitlab-runner:
       install: false
     gitlab:
+      gitlab-shell:
+        traefik:
+          entryPoint: ssh
       toolbox:
         backups:
           objectStorage:
@@ -111,9 +114,6 @@ spec:
         tls:
           enabled: true
           secretName: registry-tls-secret
-      shell:
-        traefik:
-          entryPoint: ssh
       time_zone: Europe/Berlin
     traefik:
       install: false
