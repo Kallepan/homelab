@@ -5,5 +5,4 @@ resources:
   - release.yaml
   - event-bus.yaml
   - namespace.yaml
-  - ingress.yaml
   - cert.yaml

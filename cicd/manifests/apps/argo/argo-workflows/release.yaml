@@ -24,3 +24,13 @@ spec:
     controller:
       workflowNamespaces:
         - workflows
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - argo-workflows.prod.server.home
+        tls:
+          - secretName: argo-workflows-tls-secret
+            hosts:
+              - argo-workflows.prod.server.home

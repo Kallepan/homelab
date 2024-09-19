@@ -3,10 +3,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: argocd-tls
+  name: argocd-server-tls
   namespace: argo
 spec:
-  secretName: argocd-tls-secret
+  secretName: argocd-server-tls
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
