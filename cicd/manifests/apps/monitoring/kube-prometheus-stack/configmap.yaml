@@ -29,7 +29,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": null,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -50,6 +49,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -93,8 +93,7 @@ data:
                   }
                 ]
               },
-              "unit": "CPU",
-              "unitScale": true
+              "unit": "CPU"
             },
             "overrides": []
           },
@@ -156,6 +155,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -199,8 +199,7 @@ data:
                   }
                 ]
               },
-              "unit": "s",
-              "unitScale": true
+              "unit": "s"
             },
             "overrides": []
           },
@@ -262,6 +261,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 50,
                 "gradientMode": "opacity",
@@ -305,8 +305,7 @@ data:
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -369,6 +368,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -414,8 +414,7 @@ data:
                   }
                 ]
               },
-              "unit": "percent",
-              "unitScale": true
+              "unit": "percent"
             },
             "overrides": []
           },
@@ -477,6 +476,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -520,8 +520,7 @@ data:
                   }
                 ]
               },
-              "unit": "percentunit",
-              "unitScale": true
+              "unit": "percentunit"
             },
             "overrides": []
           },
@@ -583,6 +582,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -622,8 +622,7 @@ data:
                   }
                 ]
               },
-              "unit": "bps",
-              "unitScale": true
+              "unit": "bps"
             },
             "overrides": []
           },
@@ -704,6 +703,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 5,
                 "gradientMode": "opacity",
@@ -747,8 +747,7 @@ data:
                   }
                 ]
               },
-              "unit": "percentunit",
-              "unitScale": true
+              "unit": "percentunit"
             },
             "overrides": []
           },
@@ -810,8 +809,7 @@ data:
                 "scaleDistribution": {
                   "type": "linear"
                 }
-              },
-              "unitScale": true
+              }
             },
             "overrides": []
           },
@@ -861,7 +859,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "10.3.3",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -898,6 +896,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 10,
                 "gradientMode": "none",
@@ -942,8 +941,7 @@ data:
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -985,7 +983,6 @@ data:
             }
           ],
           "title": "Failing Pods Per Namespace",
-          "transformations": [],
           "type": "timeseries"
         },
         {
@@ -1045,8 +1042,7 @@ data:
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
@@ -1072,7 +1068,7 @@ data:
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "10.3.3",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -1107,6 +1103,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "opacity",
@@ -1150,8 +1147,7 @@ data:
                   }
                 ]
               },
-              "unit": "bytes",
-              "unitScale": true
+              "unit": "bytes"
             },
             "overrides": []
           },
@@ -1224,8 +1220,7 @@ data:
                     "value": null
                   }
                 ]
-              },
-              "unitScale": true
+              }
             },
             "overrides": [
               {
@@ -1435,7 +1430,7 @@ data:
               }
             ]
           },
-          "pluginVersion": "10.3.3",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -1585,6 +1580,7 @@ data:
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
+                "barWidthFactor": 0.6,
                 "drawStyle": "line",
                 "fillOpacity": 20,
                 "gradientMode": "none",
@@ -1625,13 +1621,12 @@ data:
                   }
                 ]
               },
-              "unit": "none",
-              "unitScale": true
+              "unit": "none"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 7,
             "w": 11,
             "x": 0,
             "y": 43
@@ -1668,8 +1663,8 @@ data:
         },
         {
           "gridPos": {
-            "h": 10,
-            "w": 13,
+            "h": 7,
+            "w": 7,
             "x": 11,
             "y": 43
           },
@@ -1707,9 +1702,94 @@ data:
           ],
           "title": "Alerts",
           "type": "alertlist"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "scaleDistribution": {
+                  "type": "linear"
+                }
+              },
+              "fieldMinMax": false
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 6,
+            "x": 18,
+            "y": 43
+          },
+          "id": 18,
+          "options": {
+            "calculate": false,
+            "cellGap": 1,
+            "cellValues": {
+              "decimals": 0,
+              "unit": "none"
+            },
+            "color": {
+              "exponent": 0.5,
+              "fill": "dark-orange",
+              "max": 1,
+              "min": 0,
+              "mode": "scheme",
+              "reverse": true,
+              "scale": "exponential",
+              "scheme": "RdYlGn",
+              "steps": 2
+            },
+            "exemplars": {
+              "color": "rgba(255,0,255,0.7)"
+            },
+            "filterValues": {},
+            "legend": {
+              "show": false
+            },
+            "rowsFrame": {
+              "layout": "auto"
+            },
+            "tooltip": {
+              "mode": "single",
+              "showColorScale": false,
+              "yHistogram": false
+            },
+            "yAxis": {
+              "axisPlacement": "right",
+              "reverse": false
+            }
+          },
+          "pluginVersion": "11.2.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+              },
+              "editorMode": "code",
+              "expr": "probe_success",
+              "instant": false,
+              "legendFormat": "{{instance}}",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Probes",
+          "type": "heatmap"
         }
       ],
-      "refresh": "30s",
       "schemaVersion": 39,
       "tags": [
         "production"
@@ -1718,7 +1798,11 @@ data:
         "list": [
           {
             "allValue": "",
-            "current": {},
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
             "datasource": {
               "type": "prometheus",
               "uid": "prometheus"
@@ -1765,13 +1849,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-5h",
+        "from": "now-30m",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swe",
-      "version": 8,
+      "version": 2,
       "weekStart": "monday"
     }
