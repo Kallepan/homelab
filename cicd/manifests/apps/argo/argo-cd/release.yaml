@@ -15,12 +15,12 @@ spec:
         name: argo
         namespace: argo
   values:
+    global:
+      domain: argocd.prod.server.home
     configs:
       params:
         server.insecure: true
     server:
-      extraArgs:
-        - --insecure
       ingress:
         enabled: true
         hosts:
@@ -29,7 +29,4 @@ spec:
               - path: /
                 pathType: Prefix
         ingressClassName: traefik
-        tls:
-          - hosts:
-              - argocd.prod.server.home
-            secretName: argocd-tls-secret
+        tls: true
