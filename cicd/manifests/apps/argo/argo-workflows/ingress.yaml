@@ -9,9 +9,8 @@ spec:
   routes:
     - kind: Rule
       match: Host(`argo-workflows.prod.server.home`)
-      priority: 10
       services:
         - name: argo-workflows-server
-          port: 80
+          port: 2746
   tls:
     secretName: argo-workflows-tls-secret

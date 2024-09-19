@@ -81,6 +81,11 @@ data:
           description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
           href: https://argocd.prod.server.home
           icon: argocd.png
+      - Argo Workflows:
+          description: Argo Workflows is an open source container-native workflow engine
+            for orchestrating parallel jobs on Kubernetes.
+          href: https://argo-workflows.prod.server.home
+          icon: argocd.png
       - Flux CI/CD:
           description: Flux is a tool that automatically ensures that the state of a
             cluster matches the config in git.
