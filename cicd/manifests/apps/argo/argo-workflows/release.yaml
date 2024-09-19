@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argo-workflows
+  namespace: argo
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: argo-workflows
+      version: "x"
+      sourceRef:
+        kind: HelmRepository
+        name: argo
+        namespace: argo
+  values:
+    workflow:
+      serviceAccount:
+        create: true
+        name: argo-workflows
+      rbac:
+        create: true
+    controller:
+      workflowNamespaces:
+        - workflows
