@@ -7,7 +7,6 @@ resources:
   - monitoring
   - it-tools
   - homepage
-  - argocd
   - nextcloud
   - mediawiki
   - keycloak
