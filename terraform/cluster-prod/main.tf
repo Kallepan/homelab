@@ -272,6 +272,21 @@ resource "kubernetes_secret" "mattermost-database-url" {
   type = "Opaque"
 }
 
+### Argo Workflows ###
+resource "kubernetes_secret" "argo-workflows-oauth-creds" {
+  metadata {
+    name      = "argo-workflows-oauth-creds"
+    namespace = "argo"
+  }
+
+  data = {
+    "client_id"     = var.argo_oauth_client_id
+    "client_secret" = var.argo_oauth_client_secret
+  }
+
+  type = "Opaque"
+}
+
 ### Nextcloud ###
 resource "kubernetes_secret" "s3-creds-postgres-nextcloud" {
   metadata {
