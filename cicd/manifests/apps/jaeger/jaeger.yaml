@@ -5,6 +5,14 @@ metadata:
   namespace: observability
 spec:
   strategy: allInOne
+  allInOne:
+    options:
+      query:
+        base-path: /jaeger
+      prometheus:
+        server-url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local
+    metricsStorage:
+      type: prometheus
   storage:
     type: memory
     options:
