@@ -26,6 +26,8 @@ spec:
           accessibleNamespaces:
             - "**"
         external_services:
+          grafana:
+            url: "https://monitoring.prod.server.home"
           tracing:
             enabled: true
             in_cluster_url: "http://jaeger-query.observability.svc.cluster.local:16685"
