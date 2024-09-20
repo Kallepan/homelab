@@ -26,5 +26,9 @@ spec:
           accessibleNamespaces:
             - "**"
         external_services:
+          tracing:
+            enabled: true
+            in_cluster_url: "http://jaeger-query.observability.svc.cluster.local:16685"
+            use_grpc: true
           prometheus:
             url: "http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090"
