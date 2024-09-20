@@ -54,9 +54,10 @@ spec:
     cni:
       enabled: true
     meshConfig:
-      tracing:
-        zipkin:
-          address: jaeger-collector.observability.svc:9411
+      defaultConfig:
+        tracing:
+          zipkin:
+            address: jaeger-collector.observability.svc:9411
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
