@@ -54,11 +54,9 @@ spec:
     cni:
       enabled: true
     meshConfig:
-      defaultConfig:
-        discoveryAddress: istiod.istio-system.svc:15012
-        tracing:
-          zipkin:
-            address: "jaeger-collector.istio-system.svc.cluster.local:9411"
+      tracing:
+        zipkin:
+          address: jaeger-collector.observability.svc:9411
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
