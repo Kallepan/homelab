@@ -4,4 +4,3 @@ resources:
   - metallb-pools.yaml
   - longhorn-storageclass.yaml
   - ca-issuer.yaml
-  - istio-ingress.yaml
