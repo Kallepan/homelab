@@ -48,12 +48,6 @@ data:
             you to easily manage your Docker environments.
           href: https://portainer.prod.server.home/
           icon: portainer.png
-      - Netboot XYZ:
-          description: Netboot.xyz is a way to PXE boot various operating system installers
-            or utilities from one place within the BIOS without the need of having to
-            go retrieve the media to run the tool.
-          href: https://server.home/
-          icon: netboot.png
       - Traefik Kubernetes Production:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
           href: https://traefik.prod.server.home/dashboard/
