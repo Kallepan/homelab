@@ -1,0 +1,24 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: observability
+spec:
+  strategy: allInOne
+  allInOne:
+    options:
+      query:
+        base-path: /jaeger
+      prometheus:
+        server-url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local
+    metricsStorage:
+      type: prometheus
+  storage:
+    type: memory
+    options:
+      memory:
+        max-traces: 100000
+  ingress:
+    enabled: false
+  agent:
+    strategy: DaemonSet
