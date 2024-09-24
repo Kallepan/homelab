@@ -49,10 +49,9 @@ spec:
           volumeMounts:
             - name: mediawiki-persistent-storage
               mountPath: /var/www/html/images
-            # - name: localsettings
-            #   mountPath: /var/www/html/LocalSettings.php
-            #   subPath: LocalSettings.php
-            # TODO
+            - name: localsettings
+              mountPath: /var/www/html/LocalSettings.php
+              subPath: LocalSettings.php
           resources:
             requests:
               memory: "64Mi"
