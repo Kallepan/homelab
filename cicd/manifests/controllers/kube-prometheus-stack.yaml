@@ -99,6 +99,7 @@ spec:
               module: [http_2xx]
             static_configs:
               - targets:
+                  - https://sso.prod.server.home
                   - https://google.com
                   - https://argocd.prod.server.home
                   - https://srv-rancher.server.home
@@ -111,7 +112,7 @@ spec:
               - source_labels: [__param_target]
                 target_label: instance
               - target_label: __address__
-                replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115 # TODO
+                replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
           - job_name: "istiod"
             kubernetes_sd_configs:
               - role: endpoints
