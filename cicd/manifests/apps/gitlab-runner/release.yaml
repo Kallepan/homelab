@@ -27,13 +27,3 @@ spec:
         [[runners]]
           [runners.kubernetes]
             image = "ubuntu:22.04"
-          [runners.cache]
-            Type = "s3"
-            Path = "gitlab-runner"
-            Shared = true
-            [runners.cache.s3]
-              ServerAddress = "api.minio.prod.server.home"
-              BucketName = "runner-cache"
-              BucketLocation = "eu-west-1"
-              Insecure = false
-              AuthenticationType = "access-key"
