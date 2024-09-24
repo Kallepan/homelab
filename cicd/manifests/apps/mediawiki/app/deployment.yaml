@@ -52,6 +52,7 @@ spec:
             # - name: localsettings
             #   mountPath: /var/www/html/LocalSettings.php
             #   subPath: LocalSettings.php
+            # TODO
           resources:
             requests:
               memory: "64Mi"
