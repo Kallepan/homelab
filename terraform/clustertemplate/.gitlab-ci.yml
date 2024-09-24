@@ -1,0 +1,95 @@
+# Terraform/Module-Base
+#
+# The purpose of this template is to provide flexibility to the user so
+# they are able to only include the jobs that they find interesting.
+#
+# Therefore, this template is not supposed to run any jobs. The idea is to only
+# create hidden jobs. See: https://docs.gitlab.com/ee/ci/yaml/#hide-jobs
+#
+# There is a more opinionated template which we suggest the users to abide,
+# which is the lib/gitlab/ci/templates/Terraform-Module.gitlab-ci.yml
+
+# These variables may be overridden by the pipeline including it to control how the Terraform module is being deployed.
+variables:
+  TERRAFORM_MODULE_DIR: ${CI_PROJECT_DIR}    # The relative path to the root directory of the Terraform project.
+  TERRAFORM_MODULE_NAME: ${CI_PROJECT_NAME}  # The name of your Terraform module, must not have any spaces or underscores (will be translated to hyphens).
+  TERRAFORM_MODULE_SYSTEM: local             # The system or provider your Terraform module targets (ex. local, aws, google).
+  TERRAFORM_MODULE_VERSION: ${CI_COMMIT_TAG}  # The version - it's recommended to follow SemVer for Terraform Module Versioning.
+  # Setting this variable will affect all Security templates
+  # (SAST, Dependency Scanning, ...)
+  SECURE_ANALYZERS_PREFIX: "$CI_TEMPLATE_REGISTRY_HOST/security-products"
+  SAST_IMAGE_SUFFIX: ""
+
+  SAST_EXCLUDED_PATHS: "spec, test, tests, tmp"
+
+  REPO_URL: https://github.com/kallepan/homelab.git
+  REPO_MODULE_DIR: homelab/terraform/clustertemplate
+
+pull:
+  stage: pull
+  image: alpine:latest
+  before_script:
+    - apk update && apk add --no-cache git
+  script:
+    - git clone $REPO_URL
+  artifacts:
+    paths:
+      - $REPO_MODULE_DIR
+
+iac-sast:
+  stage: test
+  artifacts:
+    access: 'developer'
+    reports:
+      sast: gl-sast-report.json
+  rules:
+    - when: never
+  # `rules` must be overridden explicitly by each child job
+  # see https://gitlab.com/gitlab-org/gitlab/-/issues/218444
+  variables:
+    SEARCH_MAX_DEPTH: 4
+  allow_failure: true
+  dependencies:
+    - pull
+  script:
+    - /analyzer run
+
+kics-iac-sast:
+  extends: iac-sast
+  image:
+    name: "$SAST_ANALYZER_IMAGE"
+  variables:
+    SAST_ANALYZER_IMAGE_TAG: 5
+    SAST_ANALYZER_IMAGE: "$SECURE_ANALYZERS_PREFIX/kics:$SAST_ANALYZER_IMAGE_TAG$SAST_IMAGE_SUFFIX"
+  rules:
+    - if: $SAST_DISABLED == 'true' || $SAST_DISABLED == '1'
+      when: never
+    - if: $SAST_EXCLUDED_ANALYZERS =~ /kics/
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+
+.terraform-module:deploy:
+  stage: deploy
+  image: $CI_TEMPLATE_REGISTRY_HOST/gitlab-org/terraform-images/stable:latest
+  dependencies:
+    - pull
+  script:
+    - TERRAFORM_MODULE_NAME=$(echo "${TERRAFORM_MODULE_NAME}" | tr " _" -)  # module-name must not have spaces or underscores, so translate them to hyphens
+    # Builds the Terraform module artifact: a gzipped tar archive with the contents from `$TERRAFORM_MODULE_DIR` without a `.git` directory.
+    - tar -vczf /tmp/${TERRAFORM_MODULE_NAME}-${TERRAFORM_MODULE_SYSTEM}-${TERRAFORM_MODULE_VERSION}.tgz -C ${TERRAFORM_MODULE_DIR} --exclude=./.git .
+    # Uploads the Terraform module artifact to the GitLab Terraform Module Registry, see
+    # docs/user/packages/terraform_module_registry/index.html#publish-a-terraform-module
+    - 'curl --fail-with-body --location --insecure --header "JOB-TOKEN: ${CI_JOB_TOKEN}"
+         --upload-file /tmp/${TERRAFORM_MODULE_NAME}-${TERRAFORM_MODULE_SYSTEM}-${TERRAFORM_MODULE_VERSION}.tgz
+         ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/terraform/modules/${TERRAFORM_MODULE_NAME}/${TERRAFORM_MODULE_SYSTEM}/${TERRAFORM_MODULE_VERSION}/file'
+
+stages:
+  - pull
+  - test
+  - deploy
+
+deploy:
+  extends: .terraform-module:deploy
+  rules:
+    - if: $CI_COMMIT_TAG
