@@ -7,8 +7,8 @@ I use it in my homelab to manage my infrastructure.
 ## Folders
 
 - `rancher` - Terraform code to manage Rancher server and agents
+- `clustertemplate` - Terraform module to manage cluster infrastructure
 - `cluster-prod` - Terraform code to manage production cluster infrastructure
-- `cluster-staging` - Terraform code to manage staging cluster infrastructure
 
 ## Usage
 

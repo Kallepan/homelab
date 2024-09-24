@@ -34,29 +34,6 @@ resource "kubernetes_node_taint" "node3_noschedule_taint" {
 }
 
 ### Labels ###
-resource "kubernetes_labels" "node4-labels" {
-  api_version = "v1"
-  kind        = "Node"
-  metadata {
-    name = "node4"
-  }
-
-  labels = {
-    "kubernetes.io/role" = "worker"
-  }
-}
-
-resource "kubernetes_labels" "node5-labels" {
-  api_version = "v1"
-  kind        = "Node"
-  metadata {
-    name = "node5"
-  }
-
-  labels = {
-    "kubernetes.io/role" = "worker"
-  }
-}
 
 resource "kubernetes_labels" "node6-labels" {
   api_version = "v1"
