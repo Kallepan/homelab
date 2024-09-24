@@ -53,7 +53,7 @@ spec:
         - name: pool-0
           servers: 1 # standalone
           size: 10Gi
-          storageClassName: longhorn-single-replica
+          storageClassName: longhorn
     ingress:
       api:
         enabled: true

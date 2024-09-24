@@ -67,8 +67,8 @@ spec:
         enabled: true
         persistence:
           enabled: true
-          size: 50Gi
-          storageClass: longhorn-single-replica
+          size: 10Gi
+          storageClass: longhorn
       psql:
         serviceName: gitlab-postgres-rw
         port: 5432
@@ -125,6 +125,6 @@ spec:
       install: true
       metrics:
         enabled: true
-      defaultStorageClass: longhorn-single-replica
+      defaultStorageClass: longhorn
     nginx-ingress:
       enabled: false

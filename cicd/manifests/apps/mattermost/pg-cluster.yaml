@@ -5,10 +5,10 @@ metadata:
   name: mattermost-postgres
   namespace: mattermost
 spec:
-  instances: 1
+  instances: 2
   storage:
     size: 5Gi
-    storageClass: longhorn-single-replica
+    storageClass: longhorn
   bootstrap:
     initdb:
       database: mattermost

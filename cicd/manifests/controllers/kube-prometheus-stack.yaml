@@ -77,7 +77,7 @@ spec:
         enabled: true
         type: pvc
         size: 2Gi
-        storageClassName: longhorn-single-replica
+        storageClassName: longhorn
       sidecar:
         dashboards:
           enabled: true
@@ -142,7 +142,7 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-              storageClassName: longhorn-single-replica
+              storageClassName: longhorn
     server:
       global:
         scrape_interval: 15s
