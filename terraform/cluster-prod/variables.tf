@@ -18,18 +18,6 @@ variable "backup_s3_secret" {
   sensitive   = true
 }
 
-variable "gitlab_s3_access" {
-  description = "The Access key to access Gitlab S3 bucket"
-  type        = string
-  sensitive   = true
-}
-
-variable "gitlab_s3_secret" {
-  description = "The Secret key to access Gitlab S3 bucket"
-  type        = string
-  sensitive   = true
-}
-
 variable "mattermost_s3_access" {
   description = "The Access key to access Mattermost S3 bucket"
   type        = string

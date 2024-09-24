@@ -115,20 +115,6 @@ resource "kubernetes_secret" "gitlab-runner-ca" {
   type = "Opaque"
 }
 
-resource "kubernetes_secret" "s3-gitlab-cache" {
-  metadata {
-    name      = "s3-gitlab-cache"
-    namespace = "gitlab-runner"
-  }
-
-  data = {
-    accesskey = var.gitlab_s3_access
-    secretkey = var.gitlab_s3_secret
-  }
-
-  type = "Opaque"
-}
-
 ### GitLab ###
 
 resource "kubernetes_secret" "s3-creds-postgres-gitlab" {
