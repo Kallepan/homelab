@@ -57,7 +57,7 @@ spec:
       defaultConfig:
         tracing:
           zipkin:
-            address: jaeger-collector.observability.svc:9411
+            address: jaeger-collector.observability.svc.cluster.local:9411
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -76,6 +76,8 @@ spec:
         name: istio
         namespace: istio-system
   values:
+    labels:
+      app: istio-ingressgateway
     service:
       ports:
         - name: status-port
