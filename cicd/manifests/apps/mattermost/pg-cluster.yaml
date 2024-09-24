@@ -5,7 +5,7 @@ metadata:
   name: mattermost-postgres
   namespace: mattermost
 spec:
-  instances: 2
+  instances: 1
   storage:
     size: 5Gi
     storageClass: longhorn

@@ -5,7 +5,7 @@ metadata:
   name: gitlab-postgres
   namespace: gitlab
 spec:
-  instances: 2
+  instances: 1
   storage:
     size: 20Gi
     storageClass: longhorn
