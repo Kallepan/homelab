@@ -1790,6 +1790,7 @@ data:
           "type": "heatmap"
         }
       ],
+      "refresh": "30s",
       "schemaVersion": 39,
       "tags": [
         "production"
