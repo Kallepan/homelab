@@ -48,10 +48,6 @@ data:
             you to easily manage your Docker environments.
           href: https://portainer.srv-lab.server.home/
           icon: portainer.png
-      - Traefik Kubernetes Production:
-          description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.srv-lab.server.home/dashboard/
-          icon: traefik.png
       - Traefik Docker:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
           href: https://traefik.srv-core.server.home/dashboard/
