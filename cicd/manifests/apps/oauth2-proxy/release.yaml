@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: oauth2-proxy
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: "7.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: oauth2-proxy
+  values:
+    config:
+      existingSecret: oauth2-proxy-config
+      configFile: |-
+        # Keycloak
+        provider="keycloak-oidc"
+        provider_display_name="Keycloak"
+        oidc_issuer_url="https://sso.srv-lab.server.home/realms/homelab"
+
+        email_domains="*"
+        skip_provider_button=true
+        redirect_url="/oauth2/callback"
+
+        # Cookie
+        pass_access_token=true
+        set_authorization_header=true
+        set_xauthrequest=true
+        upstreams=["static://200"]
+
+        # Logout
+        whitelist_domains=["sso.srv-lab.server.home"]
