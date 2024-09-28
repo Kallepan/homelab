@@ -284,3 +284,19 @@ resource "kubernetes_secret" "grafana-oauth-creds" {
 
   type = "Opaque"
 }
+
+### Oauth2 Proxy ###
+resource "kubernetes_secret" "oauth2-proxy-secrets" {
+  metadata {
+    name      = "oauth2-proxy-secrets"
+    namespace = "oauth2-proxy"
+  }
+
+  data = {
+    "client-id"     = var.oauth2_proxy_client_id
+    "client-secret" = var.oauth2_proxy_client_secret
+    "cookie-secret" = var.oauth2_proxy_cookie_secret
+  }
+
+  type = "Opaque"
+}
