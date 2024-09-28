@@ -84,7 +84,7 @@ vyos_dhcpv4_configs:
     subnet: "172.16.1.0/24"
     ranges:
       - id: "0"
-        start: "172.16.1.10"
+        start: "172.16.1.11"
         end: "172.16.1.245"
     domain_name: "server.home"
     default_router: "172.16.1.1"
