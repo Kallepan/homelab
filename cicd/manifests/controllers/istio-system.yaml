@@ -97,4 +97,4 @@ spec:
           protocol: TCP
           targetPort: 2222
       type: LoadBalancer
-      loadBalancerIP: 10.0.255.2
+      loadBalancerIP: 10.0.255.1
