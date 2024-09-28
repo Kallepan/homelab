@@ -98,10 +98,10 @@ data:
           href: https://monitoring.prod.server.home/
           icon: grafana.png
     - Docs:
-      - Wiki:
-          description: Mediawiki is a free and open-source wiki software.
-          href: https://wiki.prod.server.home/
-          icon: mediawiki.png
+      - Docs:
+          description: Docs hosted using mkdocs
+          href: https://docs.prod.server.home/
+          icon: mkdocs.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
           href: https://it-tools.prod.server.home/

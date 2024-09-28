@@ -183,17 +183,6 @@ resource "kubernetes_secret" "gitlab-ca" {
   type = "Opaque"
 }
 
-### Mediawiki ###
-resource "kubernetes_config_map" "mediawiki-localsettings" {
-  metadata {
-    name      = "localsettings"
-    namespace = "mediawiki"
-  }
-  data = {
-    "LocalSettings.php" = file("${path.module}/files/LocalSettings.php")
-  }
-}
-
 ### Mattermost ###
 
 resource "kubernetes_secret" "s3-creds-mattermost-fileStore" {

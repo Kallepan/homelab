@@ -9,7 +9,6 @@ resources:
   - homepage
   - argo
   - nextcloud
-  - mediawiki
   - keycloak
   - minio
   - kiali
