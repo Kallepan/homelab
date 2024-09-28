@@ -18,7 +18,7 @@ spec:
   http:
     httpEnabled: true
   hostname:
-    hostname: sso.prod.server.home
+    hostname: sso.srv-lab.server.home
   ingress:
     enabled: false
   proxy:

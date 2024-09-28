@@ -2,11 +2,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: keycloak-cert
-  namespace: keycloak
+  namespace: istio-system
 spec:
   secretName: keycloak-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - sso.prod.server.home
+    - sso.srv-lab.server.home

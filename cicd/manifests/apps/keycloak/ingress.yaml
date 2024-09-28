@@ -5,9 +5,9 @@ metadata:
   name: keycloak
   namespace: keycloak
 spec:
-  ingressClassName: traefik
+  ingressClassName: istio
   rules:
-    - host: sso.prod.server.home
+    - host: sso.srv-lab.server.home
       http:
         paths:
           - backend:
@@ -19,5 +19,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - sso.prod.server.home
+        - sso.srv-lab.server.home
       secretName: keycloak-tls-secret
