@@ -23,7 +23,7 @@ spec:
       install: false
     gitlab:
       gitlab-shell:
-        traefik:
+        istio:
           entryPoint: ssh
       toolbox:
         backups:
@@ -54,7 +54,7 @@ spec:
         customCAs:
           - secret: gitlab-ca
             keys:
-              - gitlab.prod.server.home.crt
+              - gitlab.srv-lab.server.home.crt
       gitlab:
         toolbox:
           backups:
@@ -79,7 +79,7 @@ spec:
           secret: gitlab-postgres-app
           key: password
       hosts:
-        domain: prod.server.home
+        domain: srv-lab.server.home
         externalIP: 10.0.255.0
         gitlab: {}
         hostSuffix: null
@@ -92,15 +92,11 @@ spec:
         ssh: ~
         tls: {}
       ingress:
-        class: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
+        class: istio
         configureCertmanager: false
         enabled: true
         path: /
         pathType: Prefix
-        provider: traefik
         tls:
           enabled: true
           secretName: gitlab-tls-secret
@@ -113,7 +109,7 @@ spec:
       registry:
         tls:
           enabled: true
-          secretName: registry-tls-secret
+          secretName: gitlab-registry-tls-secret
       time_zone: Europe/Berlin
     traefik:
       install: false

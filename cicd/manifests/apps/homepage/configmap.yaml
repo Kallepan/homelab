@@ -46,11 +46,11 @@ data:
       - Portainer:
           description: Portainer is an open-source lightweight management UI which allows
             you to easily manage your Docker environments.
-          href: https://portainer.prod.server.home/
+          href: https://portainer.srv-lab.server.home/
           icon: portainer.png
       - Traefik Kubernetes Production:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
-          href: https://traefik.prod.server.home/dashboard/
+          href: https://traefik.srv-lab.server.home/dashboard/
           icon: traefik.png
       - Traefik Docker:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
@@ -60,30 +60,30 @@ data:
       - Nextcloud:
           description: Nextcloud is a suite of client-server software for creating and
             using file hosting services.
-          href: https://nextcloud.prod.server.home/
+          href: https://nextcloud.srv-lab.server.home/
           icon: nextcloud.png
       - Minio:
           description: MinIO is a high performance, distributed object storage system.
-          href: https://tenant.minio.prod.server.home/
+          href: https://tenant.minio.srv-lab.server.home/
           icon: minio.png
     - GitOps:
       - GitLab:
           description: GitLab is a complete DevOps platform.
-          href: https://gitlab.prod.server.home/users/sign_in?auto_sign_in=false
+          href: https://gitlab.srv-lab.server.home/users/sign_in?auto_sign_in=false
           icon: gitlab.png
       - Argo CD:
           description: Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.
-          href: https://argocd.prod.server.home
+          href: https://argocd.srv-lab.server.home
           icon: argocd.png
       - Argo Workflows:
           description: Argo Workflows is an open source container-native workflow engine
             for orchestrating parallel jobs on Kubernetes.
-          href: https://argo-workflows.prod.server.home
+          href: https://argo-workflows.srv-lab.server.home
           icon: argocd.png
       - Flux CI/CD:
           description: Flux is a tool that automatically ensures that the state of a
             cluster matches the config in git.
-          href: https://flux.prod.server.home/
+          href: https://flux.srv-lab.server.home/
           icon: flux-cd.png
     - Monitoring & Logging:
       - Wazuh:
@@ -95,27 +95,27 @@ data:
       - Grafana:
           description: Grafana is the open source analytics & monitoring solution for
             every database.
-          href: https://monitoring.prod.server.home/
+          href: https://monitoring.srv-lab.server.home/
           icon: grafana.png
     - Docs:
       - Docs:
           description: Docs hosted using mkdocs
-          href: https://docs.prod.server.home/
+          href: https://docs.srv-lab.server.home/
           icon: mkdocs.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
-          href: https://it-tools.prod.server.home/
+          href: https://it-tools.srv-lab.server.home/
           icon: it-tools.png
     - Security and Identity:
       - Keycloak:
           description: Keycloak is an open source identity and access management solution.
-          href: https://sso.prod.server.home/
+          href: https://sso.srv-lab.server.home/
           icon: keycloak.png
   custom.css: ""
   custom.js: ""
   settings.yaml: |
     title: HomeLab
-    base: https://homepage.prod.server.home/
+    base: https://homepage.srv-lab.server.home/
     showStats: false
     theme: dark
     color: slate

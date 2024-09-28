@@ -40,15 +40,15 @@ spec:
           readOnly: true
       grafana.ini:
         server:
-          root_url: https://monitoring.prod.server.home
+          root_url: https://monitoring.srv-lab.server.home
         auth.generic_oauth:
           tls_skip_verify_insecure: true
           auto_login: false
           allow_assign_grafana_admin: false
           allow_sign_up: true
-          api_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/userinfo
-          auth_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/auth
-          token_url: https://sso.prod.server.home/realms/homelab/protocol/openid-connect/token
+          api_url: https://sso.srv-lab.server.home/realms/homelab/protocol/openid-connect/userinfo
+          auth_url: https://sso.srv-lab.server.home/realms/homelab/protocol/openid-connect/auth
+          token_url: https://sso.srv-lab.server.home/realms/homelab/protocol/openid-connect/token
           client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
           client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
           enabled: true
@@ -64,13 +64,13 @@ spec:
           skip_org_role_sync: false
       ingress:
         enabled: true
-        ingressClassName: traefik
+        ingressClassName: istio
         hosts:
-          - monitoring.prod.server.home
+          - monitoring.srv-lab.server.home
         tls:
           - secretName: monitoring-tls-secret
             hosts:
-              - monitoring.prod.server.home
+              - monitoring.srv-lab.server.home
       persistence:
         accessModes:
           - ReadWriteOnce
@@ -92,20 +92,20 @@ spec:
             scheme: https
             static_configs:
               - targets:
-                  - minio.prod.server.home
+                  - minio.srv-lab.server.home
           - job_name: "blackbox"
             metrics_path: /probe
             params:
               module: [http_2xx]
             static_configs:
               - targets:
-                  - https://sso.prod.server.home
+                  - https://sso.srv-lab.server.home
                   - https://google.com
-                  - https://argocd.prod.server.home
+                  - https://argocd.srv-lab.server.home
                   - https://srv-rancher.server.home
-                  - https://gitlab.prod.server.home
-                  - https://tenant.minio.prod.server.home
-                  - https://monitoring.prod.server.home
+                  - https://gitlab.srv-lab.server.home
+                  - https://tenant.minio.srv-lab.server.home
+                  - https://monitoring.srv-lab.server.home
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target

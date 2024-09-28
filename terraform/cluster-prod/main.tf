@@ -109,7 +109,7 @@ resource "kubernetes_secret" "gitlab-runner-ca" {
   }
 
   data = {
-    "gitlab.prod.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+    "gitlab.srv-lab.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
   }
 
   type = "Opaque"
@@ -177,7 +177,7 @@ resource "kubernetes_secret" "gitlab-ca" {
   }
 
   data = {
-    "gitlab.prod.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+    "gitlab.srv-lab.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
   }
 
   type = "Opaque"

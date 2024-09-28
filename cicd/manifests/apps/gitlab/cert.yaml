@@ -4,25 +4,25 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: gitlab-cert
-  namespace: gitlab
+  namespace: istio-system
 spec:
   secretName: gitlab-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - gitlab.prod.server.home
+    - gitlab.srv-lab.server.home
 ---
 # Registry certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: registry-cert
-  namespace: gitlab
+  namespace: istio-system
 spec:
-  secretName: registry-tls-secret
+  secretName: gitlab-registry-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - registry.prod.server.home
+    - registry.srv-lab.server.home

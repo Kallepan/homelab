@@ -27,7 +27,7 @@ spec:
             - "**"
         external_services:
           grafana:
-            url: "https://monitoring.prod.server.home"
+            url: "https://monitoring.srv-lab.server.home"
           tracing:
             in_cluster_url: "http://jaeger-query.observability.svc.cluster.local:16685"
             use_grpc: true

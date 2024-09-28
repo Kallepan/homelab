@@ -5,9 +5,9 @@ metadata:
   name: flux
   namespace: flux-system
 spec:
-  ingressClassName: traefik
+  ingressClassName: istio
   rules:
-    - host: flux.prod.server.home
+    - host: flux.srv-lab.server.home
       http:
         paths:
           - backend:
@@ -19,5 +19,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - flux.prod.server.home
+        - flux.srv-lab.server.home
       secretName: flux-tls-secret

@@ -16,6 +16,6 @@ spec:
       secret: mattermost-database-secret
   fileStore:
     external:
-      url: api.minio.prod.server.home
+      url: api.minio.srv-lab.server.home
       bucket: mattermost
       secret: mattermost-minio-creds

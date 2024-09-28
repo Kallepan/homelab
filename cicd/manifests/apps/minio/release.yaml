@@ -19,12 +19,12 @@ spec:
       ingress:
         number: 9090
         enabled: true
-        ingressClassName: traefik
-        host: minio.prod.server.home
+        ingressClassName: istio
+        host: minio.srv-lab.server.home
         tls:
           - secretName: minio-tls-secret
             hosts:
-              - minio.prod.server.home
+              - minio.srv-lab.server.home
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -57,17 +57,17 @@ spec:
     ingress:
       api:
         enabled: true
-        ingressClassName: traefik
-        host: api.minio.prod.server.home
+        ingressClassName: istio
+        host: api.minio.srv-lab.server.home
         tls:
           - secretName: minio-tls-secret
             hosts:
-              - api.minio.prod.server.home
+              - api.minio.srv-lab.server.home
       console:
         enabled: true
-        ingressClassName: traefik
-        host: tenant.minio.prod.server.home
+        ingressClassName: istio
+        host: tenant.minio.srv-lab.server.home
         tls:
           - secretName: minio-tls-secret
             hosts:
-              - tenant.minio.prod.server.home
+              - tenant.minio.srv-lab.server.home

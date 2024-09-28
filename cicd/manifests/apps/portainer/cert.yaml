@@ -4,11 +4,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: portainer-tls
-  namespace: portainer
+  namespace: istio-system
 spec:
   secretName: portainer-tls
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - portainer.prod.server.home
+    - portainer.srv-lab.server.home

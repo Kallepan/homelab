@@ -16,7 +16,7 @@ spec:
         namespace: gitlab
   values:
     certsSecretName: gitlab-ca
-    gitlabUrl: https://gitlab.prod.server.home
+    gitlabUrl: https://gitlab.srv-lab.server.home
     rbac:
       create: true
     runners:

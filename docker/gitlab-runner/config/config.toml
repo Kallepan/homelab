@@ -3,9 +3,9 @@ check_interval = 0
 
 [[runners]]
   name = "Docker Runner"
-  url = "https://gitlab.prod.server.home/"
+  url = "https://gitlab.srv-lab.server.home/"
   token = "<REDACTED>"
-  tls-ca-file = "/etc/gitlab-runner/certs/gitlab.prod.server.home.crt"
+  tls-ca-file = "/etc/gitlab-runner/certs/gitlab.srv-lab.server.home.crt"
   limit = 0
   executor = "docker"
   [runners.custom_build_dir]

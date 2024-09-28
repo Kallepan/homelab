@@ -4,13 +4,13 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: minio-cert
-  namespace: minio
+  namespace: istio-system
 spec:
   secretName: minio-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - minio.prod.server.home
-    - tenant.minio.prod.server.home
-    - api.minio.prod.server.home
+    - minio.srv-lab.server.home
+    - tenant.minio.srv-lab.server.home
+    - api.minio.srv-lab.server.home
