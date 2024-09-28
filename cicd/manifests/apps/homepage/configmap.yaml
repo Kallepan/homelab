@@ -36,6 +36,11 @@ data:
           description: Rancher is a complete software stack for teams adopting containers.
           href: https://srv-rancher.server.home
           icon: rancher.png
+      - Harvester:
+          description: Harvester is an open-source hyperconverged infrastructure (HCI)
+            software built using Kubernetes.
+          href: https://srv-harvester.server.home/
+          icon: harvester.png
       - KASM:
           description: Kasm Workspaces is a containerized application delivery platform
             that enables browser-based access to isolated applications and desktops
@@ -94,10 +99,6 @@ data:
           href: https://monitoring.srv-lab.server.home/
           icon: grafana.png
     - Docs:
-      - Docs:
-          description: Docs hosted using mkdocs
-          href: https://docs.srv-lab.server.home/
-          icon: mkdocs.png
       - It-Tools:
           description: It-tools is a collection of tools useful for IT professionals.
           href: https://it-tools.srv-lab.server.home/
@@ -111,6 +112,11 @@ data:
           description: Keycloak is an open source identity and access management solution.
           href: https://sso.srv-lab.server.home/
           icon: keycloak.png
+      - OAuth2 Proxy:
+          description: OAuth2 Proxy example.
+          href: https://example.srv-lab.server.home/
+          icon: oauth2-proxy.png
+
   custom.css: ""
   custom.js: ""
   settings.yaml: |
