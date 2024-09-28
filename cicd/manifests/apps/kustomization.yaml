@@ -18,3 +18,4 @@ resources:
   - kyverno
   - mattermost
   - oauth2-proxy
+  - web-example

@@ -37,7 +37,7 @@ spec:
         provider_ca_files=["/etc/ssl/certs/home.ca.crt"]
 
         # Logout
-        whitelist_domains=["sso.srv-lab.server.home"]
+        whitelist_domains=[".server.home"]
 
     extraVolumes:
       - name: ca-certs
