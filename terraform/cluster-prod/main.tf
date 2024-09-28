@@ -286,9 +286,9 @@ resource "kubernetes_secret" "grafana-oauth-creds" {
 }
 
 ### Oauth2 Proxy ###
-resource "kubernetes_secret" "oauth2-proxy-secrets" {
+resource "kubernetes_secret" "oauth2-proxy-config" {
   metadata {
-    name      = "oauth2-proxy-secrets"
+    name      = "oauth2-proxy-config"
     namespace = "oauth2-proxy"
   }
 
