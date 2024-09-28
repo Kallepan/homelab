@@ -77,6 +77,9 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:AE:66:AC"
         ip: "10.1.0.200"
         description: "test-2"
+      - mac: "BC:24:11:49:EB:9C"
+        ip: "10.1.0.210"
+        description: "harvester"
   - network_name: "DMZ"
     subnet: "172.16.1.0/24"
     ranges:
