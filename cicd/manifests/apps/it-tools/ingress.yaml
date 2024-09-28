@@ -1,18 +1,23 @@
 ---
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: tools-ingress
   namespace: it-tools
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`it-tools.prod.server.home`)
-      priority: 10
-      services:
-        - name: tools-svc
-          port: 80
+  ingressClassName: istio
+  rules:
+    - host: it-tools.srv-lab.server.home
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tools-svc
+                port:
+                  number: 80
   tls:
-    secretName: tools-tls
+    - hosts:
+        - it-tools.srv-lab.server.home
+      secretName: tools-tls
