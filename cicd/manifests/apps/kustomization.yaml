@@ -17,3 +17,4 @@ resources:
   - gitlab-runner
   - kyverno
   - mattermost
+  - oauth2-proxy
