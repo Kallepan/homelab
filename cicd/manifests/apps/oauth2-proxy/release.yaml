@@ -39,12 +39,12 @@ spec:
         # Logout
         whitelist_domains=["sso.srv-lab.server.home"]
 
-      extraVolumes:
-        - name: ca-certs
-          secret:
-            secretName: oauth2-proxy-ca-certs
+    extraVolumes:
+      - name: ca-certs
+        secret:
+          secretName: oauth2-proxy-ca-certs
 
-      extraVolumeMounts:
-        - name: ca-certs
-          mountPath: /etc/ssl/certs
-          readOnly: true
+    extraVolumeMounts:
+      - name: ca-certs
+        mountPath: /etc/ssl/certs
+        readOnly: true
