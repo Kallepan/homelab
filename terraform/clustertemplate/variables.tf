@@ -87,6 +87,17 @@ variable "worker_ram" {
   default     = 32
 }
 
+variable "worker_vm_image" {
+  description = "VM image for worker nodes"
+  type        = string
+}
+
+variable "worker_disk_size" {
+  description = "Disk size for worker nodes"
+  type        = number
+  default     = 20
+}
+
 variable "control_nodes" {
   description = "Number of control nodes"
   type        = number
@@ -105,9 +116,15 @@ variable "control_ram" {
   default     = 16
 }
 
-variable "vm_image" {
-  description = "Image to be used for the vm"
+variable "control_vm_image" {
+  description = "VM image for control nodes"
   type        = string
+}
+
+variable "control_disk_size" {
+  description = "Disk size for control nodes"
+  type        = number
+  default     = 20
 }
 
 // Networks

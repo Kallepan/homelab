@@ -9,8 +9,7 @@ data "rancher2_cluster_v2" "hci" {
   name = var.harvester_cluster_name
 }
 
-# Obtain the Kubeconfig contents to pass to downstream clusters in order to use
-# the Harvester cloud provider.
+# Obtain the Kubeconfig contents to pass to downstream clusters in order to use the Harvester cloud provider.
 # See https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster_v2#create-a-node-driver-cluster-with-harvester-as-both-the-infrastructure-provider-and-cloud-provider
 data "http" "harvester_cloudprovider_kubeconfig_query" {
   url    = "${var.rancher_url}/k8s/clusters/${data.rancher2_cluster_v2.hci.cluster_v1_id}/v1/harvester/kubeconfig"
@@ -65,9 +64,9 @@ resource "rancher2_machine_config_v2" "control" {
     disk_info = <<EOF
       {
         "disks": [{
-          "imageName": "${var.vm_image}",
+          "imageName": "${var.control_vm_image}",
           "bootOrder": 1,
-          "size": 40
+          "size": "${var.control_disk_size}"
         }]
       }
     EOF
@@ -129,9 +128,9 @@ resource "rancher2_machine_config_v2" "worker" {
     disk_info = <<EOF
       {
         "disks": [{
-          "imageName": "${var.vm_image}",
+          "imageName": "${var.worker_vm_image}",
           "bootOrder": 1,
-          "size": 40
+          "size": "${var.worker_disk_size}"
         }]
       }
     EOF
