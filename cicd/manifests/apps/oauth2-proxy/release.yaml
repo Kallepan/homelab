@@ -33,5 +33,18 @@ spec:
         set_xauthrequest=true
         upstreams=["static://200"]
 
+        # SSL
+        provider_ca_files=["/etc/ssl/certs/home.ca.crt"]
+
         # Logout
         whitelist_domains=["sso.srv-lab.server.home"]
+
+      extraVolumes:
+        - name: ca-certs
+          secret:
+            secretName: oauth2-proxy-ca-certs
+
+      extraVolumeMounts:
+        - name: ca-certs
+          mountPath: /etc/ssl/certs
+          readOnly: true

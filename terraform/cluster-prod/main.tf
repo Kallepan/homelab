@@ -300,3 +300,16 @@ resource "kubernetes_secret" "oauth2-proxy-config" {
 
   type = "Opaque"
 }
+
+resource "kubernetes_secret" "oauth2-proxy-ca-certs" {
+  metadata {
+    name      = "oauth2-proxy-ca-certs"
+    namespace = "oauth2-proxy"
+  }
+
+  data = {
+    "home.ca.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+  }
+
+  type = "Opaque"
+}
