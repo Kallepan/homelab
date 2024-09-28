@@ -76,7 +76,7 @@ spec:
           - ReadWriteOnce
         enabled: true
         type: pvc
-        size: 2Gi
+        size: 1Gi
         storageClassName: longhorn
       sidecar:
         dashboards:
