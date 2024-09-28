@@ -11,9 +11,9 @@ metadata:
   name: homepage
   namespace: homepage
 spec:
-  ingressClassName: traefik
+  ingressClassName: istio
   rules:
-    - host: homepage.prod.server.home
+    - host: homepage.srv-lab.server.home
       http:
         paths:
           - backend:
@@ -25,5 +25,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - homepage.prod.server.home
+        - homepage.srv-lab.server.home
       secretName: homepage-tls-secret

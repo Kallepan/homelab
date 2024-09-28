@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: homepage-cert
-  namespace: homepage
+  namespace: istio-system
   labels:
     app.kubernetes.io/name: homepage
     app.kubernetes.io/instance: homepage-production
@@ -16,4 +16,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - homepage.prod.server.home
+    - homepage.srv-lab.server.home
