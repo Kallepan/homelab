@@ -1349,7 +1349,7 @@ data:
               {
                 "matcher": {
                   "id": "byName",
-                  "options": "CPU Usage"
+                  "options": "CPU Usage (Req)"
                 },
                 "properties": [
                   {
@@ -1392,7 +1392,7 @@ data:
               {
                 "matcher": {
                   "id": "byName",
-                  "options": "Memory Usage"
+                  "options": "Memory Usage (Req)"
                 },
                 "properties": [
                   {
@@ -1442,6 +1442,10 @@ data:
                   {
                     "id": "unit",
                     "value": "decbytes"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 160
                   }
                 ]
               },
@@ -1454,6 +1458,118 @@ data:
                   {
                     "id": "unit",
                     "value": "decbytes"
+                  },
+                  {
+                    "id": "custom.width",
+                    "value": 140
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU Usage (Lim)"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "gauge"
+                    }
+                  },
+                  {
+                    "id": "max",
+                    "value": 1
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "dark-green",
+                          "value": null
+                        },
+                        {
+                          "color": "dark-yellow",
+                          "value": 70
+                        },
+                        {
+                          "color": "dark-red",
+                          "value": 90
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Memory Usage (Lim)"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percentunit"
+                  },
+                  {
+                    "id": "max",
+                    "value": 1
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "gauge"
+                    }
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "dark-green",
+                          "value": null
+                        },
+                        {
+                          "color": "dark-yellow",
+                          "value": 70
+                        },
+                        {
+                          "color": "dark-red",
+                          "value": 90
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU Requests"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 130
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "CPU Limits"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 110
                   }
                 ]
               }
@@ -1479,12 +1595,7 @@ data:
             },
             "frameIndex": 4,
             "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "Memory Usage"
-              }
-            ]
+            "sortBy": []
           },
           "pluginVersion": "11.2.0",
           "targets": [
@@ -1495,12 +1606,12 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=~\"$namespace\"}) by (pod, namespace,node)",
+              "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{namespace=~\"$namespace\"}) by (pod, namespace,node)",
               "format": "table",
               "instant": true,
               "legendFormat": "__auto",
               "range": false,
-              "refId": "cpu_usage"
+              "refId": "cpu_usage_req"
             },
             {
               "datasource": {
@@ -1539,13 +1650,13 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", container!=\"\", image!=\"\",namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=~\"$namespace\"}) by (pod, namespace,node)",
+              "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", container!=\"\", image!=\"\",namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{namespace=~\"$namespace\"}) by (pod, namespace,node)",
               "format": "table",
               "hide": false,
               "instant": true,
               "legendFormat": "__auto",
               "range": false,
-              "refId": "memory_usage"
+              "refId": "memory_usage_req"
             },
             {
               "datasource": {
@@ -1576,6 +1687,36 @@ data:
               "legendFormat": "__auto",
               "range": false,
               "refId": "memory_limits"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(container_memory_working_set_bytes{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\", container!=\"\", image!=\"\",namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{namespace=~\"$namespace\"}) by (pod, namespace,node)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "memory_usage_limit"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=~\"$namespace\"}) by (pod, namespace,node)/sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{namespace=~\"$namespace\"}) by (pod, namespace,node)",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "legendFormat": "__auto",
+              "range": false,
+              "refId": "cpu_usage_limits"
             }
           ],
           "title": "Pod Resources",
@@ -1593,12 +1734,14 @@ data:
                 "includeByName": {},
                 "indexByName": {
                   "Time": 0,
-                  "Value #cpu_limits": 6,
-                  "Value #cpu_requests": 5,
-                  "Value #cpu_usage": 4,
+                  "Value #cpu_limits": 5,
+                  "Value #cpu_requests": 4,
+                  "Value #cpu_usage_limits": 7,
+                  "Value #cpu_usage_req": 6,
                   "Value #memory_limits": 9,
                   "Value #memory_requests": 8,
-                  "Value #memory_usage": 7,
+                  "Value #memory_usage_limit": 11,
+                  "Value #memory_usage_req": 10,
                   "namespace": 2,
                   "node": 1,
                   "pod": 3
@@ -1607,9 +1750,13 @@ data:
                   "Value #cpu_limits": "CPU Limits",
                   "Value #cpu_requests": "CPU Requests",
                   "Value #cpu_usage": "CPU Usage",
+                  "Value #cpu_usage_limits": "CPU Usage (Lim)",
+                  "Value #cpu_usage_req": "CPU Usage (Req)",
                   "Value #memory_limits": "Memory Limits",
                   "Value #memory_requests": "Memory Requests",
                   "Value #memory_usage": "Memory Usage",
+                  "Value #memory_usage_limit": "Memory Usage (Lim)",
+                  "Value #memory_usage_req": "Memory Usage (Req)",
                   "namespace": "Namespace",
                   "node": "Node",
                   "pod": "Pod"
