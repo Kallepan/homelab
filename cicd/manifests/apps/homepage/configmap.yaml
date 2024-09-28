@@ -102,6 +102,10 @@ data:
           description: It-tools is a collection of tools useful for IT professionals.
           href: https://it-tools.srv-lab.server.home/
           icon: it-tools.png
+      - Mattermost:
+          description: Mattermost is an open source, self-hosted Slack-alternative.
+          href: https://mattermost.srv-lab.server.home/
+          icon: mattermost.png
     - Security and Identity:
       - Keycloak:
           description: Keycloak is an open source identity and access management solution.
