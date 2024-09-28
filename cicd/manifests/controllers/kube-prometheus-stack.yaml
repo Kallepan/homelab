@@ -87,13 +87,12 @@ spec:
     prometheus:
       prometheusSpec:
         additionalScrapeConfigs:
-          - job_name: minio-job
+          - job_name: minio
             metrics_path: /minio/v2/metrics/cluster
             scheme: http
             static_configs:
-              - targets:
-                  - minio.minio.svc.cluster.local
-          - job_name: "blackbox"
+              - targets: [minio.minio.svc.cluster.local]
+          - job_name: blackbox
             metrics_path: /probe
             params:
               module: [http_2xx]
@@ -113,7 +112,7 @@ spec:
                 target_label: instance
               - target_label: __address__
                 replacement: blackbox-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
-          - job_name: "istiod"
+          - job_name: istiod
             kubernetes_sd_configs:
               - role: endpoints
                 namespaces:
