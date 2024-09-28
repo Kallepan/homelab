@@ -89,7 +89,7 @@ spec:
         additionalScrapeConfigs:
           - job_name: minio-job
             metrics_path: /minio/v2/metrics/cluster
-            scheme: https
+            scheme: http
             static_configs:
               - targets:
                   - minio.minio.svc.cluster.local
