@@ -162,6 +162,10 @@ vyos_dns_configs:
       type: "A"
       name: "@"
       address: "10.0.2.0"
+    - domain: "srv-harvester.server.home"
+      type: "A"
+      name: "@"
+      address: "10.1.0.220"
 
 vyos_nat_configs:
   - outbound_interface: eth0
