@@ -36,7 +36,7 @@ spec:
               - argo-workflows.srv-lab.server.home
       sso:
         enabled: true
-        issuer: https://sso.prod.server.home
+        issuer: https://sso.srv-lab.server.home
         clientId:
           name: argo-workflows-oauth-creds
           key: client_id
