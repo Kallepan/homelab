@@ -48,7 +48,8 @@ spec:
         port: 9000
         protocol: http
       env:
-        - MINIO_PROMETHEUS_AUTH_TYPE=public
+        - name: MINIO_PROMETHEUS_AUTH_TYPE
+          value: public
       certificate:
         requestAutoCert: false
       pools:

@@ -92,7 +92,7 @@ spec:
             scheme: https
             static_configs:
               - targets:
-                  - minio.srv-lab.server.home
+                  - minio.minio.svc.cluster.local
           - job_name: "blackbox"
             metrics_path: /probe
             params:
