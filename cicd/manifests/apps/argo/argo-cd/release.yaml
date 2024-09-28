@@ -16,7 +16,7 @@ spec:
         namespace: argo
   values:
     global:
-      domain: argocd.prod.server.home
+      domain: argocd.srv-lab.server.home
     configs:
       params:
         server.insecure: true
@@ -24,9 +24,9 @@ spec:
       ingress:
         enabled: true
         hosts:
-          - host: argocd.prod.server.home
+          - host: argocd.srv-lab.server.home
             paths:
               - path: /
                 pathType: Prefix
-        ingressClassName: traefik
+        ingressClassName: istio
         tls: true

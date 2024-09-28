@@ -4,11 +4,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: argocd-server-tls
-  namespace: argo
+  namespace: istio-system
 spec:
   secretName: argocd-server-tls
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - argocd.prod.server.home
+    - argocd.srv-lab.server.home

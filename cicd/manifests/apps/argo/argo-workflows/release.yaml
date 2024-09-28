@@ -27,13 +27,13 @@ spec:
     server:
       ingress:
         enabled: true
-        ingressClassName: traefik
+        ingressClassName: istio
         hosts:
-          - argo-workflows.prod.server.home
+          - argo-workflows.srv-lab.server.home
         tls:
           - secretName: argo-workflows-tls-secret
             hosts:
-              - argo-workflows.prod.server.home
+              - argo-workflows.srv-lab.server.home
       sso:
         enabled: true
         issuer: https://sso.prod.server.home
@@ -43,4 +43,4 @@ spec:
         clientSecret:
           name: argo-workflows-oauth-creds
           key: client_secret
-        redirectUrl: https://argo-workflows.prod.server.home/oauth2/callback
+        redirectUrl: https://argo-workflows.srv-lab.server.home/oauth2/callback

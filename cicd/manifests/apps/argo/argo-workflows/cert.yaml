@@ -4,11 +4,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: argo-workflows-tls
-  namespace: argo
+  namespace: istio-system
 spec:
   secretName: argo-workflows-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - argo-workflows.prod.server.home
+    - argo-workflows.srv-lab.server.home
