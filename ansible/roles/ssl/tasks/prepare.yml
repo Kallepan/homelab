@@ -9,3 +9,4 @@
   ansible.builtin.apt:
     name: ca-certificates
     state: present
+  when: inventory_hostname != 'vyos'
