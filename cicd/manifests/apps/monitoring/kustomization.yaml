@@ -4,3 +4,5 @@ resources:
   - kube-prometheus-stack
   # Endpoint monitoring
   - blackbox
+  # Grafana Dashboards
+  - dashboards
