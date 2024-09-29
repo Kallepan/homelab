@@ -5,3 +5,5 @@ resources:
   - metrics-server.yaml
   - longhorn-system.yaml
   - cert-manager.yaml
+  - istio-system.yaml
+  - kube-prometheus-stack.yaml

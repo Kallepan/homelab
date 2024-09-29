@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: gateway
+      version: "1.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: istio-system
+  values:
+    labels:
+      app: istio-ingressgateway
+    service:
+      ports:
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
+        - name: ssh
+          port: 2222
+          protocol: TCP
+          targetPort: 2222
+      type: LoadBalancer
+      loadBalancerIP: 10.0.255.1

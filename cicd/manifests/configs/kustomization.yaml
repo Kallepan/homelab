@@ -5,3 +5,4 @@ resources:
   - ca-issuer.yaml
   - jaeger-operator-roles.yaml
   - istio-ingressclass.yaml
+  - istio-ingressgateway.yaml
