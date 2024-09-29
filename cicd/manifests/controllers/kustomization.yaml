@@ -5,3 +5,4 @@ resources:
   - keycloak-operator.yaml
   - mattermost-operator.yaml
   - jaeger-operator.yaml
+  - minio-operator.yaml

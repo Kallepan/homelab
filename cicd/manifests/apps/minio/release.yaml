@@ -2,33 +2,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: minio-operator
-  namespace: minio
-spec:
-  interval: 1h
-  chart:
-    spec:
-      chart: operator
-      version: "5.x.x"
-      sourceRef:
-        kind: HelmRepository
-        name: minio-operator
-        namespace: minio
-  values:
-    console:
-      ingress:
-        number: 9090
-        enabled: true
-        ingressClassName: istio
-        host: minio.srv-lab.server.home
-        tls:
-          - secretName: minio-tls-secret
-            hosts:
-              - minio.srv-lab.server.home
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
   name: minio-tenant
   namespace: minio
 spec:

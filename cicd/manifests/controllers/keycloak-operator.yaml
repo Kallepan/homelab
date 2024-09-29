@@ -13,7 +13,7 @@ spec:
   interval: 1h
   url: https://github.com/keycloak/keycloak-k8s-resources
   ref:
-    tag: "25.0.1"
+    tag: "25.0.6"
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
