@@ -23,11 +23,11 @@ all:
       ansible_host: 10.0.2.0
       ansible_user: ubuntu
       <<: *defaults
-    test-1:
+    bastion-1:
       ansible_host: 10.0.0.200
       ansible_user: ubuntu
       <<: *defaults
-    test-2:
+    bastion-2:
       ansible_host: 10.1.0.200
       ansible_user: ubuntu
       <<: *defaults
@@ -67,8 +67,8 @@ all:
         srv-rancher:
     test:
       hosts:
-        test-1:
-        test-2:
+        bastion-1:
+        bastion-2:
     k8s_cluster:
       hosts:
         node1:

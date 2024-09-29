@@ -37,7 +37,7 @@ vyos_dhcpv4_configs:
     static_mappings:
       - mac: "BC:24:11:48:6D:FB"
         ip: "10.0.0.200"
-        description: "test-1"
+        description: "bastion-1"
       - mac: "BC:24:11:18:D5:A3"
         ip: "10.0.2.0"
         description: "srv-rancher"
@@ -82,7 +82,7 @@ vyos_dhcpv4_configs:
     static_mappings:
       - mac: "BC:24:11:AE:66:AC"
         ip: "10.1.0.200"
-        description: "test-2"
+        description: "bastion-2"
       - mac: "BC:24:11:49:EB:9C"
         ip: "10.1.0.210"
         description: "harvester"
@@ -100,7 +100,7 @@ vyos_dhcpv4_configs:
     static_mappings:
       - mac: "BC:24:11:39:34:5B"
         ip: "172.16.1.10"
-        description: "test-3"
+        description: "bastion-3"
 
 vyos_dhcpv6_configs:
   - network_name: "LAN1"
