@@ -3,6 +3,8 @@
   ansible.builtin.include_tasks: install-ssh-key.yml
 - name: Setup Interfaces
   ansible.builtin.include_tasks: setup-interfaces.yml
+- name: Setup System
+  ansible.builtin.include_tasks: setup-system.yml
 - name: General Setup
   ansible.builtin.include_tasks: setup-general.yml
 - name: Setup DHCP

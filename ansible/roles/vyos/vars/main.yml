@@ -4,6 +4,9 @@ vyos_timezone: Europe/Berlin
 # images: https://github.com/vyos/vyos-rolling-nightly-builds/releases/
 vyos_latest_image_url: https://github.com/vyos/vyos-rolling-nightly-builds/releases/download/1.5-rolling-202406280020/vyos-1.5-rolling-202406280020-amd64.iso
 
+vyos_system:
+  is_vm: true
+
 vyos_interfaces:
   - name: eth1
     ipv4: "10.0.0.1/16"
