@@ -1,6 +1,20 @@
-# Rancher
+# Kubernetes
 
-## Useful Tips and Tricks
+## Flux CICD
+
+Init command
+
+```bash
+flux bootstrap git --url=ssh://git@github.com/kallepan/homelab.git --branch=main --private-key-file=keys/github_key --path=cicd/prod --kubeconfig=terraform/prod/files/kubeconfig.yaml
+```
+
+## Kubespray
+
+```bash
+ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
+```
+
+## Rancher
 
 ### Validating webhook fails
 
