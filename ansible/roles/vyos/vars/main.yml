@@ -172,6 +172,10 @@ vyos_dns_configs:
       type: "A"
       name: "@"
       address: "10.1.0.220"
+    - domain: "srv-wazuh.server.home"
+      type: "A"
+      name: "@"
+      address: "10.0.4.11"
 
 vyos_nat_configs:
   - outbound_interface: eth0
