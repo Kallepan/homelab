@@ -6,4 +6,3 @@ resources:
   - longhorn-system.yaml
   - cert-manager.yaml
   - istio-system.yaml
-  - kube-prometheus-stack.yaml

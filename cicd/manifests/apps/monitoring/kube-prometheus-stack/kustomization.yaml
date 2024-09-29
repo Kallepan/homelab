@@ -3,3 +3,6 @@ kind: Kustomization
 resources:
   - cert.yaml
   - alerts.yaml
+  - namespace.yaml
+  - release.yaml
+  - repository.yaml
