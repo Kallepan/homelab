@@ -5,3 +5,4 @@
     dest: /usr/local/share/ca-certificates/{{ ssl_root_cert_name }}
     mode: "0644"
   notify: Update CA Trust
+  when: inventory_hostname != 'vyos'

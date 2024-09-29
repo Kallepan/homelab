@@ -3,7 +3,6 @@
 export DEBIAN_FRONTEND=noninteractive && \
     sudo apt-get update && \
     sudo apt-get install -y \
-        python3-paramiko \
         python3-pip \
         pipx \
     && sudo apt-get clean \
@@ -20,7 +19,5 @@ modules=(ansible.posix)
 for module in "${modules[@]}"; do
     ansible-galaxy collection install $module
 done
-
-
 
 curl -s https://fluxcd.io/install.sh | sudo bash

@@ -62,6 +62,9 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:F1:41:6A"
         ip: "10.0.4.10"
         description: "srv-kasm"
+      - mac: "BC:24:11:45:3C:E9"
+        ip: "10.0.4.11"
+        description: "srv-wazuh"
   - network_name: "LAN2"
     subnet: "10.1.0.0/16"
     ranges:
