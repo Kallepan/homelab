@@ -9,6 +9,7 @@ I use it in my homelab to manage my infrastructure.
 - `rancher` - Terraform code to manage Rancher server and agents
 - `clustertemplate` - Terraform module to manage cluster infrastructure
 - `cluster-prod` - Terraform code to manage production cluster infrastructure
+- `gitlab` - Terraform code to manage Gitlab server
 
 ## Usage
 
