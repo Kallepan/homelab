@@ -7,4 +7,3 @@ resources:
   - blackbox
   # Grafana Dashboards
   - dashboards
-  - namespace.yaml
