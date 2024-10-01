@@ -18,6 +18,8 @@ spec:
           image: nginx:latest
           ports:
             - containerPort: 80
+              name: http
+              protocol: TCP
           resources:
             limits:
               memory: "128Mi"
