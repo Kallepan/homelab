@@ -55,6 +55,10 @@ spec:
       enabled: true
     meshConfig:
       extensionProviders:
+        - name: "zipkin"
+          zipkin:
+            service: "jaeger-collector.istio-system.svc.cluster.local"
+            port: 9411
         - name: "oauth2-proxy"
           envoyExtAuthzHttp:
             service: "oauth2-proxy.oauth2-proxy.svc.cluster.local"
@@ -70,7 +74,4 @@ spec:
                 "x-auth-request-email",
                 "x-auth-request-access-token",
               ]
-      defaultConfig:
-        tracing:
-          zipkin:
-            address: jaeger-collector.istio-system.svc.cluster.local:9411
+      enableTracing: true
