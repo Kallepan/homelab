@@ -34,3 +34,13 @@ spec:
           - secretName: argo-workflows-tls-secret
             hosts:
               - argo-workflows.srv-lab.server.home
+      sso:
+        enabled: true
+        issuer: https://sso.srv-lab.server.home
+        clientId:
+          name: argo-workflows-oauth-creds
+          key: client_id
+        clientSecret:
+          name: argo-workflows-oauth-creds
+          key: client_secret
+        redirectUrl: https://argo-workflows.srv-lab.server.home/oauth2/callback
