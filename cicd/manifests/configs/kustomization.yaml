@@ -3,6 +3,5 @@ kind: Kustomization
 resources:
   - metallb-pools.yaml
   - ca-issuer.yaml
-  - jaeger-operator-roles.yaml
   - istio-ingressclass.yaml
   - istio-ingressgateway.yaml
