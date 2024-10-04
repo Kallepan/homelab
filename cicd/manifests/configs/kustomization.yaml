@@ -5,3 +5,4 @@ resources:
   - ca-issuer.yaml
   - istio-ingressclass.yaml
   - istio-ingressgateway.yaml
+  - istio-ambient.yaml
