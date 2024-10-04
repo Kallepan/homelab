@@ -1,4 +1,18 @@
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jaeger-operator-istio
+  namespace: istio-system
+subjects:
+  - kind: ServiceAccount
+    name: jaeger-operator
+    namespace: observability
+roleRef:
+  name: jaeger-operator
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: jaeger-operator-ingress-class

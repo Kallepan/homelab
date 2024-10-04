@@ -31,8 +31,11 @@ spec:
   values:
     provisionDataStore:
       cassandra: false
+    extraEnv:
+      - name: WATCH_NAMESPACE
+        value: "istio-system"
     allInOne:
-      enabled: true
+      enabled: false
       resources:
         limits:
           cpu: 500m
