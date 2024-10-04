@@ -29,7 +29,7 @@ spec:
           grafana:
             url: "https://monitoring.srv-lab.server.home"
           tracing:
-            in_cluster_url: "http://jaeger-query.observability.svc.cluster.local:16685"
+            in_cluster_url: "http://jaeger-query.istio-system.svc.cluster.local:16685"
             use_grpc: true
           prometheus:
             url: "http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090"

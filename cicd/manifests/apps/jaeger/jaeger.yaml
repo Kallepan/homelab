@@ -2,7 +2,7 @@ apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: jaeger
-  namespace: observability
+  namespace: istio-system
 spec:
   strategy: allInOne
   allInOne:

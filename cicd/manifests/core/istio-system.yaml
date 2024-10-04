@@ -73,4 +73,4 @@ spec:
       defaultConfig:
         tracing:
           zipkin:
-            address: jaeger-collector.observability.svc.cluster.local:9411
+            address: jaeger-collector.istio-system.svc.cluster.local:9411
