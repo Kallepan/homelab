@@ -9,7 +9,7 @@ spec:
   timeout: 5m
   chart:
     spec:
-      chart: istio-cni
+      chart: cni
       version: "1.x.x"
       sourceRef:
         kind: HelmRepository
@@ -28,7 +28,7 @@ spec:
   timeout: 5m
   chart:
     spec:
-      chart: istio-ztunnel
+      chart: ztunnel
       version: "1.x.x"
       sourceRef:
         kind: HelmRepository
