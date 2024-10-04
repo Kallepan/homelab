@@ -7,7 +7,7 @@ spec:
   size: 100users
   image: mattermost/mattermost-team-edition
   ingress:
-    enabled: true
+    enabled: false
     ingressClass: istio
     host: mattermost.srv-lab.server.home
     tlsSecret: mattermost-tls-secret
