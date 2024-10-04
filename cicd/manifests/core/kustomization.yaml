@@ -6,3 +6,4 @@ resources:
   - longhorn-system.yaml
   - cert-manager.yaml
   - istio-system.yaml
+  - gateway-api.yaml
