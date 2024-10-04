@@ -61,7 +61,7 @@ vyos_dhcpv4_configs:
         description: "node8"
       - mac: "BC:24:11:DE:EA:85"
         ip: "10.0.4.0"
-        description: "srv-docker-1"
+        description: "srv-docker"
       - mac: "BC:24:11:F1:41:6A"
         ip: "10.0.4.10"
         description: "srv-kasm"
