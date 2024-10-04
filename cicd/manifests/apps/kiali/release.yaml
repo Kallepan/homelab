@@ -27,10 +27,25 @@ spec:
             - "**"
         external_services:
           grafana:
+            enabled: true
             url: "https://monitoring.srv-lab.server.home"
+            dashboards:
+              - name: "Istio Service Dashboard"
+                variables:
+                  namespace: "var-namespace"
+                  service: "var-service"
+              - name: "Istio Workload Dashboard"
+                variables:
+                  namespace: "var-namespace"
+                  workload: "var-workload"
+              - name: "Istio Mesh Dashboard"
+              - name: "Istio Control Plane Dashboard"
+              - name: "Istio Performance Dashboard"
+              - name: "Istio Wasm Extension Dashboard"
           tracing:
             enabled: true
             in_cluster_url: "http://jaeger-query.istio-system.svc.cluster.local:16685"
             use_grpc: true
           prometheus:
+            enabled: true
             url: "http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090"

@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - kube-metrics.yaml
   - minio.yaml
+  - istio.yaml
