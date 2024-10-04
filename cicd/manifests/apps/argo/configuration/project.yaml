@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: production
+  namespace: argo
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Production Projects
+  sourceRepos:
+    - "*"
+  destinations:
+    - namespace: "production-apps"
+      server: "https://kubernetes.default.svc"
+      name: in-cluster
+  clusterResourceWhitelist: []
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: "ResourceQuota"
+    - group: ""
+      kind: "LimitRange"
+    - group: ""
+      kind: "NetworkPolicy"
+  namespaceResourceWhitelist:
+    - group: "apps"
+      kind: "Deployment"
+    - group: "apps"
+      kind: "StatefulSet"
+    - group: ""
+      kind: "Service"
+  orphanedResources:
+    warn: true
+  permitOnlyProjectScopedClusters: false
