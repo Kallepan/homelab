@@ -28,18 +28,21 @@
       - set firewall ipv4 name WANv4-to-LOCALv4 default-log
       - set firewall ipv6 name WANv6-to-LOCALv6 default-action 'drop'
       - set firewall ipv6 name WANv6-to-LOCALv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 1 action 'accept'
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 1 state established
-      - set firewall ipv4 name WANv4-to-LOCALv4 rule 1 state related
       - set firewall ipv6 name WANv6-to-LOCALv6 rule 1 action 'accept'
       - set firewall ipv6 name WANv6-to-LOCALv6 rule 1 state established
-      - set firewall ipv6 name WANv6-to-LOCALv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 2 action 'drop'
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 2 state invalid
       - set firewall ipv6 name WANv6-to-LOCALv6 rule 2 action 'drop'
       - set firewall ipv6 name WANv6-to-LOCALv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name WANv4-to-LOCALv4 rule 3 action 'drop'
+      - set firewall ipv4 name WANv4-to-LOCALv4 rule 3 state related
+      - set firewall ipv6 name WANv6-to-LOCALv6 rule 3 action 'drop'
+      - set firewall ipv6 name WANv6-to-LOCALv6 rule 3 state related
       # SSH
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 800 action 'drop'
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 800 state new
@@ -58,11 +61,10 @@
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 900 protocol 'udp'
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 900 log
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 900 source
-      # Accept established/related connections from WireGuard
+      # Accept established connections from WireGuard
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 901 action 'accept'
-      - set firewall ipv4 name WANv4-to-LOCALv4 rule 901 description 'Allow established/related'
+      - set firewall ipv4 name WANv4-to-LOCALv4 rule 901 description 'Allow established'
       - set firewall ipv4 name WANv4-to-LOCALv4 rule 901 state established
-      - set firewall ipv4 name WANv4-to-LOCALv4 rule 901 state related
       # Assign the rules
       - set firewall zone local from wan firewall name 'WANv4-to-LOCALv4'
       - set firewall zone local from wan firewall ipv6-name 'WANv6-to-LOCALv6'
@@ -72,18 +74,21 @@
       - set firewall ipv4 name LOCALv4-to-WANv4 default-log
       - set firewall ipv6 name LOCALv6-to-WANv6 default-action 'drop'
       - set firewall ipv6 name LOCALv6-to-WANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 1 action 'accept'
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 1 state established
-      - set firewall ipv4 name LOCALv4-to-WANv4 rule 1 state related
       - set firewall ipv6 name LOCALv6-to-WANv6 rule 1 action 'accept'
       - set firewall ipv6 name LOCALv6-to-WANv6 rule 1 state established
-      - set firewall ipv6 name LOCALv6-to-WANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 2 action 'drop'
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 2 state invalid
       - set firewall ipv6 name LOCALv6-to-WANv6 rule 2 action 'drop'
       - set firewall ipv6 name LOCALv6-to-WANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LOCALv4-to-WANv4 rule 3 action 'drop'
+      - set firewall ipv4 name LOCALv4-to-WANv4 rule 3 state related
+      - set firewall ipv6 name LOCALv6-to-WANv6 rule 3 action 'drop'
+      - set firewall ipv6 name LOCALv6-to-WANv6 rule 3 state related
       # ICMP
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 100 action 'accept'
       - set firewall ipv4 name LOCALv4-to-WANv4 rule 100 protocol 'icmp'
@@ -119,18 +124,21 @@
       - set firewall ipv4 name WANv4-to-LANv4 default-log
       - set firewall ipv6 name WANv6-to-LANv6 default-action 'drop'
       - set firewall ipv6 name WANv6-to-LANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name WANv4-to-LANv4 rule 1 action 'accept'
       - set firewall ipv4 name WANv4-to-LANv4 rule 1 state established
-      - set firewall ipv4 name WANv4-to-LANv4 rule 1 state related
       - set firewall ipv6 name WANv6-to-LANv6 rule 1 action 'accept'
       - set firewall ipv6 name WANv6-to-LANv6 rule 1 state established
-      - set firewall ipv6 name WANv6-to-LANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name WANv4-to-LANv4 rule 2 action 'drop'
       - set firewall ipv4 name WANv4-to-LANv4 rule 2 state invalid
       - set firewall ipv6 name WANv6-to-LANv6 rule 2 action 'drop'
       - set firewall ipv6 name WANv6-to-LANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name WANv4-to-LANv4 rule 3 action 'drop'
+      - set firewall ipv4 name WANv4-to-LANv4 rule 3 state related
+      - set firewall ipv6 name WANv6-to-LANv6 rule 3 action 'drop'
+      - set firewall ipv6 name WANv6-to-LANv6 rule 3 state related
       # Assign the rules
       - set firewall zone lan1 from wan firewall name 'WANv4-to-LANv4'
       - set firewall zone lan2 from wan firewall name 'WANv4-to-LANv4'
@@ -148,18 +156,21 @@
       - set firewall ipv4 name LANv4-to-WANv4 default-log
       - set firewall ipv6 name LANv6-to-WANv6 default-action 'drop'
       - set firewall ipv6 name LANv6-to-WANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LANv4-to-WANv4 rule 1 action 'accept'
       - set firewall ipv4 name LANv4-to-WANv4 rule 1 state established
-      - set firewall ipv4 name LANv4-to-WANv4 rule 1 state related
       - set firewall ipv6 name LANv6-to-WANv6 rule 1 action 'accept'
       - set firewall ipv6 name LANv6-to-WANv6 rule 1 state established
-      - set firewall ipv6 name LANv6-to-WANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LANv4-to-WANv4 rule 2 action 'drop'
       - set firewall ipv4 name LANv4-to-WANv4 rule 2 state invalid
       - set firewall ipv6 name LANv6-to-WANv6 rule 2 action 'drop'
       - set firewall ipv6 name LANv6-to-WANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LANv4-to-WANv4 rule 3 action 'drop'
+      - set firewall ipv4 name LANv4-to-WANv4 rule 3 state related
+      - set firewall ipv6 name LANv6-to-WANv6 rule 3 action 'drop'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 3 state related
       # ICMP
       - set firewall ipv4 name LANv4-to-WANv4 rule 100 action 'accept'
       - set firewall ipv4 name LANv4-to-WANv4 rule 100 protocol 'icmp'
@@ -218,18 +229,21 @@
       - set firewall ipv4 name LANv4-to-LOCALv4 default-log
       - set firewall ipv6 name LANv6-to-LOCALv6 default-action 'drop'
       - set firewall ipv6 name LANv6-to-LOCALv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 1 action 'accept'
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 1 state established
-      - set firewall ipv4 name LANv4-to-LOCALv4 rule 1 state related
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 1 action 'accept'
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 1 state established
-      - set firewall ipv6 name LANv6-to-LOCALv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 2 action 'drop'
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 2 state invalid
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 2 action 'drop'
       - set firewall ipv6 name LANv6-to-LOCALv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LANv4-to-LOCALv4 rule 3 action 'drop'
+      - set firewall ipv4 name LANv4-to-LOCALv4 rule 3 state related
+      - set firewall ipv6 name LANv6-to-LOCALv6 rule 3 action 'drop'
+      - set firewall ipv6 name LANv6-to-LOCALv6 rule 3 state related
       # ICMP
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 100 action 'accept'
       - set firewall ipv4 name LANv4-to-LOCALv4 rule 100 protocol 'icmp'
@@ -279,18 +293,21 @@
       - set firewall ipv4 name LOCALv4-to-LANv4 default-log
       - set firewall ipv6 name LOCALv6-to-LANv6 default-action 'drop'
       - set firewall ipv6 name LOCALv6-to-LANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LOCALv4-to-LANv4 rule 1 action 'accept'
       - set firewall ipv4 name LOCALv4-to-LANv4 rule 1 state established
-      - set firewall ipv4 name LOCALv4-to-LANv4 rule 1 state related
       - set firewall ipv6 name LOCALv6-to-LANv6 rule 1 action 'accept'
       - set firewall ipv6 name LOCALv6-to-LANv6 rule 1 state established
-      - set firewall ipv6 name LOCALv6-to-LANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LOCALv4-to-LANv4 rule 2 action 'drop'
       - set firewall ipv4 name LOCALv4-to-LANv4 rule 2 state invalid
       - set firewall ipv6 name LOCALv6-to-LANv6 rule 2 action 'drop'
       - set firewall ipv6 name LOCALv6-to-LANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LOCALv4-to-LANv4 rule 3 action 'drop'
+      - set firewall ipv4 name LOCALv4-to-LANv4 rule 3 state related
+      - set firewall ipv6 name LOCALv6-to-LANv6 rule 3 action 'drop'
+      - set firewall ipv6 name LOCALv6-to-LANv6 rule 3 state related
       # Assign the rules
       - set firewall zone lan1 from local firewall name 'LOCALv4-to-LANv4'
       - set firewall zone lan2 from local firewall name 'LOCALv4-to-LANv4'
@@ -307,18 +324,21 @@
       - set firewall ipv4 name LANv4-to-LANv4 default-log
       - set firewall ipv6 name LANv6-to-LANv6 default-action 'drop'
       - set firewall ipv6 name LANv6-to-LANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LANv4-to-LANv4 rule 1 action 'accept'
       - set firewall ipv4 name LANv4-to-LANv4 rule 1 state established
-      - set firewall ipv4 name LANv4-to-LANv4 rule 1 state related
       - set firewall ipv6 name LANv6-to-LANv6 rule 1 action 'accept'
       - set firewall ipv6 name LANv6-to-LANv6 rule 1 state established
-      - set firewall ipv6 name LANv6-to-LANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LANv4-to-LANv4 rule 2 action 'drop'
       - set firewall ipv4 name LANv4-to-LANv4 rule 2 state invalid
       - set firewall ipv6 name LANv6-to-LANv6 rule 2 action 'drop'
       - set firewall ipv6 name LANv6-to-LANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LANv4-to-LANv4 rule 3 action 'drop'
+      - set firewall ipv4 name LANv4-to-LANv4 rule 3 state related
+      - set firewall ipv6 name LANv6-to-LANv6 rule 3 action 'drop'
+      - set firewall ipv6 name LANv6-to-LANv6 rule 3 state related
       # ICMP
       - set firewall ipv4 name LANv4-to-LANv4 rule 100 action 'accept'
       - set firewall ipv4 name LANv4-to-LANv4 rule 100 protocol 'icmp'
@@ -348,13 +368,15 @@
       ### WG01 to LAN ###
       - set firewall ipv4 name WG01v4-to-LANv4 default-action 'accept'
       - set firewall ipv4 name WG01v4-to-LANv4 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name WG01v4-to-LANv4 rule 1 action 'accept'
       - set firewall ipv4 name WG01v4-to-LANv4 rule 1 state established
-      - set firewall ipv4 name WG01v4-to-LANv4 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name WG01v4-to-LANv4 rule 2 action 'drop'
       - set firewall ipv4 name WG01v4-to-LANv4 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name WG01v4-to-LANv4 rule 3 action 'drop'
+      - set firewall ipv4 name WG01v4-to-LANv4 rule 3 state related
       # Assign the rules
       - set firewall zone lan1 from wg01 firewall name 'WG01v4-to-LANv4'
       - set firewall zone lan2 from wg01 firewall name 'WG01v4-to-LANv4'
@@ -366,15 +388,17 @@
     lines:
       ### LAN to WG01 ###
       # Drop all traffic by default
-      - set firewall ipv4 name LANv4-to-WG01v4 default-action 'accept'
+      - set firewall ipv4 name LANv4-to-WG01v4 default-action 'drop'
       - set firewall ipv4 name LANv4-to-WG01v4 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LANv4-to-WG01v4 rule 1 action 'accept'
       - set firewall ipv4 name LANv4-to-WG01v4 rule 1 state established
-      - set firewall ipv4 name LANv4-to-WG01v4 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LANv4-to-WG01v4 rule 2 action 'drop'
       - set firewall ipv4 name LANv4-to-WG01v4 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LANv4-to-WG01v4 rule 3 state related
+      - set firewall ipv4 name LANv4-to-WG01v4 rule 3 action 'drop'
       # Assign the rules
       - set firewall zone wg01 from lan1 firewall name 'LANv4-to-WG01v4'
       - set firewall zone wg01 from lan2 firewall name 'LANv4-to-WG01v4'
@@ -388,13 +412,15 @@
       # Drop all traffic by default
       - set firewall ipv4 name WG01v4-to-LOCALv4 default-action 'drop'
       - set firewall ipv4 name WG01v4-to-LOCALv4 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 1 action 'accept'
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 1 state established
-      - set firewall ipv4 name WG01v4-to-LOCALv4 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 2 action 'drop'
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name WG01v4-to-LOCALv4 rule 3 action 'drop'
+      - set firewall ipv4 name WG01v4-to-LOCALv4 rule 3 state related
       # DNS
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 600 action 'accept'
       - set firewall ipv4 name WG01v4-to-LOCALv4 rule 600 destination port '53'
@@ -411,13 +437,15 @@
       # Drop all traffic by default
       - set firewall ipv4 name LOCALv4-to-WG01v4 default-action 'drop'
       - set firewall ipv4 name LOCALv4-to-WG01v4 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LOCALv4-to-WG01v4 rule 1 action 'accept'
       - set firewall ipv4 name LOCALv4-to-WG01v4 rule 1 state established
-      - set firewall ipv4 name LOCALv4-to-WG01v4 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LOCALv4-to-WG01v4 rule 2 action 'drop'
       - set firewall ipv4 name LOCALv4-to-WG01v4 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LOCALv4-to-WG01v4 rule 3 action 'drop'
+      - set firewall ipv4 name LOCALv4-to-WG01v4 rule 3 state related
       # Assign the rules
       - set firewall zone wg01 from local firewall name 'LOCALv4-to-WG01v4'
     save: true
@@ -433,18 +461,21 @@
       - set firewall ipv4 name WANv4-to-DMZv4 default-log
       - set firewall ipv6 name WANv6-to-DMZv6 default-action 'drop'
       - set firewall ipv6 name WANv6-to-DMZv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name WANv4-to-DMZv4 rule 1 action 'accept'
       - set firewall ipv4 name WANv4-to-DMZv4 rule 1 state established
-      - set firewall ipv4 name WANv4-to-DMZv4 rule 1 state related
       - set firewall ipv6 name WANv6-to-DMZv6 rule 1 action 'accept'
       - set firewall ipv6 name WANv6-to-DMZv6 rule 1 state established
-      - set firewall ipv6 name WANv6-to-DMZv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name WANv4-to-DMZv4 rule 2 action 'drop'
       - set firewall ipv4 name WANv4-to-DMZv4 rule 2 state invalid
       - set firewall ipv6 name WANv6-to-DMZv6 rule 2 action 'drop'
       - set firewall ipv6 name WANv6-to-DMZv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name WANv4-to-DMZv4 rule 3 action 'drop'
+      - set firewall ipv4 name WANv4-to-DMZv4 rule 3 state related
+      - set firewall ipv6 name WANv6-to-DMZv6 rule 3 action 'drop'
+      - set firewall ipv6 name WANv6-to-DMZv6 rule 3 state related
       # Assign the rules
       - set firewall zone dmz from wan firewall name 'WANv4-to-DMZv4'
       - set firewall zone dmz from wan firewall ipv6-name 'WANv6-to-DMZv6'
@@ -460,18 +491,21 @@
       - set firewall ipv4 name DMZv4-to-LOCALv4 default-log
       - set firewall ipv6 name DMZv6-to-LOCALv6 default-action 'drop'
       - set firewall ipv6 name DMZv6-to-LOCALv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 1 action 'accept'
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 1 state established
-      - set firewall ipv4 name DMZv4-to-LOCALv4 rule 1 state related
       - set firewall ipv6 name DMZv6-to-LOCALv6 rule 1 action 'accept'
       - set firewall ipv6 name DMZv6-to-LOCALv6 rule 1 state established
-      - set firewall ipv6 name DMZv6-to-LOCALv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 2 action 'drop'
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 2 state invalid
       - set firewall ipv6 name DMZv6-to-LOCALv6 rule 2 action 'drop'
       - set firewall ipv6 name DMZv6-to-LOCALv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name DMZv4-to-LOCALv4 rule 3 action 'drop'
+      - set firewall ipv4 name DMZv4-to-LOCALv4 rule 3 state related
+      - set firewall ipv6 name DMZv6-to-LOCALv6 rule 3 action 'drop'
+      - set firewall ipv6 name DMZv6-to-LOCALv6 rule 3 state related
       # DHCP
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 700 action 'accept'
       - set firewall ipv4 name DMZv4-to-LOCALv4 rule 700 destination port '67,68'
@@ -494,18 +528,21 @@
       - set firewall ipv4 name LOCALv4-to-DMZv4 default-log
       - set firewall ipv6 name LOCALv6-to-DMZv6 default-action 'drop'
       - set firewall ipv6 name LOCALv6-to-DMZv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name LOCALv4-to-DMZv4 rule 1 action 'accept'
       - set firewall ipv4 name LOCALv4-to-DMZv4 rule 1 state established
-      - set firewall ipv4 name LOCALv4-to-DMZv4 rule 1 state related
       - set firewall ipv6 name LOCALv6-to-DMZv6 rule 1 action 'accept'
       - set firewall ipv6 name LOCALv6-to-DMZv6 rule 1 state established
-      - set firewall ipv6 name LOCALv6-to-DMZv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name LOCALv4-to-DMZv4 rule 2 action 'drop'
       - set firewall ipv4 name LOCALv4-to-DMZv4 rule 2 state invalid
       - set firewall ipv6 name LOCALv6-to-DMZv6 rule 2 action 'drop'
       - set firewall ipv6 name LOCALv6-to-DMZv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name LOCALv4-to-DMZv4 rule 3 action 'drop'
+      - set firewall ipv4 name LOCALv4-to-DMZv4 rule 3 state related
+      - set firewall ipv6 name LOCALv6-to-DMZv6 rule 3 action 'drop'
+      - set firewall ipv6 name LOCALv6-to-DMZv6 rule 3 state related
       # Assign the rules
       - set firewall zone dmz from local firewall name 'LOCALv4-to-DMZv4'
       - set firewall zone dmz from local firewall ipv6-name 'LOCALv6-to-DMZv6'
@@ -521,18 +558,21 @@
       - set firewall ipv4 name DMZv4-to-WANv4 default-log
       - set firewall ipv6 name DMZv6-to-WANv6 default-action 'drop'
       - set firewall ipv6 name DMZv6-to-WANv6 default-log
-      # Accept established/related connections
+      # Accept established connections
       - set firewall ipv4 name DMZv4-to-WANv4 rule 1 action 'accept'
       - set firewall ipv4 name DMZv4-to-WANv4 rule 1 state established
-      - set firewall ipv4 name DMZv4-to-WANv4 rule 1 state related
       - set firewall ipv6 name DMZv6-to-WANv6 rule 1 action 'accept'
       - set firewall ipv6 name DMZv6-to-WANv6 rule 1 state established
-      - set firewall ipv6 name DMZv6-to-WANv6 rule 1 state related
       # Drop invalid connections
       - set firewall ipv4 name DMZv4-to-WANv4 rule 2 action 'drop'
       - set firewall ipv4 name DMZv4-to-WANv4 rule 2 state invalid
       - set firewall ipv6 name DMZv6-to-WANv6 rule 2 action 'drop'
       - set firewall ipv6 name DMZv6-to-WANv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name DMZv4-to-WANv4 rule 3 action 'drop'
+      - set firewall ipv4 name DMZv4-to-WANv4 rule 3 state related
+      - set firewall ipv6 name DMZv6-to-WANv6 rule 3 action 'drop'
+      - set firewall ipv6 name DMZv6-to-WANv6 rule 3 state related
       # HTTP/HTTPS
       - set firewall ipv4 name DMZv4-to-WANv4 rule 200 action 'accept'
       - set firewall ipv4 name DMZv4-to-WANv4 rule 200 destination port '80,443'
