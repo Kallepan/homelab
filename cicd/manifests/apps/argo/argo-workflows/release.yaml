@@ -25,6 +25,10 @@ spec:
       workflowNamespaces:
         - workflows
     server:
+      logging:
+        level: debug
+      authModes:
+        - sso
       ingress:
         enabled: true
         ingressClassName: istio
@@ -44,3 +48,4 @@ spec:
           name: argo-workflows-oauth-creds
           key: client_secret
         redirectUrl: https://argo-workflows.srv-lab.server.home/oauth2/callback
+        insecureSkipVerify: true
