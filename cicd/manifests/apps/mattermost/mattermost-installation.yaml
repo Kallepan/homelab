@@ -8,9 +8,6 @@ spec:
   image: mattermost/mattermost-team-edition
   ingress:
     enabled: false
-    ingressClass: istio
-    host: mattermost.srv-lab.server.home
-    tlsSecret: mattermost-tls-secret
   database:
     external:
       secret: mattermost-database-secret
