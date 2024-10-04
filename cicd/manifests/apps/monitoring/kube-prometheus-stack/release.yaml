@@ -27,6 +27,8 @@ spec:
       grafana.ini:
         server:
           root_url: https://monitoring.srv-lab.server.home
+        auth.anonymous:
+          enabled: true
         auth.generic_oauth:
           tls_skip_verify_insecure: true
           auto_login: false
