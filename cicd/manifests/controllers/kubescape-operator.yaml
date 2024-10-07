@@ -4,11 +4,6 @@ kind: Namespace
 metadata:
   name: kubescape-operator
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kubescape
----
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -34,6 +29,7 @@ spec:
         name: kubescape
         namespace: kubescape-operator
   values:
+    ksNamespace: kubescape-operator
     clusterName: production
     capabilities:
       continuousScan: enable
