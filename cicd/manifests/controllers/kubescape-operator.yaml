@@ -39,3 +39,5 @@ spec:
       size:
         backingStorage: 5Gi
         kubevuln: 2Gi
+    kubevulnScheduler:
+      schedule: "0 */1 * * *"
