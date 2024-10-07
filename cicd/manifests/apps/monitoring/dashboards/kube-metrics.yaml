@@ -2237,7 +2237,7 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Kubernetes Metrics 2",
+      "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
       "version": 10,
       "weekStart": "monday"
