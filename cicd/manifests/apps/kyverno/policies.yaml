@@ -1,0 +1,27 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: emptydir-sizelimit
+spec:
+  rules:
+    - name: mutate-emptydir
+      match:
+        resources:
+          kinds:
+            - Pod
+      mutate:
+        foreach:
+          - list: "request.object.spec.volumes[]"
+            preconditions:
+              all:
+                - key: "{{element.keys(@)}}"
+                  operator: AnyIn
+                  value: emptyDir
+                - key: "{{element.emptyDir.sizeLimit || ''}}"
+                  operator: Equals
+                  value: ""
+            patchesJson6902: |-
+              - path: "/spec/volumes/{{elementIndex}}/emptyDir/sizeLimit"
+                op: add
+                value: "1Gi"
