@@ -2,6 +2,46 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
+  name: add-sidecar-injection-namespace
+  annotations:
+    policies.kyverno.io/title: Add Istio Sidecar Injection
+    policies.kyverno.io/category: Istio
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Namespace
+    policies.kyverno.io/description: >-
+      In order for Istio to inject sidecars to workloads deployed into Namespaces, the label
+      `istio-injection` must be set to `enabled`. As an alternative to rejecting Namespace definitions
+      which don't already contain this label, it can be added automatically. This policy adds the label
+      `istio-inject` set to `enabled` for all new Namespaces.
+spec:
+  rules:
+    - name: add-istio-injection-enabled
+      match:
+        resources:
+          kinds:
+            - Namespace
+      preconditions:
+        all:
+          - key: "{{request.object.metadata.name}}"
+            operator: AnyNotIn
+            value:
+              - kube-system
+              - kube-node-lease
+              - kube-public
+              - cert-manager
+              - "*-sigs"
+              - "*-system"
+              - "*-operator"
+              - "*-controller"
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            labels:
+              istio-injection: enabled
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
   name: emptydir-sizelimit
   annotations:
     policies.kyverno.io/title: "Set sizeLimit for emptyDir volumes"
