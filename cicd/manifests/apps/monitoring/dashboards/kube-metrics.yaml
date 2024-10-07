@@ -29,7 +29,6 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 86,
       "links": [],
       "liveNow": false,
       "panels": [
@@ -43,12 +42,14 @@ data:
           },
           "id": 19,
           "panels": [],
-          "title": "Namespace",
+          "title": "Pods",
           "type": "row"
         },
         {
           "datasource": {
-            "type": "prometheus"
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -111,7 +112,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 8,
             "x": 0,
             "y": 1
@@ -123,7 +124,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -140,19 +141,21 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\"}[$__rate_interval])) by (namespace)",
+              "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\"}[$__rate_interval])) by (pod)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "CPU Usage by Namespace",
+          "title": "CPU Usage by Pod",
           "type": "timeseries"
         },
         {
           "datasource": {
-            "type": "prometheus"
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -215,7 +218,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 8,
             "x": 8,
             "y": 1
@@ -227,7 +230,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -244,19 +247,21 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum(rate(container_cpu_cfs_throttled_periods_total{namespace=~\"$namespace\"}[$__rate_interval])) by (namespace)",
+              "expr": "sum(rate(container_cpu_cfs_throttled_periods_total{namespace=~\"$namespace\"}[$__rate_interval])) by (pod)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "CPU Throttle by Namespace",
+          "title": "CPU Throttle by Pod",
           "type": "timeseries"
         },
         {
           "datasource": {
-            "type": "prometheus"
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
           },
           "fieldConfig": {
             "defaults": {
@@ -319,7 +324,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
+            "h": 10,
             "w": 8,
             "x": 16,
             "y": 1
@@ -331,7 +336,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -348,14 +353,14 @@ data:
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "(sum(container_memory_working_set_bytes{namespace=~\"$namespace\"}) by (namespace))",
+              "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"}) by (pod)",
               "instant": false,
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "Memory Utilization by Namespace",
+          "title": "Memory Utilization by Pod",
           "type": "timeseries"
         },
         {
@@ -395,7 +400,7 @@ data:
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 8
+            "y": 11
           },
           "id": 14,
           "options": {
@@ -433,19 +438,6 @@ data:
           "type": "stat"
         },
         {
-          "collapsed": false,
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 18
-          },
-          "id": 22,
-          "panels": [],
-          "title": "Pods",
-          "type": "row"
-        },
-        {
           "datasource": {
             "default": true,
             "type": "prometheus",
@@ -468,9 +460,9 @@ data:
           },
           "gridPos": {
             "h": 12,
-            "w": 8,
+            "w": 15,
             "x": 0,
-            "y": 19
+            "y": 21
           },
           "id": 23,
           "options": {
@@ -591,10 +583,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 6,
-            "w": 16,
-            "x": 8,
-            "y": 19
+            "h": 12,
+            "w": 9,
+            "x": 15,
+            "y": 21
           },
           "id": 15,
           "options": {
@@ -628,110 +620,6 @@ data:
             }
           ],
           "title": "Volume Usage",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "opacity",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "decimals": 2,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bytes"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 16,
-            "x": 8,
-            "y": 25
-          },
-          "id": 13,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "topk(10, sum(container_memory_working_set_bytes) by (pod))",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Top 10 Memory Intesive Pods",
           "type": "timeseries"
         },
         {
@@ -1064,7 +952,7 @@ data:
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 31
+            "y": 33
           },
           "id": 11,
           "options": {
@@ -1083,7 +971,7 @@ data:
             "sortBy": [
               {
                 "desc": true,
-                "displayName": "Memory Usage (Req)"
+                "displayName": "CPU Usage (Req)"
               }
             ]
           },
@@ -1254,7 +1142,232 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 39
+            "y": 41
+          },
+          "id": 27,
+          "panels": [],
+          "title": "Namespace",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 42
+          },
+          "id": 13,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Last *",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "topk(10, sum(container_memory_working_set_bytes) by (namespace))",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Top 10 Memory Intensive Namespaces",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 42
+          },
+          "id": 26,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Last *",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(rate(container_cpu_usage_seconds_total[$__rate_interval])) by (namespace)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Top 10 CPU Intensive Namespaces",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 49
           },
           "id": 20,
           "panels": [],
@@ -1332,7 +1445,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 40
+            "y": 50
           },
           "id": 4,
           "options": {
@@ -1438,7 +1551,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 40
+            "y": 50
           },
           "id": 5,
           "options": {
@@ -1540,7 +1653,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 40
+            "y": 50
           },
           "id": 6,
           "options": {
@@ -1666,7 +1779,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 48
+            "y": 58
           },
           "id": 24,
           "options": {
@@ -1789,7 +1902,7 @@ data:
             "h": 8,
             "w": 16,
             "x": 8,
-            "y": 48
+            "y": 58
           },
           "id": 25,
           "options": {
@@ -1915,7 +2028,7 @@ data:
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 56
+            "y": 66
           },
           "id": 12,
           "options": {
@@ -1957,7 +2070,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 59
+            "y": 69
           },
           "id": 21,
           "panels": [],
@@ -2029,7 +2142,7 @@ data:
             "h": 10,
             "w": 11,
             "x": 0,
-            "y": 60
+            "y": 70
           },
           "id": 10,
           "options": {
@@ -2085,7 +2198,7 @@ data:
             "h": 10,
             "w": 13,
             "x": 11,
-            "y": 60
+            "y": 70
           },
           "id": 18,
           "options": {
@@ -2150,7 +2263,7 @@ data:
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 70
+            "y": 80
           },
           "id": 8,
           "options": {
@@ -2232,13 +2345,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-30m",
+        "from": "now-2h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
-      "version": 10,
+      "version": 2,
       "weekStart": "monday"
     }
