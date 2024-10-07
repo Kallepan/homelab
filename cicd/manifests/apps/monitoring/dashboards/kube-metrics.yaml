@@ -380,15 +380,15 @@ data:
                   },
                   {
                     "color": "dark-yellow",
-                    "value": 10
+                    "value": 5
                   },
                   {
                     "color": "dark-orange",
-                    "value": 20
+                    "value": 10
                   },
                   {
                     "color": "dark-red",
-                    "value": 40
+                    "value": 25
                   }
                 ]
               },
