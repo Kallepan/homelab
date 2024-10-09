@@ -19,3 +19,4 @@ resources:
   - mattermost
   - oauth2-proxy
   - web-example
+  - harbor
