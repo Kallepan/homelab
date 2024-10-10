@@ -40,4 +40,4 @@ spec:
         backingStorage: 5Gi
         kubevuln: 2Gi
     kubevulnScheduler:
-      schedule: "0 */1 * * *"
+      scanSchedule: "0 */1 * * *"
