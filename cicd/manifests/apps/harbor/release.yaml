@@ -22,10 +22,10 @@ spec:
         secret:
           secretName: harbor-tls-secret
         certSource: secret
-    ingress:
-      hosts:
-        core: harbor.srv-lab.server.home
-        className: istio
+      ingress:
+        hosts:
+          core: harbor.srv-lab.server.home
+          className: istio
     externalURL: https://harbor.srv-lab.server.home
     persistence:
       enabled: true
@@ -64,12 +64,12 @@ spec:
         enabled: false
       ipv4:
         enabled: true
-    existingSecretSecretKey: harbor-registry-secret-key
+    existingSecretSecretKey: harbor-registry-secret
     database:
       type: external
       external:
         host: harbor-postgres-rw
         port: 5432
-        username: app
+        username: harbor
         coreDatabase: harbor
         existingSecret: harbor-postgres-db-credentials
