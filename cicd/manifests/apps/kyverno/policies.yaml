@@ -23,16 +23,8 @@ spec:
       preconditions:
         all:
           - key: "{{request.object.metadata.name}}"
-            operator: AnyNotIn
+            operator: AnyIn
             value:
-              - kube-system
-              - kube-node-lease
-              - kube-public
-              - cert-manager
-              - "*-sigs"
-              - "*-system"
-              - "*-operator"
-              - "*-controller"
       mutate:
         patchStrategicMerge:
           metadata:
