@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: harbor
+      version: "1.x.x"
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+        namespace: harbor
+  values:
+    expose:
+      type: ingress
+      tls:
+        enabled: true
+        secret:
+          secretName: harbor-tls-secret
+        certSource: secret
+    ingress:
+      hosts:
+        core: harbor.srv-lab.server.home
+        className: istio
+    externalURL: https://harbor.srv-lab.server.home
+    persistence:
+      enabled: true
+      persistentVolumeClaim:
+        registry:
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 5Gi
+        jobservice:
+          jobLog:
+            storageClass: longhorn
+            accessMode: ReadWriteOnce
+            size: 1Gi
+        redis:
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 1Gi
+        trivy:
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 5Gi
+      imageChartStorage:
+        type: s3
+        s3:
+          region: eu-west-1
+          bucket: harbor
+          accesskey: harbor-registry-s3-creds
+          secretkey: harbor-registry-s3-creds
+          secure: false
+          regionendpoint: http://api.minio.srv-lab.server.home
+          rootdirectory: /harbor
+    existingSecretAdminPassword: harbor-admin-password
+    existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+    ipFamily:
+      ipv6:
+        enabled: false
+      ipv4:
+        enabled: true
+    existingSecretSecretKey: harbor-registry-secret-key
+    database:
+      type: external
+      external:
+        host: harbor-postgres-rw
+        port: 5432
+        username: app
+        coreDatabase: harbor
+        existingSecret: harbor-postgres-db-credentials

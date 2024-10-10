@@ -30,8 +30,38 @@ variable "mattermost_s3_secret" {
   sensitive   = true
 }
 
-### Oauth Credentials ###
+variable "harbor_registry_s3_access" {
+  description = "The Access key to access Harbor S3 bucket"
+  type        = string
+  sensitive   = true
+}
 
+variable "harbor_registry_s3_secret" {
+  description = "The Secret key to access Harbor S3 bucket"
+  type        = string
+  sensitive   = true
+}
+
+### Harbor ###
+variable "harbor_admin_password" {
+  description = "The password for Harbor admin"
+  type        = string
+  sensitive   = true
+}
+
+variable "harbor_registry_secret" {
+  description = "The secret for Harbor registry"
+  type        = string
+  sensitive   = true
+}
+
+variable "harbor_db_password" {
+  description = "The password for Harbor database"
+  type        = string
+  sensitive   = true
+}
+
+### Oauth Credentials ###
 variable "grafana_oauth_client_id" {
   description = "The client ID for Grafana OAuth"
   type        = string
@@ -52,7 +82,6 @@ variable "gitlab_runner_token" {
 }
 
 ### Mattermost ###
-
 variable "mattermost_db_password" {
   description = "The password for Mattermost database"
   type        = string
