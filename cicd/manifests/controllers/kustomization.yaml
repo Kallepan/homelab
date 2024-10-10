@@ -6,4 +6,3 @@ resources:
   - mattermost-operator.yaml
   - jaeger-operator.yaml
   - minio-operator.yaml
-  - kubescape-operator.yaml
