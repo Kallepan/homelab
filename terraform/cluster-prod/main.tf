@@ -82,7 +82,8 @@ resource "kubernetes_labels" "node9-labels" {
   }
 
   labels = {
-    "kubernetes.io/role" = "worker"
+    "kubernetes.io/role"    = "worker"
+    "kubernetes.io/storage" = "longhorn"
   }
 }
 
