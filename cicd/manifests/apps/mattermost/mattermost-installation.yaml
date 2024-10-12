@@ -12,7 +12,5 @@ spec:
     external:
       secret: mattermost-database-secret
   fileStore:
-    external:
-      url: api.minio.srv-lab.server.home
-      bucket: mattermost
-      secret: mattermost-minio-creds
+    externalVolume:
+      volumeClaimName: mattermost-data
