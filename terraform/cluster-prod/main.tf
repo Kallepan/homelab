@@ -200,18 +200,6 @@ resource "kubernetes_secret" "gitlab-ca" {
 
 ### Mattermost ###
 
-resource "kubernetes_secret" "s3-creds-mattermost-fileStore" {
-  metadata {
-    name      = "mattermost-minio-creds"
-    namespace = "mattermost"
-  }
-
-  data = {
-    "accesskey" = var.mattermost_s3_access
-    "secretkey" = var.mattermost_s3_secret
-  }
-}
-
 resource "kubernetes_secret" "s3-creds-postgres-mattermost" {
   metadata {
     name      = "s3-creds"
