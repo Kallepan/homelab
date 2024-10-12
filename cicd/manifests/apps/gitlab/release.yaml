@@ -104,6 +104,8 @@ spec:
         enabled: false
       monitoring:
         enabled: true
+      shell:
+        port: 2222
       pages:
         enabled: true
       registry:
