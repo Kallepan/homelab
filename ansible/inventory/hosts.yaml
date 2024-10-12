@@ -55,6 +55,10 @@ all:
       ansible_host: 10.0.3.8
       ansible_user: ubuntu
       <<: *defaults
+    node9:
+      ansible_host: 10.0.3.9
+      ansible_user: ubuntu
+      <<: *defaults
   children:
     kasm:
       hosts:
@@ -77,3 +81,4 @@ all:
         node6:
         node7:
         node8:
+        node9:
