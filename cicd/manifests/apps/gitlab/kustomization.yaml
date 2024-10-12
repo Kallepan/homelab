@@ -7,3 +7,4 @@ resources:
   - cert.yaml
   - release.yaml
   - pg-cluster.yaml
+  - istio.yaml
