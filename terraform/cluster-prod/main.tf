@@ -43,7 +43,8 @@ resource "kubernetes_labels" "node6-labels" {
   }
 
   labels = {
-    "kubernetes.io/role" = "worker"
+    "kubernetes.io/role"    = "worker"
+    "kubernetes.io/storage" = "longhorn"
   }
 }
 
@@ -55,7 +56,8 @@ resource "kubernetes_labels" "node7-labels" {
   }
 
   labels = {
-    "kubernetes.io/role" = "worker"
+    "kubernetes.io/role"    = "worker"
+    "kubernetes.io/storage" = "longhorn"
   }
 }
 
@@ -65,6 +67,12 @@ resource "kubernetes_labels" "node8-labels" {
   metadata {
     name = "node8"
   }
+
+  labels = {
+    "kubernetes.io/role"    = "worker"
+    "kubernetes.io/storage" = "longhorn"
+  }
+}
 
   labels = {
     "kubernetes.io/role" = "worker"

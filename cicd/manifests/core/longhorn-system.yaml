@@ -38,9 +38,12 @@ spec:
     longhornManager:
       nodeSelector:
         kubernetes.io/role: "worker"
+        kubernetes.io/storage: "longhorn"
     longhornDriver:
       nodeSelector:
         kubernetes.io/role: "worker"
+        kubernetes.io/storage: "longhorn"
     longhornUI:
       nodeSelector:
         kubernetes.io/role: "worker"
+        kubernetes.io/storage: "longhorn"
