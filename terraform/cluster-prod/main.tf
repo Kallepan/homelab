@@ -74,6 +74,13 @@ resource "kubernetes_labels" "node8-labels" {
   }
 }
 
+resource "kubernetes_labels" "node9-labels" {
+  api_version = "v1"
+  kind        = "Node"
+  metadata {
+    name = "node9"
+  }
+
   labels = {
     "kubernetes.io/role" = "worker"
   }
