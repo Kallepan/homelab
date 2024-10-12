@@ -41,12 +41,6 @@ data:
             software built using Kubernetes.
           href: https://srv-harvester.server.home/
           icon: harvester.png
-      - KASM:
-          description: Kasm Workspaces is a containerized application delivery platform
-            that enables browser-based access to isolated applications and desktops
-            running on Linux or Windows servers.
-          href: https://srv-kasm.server.home/
-          icon: kasm.png
     - Management:
       - Portainer:
           description: Portainer is an open-source lightweight management UI which allows

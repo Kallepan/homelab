@@ -11,10 +11,6 @@ all:
       ansible_host: 10.0.4.0
       ansible_user: ubuntu
       <<: *defaults
-    srv-kasm:
-      ansible_host: 10.0.4.10
-      ansible_user: ubuntu
-      <<: *defaults
     srv-wazuh:
       ansible_host: 10.0.4.11
       ansible_user: ubuntu
@@ -60,9 +56,6 @@ all:
       ansible_user: ubuntu
       <<: *defaults
   children:
-    kasm:
-      hosts:
-        srv-kasm:
     docker:
       hosts:
         srv-docker:
