@@ -8,6 +8,21 @@ spec:
   image: mattermost/mattermost-team-edition
   ingress:
     enabled: false
+  podExtensions:
+    initContainers:
+      - name: init
+        image: busybox
+        command: ["sh", "-c"]
+        args:
+          - |
+            chmod -R 777 /mattermost/data
+        volumeMounts:
+          - name: mattermost-data
+            mountPath: /mattermost/data
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
   database:
     external:
       secret: mattermost-database-secret
