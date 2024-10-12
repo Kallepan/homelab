@@ -7,3 +7,4 @@ resources:
   - mattermost-installation.yaml
   - cert.yaml
   - ingress.yaml
+  - pvc.yaml
