@@ -95,7 +95,7 @@ variable "worker_vm_image" {
 variable "worker_disk_size" {
   description = "Disk size for worker nodes"
   type        = number
-  default     = 20
+  default     = 10
 }
 
 variable "control_nodes" {
@@ -124,7 +124,7 @@ variable "control_vm_image" {
 variable "control_disk_size" {
   description = "Disk size for control nodes"
   type        = number
-  default     = 20
+  default     = 10
 }
 
 // Networks
