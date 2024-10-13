@@ -2,6 +2,7 @@ provider "rancher2" {
   api_url    = "${var.rancher_url}/v3"
   access_key = var.rancher2_access_key
   secret_key = var.rancher2_secret_key
+  insecure   = true
 }
 
 # Obtain the Harvester cluster.
@@ -12,8 +13,9 @@ data "rancher2_cluster_v2" "hci" {
 # Obtain the Kubeconfig contents to pass to downstream clusters in order to use the Harvester cloud provider.
 # See https://registry.terraform.io/providers/rancher/rancher2/latest/docs/resources/cluster_v2#create-a-node-driver-cluster-with-harvester-as-both-the-infrastructure-provider-and-cloud-provider
 data "http" "harvester_cloudprovider_kubeconfig_query" {
-  url    = "${var.rancher_url}/k8s/clusters/${data.rancher2_cluster_v2.hci.cluster_v1_id}/v1/harvester/kubeconfig"
-  method = "POST"
+  url      = "${var.rancher_url}/k8s/clusters/${data.rancher2_cluster_v2.hci.cluster_v1_id}/v1/harvester/kubeconfig"
+  method   = "POST"
+  insecure = true
 
   request_headers = {
     Authorization = "Basic ${base64encode("${var.rancher2_access_key}:${var.rancher2_secret_key}")}"
