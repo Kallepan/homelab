@@ -51,6 +51,11 @@ data:
           description: Traefik is a modern HTTP reverse proxy and load balancer.
           href: https://traefik.srv-core.server.home/dashboard/
           icon: traefik.png
+      - Kiali:
+          description: Kiali is an observability console for Istio with service mesh
+            configuration capabilities.
+          href: https://srv-rancher.server.home/k8s/clusters/c-m-dkwj54c7/api/v1/namespaces/istio-system/services/http:kiali:20001/proxy/kiali/console/overview?duration=60&refresh=60000
+          icon: traefik-proxy.png
     - Storage:
       - Nextcloud:
           description: Nextcloud is a suite of client-server software for creating and
@@ -61,6 +66,10 @@ data:
           description: MinIO is a high performance, distributed object storage system.
           href: https://tenant.minio.srv-lab.server.home/
           icon: minio.png
+      - Longhorn:
+          description: Longhorn is a distributed block storage system for Kubernetes.
+          href: https://srv-rancher.server.home/k8s/clusters/c-m-dkwj54c7/api/v1/namespaces/longhorn-system/services/http:longhorn-frontend:80/proxy/#/volume
+          icon: longhorn.png
     - GitOps:
       - GitLab:
           description: GitLab is a complete DevOps platform.
