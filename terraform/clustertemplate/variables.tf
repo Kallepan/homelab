@@ -79,12 +79,12 @@ variable "worker_nodes" {
 variable "worker_cpu" {
   description = "Amount of CPUs in worker nodes"
   type        = number
-  default     = 16
+  default     = 2
 }
 variable "worker_ram" {
   description = "Amount of RAM in worker nodes"
   type        = number
-  default     = 32
+  default     = 2
 }
 
 variable "worker_vm_image" {
@@ -107,13 +107,13 @@ variable "control_nodes" {
 variable "control_cpu" {
   description = "Amount of CPUs in control nodes"
   type        = number
-  default     = 8
+  default     = 2
 }
 
 variable "control_ram" {
   description = "Amount of RAM in worker nodes"
   type        = number
-  default     = 16
+  default     = 2
 }
 
 variable "control_vm_image" {
