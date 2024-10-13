@@ -9,6 +9,12 @@ resource "gitlab_group" "homelab_deployments" {
   parent_id = gitlab_group.homelab.id
 }
 
+resource "gitlab_group" "clusters" {
+  path      = "clusters"
+  name      = "Clusters"
+  parent_id = gitlab_group.homelab_deployments.id
+}
+
 resource "gitlab_group" "homelab_iac" {
   path      = "iac"
   name      = "IAC"

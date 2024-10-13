@@ -2,7 +2,7 @@
 variable "rancher_url" {
   description = "Rancher server URL"
   type        = string
-  default     = "https://rancher.kite.ume.de"
+  default     = "https://srv-rancher.server.home"
 }
 
 variable "rancher2_access_key" {

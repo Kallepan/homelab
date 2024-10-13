@@ -12,5 +12,5 @@ resource "gitlab_project" "homelab_deployments_test_cluster" {
   name             = "Test Cluster"
   description      = "Test Cluster Deployment"
   visibility_level = "private"
-  namespace_id     = gitlab_group.homelab_deployments.id
+  namespace_id     = gitlab_group.clusters.id
 }

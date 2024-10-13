@@ -1,8 +1,9 @@
 terraform {
   required_providers {
-    http = {
-      source = "hashicorp/http"
+    harvester = {
+      source = "harvester/harvester"
     }
+
     rancher2 = {
       source = "rancher/rancher2"
     }
