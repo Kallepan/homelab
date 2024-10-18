@@ -109,12 +109,7 @@ spec:
       pages:
         enabled: true
       registry:
-        ingress:
-          class: istio
-          enabled: true
-          tls:
-            enabled: true
-            secretName: gitlab-registry-tls-secret
+        enabled: true
       time_zone: Europe/Berlin
     traefik:
       install: false

@@ -11,18 +11,7 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - gitlab.srv-lab.server.home
----
-# Registry certificate
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: registry-cert
-  namespace: istio-system
-spec:
-  secretName: gitlab-registry-tls-secret
-  issuerRef:
-    name: cluster-issuer
-    kind: ClusterIssuer
-  dnsNames:
-    - registry.srv-lab.server.home
+    - "gitlab.srv-lab.server.home"
+    - "kas.srv-lab.server.home"
+    - "registry.srv-lab.server.home"
+    - "*.pages.srv-lab.server.home"
