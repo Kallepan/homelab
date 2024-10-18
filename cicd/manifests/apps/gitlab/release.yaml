@@ -110,7 +110,6 @@ spec:
         enabled: true
       registry:
         enabled: true
-        relativeurls: true
       time_zone: Europe/Berlin
     traefik:
       install: false
@@ -123,5 +122,7 @@ spec:
       metrics:
         enabled: true
       defaultStorageClass: longhorn
+    registry:
+      relativeurls: true
     nginx-ingress:
       enabled: false
