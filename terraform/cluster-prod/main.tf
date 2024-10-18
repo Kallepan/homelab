@@ -173,6 +173,17 @@ resource "kubernetes_secret" "gitlab-minio-creds" {
   type = "Opaque"
 }
 
+resource "kubernetes_secret" "gitlab-registry-minio-connection" {
+  metadata {
+    name      = "gitlab-registry-minio-connection"
+    namespace = "gitlab"
+  }
+
+  data = {
+    "registry.s3.yml" = file("files/gitlab-registry.s3.yml")
+  }
+}
+
 resource "kubernetes_secret" "gitlab-minio-connection" {
   metadata {
     name      = "gitlab-minio-connection"

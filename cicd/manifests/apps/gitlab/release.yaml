@@ -124,5 +124,8 @@ spec:
       defaultStorageClass: longhorn
     registry:
       relativeurls: true
+      storage:
+        secret: gitlab-registry-minio-connection
+        key: registry.s3.yml
     nginx-ingress:
       enabled: false
