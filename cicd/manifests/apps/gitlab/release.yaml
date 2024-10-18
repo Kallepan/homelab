@@ -123,6 +123,7 @@ spec:
         enabled: true
       defaultStorageClass: longhorn
     registry:
+      bucket: gitlab-registry-storage
       storage:
         secret: gitlab-registry-minio-connection
         key: registry.s3.yml
