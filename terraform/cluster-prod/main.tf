@@ -104,19 +104,6 @@ resource "kubernetes_secret" "ca-secret" {
 
 ### GitLab-Runner ###
 
-resource "kubernetes_config_map" "gitlab-runner-docker-daemon" {
-  metadata {
-    name      = "gitlab-runner-docker-daemon"
-    namespace = "gitlab-runner"
-  }
-
-  data = {
-    "daemon.json" = jsonencode({
-      "insecure-registries" = ["registry.srv-lab.server.home:5000"]
-    })
-  }
-}
-
 resource "kubernetes_secret" "gitlab-runner-token-secret" {
   metadata {
     name      = "gitlab-runner-token-secret"

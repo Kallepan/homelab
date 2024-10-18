@@ -32,7 +32,8 @@ spec:
             name = "docker-certs"
             mount_path = "/certs/client"
             medium = "Memory"
-          [[runners.kubernetes.volumes.config_map]]
-            name = "gitlab-runner-docker-daemon"
-            mount_path = "/etc/docker/daemon.json"
-            sub_path = "daemon.json"
+          [[runners.kubernetes.volumes.secret]]
+            name = "gitlab-ca"
+            mount_path = "/usr/local/share/ca-certificates/gitlab.srv-lab.server.home.crt"
+            sub_path = "gitlab.srv-lab.server.home.crt"
+            read_only = true
