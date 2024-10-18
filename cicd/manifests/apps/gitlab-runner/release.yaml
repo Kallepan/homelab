@@ -32,3 +32,7 @@ spec:
             name = "docker-certs"
             mount_path = "/certs/client"
             medium = "Memory"
+          [[runners.kubernetes.volumes.config_map]]
+            name = "gitlab-runner-docker-daemon"
+            mount_path = "/etc/docker/daemon.json"
+            sub_path = "daemon.json"
