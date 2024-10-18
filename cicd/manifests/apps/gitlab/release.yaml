@@ -110,6 +110,7 @@ spec:
         enabled: true
       registry:
         enabled: true
+        relativeurls: true
       time_zone: Europe/Berlin
     traefik:
       install: false
