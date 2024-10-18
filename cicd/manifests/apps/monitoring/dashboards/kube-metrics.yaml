@@ -2053,7 +2053,7 @@ data:
                 "type": "prometheus"
               },
               "editorMode": "code",
-              "expr": "1 + sum(kube_node_status_condition{status=\"false\",condition=\"Ready\"}) by (node) * 100 + sum(kube_node_status_condition{status=\"unknown\"}) by (node) * 100 \n+ sum(kube_node_status_condition{status=~\"true\",condition!=\"Ready\"}) by (node)",
+              "expr": "1 + sum(kube_node_status_condition{status=\"false\",condition=\"Ready\"}) by (node) * 100 + sum(kube_node_status_condition{status=\"unknown\"}) by (node) * 100 \n+ sum(kube_node_status_condition{status=~\"true\",condition!~\"EtcdIsVoter|Ready\"}) by (node)",
               "instant": false,
               "interval": "",
               "legendFormat": "__auto",
@@ -2345,13 +2345,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-3h",
+        "from": "now-24h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
-      "version": 2,
+      "version": 1,
       "weekStart": "monday"
     }
