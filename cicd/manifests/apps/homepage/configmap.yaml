@@ -32,16 +32,16 @@ data:
           description: Proxmox VE is a complete open-source platform for enterprise virtualization.
           href: https://192.168.0.2:8006/
           icon: proxmox.png
-      - Rancher:
-          description: Rancher is a complete software stack for teams adopting containers.
-          href: https://srv-rancher.server.home
-          icon: rancher.png
       - Harvester:
           description: Harvester is an open-source hyperconverged infrastructure (HCI)
             software built using Kubernetes.
           href: https://srv-harvester.server.home/
           icon: harvester.png
     - Management:
+      - Rancher:
+          description: Rancher is a complete software stack for teams adopting containers.
+          href: https://srv-rancher.server.home
+          icon: rancher.png
       - Portainer:
           description: Portainer is an open-source lightweight management UI which allows
             you to easily manage your Docker environments.
@@ -70,6 +70,11 @@ data:
           description: Longhorn is a distributed block storage system for Kubernetes.
           href: https://srv-rancher.server.home/k8s/clusters/c-m-dkwj54c7/api/v1/namespaces/longhorn-system/services/http:longhorn-frontend:80/proxy/#/volume
           icon: longhorn.png
+      - Harbor:
+          description: Harbor is an open source trusted cloud native registry project
+            that stores, signs, and scans content.
+          href: https://harbor.srv-lab.server.home/
+          icon: harbor.png
     - GitOps:
       - GitLab:
           description: GitLab is a complete DevOps platform.
