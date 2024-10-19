@@ -28,3 +28,5 @@ spec:
         kind: HelmRepository
         name: cnpg
         namespace: cnpg-operator
+  values:
+    replicaCount: 2
