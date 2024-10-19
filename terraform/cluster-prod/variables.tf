@@ -107,3 +107,29 @@ variable "oauth2_proxy_cookie_secret" {
   type        = string
   sensitive   = true
 }
+
+
+### MINIO ###
+variable "minio_root_user" {
+  description = "The root user for Minio"
+  type        = string
+  sensitive   = true
+}
+
+variable "minio_root_password" {
+  description = "The root password for Minio"
+  type        = string
+  sensitive   = true
+}
+
+variable "minio_console_access_key" {
+  description = "The access key for Minio console"
+  type        = string
+  sensitive   = true
+}
+
+variable "minio_console_secret_key" {
+  description = "The secret key for Minio console"
+  type        = string
+  sensitive   = true
+}
