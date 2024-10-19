@@ -11,6 +11,7 @@ resources:
   - nextcloud
   - keycloak
   - minio
+  - minio-tenant
   - kiali
   - jaeger
   - gitlab
