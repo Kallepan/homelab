@@ -28,3 +28,4 @@ spec:
               storage: 20Gi
           storageClassName: longhorn
       volumesPerServer: 1
+  requestAutoCert: false
