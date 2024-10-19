@@ -22,3 +22,11 @@ resource "gitlab_project" "homelab_deployments_test_cluster" {
   visibility_level = "private"
   namespace_id     = gitlab_group.clusters.id
 }
+
+resource "gitlab_project" "personal_acme_zone_file" {
+  path             = "acme-zone-file"
+  name             = "ACME Zone File"
+  description      = "ACME DNS Zone File"
+  visibility_level = "private"
+  namespace_id     = gitlab_group.personal.id
+}
