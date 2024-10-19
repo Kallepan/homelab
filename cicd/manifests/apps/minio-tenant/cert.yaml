@@ -11,6 +11,6 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - minio.srv-lab.server.home
+    - operator.minio.srv-lab.server.home
     - tenant.minio.srv-lab.server.home
     - api.minio.srv-lab.server.home
