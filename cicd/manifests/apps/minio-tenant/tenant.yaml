@@ -7,7 +7,7 @@ metadata:
     prometheus.io/scrape: "true"
   labels:
     app: minio
-  name: myminio
+  name: minio-tenant-1
   namespace: minio-tenant
 spec:
   configuration:
