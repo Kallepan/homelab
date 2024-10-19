@@ -59,6 +59,7 @@ metadata:
   name: nextcloud-postgres-backup
   namespace: nextcloud
 spec:
+  immediate: true
   backupOwnerReference: self
   cluster:
     name: nextcloud-postgres

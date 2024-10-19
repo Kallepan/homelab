@@ -59,6 +59,7 @@ metadata:
   name: gitlab-postgres-backup
   namespace: gitlab
 spec:
+  immediate: true
   backupOwnerReference: self
   cluster:
     name: gitlab-postgres

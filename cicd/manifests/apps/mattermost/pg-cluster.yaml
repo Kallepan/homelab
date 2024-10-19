@@ -59,6 +59,7 @@ metadata:
   name: mattermost-postgres-backup
   namespace: mattermost
 spec:
+  immediate: true
   backupOwnerReference: self
   cluster:
     name: mattermost-postgres

@@ -59,6 +59,7 @@ metadata:
   name: harbor-postgres-backup
   namespace: harbor
 spec:
+  immediate: true
   backupOwnerReference: self
   cluster:
     name: harbor-postgres

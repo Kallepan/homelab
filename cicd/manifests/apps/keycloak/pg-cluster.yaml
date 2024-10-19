@@ -59,6 +59,7 @@ metadata:
   name: keycloak-postgres-backup
   namespace: keycloak
 spec:
+  immediate: true
   backupOwnerReference: self
   cluster:
     name: keycloak-postgres
