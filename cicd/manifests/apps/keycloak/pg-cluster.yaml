@@ -63,4 +63,4 @@ spec:
   cluster:
     name: keycloak-postgres
   method: barmanObjectStore
-  schedule: "@daily"
+  schedule: "@weekly"

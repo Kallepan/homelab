@@ -63,4 +63,4 @@ spec:
   cluster:
     name: gitlab-postgres
   method: barmanObjectStore
-  schedule: "@daily"
+  schedule: "@weekly"
