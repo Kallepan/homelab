@@ -10,7 +10,6 @@ resources:
   - argo
   - nextcloud
   - keycloak
-  - minio
   - minio-tenant
   - kiali
   - jaeger
