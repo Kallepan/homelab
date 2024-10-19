@@ -16,3 +16,19 @@ resource "gitlab_group_variable" "clusters_iac_access_token" {
   masked            = true
   environment_scope = "*"
 }
+
+resource "gitlab_group_variable" "clusters_rancher_access_key" {
+  group             = gitlab_group.clusters.id
+  key               = "TF_VAR_rancher_access_key"
+  value             = var.rancher2_access_key
+  masked            = true
+  environment_scope = "*"
+}
+
+resource "gitlab_group_variable" "clusters_rancher_secret_key" {
+  group             = gitlab_group.clusters.id
+  key               = "TF_VAR_rancher_secret_key"
+  value             = var.rancher2_secret_key
+  masked            = true
+  environment_scope = "*"
+}
