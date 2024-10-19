@@ -41,6 +41,14 @@ spec:
           connection:
             secret: gitlab-minio-connection
             key: connection.yml
+        externalDiffs:
+          enabled: true
+        terraformState:
+          enabled: true
+        ciSecureFiles:
+          enabled: true
+        dependencyProxy:
+          enabled: true
         omniauth:
           enabled: true
           autoSignInWithProvider: openid_connect
