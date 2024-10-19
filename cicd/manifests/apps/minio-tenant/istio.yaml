@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: minio-tenant
+spec:
+  ingressClassName: istio
+  rules:
+    - host: api.minio.srv-lab.server.home
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio
+                port:
+                  name: http-minio
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - api.minio.srv-lab.server.home
+      secretName: minio-tls-secret
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio-console
+  namespace: minio-tenant
+spec:
+  ingressClassName: istio
+  rules:
+    - host: tenant.minio.srv-lab.server.home
+      http:
+        paths:
+          - backend:
+              service:
+                name: minio-tenant-1-console
+                port:
+                  name: http-console
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - tenant.minio.srv-lab.server.home
+      secretName: minio-tls-secret
