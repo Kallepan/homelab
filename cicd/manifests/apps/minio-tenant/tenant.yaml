@@ -27,4 +27,4 @@ spec:
             requests:
               storage: 20Gi
           storageClassName: longhorn
-      volumesPerServer: 2
+      volumesPerServer: 1
