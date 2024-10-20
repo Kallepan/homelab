@@ -10,6 +10,9 @@ metadata:
   name: minio-tenant-1
   namespace: minio-tenant
 spec:
+  env:
+    - name: MINIO_PROMETHEUS_AUTH_TYPE
+      value: public
   configuration:
     name: storage-configuration
   users:
