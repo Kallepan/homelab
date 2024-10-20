@@ -65,9 +65,6 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:DE:EA:85"
         ip: "10.0.4.0"
         description: "srv-docker"
-      - mac: "BC:24:11:45:3C:E9"
-        ip: "10.0.4.11"
-        description: "srv-wazuh"
   - network_name: "LAN2"
     subnet: "10.1.0.0/16"
     ranges:
@@ -168,10 +165,6 @@ vyos_dns_configs:
       type: "A"
       name: "@"
       address: "10.1.0.220"
-    - domain: "srv-wazuh.server.home"
-      type: "A"
-      name: "@"
-      address: "10.0.4.11"
 
 vyos_nat_configs:
   - outbound_interface: eth0
