@@ -26,3 +26,22 @@ resource "kubernetes_secret" "oauth2-proxy-ca-certs" {
 
   type = "Opaque"
 }
+
+### Oauth2 Proxy ###
+variable "oauth2_proxy_client_id" {
+  description = "The client ID for Oauth2 Proxy"
+  type        = string
+  sensitive   = true
+}
+
+variable "oauth2_proxy_client_secret" {
+  description = "The client secret for Oauth2 Proxy"
+  type        = string
+  sensitive   = true
+}
+
+variable "oauth2_proxy_cookie_secret" {
+  description = "The cookie secret for Oauth2 Proxy"
+  type        = string
+  sensitive   = true
+}

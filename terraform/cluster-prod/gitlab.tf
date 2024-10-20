@@ -107,3 +107,11 @@ resource "kubernetes_secret" "gitlab-ca" {
 
   type = "Opaque"
 }
+
+### Gitlab ###
+variable "gitlab_runner_token" {
+  description = "The token for Gitlab runner"
+  type        = string
+  sensitive   = true
+}
+

@@ -25,3 +25,24 @@ resource "kubernetes_secret" "mattermost-database-url" {
 
   type = "Opaque"
 }
+
+### Mattermost ###
+variable "mattermost_db_password" {
+  description = "The password for Mattermost database"
+  type        = string
+  sensitive   = true
+}
+
+### Argo Workfows ###
+variable "argo_oauth_client_id" {
+  description = "The client ID for Argo OAuth"
+  type        = string
+  sensitive   = true
+}
+
+variable "argo_oauth_client_secret" {
+  description = "The client secret for Argo OAuth"
+  type        = string
+  sensitive   = true
+}
+

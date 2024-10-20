@@ -65,3 +65,37 @@ resource "kubernetes_secret" "s3-creds-harbor-db" {
 
   type = "Opaque"
 }
+
+
+
+### Harbor ###
+variable "harbor_registry_s3_access" {
+  description = "The Access key to access Harbor S3 bucket"
+  type        = string
+  sensitive   = true
+}
+
+variable "harbor_registry_s3_secret" {
+  description = "The Secret key to access Harbor S3 bucket"
+  type        = string
+  sensitive   = true
+}
+
+
+variable "harbor_admin_password" {
+  description = "The password for Harbor admin"
+  type        = string
+  sensitive   = true
+}
+
+variable "harbor_registry_secret" {
+  description = "The secret for Harbor registry"
+  type        = string
+  sensitive   = true
+}
+
+variable "harbor_db_password" {
+  description = "The password for Harbor database"
+  type        = string
+  sensitive   = true
+}
