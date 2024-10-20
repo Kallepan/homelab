@@ -55,80 +55,6 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 3,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "percentunit"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 8,
-            "x": 0,
-            "y": 1
-          },
-          "id": 29,
-          "interval": "1m",
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "11.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "prometheus"
-              },
-              "editorMode": "code",
-              "expr": "apiserver_request:availability30d{verb=\"all\"}",
-              "instant": false,
-              "legendFormat": "__auto",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Availability (30d) > 99.000%",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "default": false,
-            "type": "datasource",
-            "uid": "-- Mixed --"
-          },
-          "description": "How much error budget is left looking at our 0.990% availability guarantees?",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
                 "mode": "palette-classic"
               },
               "custom": {
@@ -140,21 +66,24 @@ data:
                 "barAlignment": 0,
                 "barWidthFactor": 0.6,
                 "drawStyle": "line",
-                "fillOpacity": 100,
-                "gradientMode": "none",
+                "fillOpacity": 34,
+                "gradientMode": "hue",
                 "hideFrom": {
                   "legend": false,
                   "tooltip": false,
                   "viz": false
                 },
                 "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
                 "pointSize": 5,
                 "scaleDistribution": {
                   "type": "linear"
                 },
-                "showPoints": "auto",
+                "showPoints": "never",
                 "spanNulls": false,
                 "stacking": {
                   "group": "A",
@@ -170,12 +99,8 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
+                    "color": "dark-green",
                     "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
                   }
                 ]
               },
@@ -184,27 +109,26 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 7,
-            "w": 16,
-            "x": 8,
+            "h": 8,
+            "w": 24,
+            "x": 0,
             "y": 1
           },
-          "id": 30,
+          "id": 29,
           "interval": "1m",
           "options": {
             "legend": {
-              "asTable": true,
               "calcs": [],
               "displayMode": "list",
-              "placement": "right",
-              "showLegend": false
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "v11.0.0",
+          "pluginVersion": "11.2.0",
           "targets": [
             {
               "datasource": {
@@ -212,13 +136,14 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "100 * (apiserver_request:availability30d{verb=\"all\"} - 0.990000)",
-              "legendFormat": "errorbudget",
+              "expr": "apiserver_request:availability30d{verb=\"all\"}",
+              "instant": false,
+              "legendFormat": "availability",
               "range": true,
               "refId": "A"
             }
           ],
-          "title": "ErrorBudget (30d) > 99.000%",
+          "title": "Availability (30d) > 99.000%",
           "type": "timeseries"
         },
         {
@@ -227,7 +152,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 8
+            "y": 9
           },
           "id": 19,
           "panels": [],
@@ -304,7 +229,7 @@ data:
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 9
+            "y": 10
           },
           "id": 1,
           "options": {
@@ -410,7 +335,7 @@ data:
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 9
+            "y": 10
           },
           "id": 2,
           "options": {
@@ -516,7 +441,7 @@ data:
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 9
+            "y": 10
           },
           "id": 3,
           "options": {
@@ -589,7 +514,7 @@ data:
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 19
+            "y": 20
           },
           "id": 14,
           "options": {
@@ -651,7 +576,7 @@ data:
             "h": 12,
             "w": 14,
             "x": 0,
-            "y": 29
+            "y": 30
           },
           "id": 23,
           "options": {
@@ -775,7 +700,7 @@ data:
             "h": 12,
             "w": 10,
             "x": 14,
-            "y": 29
+            "y": 30
           },
           "id": 15,
           "options": {
@@ -1141,7 +1066,7 @@ data:
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 42
           },
           "id": 11,
           "options": {
@@ -1331,7 +1256,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 49
+            "y": 50
           },
           "id": 27,
           "panels": [],
@@ -1408,7 +1333,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 50
+            "y": 51
           },
           "id": 13,
           "options": {
@@ -1514,7 +1439,7 @@ data:
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 50
+            "y": 51
           },
           "id": 26,
           "options": {
@@ -1556,7 +1481,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 58
           },
           "id": 20,
           "panels": [],
@@ -1634,7 +1559,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 58
+            "y": 59
           },
           "id": 4,
           "options": {
@@ -1740,7 +1665,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 8,
-            "y": 58
+            "y": 59
           },
           "id": 5,
           "options": {
@@ -1842,7 +1767,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 16,
-            "y": 58
+            "y": 59
           },
           "id": 6,
           "options": {
@@ -1968,7 +1893,7 @@ data:
             "h": 8,
             "w": 8,
             "x": 0,
-            "y": 66
+            "y": 67
           },
           "id": 24,
           "options": {
@@ -2091,7 +2016,7 @@ data:
             "h": 8,
             "w": 16,
             "x": 8,
-            "y": 66
+            "y": 67
           },
           "id": 25,
           "options": {
@@ -2217,7 +2142,7 @@ data:
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 74
+            "y": 75
           },
           "id": 12,
           "options": {
@@ -2259,7 +2184,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 77
+            "y": 78
           },
           "id": 21,
           "panels": [],
@@ -2331,7 +2256,7 @@ data:
             "h": 10,
             "w": 11,
             "x": 0,
-            "y": 78
+            "y": 79
           },
           "id": 10,
           "options": {
@@ -2387,7 +2312,7 @@ data:
             "h": 10,
             "w": 13,
             "x": 11,
-            "y": 78
+            "y": 79
           },
           "id": 18,
           "options": {
@@ -2452,7 +2377,7 @@ data:
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 88
+            "y": 89
           },
           "id": 8,
           "options": {
@@ -2541,6 +2466,6 @@ data:
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
-      "version": 1,
+      "version": 2,
       "weekStart": "monday"
     }
