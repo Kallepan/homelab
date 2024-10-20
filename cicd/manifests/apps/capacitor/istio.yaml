@@ -53,7 +53,7 @@ spec:
         - uri:
             prefix: /
       directResponse:
-        status: 403
+        status: 401
         body:
           string: "Access denied"
       headers:
