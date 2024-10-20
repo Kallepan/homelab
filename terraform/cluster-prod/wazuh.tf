@@ -53,7 +53,7 @@ variable "wazuh_indexer_password" {
 ### API
 resource "kubernetes_secret" "wazuh-api-creds" {
   metadata {
-    name      = "api-cred"
+    name      = "wazuh-api-cred"
     namespace = "wazuh"
   }
 
@@ -123,15 +123,15 @@ resource "kubernetes_secret" "wazuh-indexer_certs" {
   }
 
   data = {
-    "root-ca.pem"       = filebase64("${path.module}/files/wazuh/indexer_cluster/root-ca.pem")
-    "node.pem"          = filebase64("${path.module}/files/wazuh/indexer_cluster/node.pem")
-    "node-key.pem"      = filebase64("${path.module}/files/wazuh/indexer_cluster/node-key.pem")
-    "dashboard.pem"     = filebase64("${path.module}/files/wazuh/indexer_cluster/dashboard.pem")
-    "dashboard-key.pem" = filebase64("${path.module}/files/wazuh/indexer_cluster/dashboard-key.pem")
-    "admin.pem"         = filebase64("${path.module}/files/wazuh/indexer_cluster/admin.pem")
-    "admin-key.pem"     = filebase64("${path.module}/files/wazuh/indexer_cluster/admin-key.pem")
-    "filebeat.pem"      = filebase64("${path.module}/files/wazuh/indexer_cluster/filebeat.pem")
-    "filebeat-key.pem"  = filebase64("${path.module}/files/wazuh/indexer_cluster/filebeat-key.pem")
+    "root-ca.pem"       = file("${path.module}/files/wazuh/indexer_cluster/root-ca.pem")
+    "node.pem"          = file("${path.module}/files/wazuh/indexer_cluster/node.pem")
+    "node-key.pem"      = file("${path.module}/files/wazuh/indexer_cluster/node-key.pem")
+    "dashboard.pem"     = file("${path.module}/files/wazuh/indexer_cluster/dashboard.pem")
+    "dashboard-key.pem" = file("${path.module}/files/wazuh/indexer_cluster/dashboard-key.pem")
+    "admin.pem"         = file("${path.module}/files/wazuh/indexer_cluster/admin.pem")
+    "admin-key.pem"     = file("${path.module}/files/wazuh/indexer_cluster/admin-key.pem")
+    "filebeat.pem"      = file("${path.module}/files/wazuh/indexer_cluster/filebeat.pem")
+    "filebeat-key.pem"  = file("${path.module}/files/wazuh/indexer_cluster/filebeat-key.pem")
   }
 
   type = "Opaque"
@@ -144,9 +144,9 @@ resource "kubernetes_secret" "wazuh-dashboard_certs" {
   }
 
   data = {
-    "cert.pem"    = filebase64("${path.module}/files/wazuh/dashboard_http/cert.pem")
-    "key.pem"     = filebase64("${path.module}/files/wazuh/dashboard_http/key.pem")
-    "root-ca.pem" = filebase64("${path.module}/files/wazuh/indexer_cluster/root-ca.pem")
+    "cert.pem"    = file("${path.module}/files/wazuh/dashboard_http/cert.pem")
+    "key.pem"     = file("${path.module}/files/wazuh/dashboard_http/key.pem")
+    "root-ca.pem" = file("${path.module}/files/wazuh/indexer_cluster/root-ca.pem")
   }
 
   type = "Opaque"
