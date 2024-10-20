@@ -43,7 +43,7 @@ spec:
             prefix: /
           headers:
             Authorization:
-              exact: "Basic YWRtaW46MTIzNDU2"
+              exact: "Basic YWRtaW46UldUMXgwQ0R1aHloWjFXanZxTUdHVHBJTGJoejJLMkI="
       route:
         - destination:
             host: capacitor.flux-system.svc.cluster.local
