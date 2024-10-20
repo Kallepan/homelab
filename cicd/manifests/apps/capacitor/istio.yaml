@@ -59,5 +59,4 @@ spec:
       headers:
         response:
           set:
-            - name: "WWW-Authenticate"
-              value: 'Basic realm="Authentication required"'
+            WWW-Authenticate: 'Basic realm="Authentication required"'
