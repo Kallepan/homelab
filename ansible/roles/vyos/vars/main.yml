@@ -65,6 +65,9 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:DE:EA:85"
         ip: "10.0.4.0"
         description: "srv-docker"
+      - mac: "BC:24:11:E8:A9:04"
+        ip: "10.0.5.0"
+        description: "nomad1"
   - network_name: "LAN2"
     subnet: "10.1.0.0/16"
     ranges:

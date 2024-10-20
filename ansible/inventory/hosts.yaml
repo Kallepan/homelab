@@ -11,6 +11,10 @@ all:
       ansible_host: 10.0.4.0
       ansible_user: ubuntu
       <<: *defaults
+    nomad1:
+      ansible_host: 10.0.5.0
+      ansible_user: ubuntu
+      <<: *defaults
     srv-rancher:
       ansible_host: 10.0.2.0
       ansible_user: ubuntu
@@ -75,3 +79,6 @@ all:
         node7:
         node8:
         node9:
+    nomad_cluster:
+      hosts:
+        nomad1:
