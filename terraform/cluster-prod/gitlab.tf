@@ -53,7 +53,7 @@ resource "kubernetes_secret" "gitlab-oidc-creds" {
   }
 
   data = {
-    "omniauth.yml" = file("files/gitlab-openid-secret.yaml")
+    "omniauth.yml" = file("${path.module}/files/gitlab-openid-secret.yaml")
   }
   type = "Opaque"
 }
@@ -65,7 +65,7 @@ resource "kubernetes_secret" "gitlab-minio-creds" {
   }
 
   data = {
-    "s3cmd" = file("files/gitlab-s3cmd")
+    "s3cmd" = file("${path.module}/files/gitlab-s3cmd")
   }
 
   type = "Opaque"
@@ -78,7 +78,7 @@ resource "kubernetes_secret" "gitlab-registry-minio-connection" {
   }
 
   data = {
-    "registry.s3.yml" = file("files/gitlab-registry.s3.yml")
+    "registry.s3.yml" = file("${path.module}/files/gitlab-registry.s3.yml")
   }
 }
 
@@ -89,7 +89,7 @@ resource "kubernetes_secret" "gitlab-minio-connection" {
   }
 
   data = {
-    "connection.yml" = file("files/gitlab-minio-connection.yml")
+    "connection.yml" = file("${path.module}/${path.module}/files/gitlab-minio-connection.yml")
   }
 
   type = "Opaque"

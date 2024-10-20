@@ -17,7 +17,7 @@ resource "rancher2_cloud_credential" "harvester-hci-cc" {
 resource "harvester_ssh_key" "homelab-ssh-key" {
   name       = "homelab-ssh-key"
   namespace  = "homelab"
-  public_key = file("files/homelab.pub")
+  public_key = file("${path.module}/files/homelab.pub")
 }
 
 
