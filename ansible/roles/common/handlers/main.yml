@@ -3,3 +3,6 @@
   ansible.builtin.service:
     name: ssh
     state: restarted
+
+- name: Reload sysctl
+  ansible.builtin.command: sysctl -p

@@ -70,15 +70,21 @@ all:
       hosts:
         bastion-1:
         bastion-2:
-    k8s_cluster:
+    k8s_worker_nodes:
       hosts:
-        node1:
-        node2:
-        node3:
         node6:
         node7:
         node8:
         node9:
+    k8s_control_nodes:
+      hosts:
+        node1:
+        node2:
+        node3:
+    k8s_cluster:
+      children:
+        k8s_worker_nodes:
+        k8s_control_nodes:
     nomad_cluster:
       hosts:
         nomad1:

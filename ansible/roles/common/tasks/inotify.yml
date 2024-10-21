@@ -1,0 +1,20 @@
+---
+- name: Set inotify max_user_watches
+  ansible.builtin.lineinfile:
+    dest: /etc/sysctl.conf
+    regexp: "^fs.inotify.max_user_watches"
+    line: "fs.inotify.max_user_watches = {{ common_inotify_max_user_watches }}"
+    state: present
+    mode: "0644"
+  notify: Reload sysctl
+  when: inventory_hostname in groups['k8s_worker_nodes']
+
+- name: Set inotify max_user_instances
+  ansible.builtin.lineinfile:
+    dest: /etc/sysctl.conf
+    regexp: "^fs.inotify.max_user_instances"
+    line: "fs.inotify.max_user_instances = {{ common_inotify_max_user_instances }}"
+    state: present
+    mode: "0644"
+  notify: Reload sysctl
+  when: inventory_hostname in groups['k8s_worker_nodes']
