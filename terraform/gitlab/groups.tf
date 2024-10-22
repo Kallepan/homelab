@@ -21,6 +21,12 @@ resource "gitlab_group" "homelab_iac" {
   parent_id = gitlab_group.homelab.id
 }
 
+resource "gitlab_group" "homelab_iac_operators" {
+  path      = "operators"
+  name      = "Operators"
+  parent_id = gitlab_group.homelab_iac.id
+}
+
 resource "gitlab_group" "personal" {
   path = "personal"
   name = "Personal"

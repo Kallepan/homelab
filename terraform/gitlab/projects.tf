@@ -30,3 +30,20 @@ resource "gitlab_project" "personal_acme_zone_file" {
   visibility_level = "private"
   namespace_id     = gitlab_group.personal.id
 }
+
+### Operators
+resource "gitlab_project" "operators_homelab_catalog" {
+  path             = "catalog"
+  name             = "Catalog"
+  description      = "Operators Catalog"
+  visibility_level = "private"
+  namespace_id     = gitlab_group.homelab_iac_operators.id
+}
+
+resource "gitlab_project" "operators_rq_operator" {
+  path             = "rq-operator"
+  name             = "ResourceQuota Operator"
+  description      = "ResourceQuota Operator"
+  visibility_level = "private"
+  namespace_id     = gitlab_group.homelab_iac_operators.id
+}

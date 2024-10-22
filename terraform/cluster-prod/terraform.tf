@@ -41,3 +41,9 @@ variable "backup_s3_secret" {
   sensitive   = true
 }
 
+### Gitlab Registry ###
+variable "gitlab_registry_server" {
+  description = "The Gitlab Registry server"
+  default     = "registry.srv-lab.server.home"
+  type        = string
+}
