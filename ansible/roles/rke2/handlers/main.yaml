@@ -1,0 +1,4 @@
+- name: Restart RKE2
+  ansible.builtin.systemd:
+    name: rke2-server
+    state: restarted

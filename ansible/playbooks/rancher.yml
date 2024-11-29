@@ -1,0 +1,10 @@
+# Installs Rancher and RKE2 on the given hosts
+# Note: This playbook assumes that only a single host is defined in the inventory file
+---
+- name: Install Rancher
+  hosts: management
+  become: true
+  roles:
+    - rke2
+    - helm
+    - rancher

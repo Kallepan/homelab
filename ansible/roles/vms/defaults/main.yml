@@ -1,0 +1,14 @@
+---
+# Proxmox Image Variables
+vms_vm_name: "noble-server"
+vms_image_name: "{{ vms_vm_name }}-cloudimg-amd64.img"
+vms_image_url: "https://cloud-images.ubuntu.com/noble/current/{{ vms_image_name }}"
+vms_proxmox_storage_id: "local-lvm"
+vms_download_dir: "/tmp"
+
+# VM Configuration Variables
+vms_vm_id: 9999
+vms_vm_memory: 4096
+vms_vm_cores: 4
+vms_bridge: "vmbr1"
+vms_vlan_id: 10

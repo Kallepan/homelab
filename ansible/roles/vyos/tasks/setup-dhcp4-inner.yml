@@ -1,0 +1,41 @@
+---
+- name: Construct DHCP4 config command
+  ansible.builtin.set_fact:
+    dhcp4_config_commands: |
+      {% set cmds = [] %}
+      {% for range in dhcp_config.ranges %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " range " ~ range.id ~ " start " ~ range.start) %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " range " ~ range.id ~ " stop " ~ range.end) %}
+      {% endfor %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " authoritative") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " option default-router '" ~ dhcp_config.default_router ~ "'") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " option name-server '" ~ dhcp_config.dns_server ~ "'") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " option domain-name '" ~ dhcp_config.domain_name ~ "'") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " lease '" ~ dhcp_config.lease_time ~ "'") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " subnet-id '" ~ dhcp_config.subnet_id ~ "'") %}
+      {% if dhcp_config.tfpt_server_name is defined %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " option tftp-server-name '" ~ dhcp_config.tftp_server_name ~ "'") %}
+      {% endif %}
+      {{ cmds }}
+
+- name: Setup DHCP4 config
+  vyos.vyos.vyos_config:
+    lines: "{{ dhcp4_config_commands }}"
+    save: true
+
+- name: Construct DHCP4 Static Mappings command
+  ansible.builtin.set_fact:
+    dhcpv4_static_mappings_commands: |
+      {% set cmds = [] %}
+      {% for static_mapping in dhcp_config.static_mappings %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " static-mapping '" ~ static_mapping.description ~ "' ip-address '" ~ static_mapping.ip ~ "'") %}
+      {% set _ = cmds.append("set service dhcp-server shared-network-name " ~ dhcp_config.network_name ~ " subnet " ~ dhcp_config.subnet ~ " static-mapping '" ~ static_mapping.description ~ "' mac '" ~ static_mapping.mac ~ "'") %}
+      {% endfor %}
+      {{ cmds }}
+  when: dhcp_config.static_mappings is defined
+
+- name: Setup DHCP4 Static Mappings
+  vyos.vyos.vyos_config:
+    lines: "{{ dhcpv4_static_mappings_commands }}"
+    save: true
+  when: dhcp_config.static_mappings is defined

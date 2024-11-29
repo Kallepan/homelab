@@ -1,0 +1,24 @@
+# File: rancher/handlers/main.yml
+---
+- name: Create CA Secret
+  ansible.builtin.command:
+    cmd: >
+      {{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }}
+      -n cattle-system create secret generic tls-ca
+      --from-file=cacerts.pem=/tmp/cacerts.pem
+  when: tls_ca_copy.changed
+  register: ret
+  changed_when: true
+  failed_when: ("already exists" not in ret.stderr) and (ret.rc != 0)
+
+- name: Create TLS Secret
+  ansible.builtin.command:
+    cmd: >
+      {{ rancher_kubectl_location }} --kubeconfig {{ rancher_kubeconfig_location }}
+      -n cattle-system create secret tls tls-rancher-ingress
+      --cert=/tmp/tls.crt
+      --key=/tmp/tls.key
+  when: tls_crt_copy.changed or tls_key_copy.changed
+  register: ret
+  failed_when: ("already exists" not in ret.stderr) and (ret.rc != 0)
+  changed_when: true

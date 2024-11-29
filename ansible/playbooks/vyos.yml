@@ -1,0 +1,23 @@
+# Make sure to run these setup commands beforehand:
+# Load Default Configuration:
+# configure
+# load /opt/vyatta/etc/config.boot.default
+# commit
+# save
+
+# Run these commands:
+# install image
+# configure
+# set interfaces ethernet eth0 address 192.168.0.10/24
+# set service ssh port '22'
+# set protocols static route 0.0.0.0/0 next-hop 192.168.0.1
+# set interfaces ethernet eth0 address dhcpv6
+# set interfaces ethernet eth0 description 'WAN'
+# commit
+# save
+---
+- name: Setup VyOS
+  hosts: vyos
+  gather_facts: false
+  roles:
+    - vyos

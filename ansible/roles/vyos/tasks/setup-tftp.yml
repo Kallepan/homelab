@@ -1,0 +1,15 @@
+---
+- name: Add TFTP
+  vyos.vyos.vyos_config:
+    lines:
+      - set service tftp-server directory '{{ vyos_tftp.directory }}'
+      - set service tftp-server listen-address '{{ vyos_tftp.address }}'
+    save: true
+  when: vyos_tftp.enabled
+
+- name: Allow Uploads
+  vyos.vyos.vyos_config:
+    lines:
+      - set service tftp-server allow-upload
+    save: true
+  when: vyos_tftp.enabled and vyos_tftp.allow_upload

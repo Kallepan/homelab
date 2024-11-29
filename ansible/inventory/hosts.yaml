@@ -1,0 +1,121 @@
+defaults: &defaults
+  ansible_connection: ssh
+  ansible_ssh_private_key_file: /workspaces/homelab/keys/homelab
+  ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+all:
+  hosts:
+    proxmox:
+      ansible_host: 192.168.0.2
+      ansible_user: root
+      <<: *defaults
+
+    vyos:
+      ansible_host: 192.168.0.10
+
+    dmz:
+      ansible_host: 172.16.0.10
+      ansible_user: ubuntu
+      <<: *defaults
+
+    docker:
+      ansible_host: 10.30.0.20
+      ansible_user: ubuntu
+      <<: *defaults
+
+    control1-prod:
+      ansible_host: 10.30.0.2
+      ansible_user: ubuntu
+      <<: *defaults
+    control2-prod:
+      ansible_host: 10.30.0.3
+      ansible_user: ubuntu
+      <<: *defaults
+    control3-prod:
+      ansible_host: 10.30.0.4
+      ansible_user: ubuntu
+      <<: *defaults
+    worker1-prod:
+      ansible_host: 10.30.0.7
+      ansible_user: ubuntu
+      <<: *defaults
+    worker2-prod:
+      ansible_host: 10.30.0.8
+      ansible_user: ubuntu
+      <<: *defaults
+    worker3-prod:
+      ansible_host: 10.30.0.9
+      ansible_user: ubuntu
+      <<: *defaults
+
+    storage:
+      ansible_host: 10.50.0.2
+      ansible_user: ubuntu
+      <<: *defaults
+
+    node1-stag:
+      ansible_host: 10.40.0.2
+      ansible_user: ubuntu
+      <<: *defaults
+    node2-stag:
+      ansible_host: 10.40.0.3
+      ansible_user: ubuntu
+      <<: *defaults
+    node3-stag:
+      ansible_host: 10.40.0.4
+      ansible_user: ubuntu
+      <<: *defaults
+
+    rancher:
+      ansible_host: 10.10.0.2
+      ansible_user: ubuntu
+      <<: *defaults
+    core:
+      ansible_host: 10.10.0.3
+      ansible_user: ubuntu
+      <<: *defaults
+    bastion:
+      ansible_host: 10.10.0.4
+      ansible_user: ubuntu
+      <<: *defaults
+
+  children:
+    virtual_machines:
+      hosts:
+        dmz:
+        control1-prod:
+        control2-prod:
+        control3-prod:
+        worker1-prod:
+        worker2-prod:
+        worker3-prod:
+        storage:
+        node1-stag:
+        node2-stag:
+        node3-stag:
+        rancher:
+        core:
+        bastion:
+    minio:
+      hosts:
+        storage:
+    docker:
+      hosts:
+        docker:
+    k8s_worker_nodes:
+      hosts:
+        worker1-prod:
+        worker2-prod:
+        worker3-prod:
+    k8s_control_nodes:
+      hosts:
+        control1-prod:
+        control2-prod:
+        control3-prod:
+        node1-stag:
+        node2-stag:
+        node3-stag:
+    k8s_cluster:
+      children:
+        k8s_worker_nodes:
+        k8s_control_nodes:

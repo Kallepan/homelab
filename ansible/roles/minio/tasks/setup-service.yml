@@ -1,0 +1,8 @@
+---
+- name: Copy Service File
+  ansible.builtin.copy:
+    src: files/minio.service
+    dest: /usr/lib/systemd/system/minio.service
+    owner: root
+    group: root
+    mode: "0644"

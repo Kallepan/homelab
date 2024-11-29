@@ -1,0 +1,12 @@
+---
+- name: Include Update Tasks
+  ansible.builtin.include_tasks: update.yml
+
+- name: Include Package Tasks
+  ansible.builtin.include_tasks: packages.yml
+
+- name: Include SSH Tasks
+  ansible.builtin.include_tasks: ssh.yml
+
+- name: Include Inotify Tasks
+  ansible.builtin.include_tasks: inotify.yml

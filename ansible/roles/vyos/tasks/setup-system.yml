@@ -1,0 +1,7 @@
+---
+- name: Delete ttyS0
+  vyos.vyos.vyos_config:
+    lines:
+      - delete system console device ttyS0
+    save: true
+  when: vyos_system.is_vm

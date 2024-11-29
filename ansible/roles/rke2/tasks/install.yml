@@ -1,0 +1,65 @@
+---
+- name: Create RKE2 dir
+  ansible.builtin.file:
+    path: "{{ rke2_config_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy rke2-config.yaml
+  ansible.builtin.copy:
+    src: files/rke2-config.yaml
+    dest: "{{ rke2_config_file }}"
+    mode: "0644"
+
+- name: Get installed version of RKE2
+  ansible.builtin.shell:
+    cmd: >
+      /usr/local/bin/rke2 --version | awk '/^rke2 version/ {print $3}'
+  register: installed_rke2_version
+  ignore_errors: true
+  changed_when: false
+
+- name: Download RKE2 installation script
+  ansible.builtin.get_url:
+    url: https://get.rke2.io
+    dest: /tmp/rke2-install.sh
+    mode: "0755"
+
+# I know I should just introduce a version variable instead of doing this
+- name: Install RKE2
+  ansible.builtin.command:
+    cmd: /tmp/rke2-install.sh
+  register: rke2_install
+  environment:
+    INSTALL_RKE2_CHANNEL: "{{ rke2_channel }}"
+  changed_when: (installed_rke2_version.stdout not in rke2_install.stdout) or (installed_rke2_version.failed)
+  notify: Restart RKE2
+
+# Wait for RKE2 to restart
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Enable RKE2
+  ansible.builtin.systemd:
+    name: rke2-server
+    enabled: true
+
+- name: Wait for RKE2 to start
+  ansible.builtin.wait_for:
+    host: localhost
+    port: 6443
+    state: present
+    timeout: 300
+
+- name: Create .kube directory
+  ansible.builtin.file:
+    path: /root/.kube
+    state: directory
+    mode: "0700"
+
+- name: Copy kubeconfig
+  ansible.builtin.copy:
+    src: "{{ rke2_config_dir }}/rke2.yaml"
+    dest: /root/.kube/config
+    remote_src: true
+    mode: "0600"

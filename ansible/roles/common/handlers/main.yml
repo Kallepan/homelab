@@ -1,0 +1,5 @@
+# Handlers which are notified if a critical change occurs
+- name: Restart ssh
+  ansible.builtin.service:
+    name: ssh
+    state: restarted

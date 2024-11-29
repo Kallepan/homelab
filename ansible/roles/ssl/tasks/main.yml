@@ -1,0 +1,6 @@
+---
+- name: Include Preparation Tasks
+  ansible.builtin.include_tasks: prepare.yml
+
+- name: Include Installation Tasks
+  ansible.builtin.include_tasks: install_cert.yml

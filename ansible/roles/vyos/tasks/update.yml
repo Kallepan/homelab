@@ -1,0 +1,18 @@
+---
+- name: Update image
+  vyos.vyos.vyos_command:
+    commands:
+      - show system image
+  register: current_image
+
+# Extract the current version of the image on the device
+- name: Get current image version
+  ansible.builtin.set_fact:
+    current_image_version: "{{ current_image.stdout | regex_search('\\d+\\.\\d+-rolling-\\d+') }}"
+
+# Add the new image if the current version is not the same as the new image
+- name: Update image
+  vyos.vyos.vyos_command:
+    commands:
+      - "add system image {{ vyos_latest_image_url }}"
+  when: current_image_version not in vyos_latest_image_url

@@ -1,0 +1,15 @@
+---
+- name: Install Binary
+  ansible.builtin.include_tasks: install-binary.yml
+- name: Setup Users
+  ansible.builtin.include_tasks: setup-user.yml
+- name: Setup Service
+  ansible.builtin.include_tasks: setup-service.yml
+- name: Setup Environment Variable File
+  ansible.builtin.include_tasks: setup-env.yml
+- name: Setup Certs
+  ansible.builtin.include_tasks: setup-certs.yml
+- name: Setup Capabilities
+  ansible.builtin.include_tasks: setup-capabilities.yml
+- name: Start Service
+  ansible.builtin.include_tasks: start-service.yml

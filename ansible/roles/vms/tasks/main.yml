@@ -1,0 +1,72 @@
+---
+# tasks file for vms
+- name: Download VM image
+  ansible.builtin.get_url:
+    url: "{{ vms_image_url }}"
+    dest: "{{ vms_download_dir }}/{{ vms_image_name }}"
+    mode: "0644"
+  tags: vms
+
+- name: Delete old Template
+  ansible.builtin.command:
+    argv:
+      - qm
+      - destroy
+      - "{{ vms_vm_id }}"
+  tags: vms
+
+- name: Create VM
+  ansible.builtin.command:
+    argv:
+      - qm
+      - create
+      - "{{ vms_vm_id }}"
+      - --boot
+      - order=scsi0
+      - --cores
+      - "{{ vms_vm_cores }}"
+      - --cpu
+      - cputype=host
+      - --machine
+      - q35
+      - --memory
+      - "{{ vms_vm_memory }}"
+      - --name
+      - "{{ vms_vm_name }}"
+      - --net0
+      - model=virtio,bridge={{ vms_bridge }},firewall=1,tag={{ vms_vlan_id }}
+      - --scsi0
+      - "{{ vms_proxmox_storage_id }}:0,import-from={{ (vms_download_dir, vms_image_name) | path_join }},discard=on,ssd=1,iothread=1"
+      - --scsihw
+      - virtio-scsi-pci
+      - --ostype
+      - l26
+      - --serial0
+      - socket
+      - --vga
+      - serial0
+      - --ide2
+      - "{{ vms_proxmox_storage_id }}:cloudinit"
+      - --agent
+      - "1"
+      - --onboot
+      - "1"
+  tags: vms
+
+- name: Increase VM disk size
+  ansible.builtin.command:
+    argv:
+      - qm
+      - resize
+      - "{{ vms_vm_id }}"
+      - scsi0
+      - "100G"
+  tags: vms
+
+- name: Make Template
+  ansible.builtin.command:
+    argv:
+      - qm
+      - template
+      - "{{ vms_vm_id }}"
+  tags: vms

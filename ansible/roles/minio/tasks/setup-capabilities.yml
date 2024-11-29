@@ -1,0 +1,6 @@
+---
+- name: Set capabilities for Minio binary
+  ansible.builtin.command: setcap cap_net_bind_service=+ep "{{ minio_binary_path }}"
+  become: true
+  when: minio_set_capabilities
+  changed_when: true

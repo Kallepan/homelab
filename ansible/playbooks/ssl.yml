@@ -1,0 +1,6 @@
+---
+- name: Common Setup Tasks
+  hosts: virtual_machines
+  become: true
+  roles:
+    - ssl

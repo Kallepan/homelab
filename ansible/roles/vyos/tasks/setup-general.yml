@@ -1,0 +1,27 @@
+---
+- name: Set Hostname
+  vyos.vyos.vyos_hostname:
+    config:
+      hostname: "{{ vyos_hostname }}"
+    state: merged
+
+- name: Set Upstream DNS
+  vyos.vyos.vyos_config:
+    lines:
+      - set system name-server '{{ dns }}'
+    save: true
+  loop: "{{ vyos_dns_configs.upstream_dns }}"
+  loop_control:
+    loop_var: dns
+
+- name: Set Search Domain
+  vyos.vyos.vyos_config:
+    lines:
+      - set system domain-search '{{ vyos_dns_configs.search_domain }}'
+    save: true
+
+- name: Set Timezone
+  vyos.vyos.vyos_config:
+    lines:
+      - set system time-zone '{{ vyos_timezone }}'
+    save: true

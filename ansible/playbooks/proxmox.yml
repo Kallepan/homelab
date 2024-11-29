@@ -1,0 +1,6 @@
+---
+- name: Setup Promox VMs
+  hosts: proxmox
+  roles:
+    - vms
+    - common

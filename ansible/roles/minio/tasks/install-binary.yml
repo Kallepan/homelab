@@ -1,0 +1,12 @@
+---
+- name: Download Binary
+  ansible.builtin.get_url:
+    url: "https://dl.min.io/server/minio/release/linux-amd64/minio"
+    dest: "{{ minio_binary_path }}"
+    mode: "0755"
+    force: false
+    validate_certs: true
+    timeout: 300
+    headers:
+      User-Agent: "Ansible"
+  register: minio_binary
