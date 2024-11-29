@@ -226,12 +226,12 @@ vyos_dns_configs:
     # Rancher Cluster
     - domain: "mgmt.infra.server.home"
       type: "A"
-      name: "any"
+      name: "@"
       address: "10.10.0.2"
     # Bastion
     - domain: "bastion.infra.server.home"
       type: "A"
-      name: "any"
+      name: "@"
       address: "10.10.0.4"
     # Production Cluster Load Balancer
     - domain: "prod.server.home"
