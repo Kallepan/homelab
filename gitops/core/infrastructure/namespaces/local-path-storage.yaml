@@ -5,3 +5,4 @@ metadata:
   name: local-path-storage
   labels:
     toolkit.fluxcd.io/tenant: sre-team
+    pod-security.kubernetes.io/enforce: privileged
