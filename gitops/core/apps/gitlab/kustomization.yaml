@@ -5,3 +5,4 @@ resources:
   - cert.yaml
   - pg-cluster.yaml
   - istio.yaml
+  - gitlab.yaml

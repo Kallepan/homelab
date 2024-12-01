@@ -1,0 +1,191 @@
+apiVersion: apps.gitlab.com/v1beta1
+kind: GitLab
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  chart:
+    # Chore: Update the chart version
+    version: "8.6.1" # https://gitlab.com/gitlab-org/cloud-native/gitlab-operator/-/blob/master/CHART_VERSIONS?ref_type=heads
+    values:
+      certmanager:
+        install: false
+        installCRDs: false
+      certmanager-issuer:
+        email: kajeepan.kandeepan@gmail.com
+      gitlab-runner:
+        install: false
+      gitlab:
+        gitlab-shell:
+          sshDaemon: gitlab-sshd
+          config:
+            proxyProtocol: true
+            proxyPolicy: "use"
+          istio:
+            entryPoint: ssh
+        kas:
+          ingress:
+            enabled: true
+            class: istio
+            tls:
+              enabled: true
+              secretName: gitlab-tls-secret
+        toolbox:
+          backups:
+            objectStorage:
+              backend: s3
+              config:
+                # Configure using s3cmd
+                secret: gitlab-backups-minio-creds
+                key: config
+          persistence:
+            enabled: true
+            size: "10Gi"
+            accessMode: ReadWriteOnce
+        webservice:
+          monitoring:
+            ipWhitelist:
+              # Kubernetes Cluster IP Range
+              - 127.0.0.0/8
+              - 10.0.0.0/8
+      global:
+        appConfig:
+          usernameChangingEnabled: false
+          object_store:
+            enabled: true
+            connection:
+              secret: gitlab-minio-connection
+              key: connection.yml
+          artifacts:
+            enabled: true
+          backups:
+            bucket: gitlab-backups
+            tmpBucket: gitlab-backups-tmp
+          externalDiffs:
+            enabled: true
+          uploads:
+            enabled: true
+          lfs:
+            enabled: true
+          packages:
+            enabled: true
+          terraformState:
+            enabled: true
+          ciSecureFiles:
+            enabled: true
+          dependencyProxy:
+            enabled: true
+          omniauth:
+            enabled: true
+            autoSignInWithProvider: openid_connect
+            allowSingleSignOn:
+              - openid_connect
+            blockAutoCreatedUsers: true
+            providers:
+              - secret: gitlab-keycloak-omniauth
+                key: omniauth.yml
+        certificates:
+          customCAs:
+            - secret: gitlab-ca
+              keys:
+                - gitlab.core.infra.server.home.crt
+        gitlab:
+          toolbox:
+            backups:
+              cron:
+                enabled: true
+                schedule: "0 2 * * *"
+              objectStorage:
+                config:
+                  secret: gitlab-backups-minio-creds
+                  key: config
+        edition: ee
+        gitaly:
+          enabled: true
+          persistence:
+            enabled: true
+            size: 10Gi
+            storageClass: local-path
+        psql:
+          serviceName: gitlab-postgres-rw
+          port: 5432
+          database: app
+          username: app
+          password:
+            useSecret: true
+            secret: gitlab-postgres-app
+            key: password
+        hosts:
+          domain: core.infra.server.home
+          externalIP: 10.0.255.0
+          gitlab: {}
+          hostSuffix: null
+          https: true
+          kas: {}
+          minio: {}
+          pages: {}
+          registry: {}
+          smartcard: {}
+          ssh: ~
+          tls: {}
+        ingress:
+          class: istio
+          configureCertmanager: false
+          enabled: true
+          path: /
+          pathType: Prefix
+          tls:
+            enabled: true
+            secretName: gitlab-tls-secret
+        kas:
+          enabled: true
+        minio:
+          enabled: false
+        monitoring:
+          enabled: true
+        spamcheck:
+          enabled: true
+        shell:
+          port: 2222
+        pages:
+          enabled: true
+          objectStore:
+            enabled: true
+            bucket: gitlab-pages
+            connection:
+              secret: gitlab-minio-connection
+              key: connection.yml
+        registry:
+          enabled: true
+        time_zone: Europe/Berlin
+      traefik:
+        install: false
+      postgresql:
+        install: false
+      prometheus:
+        install: false
+      redis:
+        install: true
+        metrics:
+          enabled: true
+        defaultStorageClass: local-path
+      registry:
+        storage:
+          secret: gitlab-registry-minio-connection
+          key: registry.s3.yml
+        maintenance:
+          readonly:
+            enabled: false
+        database:
+          enabled: false
+          host: gitlab-registry-postgres-rw
+          port: 5432
+          user: app
+          name: app
+          password:
+            secret: gitlab-registry-postgres-app
+            key: password
+          migrations:
+            enabled: true
+      nginx-ingress:
+        enabled: false
