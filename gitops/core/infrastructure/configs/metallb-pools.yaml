@@ -12,4 +12,4 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 10.0.255.1-10.0.255.9 # Non-overlapping with the DHCP range
+    - 10.10.0.10/32 # This is the IP address that will be used by the LoadBalancer service
