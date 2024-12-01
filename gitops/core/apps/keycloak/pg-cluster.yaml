@@ -1,0 +1,63 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: keycloak-postgres
+  namespace: keycloak
+spec:
+  instances: 2
+  storage:
+    size: 5Gi
+    storageClass: longhorn
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://backups/keycloak
+      endpointURL: http://s3.infra.server.home
+      # When recovering from WAL or backup, change this value so that the new WAL
+      # is written to a new directory in the bucket.
+      # serverName: cluster-1
+      serverName: cluster-2
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
+    retentionPolicy: 7d
+  bootstrap:
+    recovery:
+      source: keycloak-postgres
+  externalClusters:
+    - name: keycloak-postgres
+      barmanObjectStore:
+        destinationPath: s3://backups/keycloak
+        endpointURL: https://minio.srv-storage.server.home:9000
+        # When recovering from WAL or backup, change the value of
+        # backup.barmanObjectStore.serverName so that the new WAL is written
+        # to a new directory in the bucket.
+        serverName: cluster-1
+        s3Credentials:
+          accessKeyId:
+            name: s3-creds
+            key: ACCESS_KEY_ID
+          secretAccessKey:
+            name: s3-creds
+            key: ACCESS_SECRET_KEY
+        wal:
+          maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: keycloak-postgres-backup
+  namespace: keycloak
+spec:
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: keycloak-postgres
+  method: barmanObjectStore
+  schedule: "0 0 23 * * SUN"

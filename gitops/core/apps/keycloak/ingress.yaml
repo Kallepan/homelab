@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  ingressClassName: istio
+  rules:
+    - host: sso.srv-lab.server.home
+      http:
+        paths:
+          - backend:
+              service:
+                name: keycloak-service
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sso.srv-lab.server.home
+      secretName: keycloak-tls-secret
