@@ -5,4 +5,4 @@ resources:
   - pg-cluster.yaml
   - cert.yaml
   - keycloak.yaml
-  - ingress.yaml
+  - istio.yaml
