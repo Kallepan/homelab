@@ -12,7 +12,7 @@ spec:
   backup:
     barmanObjectStore:
       destinationPath: s3://backups/keycloak
-      endpointURL: http://s3.infra.server.home
+      endpointURL: https://s3.infra.server.home:9000
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
       # serverName: cluster-1
@@ -34,7 +34,7 @@ spec:
     - name: keycloak-postgres
       barmanObjectStore:
         destinationPath: s3://backups/keycloak
-        endpointURL: https://minio.srv-storage.server.home:9000
+        endpointURL: https://s3.infra.server.home:9000
         # When recovering from WAL or backup, change the value of
         # backup.barmanObjectStore.serverName so that the new WAL is written
         # to a new directory in the bucket.
