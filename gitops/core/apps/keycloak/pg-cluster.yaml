@@ -30,30 +30,30 @@ spec:
       wal:
         compression: bzip2
     retentionPolicy: 7d
-  bootstrap:
-    recovery:
-      source: keycloak-postgres
-  externalClusters:
-    - name: keycloak-postgres
-      barmanObjectStore:
-        destinationPath: s3://backups/keycloak
-        endpointURL: https://s3.infra.server.home:9000
-        endpointCA:
-          name: s3-ca
-          key: ca.crt
-        # When recovering from WAL or backup, change the value of
-        # backup.barmanObjectStore.serverName so that the new WAL is written
-        # to a new directory in the bucket.
-        serverName: cluster-1
-        s3Credentials:
-          accessKeyId:
-            name: s3-creds
-            key: ACCESS_KEY_ID
-          secretAccessKey:
-            name: s3-creds
-            key: ACCESS_SECRET_KEY
-        wal:
-          maxParallel: 8
+  # bootstrap:
+  #   recovery:
+  #     source: keycloak-postgres
+  # externalClusters:
+  #   - name: keycloak-postgres
+  #     barmanObjectStore:
+  #       destinationPath: s3://backups/keycloak
+  #       endpointURL: https://s3.infra.server.home:9000
+  #       endpointCA:
+  #         name: s3-ca
+  #         key: ca.crt
+  #       # When recovering from WAL or backup, change the value of
+  #       # backup.barmanObjectStore.serverName so that the new WAL is written
+  #       # to a new directory in the bucket.
+  #       serverName: cluster-1
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: s3-creds
+  #           key: ACCESS_KEY_ID
+  #         secretAccessKey:
+  #           name: s3-creds
+  #           key: ACCESS_SECRET_KEY
+  #       wal:
+  #         maxParallel: 8
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
