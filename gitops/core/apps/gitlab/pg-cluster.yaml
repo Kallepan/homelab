@@ -5,7 +5,7 @@ metadata:
   name: gitlab-postgres
   namespace: gitlab
 spec:
-  instances: 2
+  instances: 1
   storage:
     size: 20Gi
     storageClass: local-path
@@ -30,30 +30,30 @@ spec:
       wal:
         compression: bzip2
     retentionPolicy: 7d
-  bootstrap:
-    recovery:
-      source: gitlab-postgres
-  externalClusters:
-    - name: gitlab-postgres
-      barmanObjectStore:
-        destinationPath: s3://backups/gitlab
-        endpointURL: https://s3.infra.server.home:9000
-        endpointCA:
-          name: s3-ca
-          key: ca.crt
-        # When recovering from WAL or backup, change the value of
-        # backup.barmanObjectStore.serverName so that the new WAL is written
-        # to a new directory in the bucket.
-        serverName: cluster-1
-        s3Credentials:
-          accessKeyId:
-            name: s3-creds
-            key: ACCESS_KEY_ID
-          secretAccessKey:
-            name: s3-creds
-            key: ACCESS_SECRET_KEY
-        wal:
-          maxParallel: 8
+  # bootstrap:
+  #   recovery:
+  #     source: gitlab-postgres
+  # externalClusters:
+  #   - name: gitlab-postgres
+  #     barmanObjectStore:
+  #       destinationPath: s3://backups/gitlab
+  #       endpointURL: https://s3.infra.server.home:9000
+  #       endpointCA:
+  #         name: s3-ca
+  #         key: ca.crt
+  #       # When recovering from WAL or backup, change the value of
+  #       # backup.barmanObjectStore.serverName so that the new WAL is written
+  #       # to a new directory in the bucket.
+  #       serverName: cluster-1
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: s3-creds
+  #           key: ACCESS_KEY_ID
+  #         secretAccessKey:
+  #           name: s3-creds
+  #           key: ACCESS_SECRET_KEY
+  #       wal:
+  #         maxParallel: 8
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
@@ -74,7 +74,7 @@ metadata:
   name: gitlab-registry-postgres
   namespace: gitlab
 spec:
-  instances: 2
+  instances: 1
   storage:
     size: 10Gi
     storageClass: local-path
@@ -99,30 +99,30 @@ spec:
       wal:
         compression: bzip2
     retentionPolicy: 7d
-  bootstrap:
-    recovery:
-      source: gitlab-postgres
-  externalClusters:
-    - name: gitlab-postgres
-      barmanObjectStore:
-        destinationPath: s3://backups/gitlab
-        endpointURL: https://s3.infra.server.home:9000
-        endpointCA:
-          name: s3-ca
-          key: ca.crt
-        # When recovering from WAL or backup, change the value of
-        # backup.barmanObjectStore.serverName so that the new WAL is written
-        # to a new directory in the bucket.
-        serverName: cluster-1
-        s3Credentials:
-          accessKeyId:
-            name: s3-creds
-            key: ACCESS_KEY_ID
-          secretAccessKey:
-            name: s3-creds
-            key: ACCESS_SECRET_KEY
-        wal:
-          maxParallel: 8
+  # bootstrap:
+  #   recovery:
+  #     source: gitlab-postgres
+  # externalClusters:
+  #   - name: gitlab-postgres
+  #     barmanObjectStore:
+  #       destinationPath: s3://backups/gitlab
+  #       endpointURL: https://s3.infra.server.home:9000
+  #       endpointCA:
+  #         name: s3-ca
+  #         key: ca.crt
+  #       # When recovering from WAL or backup, change the value of
+  #       # backup.barmanObjectStore.serverName so that the new WAL is written
+  #       # to a new directory in the bucket.
+  #       serverName: cluster-1
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: s3-creds
+  #           key: ACCESS_KEY_ID
+  #         secretAccessKey:
+  #           name: s3-creds
+  #           key: ACCESS_SECRET_KEY
+  #       wal:
+  #         maxParallel: 8
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
