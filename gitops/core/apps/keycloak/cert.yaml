@@ -9,4 +9,4 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - sso.srv-lab.server.home
+    - sso.core.infra.server.home
