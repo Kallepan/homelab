@@ -1,8 +1,10 @@
 talos_clusters:
   - name: core
     endpoint: core.infra.server.home
-    control_planes:
+    control_nodes:
       - ip: "10.10.0.3"
+    worker_nodes:
+      - ip: "10.10.0.4"
     working_dir: /workspaces/homelab/clusters/core
 
 talos_version: "v1.8.3"

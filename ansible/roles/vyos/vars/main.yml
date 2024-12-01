@@ -50,10 +50,13 @@ vyos_dhcpv4_configs:
       # Core Cluster
       - mac: "BC:24:11:8D:F4:67"
         ip: "10.10.0.3"
-        description: "core"
+        description: "control1-core"
+      - mac: "BC:24:11:D7:C0:1A"
+        ip: "10.10.0.4"
+        description: "worker1-core"
       # Bastion
       - mac: "BC:24:11:B7:42:81"
-        ip: "10.10.0.4"
+        ip: "10.10.0.20"
         description: "bastion"
   - network_name: "PROD"
     subnet: "10.30.0.0/24"

@@ -18,42 +18,52 @@
 
 - name: Check if Config file exists
   ansible.builtin.stat:
-    path: "{{ talos_cluster.working_dir }}/_out/talosconfig"
+    path: "{{ talos_cluster.working_dir }}/configs/talosconfig"
   register: config_file
 
 - name: Generate Config for cluster
   when: "not config_file.stat.exists"
   ansible.builtin.command: >
-    talosctl gen config --with-secrets {{ talos_cluster.working_dir }}/secrets.yaml --config-patch @{{ talos_cluster.working_dir }}/all.yaml {{ talos_cluster.name }} https://{{ talos_cluster.endpoint }}:6443 --output-dir {{ talos_cluster.working_dir }}/_out --install-image {{ talos_factory_image_url }} --force
+    talosctl gen config --with-secrets {{ talos_cluster.working_dir }}/secrets.yaml --config-patch @{{ talos_cluster.working_dir }}/all.yaml {{ talos_cluster.name }} https://{{ talos_cluster.endpoint }}:6443 --output-dir {{ talos_cluster.working_dir }}/configs --install-image {{ talos_factory_image_url }} --force
   changed_when: true
   register: config_output
 
-- name: Create control plane
-  when: (talos_cluster.control_planes is defined and talos_cluster.control_planes | length > 0) and config_output.changed
+- name: Create control planes
+  when: (talos_cluster.control_nodes is defined and talos_cluster.control_nodes | length > 0) and config_output.changed
   ansible.builtin.command: >
-    talosctl apply-config --insecure --nodes {{ control_plane.ip }} --file {{ talos_cluster.working_dir }}/_out/controlplane.yaml
-  loop: "{{ talos_cluster.control_planes }}"
+    talosctl apply-config --insecure --nodes {{ control_plane.ip }} --file {{ talos_cluster.working_dir }}/configs/controlplane.yaml
+  loop: "{{ talos_cluster.control_nodes }}"
   loop_control:
     loop_var: control_plane
   changed_when: true
   register: control_plane_output
 
+- name: Create worker nodes
+  when: (talos_cluster.worker_nodes is defined and talos_cluster.worker_nodes | length > 0) and config_output.changed
+  ansible.builtin.command: >
+    talosctl apply-config --insecure --nodes {{ worker_node.ip }} --file {{ talos_cluster.working_dir }}/configs/worker.yaml
+  loop: "{{ talos_cluster.worker_nodes }}"
+  loop_control:
+    loop_var: worker_node
+  changed_when: true
+  register: worker_node_output
+
 - name: Apply IP to talosconfig
   when: control_plane_output.changed
   ansible.builtin.command: >
-    talosctl --talosconfig {{ talos_cluster.working_dir }}/_out/talosconfig config endpoint {{ talos_cluster.control_planes[0].ip }}
+    talosctl --talosconfig {{ talos_cluster.working_dir }}/configs/talosconfig config endpoint {{ talos_cluster.control_nodes[0].ip }}
   changed_when: true
 
 - name: Apply Node to talosconfig
   when: control_plane_output.changed
   ansible.builtin.command: >
-    talosctl --talosconfig {{ talos_cluster.working_dir }}/_out/talosconfig config node {{ talos_cluster.control_planes[0].ip }}
+    talosctl --talosconfig {{ talos_cluster.working_dir }}/configs/talosconfig config node {{ talos_cluster.control_nodes[0].ip }}
   changed_when: true
 
 - name: Bootstrap the cluster
   when: control_plane_output.changed
   ansible.builtin.command: >
-    talosctl --talosconfig {{ talos_cluster.working_dir }}/_out/talosconfig bootstrap
+    talosctl --talosconfig {{ talos_cluster.working_dir }}/configs/talosconfig bootstrap
   register: bootstrap_result
   retries: 10
   delay: 30
@@ -63,5 +73,5 @@
 - name: Generate kubeconfig
   when: bootstrap_result.changed
   ansible.builtin.command: >
-    talosctl --talosconfig {{ talos_cluster.working_dir }}/_out/talosconfig kubeconfig {{ talos_cluster.working_dir }}/_out/kubeconfig
+    talosctl --talosconfig {{ talos_cluster.working_dir }}/configs/talosconfig kubeconfig {{ talos_cluster.working_dir }}/configs/kubeconfig
   changed_when: true

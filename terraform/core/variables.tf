@@ -3,7 +3,7 @@
 variable "kubeconfig_path" {
   description = "Path to the kubeconfig file"
   type        = string
-  default     = "/workspaces/homelab/clusters/core/_out/kubeconfig"
+  default     = "/workspaces/homelab/clusters/core/configs/kubeconfig"
 }
 
 ### S3 Credentials ###

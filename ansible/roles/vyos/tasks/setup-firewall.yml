@@ -210,6 +210,13 @@
       - set firewall ipv6 name LANv6-to-WANv6 rule 400 action 'accept'
       - set firewall ipv6 name LANv6-to-WANv6 rule 400 destination port '123'
       - set firewall ipv6 name LANv6-to-WANv6 rule 400 protocol 'udp'
+      # DNS
+      - set firewall ipv4 name LANv4-to-WANv4 rule 600 action 'accept'
+      - set firewall ipv4 name LANv4-to-WANv4 rule 600 destination port '53'
+      - set firewall ipv4 name LANv4-to-WANv4 rule 600 protocol 'udp'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 600 action 'accept'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 600 destination port '53'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 600 protocol 'udp'
       # SSH
       - set firewall ipv4 name LANv4-to-WANv4 rule 800 action 'accept'
       - set firewall ipv4 name LANv4-to-WANv4 rule 800 destination port '22'

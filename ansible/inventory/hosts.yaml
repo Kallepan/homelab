@@ -70,17 +70,22 @@ all:
       ansible_host: 10.10.0.2
       ansible_user: ubuntu
       <<: *defaults
-    core:
+    control1-core:
       ansible_host: 10.10.0.3
       ansible_user: ubuntu
       <<: *defaults
-    bastion:
+    worker1-core:
       ansible_host: 10.10.0.4
       ansible_user: ubuntu
       <<: *defaults
 
+    bastion:
+      ansible_host: 10.10.0.20
+      ansible_user: ubuntu
+      <<: *defaults
+
   children:
-    virtual_machines:
+    ubuntu_vms:
       hosts:
         dmz:
         control1-prod:

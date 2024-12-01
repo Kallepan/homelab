@@ -15,5 +15,5 @@
 
 - name: Apply Manifests
   ansible.builtin.command: >
-    kubectl --kubeconfig={{ talos_cluster.working_dir }}/_out/kubeconfig apply -k {{ talos_cluster.working_dir }}/manifests
+    kubectl --kubeconfig={{ talos_cluster.working_dir }}/configs/kubeconfig apply -k {{ talos_cluster.working_dir }}/manifests
   changed_when: true
