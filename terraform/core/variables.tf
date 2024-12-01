@@ -18,3 +18,10 @@ variable "backup_s3_secret" {
   type        = string
   sensitive   = true
 }
+
+### GitLab Runner ###
+variable "gitlab_runner_token" {
+  description = "The token for Gitlab runner"
+  type        = string
+  sensitive   = true
+}
