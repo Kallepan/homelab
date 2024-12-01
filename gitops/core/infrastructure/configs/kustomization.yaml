@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - github.com/rancher/local-path-provisioner/deploy?ref=v0.0.30
   - cert-manager-issuers.yaml
+  - metallb-pool.yaml
 patches:
   - patch: |-
       kind: ConfigMap
