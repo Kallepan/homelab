@@ -43,10 +43,10 @@ vyos_dhcpv4_configs:
     lease_time: "86400"
     tftp_server_name: "10.10.0.1"
     static_mappings:
-      # Rancher Cluster
+      # Management
       - mac: "BC:24:11:85:85:9E"
         ip: "10.10.0.2"
-        description: "rancher"
+        description: "mgmt"
       # Core Cluster
       - mac: "BC:24:11:8D:F4:67"
         ip: "10.10.0.3"
@@ -223,7 +223,11 @@ vyos_dns_configs:
       type: "A"
       name: "any"
       address: "10.10.0.10"
-    # Rancher Cluster
+    - domain: "core.infra.server.home"
+      type: "A"
+      name: "@"
+      address: "10.10.0.3"
+    # MGMT Cluster
     - domain: "mgmt.infra.server.home"
       type: "A"
       name: "@"

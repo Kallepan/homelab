@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: gateway
+      version: "1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: istio-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    labels:
+      app: istio-ingressgateway
+    service:
+      ports:
+        # Add ports here to expose them on the LoadBalancer
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
+        - name: ssh
+          port: 2222
+          protocol: TCP
+          targetPort: 2222
+        - name: mqtt
+          port: 1883
+          protocol: TCP
+          targetPort: 1883
+        - name: mqtt-tls
+          port: 8883
+          protocol: TCP
+          targetPort: 8883
+      type: LoadBalancer
+      loadBalancerIP: 10.10.0.10

@@ -1,0 +1,7 @@
+# This playbook sets up the Talos operating system on the given hosts and bootstraps the Kubernetes cluster using Talos.
+---
+- name: Create Talos clusters
+  hosts: 127.0.0.1
+  connection: local
+  roles:
+    - talos

@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  interval: 1h
+  url: https://github.com/keycloak/keycloak-k8s-resources
+  ref:
+    # https://www.keycloak.org/operator/installation#_installing_by_using_kubectl_without_operator_lifecycle_manager
+    tag: "26.0.6"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  interval: 1h
+  targetNamespace: keycloak
+  sourceRef:
+    kind: GitRepository
+    name: keycloak
+  path: ./kubernetes
+  prune: true
+  timeout: 5m

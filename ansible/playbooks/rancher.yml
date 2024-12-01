@@ -2,7 +2,7 @@
 # Note: This playbook assumes that only a single host is defined in the inventory file
 ---
 - name: Install Rancher
-  hosts: management
+  hosts: rancher
   become: true
   roles:
     - rke2

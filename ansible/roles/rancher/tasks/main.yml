@@ -62,4 +62,5 @@
     --set bootstrapPassword={{ rancher_password }}
     --set ingress.tls.source=secret
     --set privateCA=true
+    --wait
   changed_when: true

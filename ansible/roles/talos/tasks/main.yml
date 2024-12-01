@@ -1,0 +1,16 @@
+# Description: Main tasks file for the talos role.
+---
+- name: Include Fetch Image
+  ansible.builtin.include_tasks: fetch_image.yml
+
+- name: Include Setup Tasks
+  ansible.builtin.include_tasks: setup.yml
+  loop: "{{ talos_clusters }}"
+  loop_control:
+    loop_var: talos_cluster
+
+- name: Include Install Manifests
+  ansible.builtin.include_tasks: install_manifests.yml
+  loop: "{{ talos_clusters }}"
+  loop_control:
+    loop_var: talos_cluster

@@ -5,6 +5,6 @@ rancher_tls_crt: /workspaces/homelab/pki/output/intermediate_ca_2/certs/server.h
 rancher_tls_key: /workspaces/homelab/pki/output/intermediate_ca_2/private/server.home.key
 rancher_private_ca_crt: /workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt
 
-rancher_hostname: srv-rancher.server.home
+rancher_hostname: mgmt.infra.server.home
 rancher_password: admin
 rancher_chart_version: rancher-stable

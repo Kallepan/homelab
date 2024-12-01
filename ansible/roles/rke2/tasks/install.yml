@@ -28,7 +28,7 @@
 # I know I should just introduce a version variable instead of doing this
 - name: Install RKE2
   ansible.builtin.command:
-    cmd: /tmp/rke2-install.sh
+    cmd: bash /tmp/rke2-install.sh
   register: rke2_install
   environment:
     INSTALL_RKE2_CHANNEL: "{{ rke2_channel }}"
@@ -43,6 +43,7 @@
   ansible.builtin.systemd:
     name: rke2-server
     enabled: true
+    state: started
 
 - name: Wait for RKE2 to start
   ansible.builtin.wait_for:
