@@ -13,6 +13,9 @@ spec:
     barmanObjectStore:
       destinationPath: s3://backups/keycloak
       endpointURL: https://s3.infra.server.home:9000
+      endpointCA:
+        name: s3-ca
+        key: ca.crt
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
       # serverName: cluster-1
@@ -35,6 +38,9 @@ spec:
       barmanObjectStore:
         destinationPath: s3://backups/keycloak
         endpointURL: https://s3.infra.server.home:9000
+        endpointCA:
+          name: s3-ca
+          key: ca.crt
         # When recovering from WAL or backup, change the value of
         # backup.barmanObjectStore.serverName so that the new WAL is written
         # to a new directory in the bucket.
