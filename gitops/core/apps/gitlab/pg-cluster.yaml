@@ -19,7 +19,7 @@ spec:
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
       # serverName: cluster-1
-      serverName: cluster-2
+      serverName: cluster-1
       s3Credentials:
         accessKeyId:
           name: s3-creds
@@ -88,7 +88,7 @@ spec:
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
       # serverName: cluster-1
-      serverName: cluster-2
+      serverName: cluster-1
       s3Credentials:
         accessKeyId:
           name: s3-creds
