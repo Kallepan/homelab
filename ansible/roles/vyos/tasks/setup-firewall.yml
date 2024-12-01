@@ -571,7 +571,6 @@
 - name: Setup WG01 to MGMT Rules
   vyos.vyos.vyos_config:
     lines:
-      ### WG01 to MGMT ###
       # Accept all traffic by default
       - set firewall ipv4 name WG01v4-to-MGMTv4 default-action 'accept'
       - set firewall ipv4 name WG01v4-to-MGMTv4 default-log
