@@ -391,18 +391,65 @@
       # Ipv4
       - set firewall zone prod from mgmt firewall name 'MGMTv4-to-LANv4'
       - set firewall zone stag from mgmt firewall name 'MGMTv4-to-LANv4'
-      - set firewall zone stor from mgmt firewall name 'MGMTv4-to-LANv4'
       # Ipv6
       - set firewall zone prod from mgmt firewall ipv6-name 'MGMTv6-to-LANv6'
       - set firewall zone stag from mgmt firewall ipv6-name 'MGMTv6-to-LANv6'
-      - set firewall zone stor from mgmt firewall ipv6-name 'MGMTv6-to-LANv6'
+    save: true
+
+### MGMT to STOR ###
+- name: Setup MGMT to STOR
+  vyos.vyos.vyos_config:
+    lines:
+      ### MGMT to STOR ###
+      # Drop all traffic by default
+      - set firewall ipv4 name MGMTv4-to-STORv4 default-action 'drop'
+      - set firewall ipv4 name MGMTv4-to-STORv4 default-log
+      - set firewall ipv6 name MGMTv6-to-STORv6 default-action 'drop'
+      - set firewall ipv6 name MGMTv6-to-STORv6 default-log
+      # Accept established connections
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 1 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 1 state established
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 1 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 1 state established
+      # Drop invalid connections
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 2 action 'drop'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 2 state invalid
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 2 action 'drop'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 2 state invalid
+      # Drop related connections
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 3 action 'drop'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 3 state related
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 3 action 'drop'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 3 state related
+      # ICMP
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 100 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 100 protocol 'icmp'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 100 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 100 protocol 'ipv6-icmp'
+      # SSH
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 destination port '22,2222'
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 protocol 'tcp'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 destination port '22,2222'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 protocol 'tcp'
+      # S3
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 9000 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 9000 destination port '9000'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 9000 protocol 'tcp'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 9000 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 9000 destination port '9000'
+      - set firewall ipv6 name MGMTv6-to-STORv6 rule 9000 protocol 'tcp'
+      # Ipv4
+      - set firewall zone stor from mgmt firewall name 'MGMTv4-to-STORv4'
+      # Ipv6
+      - set firewall zone stor from mgmt firewall ipv6-name 'MGMTv6-to-STORv6'
     save: true
 
 ### LANs to MGMT ###
 - name: Setup LANs to MGMT
   vyos.vyos.vyos_config:
     lines:
-      ### LANs to MGMT ###
       # Drop all traffic by default
       - set firewall ipv4 name LANv4-to-MGMTv4 default-action 'drop'
       - set firewall ipv4 name LANv4-to-MGMTv4 default-log
