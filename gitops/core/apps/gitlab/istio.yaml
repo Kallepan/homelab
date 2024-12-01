@@ -1,0 +1,35 @@
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: gitlab-ssh-gateway
+  namespace: gitlab
+spec:
+  selector:
+    app: istio-ingressgateway
+  servers:
+    - hosts:
+        - gitlab.core.infra.server.home
+      port:
+        name: gitlab-ssh
+        number: 2222
+        protocol: TCP
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: gitlab-ssh-virtual-service
+  namespace: gitlab
+spec:
+  gateways:
+    - gitlab-ssh-gateway
+  hosts:
+    - gitlab.core.infra.server.home
+  tcp:
+    - match:
+        - port: 2222
+      route:
+        - destination:
+            host: gitlab-gitlab-shell.gitlab.svc.cluster.local
+            port:
+              number: 2222
