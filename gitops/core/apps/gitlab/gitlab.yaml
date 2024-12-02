@@ -105,7 +105,7 @@ spec:
           persistence:
             enabled: true
             size: 10Gi
-            storageClass: local-path
+            storageClass: openebs-hostpath
         psql:
           serviceName: gitlab-postgres-rw
           port: 5432
@@ -168,7 +168,7 @@ spec:
         install: true
         metrics:
           enabled: true
-        defaultStorageClass: local-path
+        defaultStorageClass: openebs-hostpath
       registry:
         storage:
           secret: gitlab-registry-minio-connection
