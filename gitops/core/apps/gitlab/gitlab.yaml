@@ -14,7 +14,33 @@ spec:
       certmanager-issuer:
         email: kajeepan.kandeepan@gmail.com
       gitlab-runner:
-        install: false
+        install: true
+        certsSecretName: gitlab-ca
+        rbac:
+          create: true
+        runners:
+          cache:
+            secertName: s3-gitlab-cache
+          secret: gitlab-runner-token-secret
+          config: |
+            [[runners]]
+              [runners.kubernetes]
+                image = "ubuntu:22.04"
+                privileged = true
+              [[runners.kubernetes.volumes.host_path]]
+                name = "repo"
+                mount_path = "/builds"
+                host_path = "/tmp/builds"
+                read_only = false
+              [[runners.kubernetes.volumes.empty_dir]]
+                name = "docker-certs"
+                mount_path = "/certs/client"
+                medium = "Memory"
+              [[runners.kubernetes.volumes.secret]]
+                name = "gitlab-ca"
+                mount_path = "/usr/local/share/ca-certificates/gitlab.srv-lab.server.home.crt"
+                sub_path = "gitlab.srv-lab.server.home.crt"
+                read_only = true
       gitlab:
         gitlab-shell:
           sshDaemon: gitlab-sshd
