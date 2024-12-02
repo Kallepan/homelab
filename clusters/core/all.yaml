@@ -3,6 +3,10 @@ cluster:
     - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
 
 machine:
+  sysctls:
+    vm.nr_hugepages: "1024"
+  nodeLabels:
+    openebs.io/engine: mayastor
   files:
     - content: |
         [metrics]
@@ -14,11 +18,11 @@ machine:
     extraArgs:
       rotate-server-certificates: true
     extraMounts:
-      - destination: /var/local-path-provisioner
+      - destination: /var/openebs/local
         type: bind
-        source: /var/local-path-provisioner
+        source: /var/openebs/local
         options:
-          - bind
+          - rbind
           - rshared
           - rw
 ---

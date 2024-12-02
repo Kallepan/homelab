@@ -1,0 +1,39 @@
+# This will create 4 storage classes. The storage class named openebs-hostpath is used to create storage that is replicated across all of your nodes. The storage class named openebs-single-replica is used to create hostpath PVCs that are not replicated. The other 2 storageclasses, mayastor-etcd-localpv and mayastor-loki-localpv, are used by OpenEBS to create persistent volumes on nodes.
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openebs
+  namespace: openebs
+spec:
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: openebs
+      version: "4.x"
+      sourceRef:
+        kind: HelmRepository
+        name: openebs
+        namespace: openebs
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: false
+    mayastor:
+      csi:
+        node:
+          initContainers:
+            enabled: false
+      etcd:
+        replicaCount: 2
+      nats:
+        cluster:
+          replicas: 2

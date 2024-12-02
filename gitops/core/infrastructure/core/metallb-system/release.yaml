@@ -21,4 +21,4 @@ spec:
     crds: CreateReplace
   values:
     speaker:
-      tolerateMaster: true
+      tolerateMaster: false

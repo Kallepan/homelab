@@ -54,6 +54,9 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:D7:C0:1A"
         ip: "10.10.0.4"
         description: "worker1-core"
+      - mac: "BC:24:11:02:9B:4D"
+        ip: "10.10.0.5"
+        description: "worker2-core"
       # Bastion
       - mac: "BC:24:11:B7:42:81"
         ip: "10.10.0.20"
@@ -95,10 +98,6 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:46:5F:68"
         ip: "10.30.0.20"
         description: "docker"
-      # Harvester
-      - mac: "BC:24:11:49:EB:9C"
-        ip: "10.30.0.30"
-        description: "hvst"
   - network_name: "STAG"
     subnet: "10.40.0.0/24"
     subnet_id: "3"
@@ -260,11 +259,6 @@ vyos_dns_configs:
       type: "A"
       name: "@"
       address: "10.50.0.2"
-    # Harvester Hypervisor
-    - domain: "hvst.infra.server.home"
-      type: "A"
-      name: "@"
-      address: "10.10.0.30"
 
 vyos_nat_configs:
   - outbound_interface: eth0

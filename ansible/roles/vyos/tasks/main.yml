@@ -1,4 +1,4 @@
-# ---
+---
 - name: Install SSH Key
   ansible.builtin.include_tasks: install-ssh-key.yml
 - name: Setup Interfaces
