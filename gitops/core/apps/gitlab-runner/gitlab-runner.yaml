@@ -45,7 +45,7 @@ spec:
           [[runners.kubernetes.volumes.host_path]]
             name = "repo"
             mount_path = "/builds"
-            host_path = "/tmp/builds"
+            host_path = "/var/lib/gitlab-runner/builds"
             read_only = false
           [[runners.kubernetes.volumes.empty_dir]]
             name = "docker-certs"
