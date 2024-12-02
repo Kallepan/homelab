@@ -34,10 +34,10 @@ spec:
             enabled: false
       loki-stack:
         localpvScConfig:
-          basePath: /var/openebs/local/{{ .Release.Name }}/localpv-hostpath/loki
+          basePath: /var/openebs/local/localpv-hostpath/loki
       etcd:
         localpvScConfig:
-          basePath: /var/openebs/local/{{ .Relase.Name }}/localpv-hostpath/etcd
+          basePath: /var/openebs/local/localpv-hostpath/etcd
         replicaCount: 2
       nats:
         cluster:
