@@ -27,12 +27,18 @@ spec:
           enabled: false
         zfs:
           enabled: false
+
     mayastor:
       csi:
         node:
           initContainers:
             enabled: false
+      loki-stack:
+        localpvScConfig:
+          basePath: /var/openebs/local/{{ .Release.Name }}/localpv-hostpath/loki
       etcd:
+        localpvScConfig:
+          basePath: /var/openebs/local/{{ .Relase.Name }}/localpv-hostpath/etcd
         replicaCount: 2
       nats:
         cluster:
