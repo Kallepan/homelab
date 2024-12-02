@@ -76,7 +76,7 @@ spec:
           dependencyProxy:
             enabled: true
           omniauth:
-            enabled: true
+            enabled: false
             autoSignInWithProvider: openid_connect
             allowSingleSignOn:
               - openid_connect
