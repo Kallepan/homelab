@@ -25,3 +25,15 @@ variable "gitlab_runner_token" {
   type        = string
   sensitive   = true
 }
+
+variable "gitlab_runner_s3_access" {
+  description = "The Access key to access the GitLab runner S3 bucket"
+  type        = string
+  sensitive   = true
+}
+
+variable "gitlab_runner_s3_secret" {
+  description = "The Secret key to access the GitLab runner S3 bucket"
+  type        = string
+  sensitive   = true
+}

@@ -42,34 +42,6 @@ resource "kubernetes_secret" "s3_endpoint_ca_postgres_keycloak" {
 }
 
 ### GitLab ###
-### GitLab-Runner ###
-resource "kubernetes_secret" "gitlab_runner_token_secret" {
-  metadata {
-    name      = "gitlab-runner-token-secret"
-    namespace = "gitlab-runner"
-  }
-
-  data = {
-    "runner-registration-token" = ""
-    "runner-token"              = var.gitlab_runner_token
-  }
-
-  type = "Opaque"
-}
-
-resource "kubernetes_secret" "gitlab_runner_ca" {
-  metadata {
-    name      = "gitlab-ca"
-    namespace = "gitlab-runner"
-  }
-
-  data = {
-    "gitlab.core.infra.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
-  }
-
-  type = "Opaque"
-}
-
 resource "kubernetes_secret" "s3_creds_postgres_gitlab" {
   metadata {
     name      = "s3-creds"
@@ -160,3 +132,44 @@ resource "kubernetes_secret" "gitlab_ca" {
   type = "Opaque"
 }
 
+### GitLab-Runner ###
+resource "kubernetes_secret" "gitlab_runner_token_secret" {
+  metadata {
+    name      = "gitlab-runner-token-secret"
+    namespace = "gitlab-runner"
+  }
+
+  data = {
+    "runner-registration-token" = ""
+    "runner-token"              = var.gitlab_runner_token
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_secret" "gitlab_runner_ca" {
+  metadata {
+    name      = "gitlab-ca"
+    namespace = "gitlab-runner"
+  }
+
+  data = {
+    "gitlab.core.infra.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_secret" "gitlab_s3_access" {
+  metadata {
+    name      = "gitlab-s3-access"
+    namespace = "gitlab-runner"
+  }
+
+  data = {
+    "accesskey" = var.gitlab_runner_s3_access
+    "secretkey" = var.gitlab_runner_s3_secret
+  }
+
+  type = "Opaque"
+}
