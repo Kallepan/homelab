@@ -400,7 +400,6 @@
 - name: Setup MGMT to STOR
   vyos.vyos.vyos_config:
     lines:
-      ### MGMT to STOR ###
       # Drop all traffic by default
       - set firewall ipv4 name MGMTv4-to-STORv4 default-action 'drop'
       - set firewall ipv4 name MGMTv4-to-STORv4 default-log
@@ -427,12 +426,12 @@
       - set firewall ipv6 name MGMTv6-to-STORv6 rule 100 action 'accept'
       - set firewall ipv6 name MGMTv6-to-STORv6 rule 100 protocol 'ipv6-icmp'
       # SSH
-      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 action 'accept'
-      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 destination port '22,2222'
-      - set firewall ipv4 name MGMTv4-to-LANv4 rule 800 protocol 'tcp'
-      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 action 'accept'
-      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 destination port '22,2222'
-      - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 protocol 'tcp'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 800 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 800 destination port '22,2222'
+      - set firewall ipv4 name MGMTv4-to-STORv4 rule 800 protocol 'tcp'
+      - set firewall ipv6 name MGMTv6-to-STORv4 rule 800 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-STORv4 rule 800 destination port '22,2222'
+      - set firewall ipv6 name MGMTv6-to-STORv4 rule 800 protocol 'tcp'
       # S3
       - set firewall ipv4 name MGMTv4-to-STORv4 rule 9000 action 'accept'
       - set firewall ipv4 name MGMTv4-to-STORv4 rule 9000 destination port '9000'
