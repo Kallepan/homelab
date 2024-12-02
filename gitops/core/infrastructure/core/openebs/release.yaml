@@ -27,6 +27,8 @@ spec:
           enabled: false
         zfs:
           enabled: false
+    localpv:
+      basePath: /var/mnt/storage/localpv-hostpath
     mayastor:
       csi:
         node:
@@ -34,10 +36,10 @@ spec:
             enabled: false
       loki-stack:
         localpvScConfig:
-          basePath: /var/openebs/local/localpv-hostpath/loki
+          basePath: /var/mnt/storage/localpv-hostpath/loki
       etcd:
         localpvScConfig:
-          basePath: /var/openebs/local/localpv-hostpath/etcd
+          basePath: /var/mnt/storage/localpv-hostpath/etcd
         replicaCount: 2
       nats:
         cluster:

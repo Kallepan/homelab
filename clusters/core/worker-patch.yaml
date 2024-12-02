@@ -1,0 +1,24 @@
+machine:
+  install:
+    disk: /dev/sda
+
+  sysctls:
+    vm.nr_hugepages: "1024"
+  nodeLabels:
+    openebs.io/engine: mayastor
+
+  disks:
+    - device: /dev/sdb
+      partitions:
+        - mountpoint: /var/mnt/storage
+
+  kubelet:
+    extraMounts:
+      - destination: /var/mnt/storage
+        source: /var/mnt/storage
+        type: bind
+        options:
+          - rbind
+          - rshared
+          - rw
+  

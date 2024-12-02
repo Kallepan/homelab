@@ -24,7 +24,7 @@
 - name: Generate Config for cluster
   when: "not config_file.stat.exists"
   ansible.builtin.command: >
-    talosctl gen config --with-secrets {{ talos_cluster.working_dir }}/secrets.yaml --config-patch @{{ talos_cluster.working_dir }}/all.yaml {{ talos_cluster.name }} https://{{ talos_cluster.endpoint }}:6443 --output-dir {{ talos_cluster.working_dir }}/configs --install-image {{ talos_factory_image_url }} --force
+    talosctl gen config --with-secrets {{ talos_cluster.working_dir }}/secrets.yaml --config-patch @{{ talos_cluster.working_dir }}/all-patch.yaml --config-patch-worker @{{ talos_cluster.working_dir }}/worker-patch.yaml {{ talos_cluster.name }} https://{{ talos_cluster.endpoint }}:6443 --output-dir {{ talos_cluster.working_dir }}/configs --install-image {{ talos_factory_image_url }} --force
   changed_when: true
   register: config_output
 
