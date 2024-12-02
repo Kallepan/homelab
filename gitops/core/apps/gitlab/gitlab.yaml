@@ -117,7 +117,7 @@ spec:
             key: password
         hosts:
           domain: core.infra.server.home
-          externalIP: 10.0.255.0
+          externalIP: 10.10.0.10
           gitlab: {}
           hostSuffix: null
           https: true
