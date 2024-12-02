@@ -32,6 +32,16 @@ spec:
           [runners.kubernetes]
             image = "ubuntu:22.04"
             privileged = true
+          [runners.cache]
+            Type = "s3"
+            Shared = true
+            Path = "runner"
+            [runners.cache.s3]
+              ServerAddress = "s3.infra.server.home"
+              BucketName = "gitlab-runner"
+              BucketLocation = "eu-west-1"
+              Insecure = true
+              AuthenticationType = "access-key"
           [[runners.kubernetes.volumes.host_path]]
             name = "repo"
             mount_path = "/builds"
