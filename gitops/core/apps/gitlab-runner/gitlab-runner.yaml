@@ -53,5 +53,6 @@ spec:
             medium = "Memory"
           [[runners.kubernetes.volumes.secret]]
             name = "gitlab-ca"
-            mount_path = "/usr/local/share/ca-certificates/"
+            mount_path = "/usr/local/share/ca-certificates/gitlab.core.infra.server.home.crt"
+            sub_path = "gitlab.core.infra.server.home.crt"
             read_only = true
