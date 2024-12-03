@@ -127,6 +127,7 @@ resource "kubernetes_secret" "gitlab_ca" {
 
   data = {
     "gitlab.core.infra.server.home.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+    "ca.crt"                            = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
   }
 
   type = "Opaque"
