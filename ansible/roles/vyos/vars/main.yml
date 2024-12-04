@@ -247,6 +247,10 @@ vyos_dns_configs:
     # Docker
     - domain: "app.server.home"
       type: "A"
+      name: "@"
+      address: "10.30.0.20"
+    - domain: "app.server.home"
+      type: "A"
       name: "any"
       address: "10.30.0.20"
     # Staging Cluster Load Balancer
