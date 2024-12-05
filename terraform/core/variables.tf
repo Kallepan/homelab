@@ -37,3 +37,17 @@ variable "gitlab_runner_s3_secret" {
   type        = string
   sensitive   = true
 }
+
+
+### Grafana ###
+variable "grafana_oauth_client_id" {
+  description = "The client ID for Grafana OAuth"
+  type        = string
+  sensitive   = true
+}
+
+variable "grafana_oauth_client_secret" {
+  description = "The client secret for Grafana OAuth"
+  type        = string
+  sensitive   = true
+}
