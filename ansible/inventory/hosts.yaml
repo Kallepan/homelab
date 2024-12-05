@@ -82,6 +82,10 @@ all:
       ansible_host: 10.10.0.5
       ansible_user: ubuntu
       <<: *defaults
+    worker3-core:
+      ansible_host: 10.10.0.6
+      ansible_user: ubuntu
+      <<: *defaults
 
     bastion:
       ansible_host: 10.10.0.20
