@@ -51,3 +51,9 @@ variable "grafana_oauth_client_secret" {
   type        = string
   sensitive   = true
 }
+
+### Alertmanager ###
+variable "alertmanager_mattermost_webhook_url" {
+  description = "Mattermost webhook URL for Alertmanager"
+  sensitive   = true
+}

@@ -189,3 +189,30 @@ resource "kubernetes_secret" "grafana-oauth-creds" {
 
   type = "Opaque"
 }
+
+### Alertmanager ###
+resource "kubernetes_secret" "alertmanager_mattermost_webhook_url" {
+  metadata {
+    name      = "alertmanager-mattermost-webhook-url"
+    namespace = "monitoring"
+  }
+
+  data = {
+    "mattermost_api_url" = var.alertmanager_mattermost_webhook_url
+  }
+
+  type = "Opaque"
+}
+resource "kubernetes_secret" "alertmanager_ca" {
+  metadata {
+    name      = "alertmanager-ca"
+    namespace = "monitoring"
+  }
+
+  data = {
+    "ca.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+  }
+
+  type = "Opaque"
+
+}
