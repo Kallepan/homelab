@@ -85,6 +85,12 @@ spec:
                 annotations:
                   summary: "Endpoint {{ $labels.instance }} is down"
                   description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+    defaultRules:
+      create: true
+      rules:
+        kubeControllerManager: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
     grafana:
       enabled: true
       extraSecretMounts:
