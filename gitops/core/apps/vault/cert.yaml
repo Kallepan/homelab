@@ -1,0 +1,14 @@
+---
+# vault certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vault-cert
+  namespace: istio-system
+spec:
+  secretName: vault-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "vault.core.infra.server.home"
