@@ -216,3 +216,31 @@ resource "kubernetes_secret" "alertmanager_ca" {
   type = "Opaque"
 
 }
+
+### Prometheus ###
+resource "kubernetes_secret" "vault_metrics_client" {
+  metadata {
+    name      = "vault-metrics-client"
+    namespace = "vault"
+  }
+
+  data = {
+    "token" = vault_token.prometheus_token.client_token
+  }
+
+  type = "Opaque"
+}
+
+### Vault
+resource "vault_policy" "prometheus_metrics" {
+  name   = "prometheus-metrics"
+  policy = <<EOF
+path "sys/metrics" {
+  capabilities = ["read"]
+}
+EOF
+}
+
+resource "vault_token" "prometheus_token" {
+  policies = [vault_policy.prometheus_metrics.name]
+}

@@ -57,3 +57,16 @@ variable "alertmanager_mattermost_webhook_url" {
   description = "Mattermost webhook URL for Alertmanager"
   sensitive   = true
 }
+
+### Vault ###
+variable "vault_token" {
+  description = "The token for Vault"
+  type        = string
+  sensitive   = true
+}
+
+variable "vault_address" {
+  description = "The address for Vault"
+  type        = string
+  default     = "https://vault.core.infra.server.home"
+}
