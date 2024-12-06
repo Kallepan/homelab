@@ -2,6 +2,16 @@ cluster:
   extraManifests:
     - https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
 
+  controllerManager:
+    extraArgs:
+      "bind-address": "0.0.0.0"
+  proxy:
+    extraArgs:
+      "metrics-bind-address": "0.0.0.0:10249"
+  scheduler:
+    extraArgs:
+      "bind-address": "0.0.0.0"
+
 machine:
   install:
     disk: /dev/sda
