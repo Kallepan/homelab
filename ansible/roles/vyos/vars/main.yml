@@ -240,7 +240,19 @@ vyos_dns_configs:
       type: "A"
       name: "@"
       address: "10.10.0.4"
-    # Production Cluster Load Balancer
+    # Production Cluster
+    - domain: "prod.server.home"
+      type: "A"
+      name: "@"
+      address: "10.30.0.2"
+    - domain: "prod.server.home"
+      type: "A"
+      name: "@"
+      address: "10.30.0.3"
+    - domain: "prod.server.home"
+      type: "A"
+      name: "@"
+      address: "10.30.0.4"
     - domain: "prod.server.home"
       type: "A"
       name: "any"
@@ -254,7 +266,11 @@ vyos_dns_configs:
       type: "A"
       name: "any"
       address: "10.30.0.20"
-    # Staging Cluster Load Balancer
+    # Staging Cluster
+    - domain: "staging.server.home"
+      type: "A"
+      name: "@"
+      address: "10.40.0.2"
     - domain: "staging.server.home"
       type: "A"
       name: "any"
