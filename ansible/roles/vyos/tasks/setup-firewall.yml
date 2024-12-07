@@ -388,6 +388,13 @@
       - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 action 'accept'
       - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 destination port '22,2222'
       - set firewall ipv6 name MGMTv6-to-LANv6 rule 800 protocol 'tcp'
+      # Talos
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 50000 action 'accept'
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 50000 destination port '50000'
+      - set firewall ipv4 name MGMTv4-to-LANv4 rule 50000 protocol 'tcp'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 50000 action 'accept'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 50000 destination port '50000'
+      - set firewall ipv6 name MGMTv6-to-LANv6 rule 50000 protocol 'tcp'
       # Ipv4
       - set firewall zone prod from mgmt firewall name 'MGMTv4-to-LANv4'
       - set firewall zone stag from mgmt firewall name 'MGMTv4-to-LANv4'
