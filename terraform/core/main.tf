@@ -326,6 +326,7 @@ resource "vault_jwt_auth_backend_role" "showcase_prod" {
     "ref_type"      = "branch"
     "ref_protected" = "true"
   }
+  bound_audiences = ["https://vault.core.infra.server.home"]
 
   user_claim = "user_email"
   role_type  = "jwt"
@@ -342,6 +343,7 @@ resource "vault_jwt_auth_backend_role" "showcase_staging" {
     "ref"        = "main"
     "ref_type"   = "branch"
   }
+  bound_audiences = ["https://vault.core.infra.server.home"]
 
   user_claim = "user_email"
   role_type  = "jwt"
