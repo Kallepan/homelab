@@ -1662,7 +1662,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 8,
             "x": 0,
             "y": 66
@@ -1674,7 +1674,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -1769,7 +1769,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 8,
             "x": 8,
             "y": 66
@@ -1781,7 +1781,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -1872,7 +1872,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 8,
             "x": 16,
             "y": 66
@@ -1998,10 +1998,10 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 8,
             "x": 0,
-            "y": 74
+            "y": 75
           },
           "id": 24,
           "options": {
@@ -2010,7 +2010,7 @@ data:
                 "lastNotNull"
               ],
               "displayMode": "table",
-              "placement": "right",
+              "placement": "bottom",
               "showLegend": true,
               "sortBy": "Last *",
               "sortDesc": true
@@ -2122,10 +2122,10 @@ data:
             ]
           },
           "gridPos": {
-            "h": 8,
+            "h": 9,
             "w": 16,
             "x": 8,
-            "y": 74
+            "y": 75
           },
           "id": 25,
           "options": {
@@ -2252,7 +2252,7 @@ data:
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 82
+            "y": 84
           },
           "id": 12,
           "options": {
@@ -2294,7 +2294,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 85
+            "y": 87
           },
           "id": 21,
           "panels": [],
@@ -2366,7 +2366,7 @@ data:
             "h": 10,
             "w": 11,
             "x": 0,
-            "y": 86
+            "y": 88
           },
           "id": 10,
           "options": {
@@ -2422,7 +2422,7 @@ data:
             "h": 10,
             "w": 13,
             "x": 11,
-            "y": 86
+            "y": 88
           },
           "id": 18,
           "options": {
@@ -2491,7 +2491,7 @@ data:
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 96
+            "y": 98
           },
           "id": 8,
           "options": {
@@ -2595,6 +2595,6 @@ data:
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
-      "version": 1,
+      "version": 2,
       "weekStart": "monday"
     }
