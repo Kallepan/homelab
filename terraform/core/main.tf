@@ -255,6 +255,8 @@ resource "vault_jwt_auth_backend" "gitlab_oidc" {
   oidc_discovery_url    = var.vault_gitlab_oidc_discovery_url
   bound_issuer          = var.vault_gitlab_oidc_issuer
   oidc_discovery_ca_pem = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+
+  description = "GitLab OIDC Integration"
 }
 
 # Key Value Secrets
@@ -293,7 +295,7 @@ resource "vault_policy" "showcase_prod" {
 # Policy name: showcase-prod
 #
 # Read only permissions on 'showcase/prod/*' path
-path "secret/showcase/prod/*" {
+path "secret/data/showcase/prod/*" {
   capabilities = ["read"]
 }
 EOF
@@ -305,7 +307,7 @@ resource "vault_policy" "showcase_staging" {
 # Policy name: showcase-staging
 #
 # Read only permissions on 'showcase/staging/*' path
-path "secret/showcase/staging/*" {
+path "secret/data/showcase/staging/*" {
   capabilities = ["read"]
 }
 EOF
@@ -317,7 +319,7 @@ resource "vault_jwt_auth_backend_role" "showcase_prod" {
   role_name = "showcase-prod"
 
   token_policies         = [vault_policy.showcase_prod.name]
-  token_explicit_max_ttl = 60
+  token_explicit_max_ttl = 600
 
   bound_claims_type = "glob"
   bound_claims = {
@@ -336,7 +338,7 @@ resource "vault_jwt_auth_backend_role" "showcase_staging" {
   role_name = "showcase-staging"
 
   token_policies         = [vault_policy.showcase_staging.name]
-  token_explicit_max_ttl = 60
+  token_explicit_max_ttl = 600
 
   bound_claims = {
     "project_id" = "17"
