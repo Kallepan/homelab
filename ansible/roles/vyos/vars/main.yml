@@ -117,7 +117,10 @@ vyos_dhcpv4_configs:
       # Single Node
       - mac: "BC:24:11:E6:F7:66"
         ip: "10.40.0.2"
-        description: "node1-stag"
+        description: "control1-stag"
+      - mac: "BC:24:11:9F:B1:22"
+        ip: "10.40.0.3"
+        description: "worker1-stag"
   - network_name: "STOR"
     subnet: "10.50.0.0/24"
     subnet_id: "4"

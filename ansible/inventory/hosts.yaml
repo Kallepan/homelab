@@ -53,8 +53,12 @@ all:
       ansible_user: ubuntu
       <<: *defaults
 
-    node1-stag:
+    control1-stag:
       ansible_host: 10.40.0.2
+      ansible_user: ubuntu
+      <<: *defaults
+    worker1-stag:
+      ansible_host: 10.40.0.3
       ansible_user: ubuntu
       <<: *defaults
 
