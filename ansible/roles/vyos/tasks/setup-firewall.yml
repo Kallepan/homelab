@@ -483,6 +483,13 @@
       - set firewall ipv6 name LANv6-to-MGMTv6 rule 200 action 'accept'
       - set firewall ipv6 name LANv6-to-MGMTv6 rule 200 destination port '80,443'
       - set firewall ipv6 name LANv6-to-MGMTv6 rule 200 protocol 'tcp'
+      # SSH
+      - set firewall ipv4 name LANv4-to-MGMTv4 rule 800 action 'accept'
+      - set firewall ipv4 name LANv4-to-MGMTv4 rule 800 destination port '2222'
+      - set firewall ipv4 name LANv4-to-MGMTv4 rule 800 protocol 'tcp'
+      - set firewall ipv6 name LANv6-to-MGMTv6 rule 800 action 'accept'
+      - set firewall ipv6 name LANv6-to-MGMTv6 rule 800 destination port '2222'
+      - set firewall ipv6 name LANv6-to-MGMTv6 rule 800 protocol 'tcp'
       # Ipv4
       - set firewall zone mgmt from prod firewall name 'LANv4-to-MGMTv4'
       - set firewall zone mgmt from stag firewall name 'LANv4-to-MGMTv4'
