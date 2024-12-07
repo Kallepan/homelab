@@ -231,10 +231,14 @@ resource "kubernetes_secret" "vault_metrics_client" {
   type = "Opaque"
 }
 
-### Vault
+### Vault ###
+## Metrics ##
 resource "vault_policy" "prometheus_metrics" {
   name   = "prometheus-metrics"
   policy = <<EOF
+# Policy name: prometheus-metrics
+#
+# Read only permissions on 'sys/metrics' path
 path "sys/metrics" {
   capabilities = ["read"]
 }
@@ -243,4 +247,102 @@ EOF
 
 resource "vault_token" "prometheus_token" {
   policies = [vault_policy.prometheus_metrics.name]
+}
+
+## Gitlab Integration ##
+resource "vault_jwt_auth_backend" "gitlab_oidc" {
+  path                  = "jwt_v2"
+  oidc_discovery_url    = var.vault_gitlab_oidc_discovery_url
+  bound_issuer          = var.vault_gitlab_oidc_issuer
+  oidc_discovery_ca_pem = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+}
+
+# Key Value Secrets
+resource "vault_mount" "kv_secret" {
+  path        = "secret"
+  type        = "kv"
+  description = "Secrets for the homelab"
+  options = {
+    version = "2"
+  }
+}
+
+# Secrets
+resource "vault_kv_secret_v2" "secret_showcase_prod" {
+  mount = vault_mount.kv_secret.path
+  name  = "showcase/prod/db"
+
+  data_json = jsonencode({
+    password = var.vault_test_secret
+  })
+}
+
+resource "vault_kv_secret_v2" "secret_showcase_staging" {
+  mount = vault_mount.kv_secret.path
+  name  = "showcase/staging/db"
+
+  data_json = jsonencode({
+    password = var.vault_test_secret
+  })
+}
+
+# Policies
+resource "vault_policy" "showcase_prod" {
+  name   = "showcase-prod"
+  policy = <<EOF
+# Policy name: showcase-prod
+#
+# Read only permissions on 'showcase/prod/*' path
+path "secret/showcase/prod/*" {
+  capabilities = ["read"]
+}
+EOF
+}
+
+resource "vault_policy" "showcase_staging" {
+  name   = "showcase-staging"
+  policy = <<EOF
+# Policy name: showcase-staging
+#
+# Read only permissions on 'showcase/staging/*' path
+path "secret/showcase/staging/*" {
+  capabilities = ["read"]
+}
+EOF
+}
+
+# Authentication Policies
+resource "vault_jwt_auth_backend_role" "showcase_prod" {
+  backend   = vault_jwt_auth_backend.gitlab_oidc.path
+  role_name = "showcase-prod"
+
+  token_policies         = [vault_policy.showcase_prod.name]
+  token_explicit_max_ttl = 60
+
+  bound_claims_type = "glob"
+  bound_claims = {
+    "project_id"    = "17"
+    "ref"           = "auto-deploy-*"
+    "ref_type"      = "branch"
+    "ref_protected" = "true"
+  }
+
+  user_claim = "user_email"
+  role_type  = "jwt"
+}
+resource "vault_jwt_auth_backend_role" "showcase_staging" {
+  backend   = vault_jwt_auth_backend.gitlab_oidc.path
+  role_name = "showcase-staging"
+
+  token_policies         = [vault_policy.showcase_staging.name]
+  token_explicit_max_ttl = 60
+
+  bound_claims = {
+    "project_id" = "17"
+    "ref"        = "main"
+    "ref_type"   = "branch"
+  }
+
+  user_claim = "user_email"
+  role_type  = "jwt"
 }

@@ -70,3 +70,22 @@ variable "vault_address" {
   type        = string
   default     = "https://vault.core.infra.server.home"
 }
+
+variable "vault_gitlab_oidc_discovery_url" {
+  description = "The GitLab OIDC discovery URL for Vault"
+  type        = string
+  default     = "https://gitlab.core.infra.server.home"
+}
+
+variable "vault_gitlab_oidc_issuer" {
+  description = "The GitLab OIDC client ID for Vault"
+  type        = string
+  default     = "https://gitlab.core.infra.server.home"
+}
+
+## Test Secrets ##
+variable "vault_test_secret" {
+  description = "A test secret"
+  type        = string
+  sensitive   = true
+}
