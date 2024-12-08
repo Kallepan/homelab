@@ -35,6 +35,8 @@ spec:
         node:
           initContainers:
             enabled: false
+      io_engine:
+        cpuCount: "1"
       loki-stack:
         localpvScConfig:
           basePath: /var/mnt/storage/localpv-hostpath/loki
