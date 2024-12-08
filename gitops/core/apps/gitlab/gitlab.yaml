@@ -32,6 +32,13 @@ spec:
               secretName: gitlab-tls-secret
         toolbox:
           backups:
+            cron:
+              enabled: true
+              schedule: "0 2 * * *"
+              persistence:
+                enabled: true
+                accessMode: ReadWriteOnce
+                size: 10Gi
             objectStorage:
               backend: s3
               config:
@@ -89,16 +96,6 @@ spec:
             - secret: gitlab-ca
               keys:
                 - gitlab.core.infra.server.home.crt
-        gitlab:
-          toolbox:
-            backups:
-              cron:
-                enabled: true
-                schedule: "0 2 * * *"
-              objectStorage:
-                config:
-                  secret: gitlab-backups-minio-creds
-                  key: config
         edition: ee
         gitaly:
           enabled: true
