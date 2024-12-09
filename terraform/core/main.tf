@@ -350,3 +350,31 @@ resource "vault_jwt_auth_backend_role" "showcase_staging" {
   user_claim = "user_email"
   role_type  = "jwt"
 }
+
+### Flux ###
+### Flux System ###
+resource "kubernetes_secret" "flux-ca" {
+  metadata {
+    name      = "flux-ca"
+    namespace = "flux-system"
+  }
+
+  data = {
+    "ca.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
+  }
+
+  type = "Opaque"
+}
+
+resource "kubernetes_secret" "mattermost-webhook-url" {
+  metadata {
+    name      = "mattermost-webhook-url"
+    namespace = "flux-system"
+  }
+
+  data = {
+    "address" = var.flux_system_mattermost_webhook_url
+  }
+
+  type = "Opaque"
+}

@@ -1,0 +1,98 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: helmrelease-update-alert
+  namespace: flux-system
+spec:
+  summary: HelmRelease Reconciliation was triggered
+  providerRef:
+    name: mattermost-bot
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRelease
+      name: "*"
+      namespace: argo-events
+    - kind: HelmRelease
+      name: "*"
+      namespace: argo
+    - kind: HelmRelease
+      name: "*"
+      namespace: cert-manager
+    - kind: HelmRelease
+      name: "*"
+      namespace: cnpg-operator
+    - kind: HelmRelease
+      name: "*"
+      namespace: emqx
+    - kind: HelmRelease
+      name: "*"
+      namespace: emqx-operator
+    - kind: HelmRelease
+      name: "*"
+      namespace: gitlab-runner
+    - kind: HelmRelease
+      name: "*"
+      namespace: gitlab
+    - kind: HelmRelease
+      name: "*"
+      namespace: harbor
+    - kind: HelmRelease
+      name: "*"
+      namespace: homepage
+    - kind: HelmRelease
+      name: "*"
+      namespace: istio-system
+    - kind: HelmRelease
+      name: "*"
+      namespace: it-tools
+    - kind: HelmRelease
+      name: "*"
+      namespace: jaeger-operator
+    - kind: HelmRelease
+      name: "*"
+      namespace: keycloak
+    - kind: HelmRelease
+      name: "*"
+      namespace: kiali-operator
+    - kind: HelmRelease
+      name: "*"
+      namespace: kubernetes-sigs
+    - kind: HelmRelease
+      name: "*"
+      namespace: kyverno
+    - kind: HelmRelease
+      name: "*"
+      namespace: openebs-hostpath-system
+    - kind: HelmRelease
+      name: "*"
+      namespace: mattermost-operator
+    - kind: HelmRelease
+      name: "*"
+      namespace: mattermost
+    - kind: HelmRelease
+      name: "*"
+      namespace: metallb-system
+    - kind: HelmRelease
+      name: "*"
+      namespace: metrics-server
+    - kind: HelmRelease
+      name: "*"
+      namespace: monitoring
+    - kind: HelmRelease
+      name: "*"
+      namespace: nextcloud
+    - kind: HelmRelease
+      name: "*"
+      namespace: oauth2-proxy
+    - kind: HelmRelease
+      name: "*"
+      namespace: production-apps
+    - kind: HelmRelease
+      name: "*"
+      namespace: vault
+    - kind: HelmRelease
+      name: "*"
+      namespace: web-example
+    - kind: HelmRelease
+      name: "*"
+      namespace: workflows

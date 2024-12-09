@@ -1,0 +1,99 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: update-fetched-alert
+  namespace: flux-system
+spec:
+  summary: New HelmChart version fetched
+  providerRef:
+    name: mattermost-bot
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRepository
+      name: "*"
+      namespace: argo-events
+    - kind: HelmRepository
+      name: "*"
+      namespace: argo
+    - kind: HelmRepository
+      name: "*"
+      namespace: cert-manager
+    - kind: HelmRepository
+      name: "*"
+      namespace: cnpg-operator
+    - kind: HelmRepository
+      name: "*"
+      namespace: emqx
+    - kind: HelmRepository
+      name: "*"
+      namespace: emqx-operator
+    - kind: HelmRepository
+      name: "*"
+      namespace: gitlab-runner
+    - kind: HelmRepository
+      name: "*"
+      namespace: gitlab
+    - kind: HelmRepository
+      name: "*"
+      namespace: harbor
+    - kind: HelmRepository
+      name: "*"
+      namespace: homepage
+    - kind: HelmRepository
+      name: "*"
+      namespace: istio-system
+    - kind: HelmRepository
+      name: "*"
+      namespace: it-tools
+    - kind: HelmRepository
+      name: "*"
+      namespace: jaeger-operator
+    - kind: HelmRepository
+      name: "*"
+      namespace: keycloak
+    - kind: HelmRepository
+      name: "*"
+      namespace: kiali-operator
+    - kind: HelmRepository
+      name: "*"
+      namespace: kubernetes-sigs
+    - kind: HelmRepository
+      name: "*"
+      namespace: kyverno
+    - kind: HelmRepository
+      name: "*"
+      namespace: openebs-hostpath-system
+    - kind: HelmRepository
+      name: "*"
+      namespace: mattermost-operator
+    - kind: HelmRepository
+      name: "*"
+      namespace: mattermost
+    - kind: HelmRepository
+      name: "*"
+      namespace: metallb-system
+    - kind: HelmRepository
+      name: "*"
+      namespace: metrics-server
+    - kind: HelmRepository
+      name: "*"
+      namespace: monitoring
+    - kind: HelmRepository
+      name: "*"
+      namespace: nextcloud
+    - kind: HelmRepository
+      name: "*"
+      namespace: oauth2-proxy
+    - kind: HelmRepository
+      name: "*"
+      namespace: production-apps
+    - kind: HelmRepository
+      name: "*"
+      namespace: vault
+    - kind: HelmRepository
+      name: "*"
+      namespace: web-example
+    - kind: HelmRepository
+      name: "*"
+      namespace: workflows

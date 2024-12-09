@@ -89,3 +89,9 @@ variable "vault_test_secret" {
   type        = string
   sensitive   = true
 }
+
+### Flux ###
+variable "flux_system_mattermost_webhook_url" {
+  description = "Mattermost webhook URL for Flux"
+  sensitive   = true
+}
