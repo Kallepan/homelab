@@ -214,7 +214,6 @@ resource "kubernetes_secret" "alertmanager_ca" {
   }
 
   type = "Opaque"
-
 }
 
 ### Prometheus ###
