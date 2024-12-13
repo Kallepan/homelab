@@ -39,9 +39,7 @@ spec:
                 enabled: true
                 accessMode: ReadWriteOnce
                 size: 10Gi
-              extraArgs:
-                - --skip db
-                - --skip artifacts
+              extraArgs: --skip db --skip artifacts
             objectStorage:
               backend: s3
               config:
