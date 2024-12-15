@@ -37,7 +37,7 @@ spec:
             Shared = true
             Path = "runner"
             [runners.cache.s3]
-              ServerAddress = "s3.infra.server.home"
+              ServerAddress = "s3.infra.server.home:9000"
               BucketName = "gitlab-runner"
               BucketLocation = "eu-west-1"
               AuthenticationType = "access-key"
