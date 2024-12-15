@@ -43,7 +43,7 @@ spec:
               AuthenticationType = "access-key"
           [runners.kubernetes.volumes]
           [[runners.kubernetes.volumes.secret]]
-            name = "gitlab-ca"
+            name = "gitlab-runner-ca"
             mount_path = "/etc/gitlab-runner/certs"
             read_only = true
           [[runners.kubernetes.volumes.empty_dir]]
