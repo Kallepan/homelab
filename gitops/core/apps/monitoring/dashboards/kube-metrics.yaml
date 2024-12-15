@@ -29,7 +29,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 8,
+      "id": 39,
       "links": [],
       "panels": [
         {
@@ -132,7 +132,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -233,7 +233,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -302,7 +302,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -370,7 +370,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -489,7 +489,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -596,7 +596,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -703,7 +703,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -778,7 +778,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -858,7 +858,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -964,7 +964,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1223,7 +1223,7 @@ data:
               }
             ]
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1456,7 +1456,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1563,7 +1563,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1684,7 +1684,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1791,7 +1791,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -1890,7 +1890,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -2020,7 +2020,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -2142,7 +2142,7 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -2270,7 +2270,7 @@ data:
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -2381,14 +2381,14 @@ data:
               "sort": "none"
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
                 "type": "prometheus"
               },
               "editorMode": "code",
-              "expr": "sum(ALERTS{alertname!=\"Watchdog\"}) by (alertname)",
+              "expr": "sum(ALERTS{alertname!~\"InfoInhibitor|Watchdog\"}) by (alertname)",
               "instant": false,
               "legendFormat": "{{label_name}}{{namespace}}",
               "range": true,
@@ -2465,7 +2465,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "targets": [
             {
               "datasource": {
@@ -2515,7 +2515,7 @@ data:
             },
             "viewMode": "list"
           },
-          "pluginVersion": "11.3.1",
+          "pluginVersion": "11.4.0",
           "title": "Alerts",
           "type": "alertlist"
         }
@@ -2530,9 +2530,7 @@ data:
         "list": [
           {
             "current": {
-              "text": [
-                "All"
-              ],
+              "text": "All",
               "value": [
                 "$__all"
               ]
@@ -2559,9 +2557,7 @@ data:
           },
           {
             "current": {
-              "text": [
-                "All"
-              ],
+              "text": "All",
               "value": [
                 "$__all"
               ]
@@ -2595,6 +2591,6 @@ data:
       "timezone": "browser",
       "title": "Kubernetes Metrics",
       "uid": "bdo2xwqvxu7swse",
-      "version": 2,
+      "version": 1,
       "weekStart": "monday"
     }
