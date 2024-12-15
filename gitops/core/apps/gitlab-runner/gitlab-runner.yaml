@@ -50,3 +50,7 @@ spec:
             name = "gitlab-ca"
             mount_path = "/usr/local/share/ca-certificates"
             read_only = true
+          [[runners.kubernetes.volumes.secret]]
+            name = "cache-ca"
+            mount_path = "/etc/gitlab-runner/certs/"
+            read_only = true
