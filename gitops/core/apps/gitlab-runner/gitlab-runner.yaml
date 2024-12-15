@@ -40,7 +40,6 @@ spec:
               ServerAddress = "s3.infra.server.home"
               BucketName = "gitlab-runner"
               BucketLocation = "eu-west-1"
-              Insecure = true
               AuthenticationType = "access-key"
           [[runners.kubernetes.volumes.host_path]]
             name = "repo"
