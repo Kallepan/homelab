@@ -168,6 +168,7 @@ spec:
                   - https://gitlab.core.infra.server.home
                   - https://sso.core.infra.server.home
                   # Production Cluster
+                  - https://homepage.prod.server.home
                   # Docker Machine
                   - https://docs.app.server.home
             relabel_configs:
