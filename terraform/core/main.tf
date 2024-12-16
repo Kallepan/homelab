@@ -161,22 +161,9 @@ resource "kubernetes_secret" "gitlab_runner_ca" {
   type = "Opaque"
 }
 
-resource "kubernetes_secret" "gitlab_runner_cache_ca" {
-  metadata {
-    name      = "cache-ca"
-    namespace = "gitlab-runner"
-  }
-
-  data = {
-    "ca.crt" = file("/workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt")
-  }
-
-  type = "Opaque"
-}
-
 resource "kubernetes_secret" "gitlab_s3_access" {
   metadata {
-    name      = "gitlab-s3-access"
+    name      = "gitlab-runner-s3-access"
     namespace = "gitlab-runner"
   }
 

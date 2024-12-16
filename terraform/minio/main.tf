@@ -175,6 +175,11 @@ resource "minio_iam_policy" "gitlab_runner_policy" {
 EOF
 }
 
+resource "minio_iam_group_policy_attachment" "gitlab_runner_policy_attachment" {
+  policy_name = minio_iam_policy.gitlab_runner_policy.id
+  group_name  = minio_iam_group.gitlab_runner.name
+}
+
 import {
   to = minio_s3_bucket.gitlab_runner_bucket
   id = "gitlab-runner"

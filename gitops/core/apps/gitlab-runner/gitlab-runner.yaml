@@ -25,7 +25,7 @@ spec:
       create: true
     runners:
       cache:
-        secretName: gitlab-s3-access
+        secretName: gitlab-runner-s3-access
       secret: gitlab-runner-token-secret
       config: |
         [[runners]]
@@ -58,8 +58,4 @@ spec:
           [[runners.kubernetes.volumes.secret]]
             name = "gitlab-ca"
             mount_path = "/usr/local/share/ca-certificates"
-            read_only = true
-          [[runners.kubernetes.volumes.secret]]
-            name = "cache-ca"
-            mount_path = "/etc/gitlab-runner/certs"
             read_only = true
