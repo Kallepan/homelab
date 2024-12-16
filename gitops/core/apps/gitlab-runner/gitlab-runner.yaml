@@ -34,8 +34,7 @@ spec:
           apk add --no-cache ca-certificates > /dev/null
           rm -rf /var/cache/apk/*
 
-          cp /etc/gitlab-runner/certs/ca.crt /usr/local/share/ca-certificates/ca.crt
-          
+          # Copying is not necessary, as we mount the secret as a volume
           update-ca-certificates --fresh > /dev/null
           """
 
