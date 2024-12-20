@@ -43,7 +43,7 @@ spec:
       etcd:
         localpvScConfig:
           basePath: /var/mnt/storage/localpv-hostpath/etcd
-        replicaCount: 3
+        replicaCount: 1
       nats:
         cluster:
-          replicas: 3
+          replicas: 1
