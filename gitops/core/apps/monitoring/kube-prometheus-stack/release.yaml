@@ -165,7 +165,7 @@ spec:
                   # Network Health
                   - https://google.com
                   # Core Cluster
-                  # - https://gitlab.core.infra.server.home
+                  - https://gitlab.core.infra.server.home/users/sign_in?auto_sign_in=false
                   - https://vault.core.infra.server.home
                   - https://sso.core.infra.server.home
                   # Production Cluster
