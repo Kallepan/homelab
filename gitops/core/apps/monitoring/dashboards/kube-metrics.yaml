@@ -29,7 +29,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 39,
+      "id": 115,
       "links": [],
       "panels": [
         {
@@ -2461,7 +2461,7 @@ data:
               "yHistogram": false
             },
             "yAxis": {
-              "axisPlacement": "right",
+              "axisPlacement": "hidden",
               "reverse": false
             }
           },
