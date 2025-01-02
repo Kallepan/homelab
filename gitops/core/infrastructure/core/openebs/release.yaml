@@ -27,23 +27,9 @@ spec:
           enabled: false
         zfs:
           enabled: false
+      replicated:
+        mayastor:
+          enabled: false
     localpv-provisioner:
       localpv:
         basePath: /var/mnt/storage/localpv-hostpath
-    mayastor:
-      csi:
-        node:
-          initContainers:
-            enabled: false
-      io_engine:
-        cpuCount: "1"
-      loki-stack:
-        localpvScConfig:
-          basePath: /var/mnt/storage/localpv-hostpath/loki
-      etcd:
-        localpvScConfig:
-          basePath: /var/mnt/storage/localpv-hostpath/etcd
-        replicaCount: 3
-      nats:
-        cluster:
-          replicas: 3
