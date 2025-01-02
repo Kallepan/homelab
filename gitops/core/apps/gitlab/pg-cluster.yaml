@@ -5,7 +5,7 @@ metadata:
   name: gitlab-postgres
   namespace: gitlab
 spec:
-  instances: 1
+  instances: 2
   storage:
     size: 20Gi
     storageClass: openebs-hostpath
@@ -74,7 +74,7 @@ metadata:
   name: gitlab-registry-postgres
   namespace: gitlab
 spec:
-  instances: 1
+  instances: 2
   storage:
     size: 10Gi
     storageClass: openebs-hostpath
