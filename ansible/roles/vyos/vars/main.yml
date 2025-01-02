@@ -57,9 +57,6 @@ vyos_dhcpv4_configs:
       - mac: "BC:24:11:02:9B:4D"
         ip: "10.10.0.5"
         description: "worker2-core"
-      - mac: "BC:24:11:FA:90:32"
-        ip: "10.10.0.6"
-        description: "worker3-core"
       # Bastion
       - mac: "BC:24:11:B7:42:81"
         ip: "10.10.0.20"
