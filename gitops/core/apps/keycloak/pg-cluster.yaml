@@ -5,7 +5,7 @@ metadata:
   name: keycloak-postgres
   namespace: keycloak
 spec:
-  instances: 1
+  instances: 2
   storage:
     size: 10Gi
     storageClass: openebs-hostpath
