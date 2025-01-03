@@ -6,6 +6,7 @@ talos_clusters:
     worker_nodes:
       - ip: "10.10.0.4"
       - ip: "10.10.0.5"
+      - ip: "10.10.0.6"
     working_dir: /workspaces/homelab/clusters/core
 
 talos_version: "v1.8.3"
