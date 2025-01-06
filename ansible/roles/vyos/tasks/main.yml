@@ -1,23 +1,23 @@
----
-- name: Install SSH Key
-  ansible.builtin.include_tasks: install-ssh-key.yml
-- name: Setup Interfaces
-  ansible.builtin.include_tasks: setup-interfaces.yml
-- name: Setup System
-  ansible.builtin.include_tasks: setup-system.yml
-- name: General Setup
-  ansible.builtin.include_tasks: setup-general.yml
-- name: Setup DHCP
-  ansible.builtin.include_tasks: setup-dhcp.yml
-- name: Setup DNS
-  ansible.builtin.include_tasks: setup-dns.yml
-- name: Setup NATTING
-  ansible.builtin.include_tasks: setup-nat.yml
+# ---
+# - name: Install SSH Key
+#   ansible.builtin.include_tasks: install-ssh-key.yml
+# - name: Setup Interfaces
+#   ansible.builtin.include_tasks: setup-interfaces.yml
+# - name: Setup System
+#   ansible.builtin.include_tasks: setup-system.yml
+# - name: General Setup
+#   ansible.builtin.include_tasks: setup-general.yml
+# - name: Setup DHCP
+#   ansible.builtin.include_tasks: setup-dhcp.yml
+# - name: Setup DNS
+#   ansible.builtin.include_tasks: setup-dns.yml
+# - name: Setup NATTING
+#   ansible.builtin.include_tasks: setup-nat.yml
 - name: Setup Wireguard VPN
   ansible.builtin.include_tasks: setup-wireguard.yml
 # - name: Add image
-  # ansible.builtin.include_tasks: update.yml
-- name: Setup Firewall
-  ansible.builtin.include_tasks: setup-firewall.yml
-- name: Setup TFTP
-  ansible.builtin.include_tasks: setup-tftp.yml
+# ansible.builtin.include_tasks: update.yml
+# - name: Setup Firewall
+#   ansible.builtin.include_tasks: setup-firewall.yml
+# - name: Setup TFTP
+#   ansible.builtin.include_tasks: setup-tftp.yml

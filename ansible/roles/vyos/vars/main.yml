@@ -307,27 +307,26 @@ vyos_wireguard:
   # The name of the wireguard interface
   interface: wg01
 
-  # The name of the peer
-  peer_name: Homelab
-  description: VPN
+  # IP of the wireguard interface
+  interface_ip: "10.100.0.1/24"
 
-  # interface ip
-  interface_ip: "10.100.0.1/30"
+  # The description of the wireguard interface
+  description: VPN
 
   # The port we listen on
   listen_port: "51820"
 
-  # The allowed ips for the peer
-  allowed_ips:
-    - "10.100.0.2/32"
+  # Wether new pre-shred and private key should be configured
+  refresh_keys: true
 
-  # The public key from the client
-  public_key: "n1EO5Qs9humFy8bsaueupnL8bcH01MoQEbQPeQdNK10="
-
-  keepalive_duration: "15"
-
-  # Wether new pre-shred and public keys should be configured
-  refresh_keys: false
+  peers:
+    - peer_name: MacBook
+      # The allowed ips for the peer
+      allowed_ips:
+        - "10.100.0.2/32"
+      persistent_keepalive_duration: "15"
+      # The public key from the client
+      public_key: "n1EO5Qs9humFy8bsaueupnL8bcH01MoQEbQPeQdNK10="
 
 # TFTP Server Configuration
 vyos_tftp:
