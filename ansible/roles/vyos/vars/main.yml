@@ -327,6 +327,13 @@ vyos_wireguard:
       persistent_keepalive_duration: "15"
       # The public key from the client
       public_key: "n1EO5Qs9humFy8bsaueupnL8bcH01MoQEbQPeQdNK10="
+      refresh_key: false
+    - peer_name: Android
+      allowed_ips:
+        - "10.100.0.3/32"
+      persistent_keepalive_duration: "15"
+      public_key: "gR0rXvCvM2X1i9wbZzgvWEAYE3HuonIvl/OyjaiSZ1Y="
+      refresh_key: false
 
 # TFTP Server Configuration
 vyos_tftp:

@@ -6,7 +6,11 @@
     wait_for:
       - result[0] contains "Private key:" and result[1] contains "Public key:"
   register: wireguard_keys
-  when: vyos_wireguard.refresh_keys
+
+- name: Extract Wireguard keys
+  ansible.builtin.set_fact:
+    wireguard_public_key: "{{ (wireguard_keys.stdout | regex_search(\"Public key: (.+=)\", '\\1'))[0] }}"
+    wireguard_private_key: "{{ (wireguard_keys.stdout | regex_search(\"Private key: (.+=).+Public\", '\\1'))[0] }}"
 
 - name: Generate symmetric key for each peer
   vyos.vyos.vyos_command:
@@ -14,48 +18,29 @@
       - generate pki wireguard preshared-key
     wait_for:
       - result[0] contains "Pre-shared key:"
-  when: vyos_wireguard.refresh_keys
   with_items: "{{ vyos_wireguard.peers }}"
   register: wireguard_peers_symmetric_keys
 
 - name: Extract the symmetric keys
   ansible.builtin.set_fact:
-    wireguard_peers_symmetric_keys: >-
+    wireguard_symmetric_keys: >-
       {{ 
         wireguard_peers_symmetric_keys.results
         | map(attribute='stdout')
         | flatten
         | map('regex_replace', '^Pre-shared key: ', '')
-        | list
+        | zip(vyos_wireguard.peers | map(attribute='peer_name'))
+        | map('reverse')
+        | community.general.dict
       }}
-  when: vyos_wireguard.refresh_keys
-
-- name: Extract Wireguard symmetric key
-  ansible.builtin.set_fact:
-    wireguard_symmetric_keys: >-
-      {{ 
-        wireguard_symmetric_keys
-        | default({})
-        | combine({ item.peer_name: wireguard_peers_symmetric_keys[idx] })
-      }}
-  when: vyos_wireguard.refresh_keys
-  loop: "{{ vyos_wireguard.peers }}"
-  loop_control:
-    index_var: idx
-
-- name: Extract Wireguard keys
-  ansible.builtin.set_fact:
-    wireguard_public_key: "{{ (wireguard_keys.stdout | regex_search(\"Public key: (.+=)\", '\\1'))[0] }}"
-    wireguard_private_key: "{{ (wireguard_keys.stdout | regex_search(\"Private key: (.+=).+Public\", '\\1'))[0] }}"
-  when: vyos_wireguard.refresh_keys
 
 - name: Print Pre-shared keys
   ansible.builtin.debug:
     msg: "Peer: {{ item.peer_name }} - Pre-shared key: {{ wireguard_symmetric_keys[item.peer_name] }}"
-  when: vyos_wireguard.refresh_keys
   loop: "{{ vyos_wireguard.peers }}"
   loop_control:
     loop_var: item
+  when: item.refresh_key
 
 - name: Print Public Key
   ansible.builtin.debug:
@@ -82,7 +67,7 @@
     wireguard_peers_configuration: |
       {% set cmds = [] %}
       {% for peer in vyos_wireguard.peers %}
-        {% if vyos_wireguard.refresh_keys %}
+        {% if peer.refresh_key %}
           {% set _ = cmds.append("interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ peer.peer_name ~ " preshared-key " ~ wireguard_symmetric_keys[peer.peer_name]) %}
           {% set _ = cmds.append("interfaces wireguard " ~ vyos_wireguard.interface ~ " peer " ~ peer.peer_name ~ " public-key " ~ peer.public_key) %}
         {% endif %}
