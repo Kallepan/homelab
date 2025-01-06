@@ -317,7 +317,7 @@ vyos_wireguard:
   listen_port: "51820"
 
   # Wether new pre-shred and private key should be configured
-  refresh_keys: true
+  refresh_keys: false
 
   peers:
     - peer_name: MacBook
