@@ -173,8 +173,9 @@ spec:
           key: registry.s3.yml
         maintenance:
           readonly:
-            enabled: false
+            enabled: true
         database:
+          configure: true
           enabled: false
           host: gitlab-registry-postgres-rw
           port: 5432
