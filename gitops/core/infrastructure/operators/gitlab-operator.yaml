@@ -37,8 +37,9 @@ spec:
         create: false
     # Disable the installation of the prometheus
     prometheus:
-      serviceAccount:
-        create: false
+      server:
+        serviceAccount:
+          create: false
     # Disable the installation of the cert-manager
     cert-manager:
       install: false
