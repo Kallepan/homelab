@@ -175,8 +175,7 @@ spec:
           readonly:
             enabled: true
         database:
-          configure: true
-          enabled: false
+          enabled: true
           host: gitlab-registry-postgres-rw
           port: 5432
           user: app
