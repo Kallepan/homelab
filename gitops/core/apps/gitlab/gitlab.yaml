@@ -173,7 +173,7 @@ spec:
           key: registry.s3.yml
         maintenance:
           readonly:
-            enabled: true
+            enabled: false
         database:
           enabled: true
           host: gitlab-registry-postgres-rw
