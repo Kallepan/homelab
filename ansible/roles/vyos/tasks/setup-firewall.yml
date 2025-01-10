@@ -238,6 +238,13 @@
       - set firewall ipv6 name LANv6-to-WANv6 rule 7844 protocol 'tcp_udp'
       - set firewall ipv6 name LANv6-to-WANv6 rule 7844 action 'accept'
       - set firewall ipv6 name LANv6-to-WANv6 rule 7844 destination port '7844'
+      # Proxmox
+      - set firewall ipv4 name LANv4-to-WANv4 rule 8006 action 'accept'
+      - set firewall ipv4 name LANv4-to-WANv4 rule 8006 destination port '8006'
+      - set firewall ipv4 name LANv4-to-WANv4 rule 8006 protocol 'tcp'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 8006 action 'accept'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 8006 destination port '8006'
+      - set firewall ipv6 name LANv6-to-WANv6 rule 8006 protocol 'tcp'
       # Ipv4
       - set firewall zone wan from mgmt firewall name 'LANv4-to-WANv4'
       - set firewall zone wan from prod firewall name 'LANv4-to-WANv4'
