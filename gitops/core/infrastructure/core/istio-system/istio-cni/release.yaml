@@ -1,15 +1,14 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: istiod
+  name: istio-cni
   namespace: istio-system
 spec:
   interval: 1h
   timeout: 5m
   chart:
     spec:
-      chart: istiod
+      chart: cni
       version: "1.x"
       sourceRef:
         kind: HelmRepository
