@@ -10,6 +10,11 @@ all:
       ansible_user: root
       <<: *defaults
 
+    cloudflared:
+      ansible_host: 10.10.0.21
+      ansible_user: ubuntu
+      <<: *defaults
+
     vyos:
       ansible_host: 192.168.0.10
 
@@ -92,6 +97,7 @@ all:
     ubuntu_vms:
       hosts:
         dmz:
+        cloudflared:
         control1-prod:
         control2-prod:
         control3-prod:
