@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: privileged-runner
-  namespace: priviledged-runner
+  namespace: privileged-runner
 spec:
   interval: 1h
   timeout: 30m
