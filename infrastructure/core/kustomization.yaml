@@ -6,6 +6,6 @@ resources:
   - ../base/gitlab-operator
   - ../base/istio-system
   - ../base/keycloak-operator
-  # - ../base/metallb-system
+  - ../base/metallb-system
   - ../base/metrics-server
   - ../base/openebs
