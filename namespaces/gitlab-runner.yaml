@@ -4,4 +4,3 @@ metadata:
   name: gitlab-runner
   labels:
     toolkit.fluxcd.io/tenant: sre-team
-    pod-security.kubernetes.io/enforce: privileged

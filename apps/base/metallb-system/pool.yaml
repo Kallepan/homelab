@@ -5,5 +5,4 @@ metadata:
   name: default-ippool
   namespace: metallb-system
 spec:
-  addresses:
-    - 10.10.0.10/32
+  addresses: []

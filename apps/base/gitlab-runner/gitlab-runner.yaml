@@ -40,7 +40,6 @@ spec:
 
           [runners.kubernetes]
             image = "ubuntu:22.04"
-            privileged = true
           [runners.cache]
             Type = "s3"
             Shared = true
