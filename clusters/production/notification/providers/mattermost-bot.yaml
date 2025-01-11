@@ -1,0 +1,11 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: mattermost-bot
+  namespace: flux-system
+spec:
+  type: slack
+  secretRef:
+    name: mattermost-webhook-url
+  certSecretRef:
+    name: flux-ca

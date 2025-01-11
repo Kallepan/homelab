@@ -1,3 +1,0 @@
----
-ssl_install_root_cert_pem: /workspaces/homelab/pki/output/intermediate_ca_2/intermediate_ca_2_chain.crt
-ssl_root_cert_name: root_ca.crt

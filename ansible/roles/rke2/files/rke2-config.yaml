@@ -1,6 +1,0 @@
-# Uncomment and enter a token value for the token field to have a pre-defined token, used to join the cluster.
-# Else the token will be here: /var/lib/rancher/rke2/server/node-token
-# See: https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-cluster-setup/rke2-for-rancher
-# token: change-me
-tls-san:
-  - mgmt.infra.server.home

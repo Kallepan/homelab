@@ -1,8 +1,0 @@
----
-- name: Copy Environment Variable File
-  ansible.builtin.copy:
-    src: files/minio.env
-    dest: /etc/default/minio
-    owner: root
-    group: root
-    mode: "0644"

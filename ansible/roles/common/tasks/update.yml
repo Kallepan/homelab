@@ -1,6 +1,0 @@
-# Updates packages to the latest version
-
-- name: Update all packages
-  ansible.builtin.apt:
-    upgrade: dist
-    update_cache: true

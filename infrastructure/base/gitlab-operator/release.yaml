@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-operator
+  namespace: gitlab
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: gitlab-operator
+      version: "1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: gitlab
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    # Disable the installation of the nginx-ingress
+    nginx-ingress:
+      geo:
+        ingressClass:
+          enabled: false
+      serviceAccount:
+        create: false
+    # Disable the installation of the prometheus
+    prometheus:
+      server:
+        serviceAccount:
+          create: false
+    # Disable the installation of the cert-manager
+    cert-manager:
+      install: false

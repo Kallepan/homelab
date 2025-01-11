@@ -1,6 +1,0 @@
----
-- name: Common Setup Tasks
-  hosts: ubuntu_vms
-  become: true
-  roles:
-    - ssl

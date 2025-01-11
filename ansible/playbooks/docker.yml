@@ -1,5 +1,0 @@
----
-- name: Setup Docker
-  hosts: docker
-  roles:
-    - docker

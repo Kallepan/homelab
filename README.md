@@ -1,4 +1,4 @@
-# Homelab Setup
+# Homelab Setup GitOps Repository
 
 This repository contains the configuration files for my homelab setup. The setup is based on a Proxmox cluster.
 
@@ -36,3 +36,25 @@ This repository contains the configuration files for my homelab setup. The setup
 - `bastion.infra.server.home`: Bastion
 - `mgmt.infra.server.home`: Management
 - `core.infra.server.home`: Core Services
+
+## Repository Structure
+
+The repository is structured as follows:
+
+```bash
+├── apps # Application configuration (e.g. HelmReleases)
+│   ├── base
+│   ├── core
+│   ├── production
+│   └── test
+├── clusters # Flux CI/CD configuration
+│   ├── core
+│   ├── production
+│   └── test 
+├── infrastructure # Core infrastructure configuration (e.g. operators, service meshes, cert-manager)
+│   ├── base
+│   ├── core
+│   ├── production
+│   └── test
+└── namespaces
+```

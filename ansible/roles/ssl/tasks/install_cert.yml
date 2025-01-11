@@ -1,7 +1,0 @@
----
-- name: Copy the certificate
-  ansible.builtin.copy:
-    src: "{{ ssl_install_root_cert_pem }}"
-    dest: /usr/local/share/ca-certificates/{{ ssl_root_cert_name }}
-    mode: "0644"
-  notify: Update CA Trust
