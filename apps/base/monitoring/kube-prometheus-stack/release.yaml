@@ -91,6 +91,7 @@ spec:
         kubeControllerManager: false
         kubeSchedulerAlerting: false
         kubeSchedulerRecording: false
+        kubeProxy: false
     grafana:
       enabled: true
       extraSecretMounts:
