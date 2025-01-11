@@ -4,6 +4,10 @@ resources:
   - ../base/istio-system
   - ../base/metallb-system
   - ../base/cert-manager
+  - ../base/gitlab
+  - ../base/keycloak
+  - ../base/monitoring
+  - ../base/vault
 patches:
   - patch: |
       - op: replace
