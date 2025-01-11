@@ -1,0 +1,61 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+  namespace: priviledged-runner
+spec:
+  interval: 1h
+  timeout: 30m
+  chart:
+    spec:
+      chart: gitlab-runner
+      version: "0.x"
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: gitlab
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    gitlabUrl: https://gitlab.core.infra.server.home
+    certsSecretName: gitlab-ca
+    rbac:
+      create: true
+    runners:
+      cache:
+        secretName: gitlab-runner-s3-access
+      secret: gitlab-runner-token-secret
+      config: |
+        [[runners]]
+          pre_get_sources_script = """
+          apk update > /dev/null
+          apk add --no-cache ca-certificates > /dev/null
+          rm -rf /var/cache/apk/*
+
+          # Copying is not necessary, as we mount the secret as a volume
+          update-ca-certificates --fresh > /dev/null
+          """
+
+          [runners.kubernetes]
+            image = "ubuntu:22.04"
+            privileged = true
+          [runners.cache]
+            Type = "s3"
+            Shared = true
+            Path = "runner"
+            [runners.cache.s3]
+              ServerAddress = "s3.infra.server.home:9000"
+              BucketName = "gitlab-runner"
+              BucketLocation = "eu-west-1"
+              AuthenticationType = "access-key"
+          [runners.kubernetes.volumes]
+          [[runners.kubernetes.volumes.empty_dir]]
+            name = "docker-certs"
+            mount_path = "/certs/client"
+            medium = "Memory"
+          [[runners.kubernetes.volumes.secret]]
+            name = "gitlab-ca"
+            mount_path = "/usr/local/share/ca-certificates"
+            read_only = true

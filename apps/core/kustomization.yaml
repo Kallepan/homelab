@@ -8,6 +8,7 @@ resources:
   - ../base/keycloak
   - ../base/metallb-system
   - ../base/monitoring
+  - ../base/priviledged-runner
   - ../base/vault
 patches:
   - patch: |
