@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gitlab-runner
+  name: privileged-runner
   namespace: priviledged-runner
 spec:
   interval: 1h
@@ -25,8 +25,8 @@ spec:
       create: true
     runners:
       cache:
-        secretName: gitlab-runner-s3-access
-      secret: gitlab-runner-token-secret
+        secretName: privileged-runner-s3-access
+      secret: privileged-runner-token-secret
       config: |
         [[runners]]
           pre_get_sources_script = """
@@ -47,7 +47,7 @@ spec:
             Path = "runner"
             [runners.cache.s3]
               ServerAddress = "s3.infra.server.home:9000"
-              BucketName = "gitlab-runner"
+              BucketName = "privileged-runner"
               BucketLocation = "eu-west-1"
               AuthenticationType = "access-key"
           [runners.kubernetes.volumes]
