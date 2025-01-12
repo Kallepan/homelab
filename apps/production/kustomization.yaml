@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/metallb-system
-  - ../base/monitoring
+  # - ../base/monitoring
 patches:
   - patch: |
       - op: replace
