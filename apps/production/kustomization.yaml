@@ -8,6 +8,7 @@ resources:
   - ../base/homepage
   - ../base/istio-system
   - ../base/it-tools
+  - ../base/knative
   - ../base/mattermost
   - ../base/metallb-system
   - ../base/monitoring
