@@ -21,3 +21,19 @@ patches:
       kind: IPAddressPool
       name: default-ippool
       namespace: metallb-system
+  - patch: |
+      - op: replace
+        path: /spec/dnsNames/0
+        value: monitoring.prod.server.home
+    target:
+      kind: Certificate
+      name: monitoring-cert
+      namespace: istio-system
+  - patch: |
+      - op: replace
+        path: /spec/values/grafana/grafana.ini/server/root_url
+        value: http://monitoring.prod.server.home
+    target:
+      kind: HelmRelease
+      name: prometheus
+      namespace: monitoring
