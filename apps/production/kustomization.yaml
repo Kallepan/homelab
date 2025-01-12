@@ -12,6 +12,7 @@ resources:
   - ../base/mattermost
   - ../base/nextcloud
   - ../base/oauth2-proxy
+  - ../base/observability
 patches:
   - patch: |
       - op: add
