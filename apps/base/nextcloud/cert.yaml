@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nextcloud-tls
+  namespace: istio-system
+spec:
+  secretName: nextcloud-tls-secret
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - nextcloud.prod.server.home

@@ -1,0 +1,49 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: nextcloud
+      version: "6.x"
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    nextcloud:
+      host: nextcloud.prod.server.home
+    ingress:
+      enabled: true
+      className: istio
+      tls:
+        - secretName: nextcloud-tls-secret
+          hosts:
+            - nextcloud.prod.server.home
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      enabled: true
+      type: postgresql
+      host: nextcloud-postgres-rw:5432
+      user: app
+      database: app
+    persistence:
+      enabled: true
+      size: 20Gi
+      storageClass: openebs-hostpath
+      accessMode: ReadWriteOnce
+    metrics:
+      enabled: true
+      tlsSkipVerify: true
+    phpClientHttpsFix:
+      enabled: true
+      protocol: https

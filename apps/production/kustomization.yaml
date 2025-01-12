@@ -9,6 +9,7 @@ resources:
   - ../base/istio-system
   - ../base/monitoring
   - ../base/mattermost
+  - ../base/nextcloud
 patches:
   - patch: |
       - op: add

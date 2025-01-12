@@ -1,0 +1,69 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: nextcloud-postgres
+  namespace: nextcloud
+spec:
+  instances: 2
+  storage:
+    size: 20Gi
+    storageClass: openebs-hostpath
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://backups/nextcloud
+      endpointURL: https://s3.infra.server.home:9000
+      endpointCA:
+        name: s3-ca
+        key: ca.crt
+      # When recovering from WAL or backup, change this value so that the new WAL
+      # is written to a new directory in the bucket.
+      # serverName: cluster-1
+      serverName: cluster-1
+      s3Credentials:
+        accessKeyId:
+          name: s3-creds
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: s3-creds
+          key: ACCESS_SECRET_KEY
+      wal:
+        compression: bzip2
+    retentionPolicy: 7d
+  # bootstrap:
+  #   recovery:
+  #     source: nextcloud-postgres
+  # externalClusters:
+  #   - name: nextcloud-postgres
+  #     barmanObjectStore:
+  #       destinationPath: s3://backups/mattermost
+  #       endpointURL: https://s3.infra.server.home:9000
+  #       endpointCA:
+  #         name: s3-ca
+  #         key: ca.crt
+  #       # When recovering from WAL or backup, change the value of
+  #       # backup.barmanObjectStore.serverName so that the new WAL is written
+  #       # to a new directory in the bucket.
+  #       serverName: cluster-1
+  #       s3Credentials:
+  #         accessKeyId:
+  #           name: s3-creds
+  #           key: ACCESS_KEY_ID
+  #         secretAccessKey:
+  #           name: s3-creds
+  #           key: ACCESS_SECRET_KEY
+  #       wal:
+  #         maxParallel: 8
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: nextcloud-postgres-backup
+  namespace: nextcloud
+spec:
+  immediate: true
+  backupOwnerReference: self
+  cluster:
+    name: nextcloud-postgres
+  method: barmanObjectStore
+  schedule: "0 0 23 * * SUN"
