@@ -33,13 +33,14 @@ patches:
       namespace: istio-system
   - patch: |
       - op: replace
+        path: /spec/values/grafana/ingress/hosts/0
+        value: monitoring.prod.server.home
+      - op: replace
+        path: /spec/values/grafana/ingress/tls/0/hosts/0
+        value: monitoring.prod.server.home
+      - op: replace
         path: /spec/values/grafana/grafana.ini/server/root_url
         value: http://monitoring.prod.server.home
-    target:
-      kind: HelmRelease
-      name: prometheus
-      namespace: monitoring
-  - patch: |
       - op: remove
         path: /spec/values/prometheus/prometheusSpec/additionalScrapeConfigs/0
     target:
