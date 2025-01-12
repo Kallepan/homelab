@@ -8,6 +8,7 @@ resources:
   - ../base/istio-system
   - ../base/jaeger-operator
   - ../base/kiali-operator
+  - ../base/knative-operator
   - ../base/mattermost-operator
   - ../base/metallb-system
   - ../base/metrics-server
