@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/cnpg-operator
-  # - ../base/istio-system
+  - ../base/istio-system
   - ../base/metallb-system
   - ../base/metrics-server
   - ../base/openebs
