@@ -1,0 +1,94 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argo-workflows
+  namespace: argo
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: argo-workflows
+      version: "0.x"
+      sourceRef:
+        kind: HelmRepository
+        name: argo
+        namespace: argo
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    artifactRepositoryRef:
+      artifact-repositories:
+        annotations:
+          workflows.argoproj.io/default-artifact-repository: default-v1-s3-artifact-repository
+        default-v1-s3-artifact-repository:
+          s3:
+            accessKeySecret:
+              name: argo-workflows-minio
+              key: accessKey
+            secretKeySecret:
+              name: argo-workflows-minio
+              key: secretKey
+            bucket: argo-workflows
+            endpoint: s3.infra.server.home:9000
+            insecure: true # Self-signed certificate
+            region: eu-west-1
+    workflow:
+      serviceAccount:
+        create: true
+        name: argo-workflows
+      rbac:
+        create: true
+    controller:
+      persistence:
+        archive: true
+        postgresql:
+          host: argo-workflows-postgres-rw
+          port: 5432
+          database: app
+          tableName: workflows
+          userNameSecret:
+            name: argo-workflows-postgres-app
+            key: username
+          passwordSecret:
+            name: argo-workflows-postgres-app
+            key: password
+      workflowNamespaces:
+        - workflows
+    server:
+      volumeMounts:
+        - name: certificate
+          mountPath: /etc/ssl/certs/rootCA.crt
+          readOnly: true
+          subPath: rootCA.crt
+      volumes:
+        - name: certificate
+          configMap:
+            name: root-ca
+      authModes:
+        - sso
+      sso:
+        enabled: true
+        issuer: https://sso.core.infra.server.home/realms/homelab
+        clientId:
+          name: argo-server-sso
+          key: client-id
+        clientSecret:
+          name: argo-server-sso
+          key: client-secret
+        redirectUrl: https://argo-workflows.prod.server.home/oauth2/callback
+        rbac:
+          enabled: true
+        scopes:
+          - groups
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        hosts:
+          - argo-workflows.prod.server.home
+        tls:
+          - secretName: argo-workflows-tls-secret
+            hosts:
+              - argo-workflows.prod.server.home

@@ -1,0 +1,81 @@
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: ext-auhtz-policy-oauth2-proxy
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+  action: CUSTOM
+  provider:
+    name: "oauth2-proxy"
+  rules:
+    - to:
+        - operation:
+            hosts: ["oauth2.prod.server.home"]
+---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: gateway-web-example
+  namespace: web-example
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      tls:
+        httpsRedirect: false
+      hosts:
+        - oauth2.prod.server.home
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: web-example-tls
+      hosts:
+        - oauth2.prod.server.home
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: virtualservice-web-example
+  namespace: web-example
+spec:
+  hosts:
+    - oauth2.prod.server.home
+  gateways:
+    - gateway-web-example
+  http:
+    ### Redirect HTTP to HTTPS
+    - match:
+        - uri:
+            prefix: /
+          scheme:
+            exact: http
+      redirect:
+        scheme: https
+        redirectCode: 302
+    ## Oauth2-proxy
+    - match:
+        - uri:
+            prefix: /oauth2
+      route:
+        - destination:
+            host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+            port:
+              number: 80
+    ### Route to the landing page
+    - route:
+        - destination:
+            host: web-example.web-example.svc.cluster.local
+            port:
+              number: 80

@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: oauth2-proxy
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: "7.x"
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: oauth2-proxy
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    config:
+      existingSecret: oauth2-proxy-config
+      configFile: |-
+        # Keycloak
+        provider="keycloak-oidc"
+        provider_display_name="Keycloak"
+        oidc_issuer_url="https://sso.core.infra.server.home/realms/homelab"
+
+        email_domains="*"
+        skip_provider_button=true
+        redirect_url="/oauth2/callback"
+
+        # Cookie
+        pass_access_token=true
+        set_authorization_header=true
+        set_xauthrequest=true
+        upstreams=["static://200"]
+
+        # SSL
+        provider_ca_files=["/etc/ssl/certs/home.ca.crt"]
+
+        # Logout
+        whitelist_domains=[".server.home"]
+
+    extraVolumes:
+      - name: ca-certs
+        secret:
+          secretName: oauth2-proxy-ca-certs
+
+    extraVolumeMounts:
+      - name: ca-certs
+        mountPath: /etc/ssl/certs
+        readOnly: true

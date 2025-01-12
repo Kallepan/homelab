@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: argo
+  annotations:
+    workflows.argoproj.io/rbac-rule: "'admin' in groups"
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: admin-user.service-account-token
+  namespace: argo
+  annotations:
+    kubernetes.io/service-account.name: admin-user
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: read-only-user
+  namespace: argo
+  annotations:
+    workflows.argoproj.io/rbac-rule: "true"
+    workflows.argoproj.io/rbac-rule-precedence: "0"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: read-only-user.service-account-token
+  namespace: argo
+  annotations:
+    kubernetes.io/service-account.name: read-only-user
+type: kubernetes.io/service-account-token

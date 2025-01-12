@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: workflow-template-example
+  namespace: argo
+spec:
+  arguments:
+    parameters:
+      - name: message
+        value: "Hello, world!"
+  templates:
+    - name: main
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: busybox
+        command: [sh, -c]
+        args: ["echo '{{inputs.parameters.message}}' > /data/message.txt"]
+        volumeMounts:
+          - name: workdir
+            mountPath: /data
+      volumes:
+        - name: workdir
+          emptyDir: {}
+      outputs:
+        parameters:
+          - name: message
+            valueFrom:
+              path: /data/message.txt
