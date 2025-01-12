@@ -2,17 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # Helmchart
-  - namespace.yaml
-  - repository.yaml
-
   # Argo Workflows
-  - argo-workflows/cert.yaml
-  - argo-workflows/release.yaml
-  - argo-workflows/pg-cluster.yaml
+  - workflows/workflow-template.yaml
 
   # Argo Events
-  - argo-events/release.yaml
-  - argo-events/event-bus.yaml
-
-  - configuration/workflow-template.yaml
+  - events/event-bus.yaml
