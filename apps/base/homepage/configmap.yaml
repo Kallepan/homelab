@@ -117,10 +117,10 @@ data:
           description: Workflow engine for Kubernetes.
           href: https://argo-workflows.prod.server.home
           icon: argocd.png
-      #  - KNative:
-      #     description: Kubernetes-based platform to build, deploy, and manage modern serverless workloads.
-      #     href: https://knative.prod.server.home/
-      #     icon: knative.png
+      - KNative:
+          description: Kubernetes-based platform to build, deploy, and manage modern serverless workloads.
+          href: https://knative.prod.server.home/
+          icon: knative.png
     - Misc:
       - Mealie:
           description: Recipe Manager and Meal Planner.
