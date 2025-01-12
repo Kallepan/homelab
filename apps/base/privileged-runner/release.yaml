@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: gitlab
-        namespace: gitlab
+        namespace: privileged-runner
   install:
     crds: CreateReplace
   upgrade:
