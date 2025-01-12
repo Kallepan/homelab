@@ -19,7 +19,7 @@ spec:
       port:
         name: emqx-mqtts
         number: 8883
-        protocol: TCP
+        protocol: TLS
       tls:
         mode: SIMPLE
         credentialName: mqtt-tls-secret
