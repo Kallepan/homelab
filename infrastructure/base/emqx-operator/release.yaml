@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: emqx-operator
+  namespace: emqx-operator
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: emqx-operator
+      version: "2.x"
+      sourceRef:
+        kind: HelmRepository
+        name: emqx
+        namespace: emqx-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    replicaCount: 2

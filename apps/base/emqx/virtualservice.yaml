@@ -1,0 +1,26 @@
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: emqx-mqtt-virtual-service
+  namespace: emqx
+spec:
+  gateways:
+    - emqx-mqtt-gateway
+  hosts:
+    - mqtt.prod.server.home
+  tcp:
+    - match:
+        - port: 1883
+        - port: 8883
+      route:
+        - destination:
+            host: emqx-listeners.emqx.svc.cluster.local
+            port:
+              number: 1883
+          weight: 100
+        - destination:
+            host: emqx-listeners.emqx.svc.cluster.local
+            port:
+              number: 8883
+          weight: 100

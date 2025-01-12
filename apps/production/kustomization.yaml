@@ -3,13 +3,13 @@ kind: Kustomization
 resources:
   - ../base/argo
   - ../base/cert-manager
-  - ../base/metallb-system
   - ../base/gitlab-runner
   - ../base/homepage
-  - ../base/it-tools
   - ../base/istio-system
-  - ../base/monitoring
+  - ../base/it-tools
   - ../base/mattermost
+  - ../base/metallb-system
+  - ../base/monitoring
   - ../base/nextcloud
   - ../base/oauth2-proxy
   - ../base/observability

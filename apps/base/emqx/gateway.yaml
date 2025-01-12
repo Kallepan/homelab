@@ -1,0 +1,25 @@
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: emqx-mqtt-gateway
+  namespace: emqx
+spec:
+  selector:
+    app: istio-ingressgateway
+  servers:
+    - hosts:
+        - mqtt.prod.server.home
+      port:
+        name: emqx-mqtt
+        number: 1883
+        protocol: TCP
+    - hosts:
+        - mqtt.prod.server.home
+      port:
+        name: emqx-mqtts
+        number: 8883
+        protocol: TCP
+      tls:
+        mode: SIMPLE
+        credentialName: mqtt-tls-secret

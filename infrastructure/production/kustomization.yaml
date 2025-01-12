@@ -7,9 +7,9 @@ resources:
   - ../base/istio-system
   - ../base/jaeger-operator
   - ../base/kiali-operator
+  - ../base/mattermost-operator
   - ../base/metallb-system
   - ../base/metrics-server
-  - ../base/mattermost-operator
   - ../base/openebs
 patches:
   - patch: |

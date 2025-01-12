@@ -1,0 +1,12 @@
+---
+apiVersion: apps.emqx.io/v2beta1
+kind: EMQX
+metadata:
+  name: emqx
+  namespace: emqx
+spec:
+  image: emqx:5
+  coreTemplate:
+    metadata:
+      labels:
+        app: emqx
