@@ -9,7 +9,6 @@ resources:
   - ../base/istio-system
   - ../base/monitoring
   - ../base/mattermost
-  - ../base/mattermost-operator
 patches:
   - patch: |
       - op: add
