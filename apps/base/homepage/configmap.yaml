@@ -1,0 +1,186 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  namespace: homepage
+data:
+  bookmarks.yaml: |
+    - Developer:
+      - Github:
+        - abbr: GH
+          href: https://github.com/kallepan
+      - DockerHub:
+        - abbr: DO
+          href: https://hub.docker.com/u/kallepan
+    - Social:
+      - LinkedIn:
+        - abbr: LI
+          href: https://www.linkedin.com/in/kajeepankandeepan1999/
+    - Mail:
+      - Gmail:
+        - abbr: GM
+          href: http://kajeepan.kandeepan@gmail.com
+  docker.yaml: ""
+  kubernetes.yaml: |
+    mode: cluster
+  services.yaml: |
+    - Networking:
+      - WireGuard:
+          description: WireGuard VPN into the HomeLab.
+          href: http://192.168.0.4:51820
+          icon: wireguard.png
+      - Traefik Docker:
+          description: Traefik dashboard for Docker.
+          href: https://traefik.app.server.home/dashboard/#/
+          icon: traefik.png
+    - Infrastructure:
+      - Proxmox:
+          description: Proxmox Virtual Environment (PVE) for HomeLab.
+          href: https://192.168.0.2:8006/
+          icon: proxmox.png
+      - Rancher:
+          description: Management UI for Kubernetes Clusters.
+          href: https://mgmt.infra.server.home/
+          icon: rancher.png
+      - Portainer:
+          description: Management UI for Docker.
+          href: https://portainer.app.server.home/
+          icon: portainer.png
+    - Storage:
+      - Nextcloud:
+          description: Files, contacts, calendars and more.
+          href: https://nextcloud.prod.server.home/
+          icon: nextcloud.png
+      - Minio:
+          description: S3 Object Storage.
+          href: https://s3.infra.server.home/
+          icon: minio.png
+    - Git Instances:
+      - GitLab:
+          description: Fully integrated software development platform.
+          href: https://gitlab.core.infra.server.home/users/sign_in?auto_sign_in=false
+          icon: gitlab.png
+      - Gitea:
+          description: Lightweight code hosting solution.
+          href: https://gitea.app.server.home/
+          icon: gitea.png
+    - Observability:
+      - Monitoring (Production):
+          description: Monitoring of Production Infrastructure.
+          href: https://monitoring.prod.server.home/
+          icon: grafana.png
+      - Monitoring (Core):
+          description: Monitoring of Core Infrastructure.
+          href: https://monitoring.core.infra.server.home/
+          icon: grafana.png
+      - Kibana:
+          description: Log management and analysis.
+          href: https://logging.prod.server.home/
+          icon: kibana.png
+      - Kiali:
+          description: Service mesh observability.
+          href: https://kiali.prod.server.home/
+          icon: traefik-proxy.png
+      - Jaeger:
+          description: Distributed tracing system.
+          href: https://jaeger.prod.server.home/
+          icon: jaeger.png
+    - Communication:
+      - Mattermost:
+          description: ChatOps for DevOps.
+          href: https://mattermost.prod.server.home/
+          icon: mattermost.png
+      - EMQX:
+          description: MQTT Broker.
+          href: https://mqtt.prod.server.home/
+          icon: emqx.png
+    - Docs:
+      - Documentation:
+          description: Internal mkdocs documentation.
+          href: https://docs.app.server.home/
+          icon: mkdocs.png
+    - Security & Identity:
+      - Keycloak:
+          description: Open Source Identity and Access Management.
+          href: https://sso.core.infra.server.home/
+          icon: keycloak.png
+      - Vault:
+          description: Secret Storage and Management.
+          href: https://vault.core.infra.server.home/
+          icon: vault.png
+      - OAuth2 Proxy:
+          description: OAuth2 Proxy example based on nginx frontend.
+          href: https://oauth2.prod.server.home/
+          icon: nginx.png
+    - Workflows & Serverless:
+      - Argo Workflows:
+          description: Workflow engine for Kubernetes.
+          href: https://argo-workflows.prod.server.home
+          icon: argocd.png
+      #  - KNative:
+      #     description: Kubernetes-based platform to build, deploy, and manage modern serverless workloads.
+      #     href: https://knative.prod.server.home/
+      #     icon: knative.png
+    - Misc:
+      - Mealie:
+          description: Recipe Manager and Meal Planner.
+          href: https://mealie.app.server.home/
+          icon: mealie.png
+      - It-Tools:
+          description: Collection of tools useful for IT professionals.
+          href: https://it-tools.prod.server.home/
+          icon: it-tools.png
+  custom.css: ""
+  custom.js: ""
+  settings.yaml: |
+    title: HomeLab
+    base: https://homepage.prod.server.home/
+    showStats: false
+    theme: dark
+    color: slate
+    headerStyle: boxed
+    quicklaunch:
+      searchDescriptions: false
+      hideInternetSearch: false
+      hideVisitURL: false
+    layout:
+      Networking:
+        icon: mdi-network
+      Infrastructure:
+        icon: mdi-server
+      Git Instances:
+        icon: mdi-git
+      Observability:
+        icon: mdi-format-list-checks
+      Communication:
+        icon: mdi-message
+      Docs:
+        icon: mdi-file-document
+      Security & Identity:
+        icon: mdi-security
+      Workflows & Serverless:
+        icon: mdi-cogs
+      Misc:
+        icon: mdi-tools
+  widgets.yaml: |
+    - resources:
+        backend: kubernetes
+        cpu: true
+        expanded: true
+        memory: true
+    - datetime:
+        format:
+          timeStyle: short
+        text_size: x1
+    - kubernetes:
+        cluster:
+          cpu: true
+          label: cluster
+          memory: true
+          show: true
+          showLabel: true
+        nodes:
+          cpu: true
+          memory: true
+          show: true
+          showLabel: true

@@ -3,7 +3,9 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/metallb-system
-  # - ../base/monitoring
+  - ../base/gitlab-runner
+  - ../base/istio-system
+  - ../base/monitoring
 patches:
   - patch: |
       - op: replace
