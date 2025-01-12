@@ -14,4 +14,3 @@ resources:
 
   # Argo Events
   - events/release.yaml
-  - configuration/workflow-template.yaml
