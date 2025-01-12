@@ -26,4 +26,8 @@ spec:
         enabled: true
     meshConfig:
       extensionProviders: []
+      defaultConfig:
+        tracing:
+          zipkin:
+            address: ""
       enableTracing: false

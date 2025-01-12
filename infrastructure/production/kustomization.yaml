@@ -42,7 +42,7 @@ patches:
       name: istiod
       namespace: istio-system
   - patch: |
-      - op: add
+      - op: replace
         path: /spec/values/meshConfig/defaultConfig/tracing/zipkin/address
         value: "jaeger-collector.istio-system.svc.cluster.local:9411"
     target:
