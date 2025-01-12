@@ -1,0 +1,34 @@
+apiVersion: installation.mattermost.com/v1beta1
+kind: Mattermost
+metadata:
+  name: mattermost
+  namespace: mattermost
+spec:
+  size: 100users
+  image: mattermost/mattermost-team-edition
+  ingress:
+    enabled: false
+  mattermostEnv:
+    - name: MM_SERVICESETTINGS_ALLOWCORSFROM
+      value: "*"
+  podExtensions:
+    initContainers:
+      - name: init
+        image: busybox
+        command: ["sh", "-c"]
+        args:
+          - |
+            chmod -R 777 /mattermost/data
+        volumeMounts:
+          - name: mattermost-data
+            mountPath: /mattermost/data
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+  database:
+    external:
+      secret: mattermost-database-secret
+  fileStore:
+    externalVolume:
+      volumeClaimName: mattermost-data

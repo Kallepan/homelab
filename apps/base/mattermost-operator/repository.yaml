@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: mattermost
+  namespace: mattermost-operator
+spec:
+  interval: 1h
+  url: https://helm.mattermost.com
+  timeout: 5m

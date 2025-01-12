@@ -1,0 +1,14 @@
+# This is a sample file on how to create a tls certificate in a namespace
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tools-cert
+  namespace: istio-system
+spec:
+  secretName: tools-tls
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - it-tools.prod.server.home
