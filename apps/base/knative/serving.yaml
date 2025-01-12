@@ -5,6 +5,15 @@ metadata:
   name: knative-serving
   namespace: knative-serving
 spec:
+  ingress:
+    istio:
+      enabled: true
+      knative-ingress-gateway:
+        selector:
+          app: istio-ingressgateway
+      knative-local-gateway:
+        selector:
+          app: knative-local-gateway
   config:
     domain:
       "knative.prod.server.home": ""
