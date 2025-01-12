@@ -60,3 +60,27 @@ patches:
       kind: HelmRelease
       name: istiod
       namespace: istio-system
+  - patch: |
+      - op: add
+        path: /spec/values/service/ports/-
+        value:
+          name: "mqtt-tls"
+          port: 8883
+          protocol: TCP
+          targetPort: 8883
+    target:
+      kind: HelmRelease
+      name: istio-ingressgateway
+      namespace: istio-system
+  - patch: |
+      - op: add
+        path: /spec/values/service/ports/-
+        value:
+          name: "mqtt"
+          port: 1883
+          protocol: TCP
+          targetPort: 1883
+    target:
+      kind: HelmRelease
+      name: istio-ingressgateway
+      namespace: istio-system
