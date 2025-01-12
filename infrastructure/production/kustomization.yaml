@@ -5,6 +5,8 @@ resources:
   - ../base/cert-manager
   - ../base/cnpg-operator
   - ../base/istio-system
+  - ../base/jaeger-operator
+  - ../base/kiali-operator
   - ../base/metallb-system
   - ../base/metrics-server
   - ../base/mattermost-operator
