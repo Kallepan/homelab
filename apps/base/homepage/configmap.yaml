@@ -73,10 +73,10 @@ data:
           description: Monitoring of Core Infrastructure.
           href: https://monitoring.core.infra.server.home/
           icon: grafana.png
-      - Kibana:
+      - Loki:
           description: Log management and analysis.
           href: https://logging.prod.server.home/
-          icon: kibana.png
+          icon: loki.png
       - Kiali:
           description: Service mesh observability.
           href: https://kiali.prod.server.home/
