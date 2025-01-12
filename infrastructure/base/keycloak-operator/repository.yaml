@@ -8,5 +8,5 @@ spec:
   interval: 1h
   url: https://github.com/keycloak/keycloak-k8s-resources
   ref:
-    # https://www.keycloak.org/operator/installation#_installing_by_using_kubectl_without_operator_lifecycle_manager
+    # CHORE: https://www.keycloak.org/operator/installation#_installing_by_using_kubectl_without_operator_lifecycle_manager
     tag: "26.0.7"
