@@ -37,3 +37,10 @@ patches:
       kind: HelmRelease
       name: prometheus
       namespace: monitoring
+  - patch: |
+      - op: remove
+        path: /spec/values/prometheus/prometheusSpec/additionalScrapeConfigs/0
+    target:
+      kind: HelmRelease
+      name: prometheus
+      namespace: monitoring
