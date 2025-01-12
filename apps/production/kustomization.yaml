@@ -12,14 +12,6 @@ resources:
   - ../base/mattermost-operator
 patches:
   - patch: |
-      - op: replace
-        path: /spec/values/service/loadBalancerIP
-        value: 10.30.0.10
-    target:
-      kind: HelmRelease
-      name: istio-ingressgateway
-      namespace: istio-system
-  - patch: |
       - op: add
         path: /spec/addresses/-
         value: 10.30.0.10/32

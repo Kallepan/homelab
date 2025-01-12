@@ -9,3 +9,12 @@ resources:
   - ../base/metallb-system
   - ../base/metrics-server
   - ../base/openebs
+patches:
+  - patch: |
+      - op: replace
+        path: /spec/values/service/loadBalancerIP
+        value: 10.10.0.10
+    target:
+      kind: HelmRelease
+      name: istio-ingressgateway
+      namespace: istio-system
