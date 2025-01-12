@@ -6,13 +6,13 @@ resources:
   - namespace.yaml
   - repository.yaml
 
-  # Argo Events
-  - argo-events/release.yaml
-  - argo-events/event-bus.yaml
-
   # Argo Workflows
   - argo-workflows/cert.yaml
   - argo-workflows/release.yaml
   - argo-workflows/pg-cluster.yaml
+
+  # Argo Events
+  - argo-events/release.yaml
+  - argo-events/event-bus.yaml
 
   - configuration/workflow-template.yaml
