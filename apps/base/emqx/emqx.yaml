@@ -7,6 +7,8 @@ metadata:
 spec:
   image: emqx:5
   coreTemplate:
+    spec:
+      replicas: 1
     metadata:
       labels:
         app: emqx
