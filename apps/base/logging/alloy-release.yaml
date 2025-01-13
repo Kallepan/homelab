@@ -15,9 +15,9 @@ spec:
         name: grafana
         namespace: logging
   install:
-    crds: CreateReplace
+    crds: Skip
   upgrade:
-    crds: CreateReplace
+    crds: Skip
   values:
     alloy:
       configMap:
