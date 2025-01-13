@@ -20,6 +20,7 @@ spec:
     crds: CreateReplace
   values:
     loki:
+      auth_enabled: false
       schemaConfig:
         configs:
           - from: "2024-04-01"
