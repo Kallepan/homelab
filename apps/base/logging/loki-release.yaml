@@ -67,23 +67,23 @@ spec:
       enabled: false
 
     ingester:
-      replicas: 3
+      replicas: 1
     querier:
-      replicas: 3
-      maxUnavailable: 2
+      replicas: 1
+      maxUnavailable: 0
     queryFrontend:
-      replicas: 2
-      maxUnavailable: 1
+      replicas: 1
+      maxUnavailable: 0
     queryScheduler:
-      replicas: 2
+      replicas: 1
     distributor:
-      replicas: 3
-      maxUnavailable: 2
+      replicas: 1
+      maxUnavailable: 0
     compactor:
       replicas: 1
     indexGateway:
-      replicas: 2
-      maxUnavailable: 1
+      replicas: 1
+      maxUnavailable: 0
 
     bloomPlanner:
       replicas: 0
