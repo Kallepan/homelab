@@ -62,7 +62,12 @@ spec:
     deploymentMode: SingleBinary
 
     singleBinary:
-      replicas: 3
+      replicas: 1
+      persistence:
+        storageClass: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        size: 30Gi
 
     # Zero out replica counts of other deployment modes
     backend:
