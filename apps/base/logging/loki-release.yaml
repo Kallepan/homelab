@@ -69,33 +69,15 @@ spec:
     chunksCache:
       allocatedMemory: 1Gi
 
-    ingester:
-      replicas: 2
-      zoneAwareReplication.enabled: false
-    querier:
-      replicas: 2
-      maxUnavailable: 1
-    queryFrontend:
-      replicas: 2
-      maxUnavailable: 1
-    queryScheduler:
-      replicas: 2
-    distributor:
-      replicas: 2
-      maxUnavailable: 1
-    compactor:
+    singleBinary:
       replicas: 1
-    indexGateway:
-      replicas: 2
-      maxUnavailable: 1
+      persistence:
+        storageClass: openebs-hostpath
+        accessModes:
+          - ReadWriteOnce
+        size: 30Gi
 
-    bloomPlanner:
-      replicas: 0
-    bloomBuilder:
-      replicas: 0
-    bloomGateway:
-      replicas: 0
-
+    # Zero out replica counts of other deployment modes
     backend:
       replicas: 0
     read:
@@ -103,5 +85,21 @@ spec:
     write:
       replicas: 0
 
-    singleBinary:
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
       replicas: 0
