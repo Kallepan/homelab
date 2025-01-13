@@ -59,17 +59,42 @@ spec:
           # Allows insecure (HTTP) connections (true/false)
           insecure: true
 
-    deploymentMode: SingleBinary
+    deploymentMode:
+      Distributed
 
-    singleBinary:
+      # Disable minio storage
+    minio:
+      enabled: false
+
+    chunksCache:
+      allocatedMemory: 1Gi
+
+    ingester:
+      replicas: 3
+    querier:
+      replicas: 3
+      maxUnavailable: 2
+    queryFrontend:
+      replicas: 2
+      maxUnavailable: 1
+    queryScheduler:
+      replicas: 2
+    distributor:
+      replicas: 3
+      maxUnavailable: 2
+    compactor:
       replicas: 1
-      persistence:
-        storageClass: openebs-hostpath
-        accessModes:
-          - ReadWriteOnce
-        size: 30Gi
+    indexGateway:
+      replicas: 2
+      maxUnavailable: 1
 
-    # Zero out replica counts of other deployment modes
+    bloomPlanner:
+      replicas: 0
+    bloomBuilder:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
+
     backend:
       replicas: 0
     read:
@@ -77,21 +102,5 @@ spec:
     write:
       replicas: 0
 
-    ingester:
-      replicas: 0
-    querier:
-      replicas: 0
-    queryFrontend:
-      replicas: 0
-    queryScheduler:
-      replicas: 0
-    distributor:
-      replicas: 0
-    compactor:
-      replicas: 0
-    indexGateway:
-      replicas: 0
-    bloomCompactor:
-      replicas: 0
-    bloomGateway:
+    singleBinary:
       replicas: 0
