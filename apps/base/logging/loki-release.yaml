@@ -68,7 +68,6 @@ spec:
 
     chunksCache:
       allocatedMemory: 1Gi
-      writebackSizeLimit: 256Mi
 
     ingester:
       replicas: 2
