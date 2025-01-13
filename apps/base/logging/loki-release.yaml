@@ -59,39 +59,12 @@ spec:
           # Allows insecure (HTTP) connections (true/false)
           insecure: true
 
-    deploymentMode:
-      Distributed
+    deploymentMode: SingleBinary
 
-      # Disable minio storage
-    minio:
-      enabled: false
+    singleBinary:
+      replicas: 3
 
-    ingester:
-      replicas: 1
-    querier:
-      replicas: 1
-      maxUnavailable: 0
-    queryFrontend:
-      replicas: 1
-      maxUnavailable: 0
-    queryScheduler:
-      replicas: 1
-    distributor:
-      replicas: 1
-      maxUnavailable: 0
-    compactor:
-      replicas: 1
-    indexGateway:
-      replicas: 1
-      maxUnavailable: 0
-
-    bloomPlanner:
-      replicas: 0
-    bloomBuilder:
-      replicas: 0
-    bloomGateway:
-      replicas: 0
-
+    # Zero out replica counts of other deployment modes
     backend:
       replicas: 0
     read:
@@ -99,5 +72,21 @@ spec:
     write:
       replicas: 0
 
-    singleBinary:
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
       replicas: 0
