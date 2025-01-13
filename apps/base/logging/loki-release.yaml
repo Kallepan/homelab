@@ -60,7 +60,7 @@ spec:
           insecure: true
 
     deploymentMode:
-      Distributed
+      SingleBinary
 
       # Disable minio storage
     minio:
