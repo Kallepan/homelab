@@ -67,7 +67,7 @@ spec:
       enabled: false
 
     chunksCache:
-      enabled: false
+      allocatedMemory: 2Gi
 
     singleBinary:
       replicas: 1
