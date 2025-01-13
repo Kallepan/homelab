@@ -93,6 +93,14 @@ spec:
         kubeSchedulerRecording: false
         kubeProxy: false
     grafana:
+      additionalDataSources:
+        - access: proxy
+          isDefault: false
+          name: loki
+          orgId: 1
+          type: loki
+          url: http://loki.logging.svc.cluster.local:3100
+          version: 1
       enabled: true
       extraSecretMounts:
         - name: grafana-generic-oauth-secret-mount
