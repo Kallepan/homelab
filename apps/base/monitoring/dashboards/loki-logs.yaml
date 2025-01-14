@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: loki-logs
   namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
 data:
   loki-metrics.json: |-
     {
