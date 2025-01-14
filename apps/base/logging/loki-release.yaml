@@ -55,6 +55,10 @@ spec:
         s3:
           # s3 URL can be used to specify the endpoint, access key, secret key, and bucket name this works well for S3 compatible storage or if you are hosting Loki on-premises and want to use S3 as the storage backend. Either use the s3 URL or the individual fields below (AWS endpoint, region, secret).
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki
+          endpoint: https://s3.infra.server.home:9000
+          access_key_id: loki
+          secret_access_key: tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X
+          region: null
           # Forces the path style for S3 (true/false)
           s3ForcePathStyle: true
           # Allows insecure (HTTP) connections (true/false)
