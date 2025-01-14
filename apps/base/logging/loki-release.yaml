@@ -73,7 +73,7 @@ spec:
       allocatedMemory: 2048
 
     singleBinary:
-      replicas: 3
+      replicas: 2
       persistence:
         storageClass: openebs-hostpath
         accessModes:
