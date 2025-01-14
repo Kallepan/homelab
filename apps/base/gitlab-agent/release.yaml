@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     config:
-      secretName: gitlab-agent-token
+      secretName: main-gitlab-agent-token
       kasAddress: "wss://kas.core.infra.server.home"
       kasCaCert: |
         -----BEGIN CERTIFICATE-----
