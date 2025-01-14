@@ -4,6 +4,7 @@ resources:
   - ../base/argo
   - ../base/cert-manager
   - ../base/emqx
+  - ../base/gitlab-agent
   - ../base/gitlab-runner
   - ../base/homepage
   - ../base/istio-system
