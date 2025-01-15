@@ -82,19 +82,56 @@ spec:
       replicas: 2
       maxUnavailable: 1
       directories:
-        test_rule:
+        high_error_rate:
           rule1.yaml: |
             groups:
-              - name: test_alert
+              - name: high_error_rate
                 rules:
-                  - alert: TestAlert
-                    expr: sum(rate({app="loki"} | logfmt | level="info"[1m])) by (container) > 0
-                    for: 1m
+                  - alert: HighPercentageError
+                    expr: |
+                      sum(rate({job=~".+"} |= "error" [5m])) by (namespace, pod)
+                        /
+                      sum(rate({job=~".+"}[5m])) by (namespace, pod)
+                        > 0.10
+                    for: 10m
                     labels:
-                        severity: warning
+                      severity: critical
+                      namespace: "{{ $labels.namespace }}"
+                      pod: "{{ $labels.pod }}"
+                      cluster: "{{ $labels.cluster }}"
                     annotations:
-                        summary: Loki info warning per minute rate > 0
-                        message: 'Loki warning per minute rate > 0 container:"{{`{{`}} $labels.container {{`}}`}}"'
+                      summary: High percentage of error logs detected in job {{ $labels.job }}.
+                      description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
+        authentication:
+          rule1.yaml: |
+            groups:
+              - name: UnauthorizedAccessAttempts
+                rules:
+                  - alert: UnauthorizedAccessAttempts
+                    expr: |
+                      sum by(job) (rate({job=~".+"} |= `unauthorized` or `failed login` or `invalid credentials` [1m])) > 2
+                    for: 5m
+                    labels:
+                      severity: warning
+                    annotations:
+                      summary: Unauthorized access attempts detected in job {{ $labels.job }}
+                      description: More than 2 unauthorized access attempts in the last 5 minutes.
+        log_volume:
+          rule1.yaml: |
+            groups:
+              - name: HighLogVolume
+                rules:
+                  - alert: LogVolumeAnomaly
+                    expr: |
+                      sum(rate({job=~".+"}[5m])) by (namespace,pod) 
+                        > 
+                      (sum(rate({job=~".+"}[5m])) by (namespace,pod) * 1.5)
+                    for: 10m
+                    labels:
+                      severity: info
+                    annotations:
+                      summary: Log volume anomaly detected for job {{ $labels.job }}
+                      description: Unusual increase in log volume detected for job {{ $labels.job }} over the last 10 minutes.
     ingester:
       replicas: 3 # To ensure data durability with replication
     querier:
