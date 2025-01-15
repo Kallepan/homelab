@@ -50,3 +50,11 @@ patches:
       kind: HelmRelease
       name: prometheus
       namespace: monitoring
+  - patch: |
+      - op: replace
+        path: /spec/values/alertmanager/alertmanagerSpec/externalUrl
+        value: https://mgmt.infra.server.home/k8s/clusters/c-jgthw/api/v1/namespaces/monitoring/services/http:prometheus-kube-prometheus-alertmanager:9093/proxy/
+    target:
+      kind: HelmRelease
+      name: prometheus
+      namespace: monitoring
