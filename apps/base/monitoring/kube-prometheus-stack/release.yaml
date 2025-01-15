@@ -62,7 +62,7 @@ spec:
           routes:
             - receiver: "null"
               matchers:
-                - alertname="Watchdog"
+                - alertname = "Watchdog"
               continue: false
         receivers:
           - name: "mattermost-receiver"
