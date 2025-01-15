@@ -109,8 +109,3 @@ spec:
 
     singleBinary:
       replicas: 0
-
-    # This exposes the Loki gateway so it can be written to and queried externaly
-    gateway:
-      service:
-        type: LoadBalancer
