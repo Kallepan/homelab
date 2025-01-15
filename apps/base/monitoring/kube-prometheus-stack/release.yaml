@@ -99,7 +99,7 @@ spec:
           name: loki
           orgId: 1
           type: loki
-          url: http://loki.logging.svc.cluster.local:3100
+          url: http://loki-gateway.logging.svc.cluster.local:80
           version: 1
       enabled: true
       extraSecretMounts:
