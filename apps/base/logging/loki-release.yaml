@@ -34,6 +34,13 @@ spec:
               prefix: loki_index_
               period: 24h
       rulerConfig:
+        alertmanager_url: http://prometheus-kube-prometheus-alertmanager:9093
+        enable_alertmanager_v2: true
+        enable_api: true
+        rule_path: /tmp/scratch
+        ring:
+          kvstore:
+            store: inmemory
         storage:
           type: s3
           s3:
@@ -44,12 +51,6 @@ spec:
               idle_conn_timeout: 90s
               response_header_timeout: 0s
               insecure_skip_verify: true
-        rule_path: /tmp/scratch
-        alertmanager_url: http://prometheus-kube-prometheus-alertmanager:9093
-        ring:
-          kvstore:
-            store: inmemory
-        enable_api: true
       ingester:
         chunk_encoding: snappy
       querier:
@@ -86,6 +87,8 @@ spec:
       enabled: true
       replicas: 2
       maxUnavailable: 1
+      directories:
+
     ingester:
       replicas: 3 # To ensure data durability with replication
     querier:
