@@ -37,7 +37,7 @@ spec:
         alertmanager_url: http://prometheus-kube-prometheus-alertmanager:9093
         enable_alertmanager_v2: true
         enable_api: true
-        rule_path: /tmp/scratch
+        rule_path: /var/loki/rules-temp
         ring:
           kvstore:
             store: inmemory
