@@ -100,9 +100,9 @@ spec:
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({job=~".+"} |= "error" [5m])) by (namespace, pod)
+                      sum(rate({job=~".+", pod !~ "loki-ruler-\\d"} |= "error" [5m])) by (namespace, pod)
                         /
-                      sum(rate({job=~".+"}[5m])) by (namespace, pod)
+                      sum(rate({job=~".+", pod !~ "loki-ruler-\\d"}[5m])) by (namespace, pod)
                         > 0.10
                     for: 10m
                     labels:
