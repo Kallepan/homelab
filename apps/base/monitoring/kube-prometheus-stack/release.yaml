@@ -100,7 +100,7 @@ spec:
           orgId: 1
           type: loki
           url: http://loki-gateway.logging.svc.cluster.local
-          version: 1
+          version: 2
       enabled: true
       extraSecretMounts:
         - name: grafana-generic-oauth-secret-mount
