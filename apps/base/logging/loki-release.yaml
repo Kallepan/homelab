@@ -38,7 +38,6 @@ spec:
           type: s3
           s3:
             s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki_ruler
-            s3forcepathstyle: true
             insecure: false
             http_config:
               idle_conn_timeout: 90s
@@ -70,7 +69,7 @@ spec:
         s3:
           # s3 URL can be used to specify the endpoint, access key, secret key, and bucket name this works well for S3 compatible storage or if you are hosting Loki on-premises and want to use S3 as the storage backend. Either use the s3 URL or the individual fields below (AWS endpoint, region, secret).
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki
-          s3forcepathstyle: true
+          s3ForcePathStyle: true
           insecure: false
           http_config:
             idle_conn_timeout: 90s
