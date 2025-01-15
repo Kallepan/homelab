@@ -57,11 +57,6 @@ spec:
         volume_enabled: true
         retention_period: 168h # 7 days
       storage_config:
-        boltdb_shipper:
-          active_index_directory: /loki/index
-          cache_location: /loki/index_cache
-          resync_interval: 5s
-          shared_store: s3
         aws:
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki-chunks
           s3forcepathstyle: true
