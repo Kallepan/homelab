@@ -39,14 +39,12 @@ spec:
               - "severity =~ warning|info"
             equal:
               - "namespace"
-              - "alertname"
           - source_matchers:
               - "severity = warning"
             target_matchers:
               - "severity = info"
             equal:
               - "namespace"
-              - "alertname"
           - source_matchers:
               - "alertname = InfoInhibitor"
             target_matchers:
