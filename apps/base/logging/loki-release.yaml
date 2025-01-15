@@ -34,7 +34,7 @@ spec:
               prefix: loki_index_
               period: 24h
       rulerConfig:
-        alertmanager_url: http://prometheus-kube-prometheus-alertmanager:9093
+        alertmanager_url: http://prometheus-kube-prometheus-alertmanager.monitoring.svc.cluster.local:9093
         enable_alertmanager_v2: true
         enable_api: true
         rule_path: /var/loki/rules-temp
