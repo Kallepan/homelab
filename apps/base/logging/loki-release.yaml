@@ -51,9 +51,9 @@ spec:
       storage:
         type: s3
         bucketNames:
-          chunks: loki
-          ruler: loki
-          admin: loki
+          chunks: chunks
+          ruler: ruler
+          admin: admin
         s3:
           # s3 URL can be used to specify the endpoint, access key, secret key, and bucket name this works well for S3 compatible storage or if you are hosting Loki on-premises and want to use S3 as the storage backend. Either use the s3 URL or the individual fields below (AWS endpoint, region, secret).
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000
