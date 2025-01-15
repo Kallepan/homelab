@@ -56,6 +56,11 @@ spec:
         allow_structured_metadata: true
         volume_enabled: true
         retention_period: 168h # 7 days
+      storage_config:
+        aws:
+          region: null
+          bucketNames: loki-chunks
+          s3forcepathstyle: true
       storage:
         type: s3
         bucketNames:
