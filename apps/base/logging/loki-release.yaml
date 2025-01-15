@@ -21,6 +21,7 @@ spec:
   values:
     chunksCache:
       allocatedMemory: 2048
+
     loki:
       auth_enabled: false
       schemaConfig:
@@ -32,6 +33,15 @@ spec:
             index:
               prefix: loki_index_
               period: 24h
+      rulerConfig:
+        storage:
+          type: s3
+        rule_path: /tmp/scratch
+        alertmanager_url: http://prometheus-kube-prometheus-alertmanager:9093
+        ring:
+          kvstore:
+            store: inmemory
+        enable_api: true
       storage_config:
         aws:
           region: eu-west-1
@@ -74,6 +84,9 @@ spec:
     minio:
       enabled: false
 
+    ruler:
+      enabled: true
+      replicas: 2
     ingester:
       replicas: 3 # To ensure data durability with replication
     querier:
