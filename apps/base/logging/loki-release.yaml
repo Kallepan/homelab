@@ -37,7 +37,7 @@ spec:
         storage:
           type: s3
           s3:
-            s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki_ruler
+            s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki-ruler
             insecure: false
             s3forcepathstyle: true
             http_config:
