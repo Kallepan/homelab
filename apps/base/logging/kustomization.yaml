@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - repository.yaml
-  # - loki-release.yaml
+  - loki-release.yaml
   - alloy-release.yaml
