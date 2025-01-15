@@ -57,9 +57,13 @@ spec:
         volume_enabled: true
         retention_period: 168h # 7 days
       storage_config:
+        boltdb_shipper:
+          active_index_directory: /loki/index
+          cache_location: /loki/index_cache
+          resync_interval: 5s
+          shared_store: s3
         aws:
-          region: null
-          bucketnames: loki-chunks
+          s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki-chunks
           s3forcepathstyle: true
       storage:
         type: s3
@@ -70,6 +74,13 @@ spec:
         s3:
           # s3 URL can be used to specify the endpoint, access key, secret key, and bucket name this works well for S3 compatible storage or if you are hosting Loki on-premises and want to use S3 as the storage backend. Either use the s3 URL or the individual fields below (AWS endpoint, region, secret).
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki-chunks
+          # Not sure, if this is needed
+          access_key_id: loki
+          secret_access_key: tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X
+          endpoint: https://s3.infra.server.home:9000
+          signatureVersion: "v4"
+          region: null
+          # Is there another way to specify the access key and secret key?
           s3ForcePathStyle: true
           insecure: false
           http_config:
