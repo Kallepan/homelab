@@ -94,21 +94,22 @@ spec:
       maxUnavailable: 1
       directories:
         fake:
-          test.yaml: |
-            groups:
-              - name: should_fire
-                rules:
-                  - alert: HighPercentageError
-                    expr: |
-                      sum(rate({job=~".+"} |= "error" [5m])) by (job)
-                        /
-                      sum(rate({job=~".+"}[5m])) by (job)
-                        > 0.05
-                    for: 10m
-                    labels:
-                        severity: page
-                    annotations:
-                        summary: High request latency
+          # Enable this to test the rule files
+          # test.yaml: |
+          #   groups:
+          #     - name: should_fire
+          #       rules:
+          #         - alert: HighPercentageError
+          #           expr: |
+          #             sum(rate({job=~".+"} |= "error" [5m])) by (job)
+          #               /
+          #             sum(rate({job=~".+"}[5m])) by (job)
+          #               > 0.05
+          #           for: 10m
+          #           labels:
+          #               severity: page
+          #           annotations:
+          #               summary: High request latency
           high_warn_rate.yaml: |
             groups:
               - name: high_warn_rate
