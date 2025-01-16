@@ -7,7 +7,7 @@ spec:
   chart:
     # Chore: Update the chart version
     # https://gitlab.com/gitlab-org/cloud-native/gitlab-operator/-/blob/master/CHART_VERSIONS?ref_type=heads
-    version: "8.7.3"
+    version: "8.8.0"
     values:
       certmanager:
         install: false
