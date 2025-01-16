@@ -111,6 +111,7 @@ spec:
                       pod: "{{ $labels.pod }}"
                       cluster: "{{ $labels.cluster }}"
                       instance: "{{ $labels.instance }}"
+                      source: "loki"
                     annotations:
                       summary: High percentage of warn logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has a warning rate above 10% over the last 10 minutes."
@@ -132,6 +133,7 @@ spec:
                       pod: "{{ $labels.pod }}"
                       cluster: "{{ $labels.cluster }}"
                       instance: "{{ $labels.instance }}"
+                      source: "loki"
                     annotations:
                       summary: High percentage of error logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
@@ -152,6 +154,7 @@ spec:
                       pod: "{{ $labels.pod }}"
                       cluster: "{{ $labels.cluster }}"
                       instance: "{{ $labels.instance }}"
+                      source: "loki"
                     annotations:
                       summary: High percentage of error logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
@@ -170,6 +173,7 @@ spec:
                       pod: "{{ $labels.pod }}"
                       cluster: "{{ $labels.cluster }}"
                       instance: "{{ $labels.instance }}"
+                      source: "loki"
                     annotations:
                       summary: Unauthorized access attempts detected in job {{ $labels.job }}
                       description: More than 2 unauthorized access attempts in the last 5 minutes.
@@ -190,6 +194,7 @@ spec:
                       pod: "{{ $labels.pod }}"
                       cluster: "{{ $labels.cluster }}"
                       instance: "{{ $labels.instance }}"
+                      source: "loki"
                     annotations:
                       summary: Log volume anomaly detected for job {{ $labels.job }}
                       description: Unusual increase in log volume detected for job {{ $labels.job }} over the last 10 minutes.
