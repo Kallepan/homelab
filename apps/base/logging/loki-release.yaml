@@ -100,9 +100,9 @@ spec:
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({app="foo", env="production"} |= "error" [5m])) by (job)
+                      sum(rate({job=~".+"} |= "error" [5m])) by (job)
                         /
-                      sum(rate({app="foo", env="production"}[5m])) by (job)
+                      sum(rate({job=~".+"}[5m])) by (job)
                         > 0.05
                     for: 10m
                     labels:
