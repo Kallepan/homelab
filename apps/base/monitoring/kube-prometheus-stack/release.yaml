@@ -63,11 +63,11 @@ spec:
           routes:
             - receiver: "null"
               matchers:
-                - alertname="Watchdog"
+                - alertname = "Watchdog"
               continue: false
             - receiver: "mattermost-logging-receiver"
               matchers:
-                - source="loki"
+                - source = "loki"
         receivers:
           - name: "mattermost-logging-receiver"
             slack_configs:

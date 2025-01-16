@@ -93,8 +93,8 @@ spec:
       replicas: 2
       maxUnavailable: 1
       directories:
-        high_warn_rate:
-          rule1.yaml: |
+        fake:
+          high_warn_rate.yaml: |
             groups:
               - name: high_warn_rate
                 rules:
@@ -115,8 +115,7 @@ spec:
                     annotations:
                       summary: High percentage of warn logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has a warning rate above 10% over the last 10 minutes."
-        high_error_rate:
-          rule1.yaml: |
+          high_error_rate.yaml: |
             groups:
               - name: high_error_rate
                 rules:
@@ -137,9 +136,7 @@ spec:
                     annotations:
                       summary: High percentage of error logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
-          rule2.yaml: |
-            groups:
-              - name: high_error_rate
+              - name: high_error_rate_postgres
                 rules:
                   - alert: HighPercentageError
                     expr: |
@@ -158,8 +155,7 @@ spec:
                     annotations:
                       summary: High percentage of error logs detected in job {{ $labels.job }}.
                       description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
-        authentication:
-          rule1.yaml: |
+          unauthorized_access_attempts.yaml: |
             groups:
               - name: UnauthorizedAccessAttempts
                 rules:
@@ -177,8 +173,7 @@ spec:
                     annotations:
                       summary: Unauthorized access attempts detected in job {{ $labels.job }}
                       description: More than 2 unauthorized access attempts in the last 5 minutes.
-        log_volume:
-          rule1.yaml: |
+          high_log_volume.yaml: |
             groups:
               - name: HighLogVolume
                 rules:
