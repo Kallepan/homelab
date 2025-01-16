@@ -122,7 +122,7 @@ spec:
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({job=~".+", pod !~ "\\S+-postgres-\\d} |= "error" [5m])) by (namespace, pod)
+                      sum(rate({job=~".+", pod !~ "\\S+-postgres-\\d"} |= "error" [5m])) by (namespace, pod)
                         /
                       sum(rate({job=~".+"}[5m])) by (namespace, pod)
                         > 0.10
