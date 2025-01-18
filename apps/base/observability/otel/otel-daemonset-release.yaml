@@ -34,7 +34,7 @@ spec:
         enabled: true
       kubernetesAttributes:
         enabled: true
-
+        extractAllPodLabels: true
     config:
       extensions:
         health_check:

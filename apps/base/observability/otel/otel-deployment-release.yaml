@@ -49,6 +49,12 @@ spec:
             - key: service.name
               value: "kube-events"
               action: upsert
+        transform:
+          error_mode: ignore
+          log_statements:
+            - context: log
+              statements:
+                - keep_keys(body, ["type", "action", "eventTime", "reason", "regarding", "reportingController", "note", "series", "metadata", "deprecatedFirstTimestamp", "deprecatedLastTimestamp"])
 
       exporters:
         debug: {}
