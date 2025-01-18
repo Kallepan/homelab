@@ -38,9 +38,6 @@ spec:
       receivers:
         k8sobjects:
           objects:
-            - name: pods
-              mode: pull
-              interval: 15m
             - name: events
               mode: pull
               group: events.k8s.io
