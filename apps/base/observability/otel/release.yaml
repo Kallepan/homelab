@@ -181,8 +181,6 @@ spec:
                 - from: connection
 
       exporters:
-        prometheus:
-          endpoint: 0.0.0.0:55999
         otlphttp:
           endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
           tls:
@@ -195,11 +193,6 @@ spec:
             receivers: [filelog]
             processors: [resource, k8sattributes]
             exporters: [otlphttp]
-
-          metrics:
-            receivers: [otlp]
-            processors: [k8sattributes, memory_limiter, batch]
-            exporters: [prometheus]
         telemetry:
           metrics:
             address: ${env:MY_POD_IP}:8888
