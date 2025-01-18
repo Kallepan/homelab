@@ -13,7 +13,6 @@ resources:
   - ../base/metallb-system
   - ../base/metrics-server
   - ../base/openebs
-  - ../base/otel-operator
 patches:
   - patch: |
       - op: replace
