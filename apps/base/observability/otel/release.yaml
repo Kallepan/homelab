@@ -116,7 +116,7 @@ spec:
       exporters:
         debug: {}
         otlphttp/logs:
-          endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp/v1/logs
+          endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
           tls:
             insecure: true
 
@@ -134,6 +134,7 @@ spec:
             receivers:
               - otlp
               - filelog
+              - debug
           metrics:
             exporters:
               - debug
