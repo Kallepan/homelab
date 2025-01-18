@@ -4,9 +4,6 @@ resources:
   # OTel Collector
   - otel/otel.yaml
 
-  # Promtail
-  - promtail/release.yaml
-
   # Tracing (Jaeger)
   
   # Metrics (Prometheus)
