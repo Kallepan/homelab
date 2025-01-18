@@ -19,6 +19,10 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    command:
+      name: "otelcol-k8s"
+    image:
+      repository: otel/opentelemetry-collector
     mode: daemonset
     presets:
       logsCollection:
