@@ -67,15 +67,15 @@ data:
     - Observability:
       - Monitoring (Production):
           description: Monitoring of Production Infrastructure.
-          href: https://monitoring.prod.server.home/
+          href: https://monitoring.prod.server.home/d/bdo2xwqvxu7swse/kubernetes-metrics
           icon: grafana.png
       - Monitoring (Core):
           description: Monitoring of Core Infrastructure.
-          href: https://monitoring.core.infra.server.home/
+          href: https://monitoring.core.infra.server.home/d/bdo2xwqvxu7swse/kubernetes-metrics
           icon: grafana.png
       - Loki:
           description: Log management and analysis.
-          href: https://logging.prod.server.home/
+          href: https://monitoring.prod.server.home/d/o6-BGgnnk/loki-kubernetes-logs
           icon: loki.png
       - Kiali:
           description: Service mesh observability.
