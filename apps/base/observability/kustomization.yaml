@@ -4,6 +4,7 @@ resources:
   # OTel Collector
   - otel/repository.yaml
   - otel/release.yaml
+  - otel/rbac.yaml
 
   # Tracing (Jaeger)
   
