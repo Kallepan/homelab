@@ -9,8 +9,3 @@ resources:
 
   # Endpoint monitoring
   - blackbox/release.yaml
-
-  # Grafana Dashboards
-  - dashboards/istio.yaml
-  - dashboards/kube-metrics.yaml
-  - dashboards/loki-logs.yaml

@@ -19,10 +19,5 @@ resources:
   - loki/repository.yaml
   - loki/release.yaml
 
-  # Dashboards (Grafana)
-  - dashboards/istio.yaml
-  - dashboards/kube-metrics.yaml
-  - dashboards/loki-logs.yaml
-
   # General
   - namespace.yaml

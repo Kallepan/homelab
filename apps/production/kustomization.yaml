@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/argo
   - ../base/cert-manager
+  - ../base/dashboards
   - ../base/emqx
   - ../base/gitlab-agent
   - ../base/gitlab-runner
