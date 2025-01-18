@@ -10,7 +10,7 @@ data:
 kind: ConfigMap
 metadata:
   name: istio-performance-dashboard
-  namespace: monitoring
+  namespace: observability
   labels:
     grafana_dashboard: "1"
 ---
@@ -883,6 +883,6 @@ data:
 kind: ConfigMap
 metadata:
   name: istio-services-dashboard
-  namespace: monitoring
+  namespace: observability
   labels:
     grafana_dashboard: "1"
