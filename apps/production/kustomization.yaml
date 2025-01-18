@@ -23,14 +23,6 @@ patches:
         value: observability
     target:
       kind: ConfigMap
-      name: loki-logs
-      namespace: monitoring
-  - patch: |
-      - op: replace
-        path: /metadata/namespace
-        value: observability
-    target:
-      kind: ConfigMap
       name: kube-metrics
       namespace: monitoring
   - patch: |

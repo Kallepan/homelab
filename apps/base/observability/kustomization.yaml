@@ -20,5 +20,8 @@ resources:
   - loki/repository.yaml
   - loki/release.yaml
 
+  # Dashboards
+  - dashboards/loki-logs.yaml
+
   # General
   - namespace.yaml
