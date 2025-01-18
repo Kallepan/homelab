@@ -127,6 +127,7 @@ spec:
           logs:
             exporters:
               - otlphttp/logs
+              - debug
             processors:
               # - k8sattributes
               - memory_limiter
@@ -134,7 +135,6 @@ spec:
             receivers:
               - otlp
               - filelog
-              - debug
           metrics:
             exporters:
               - debug
