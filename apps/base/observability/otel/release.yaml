@@ -161,6 +161,7 @@ spec:
                 - from: connection
 
       exporters:
+        debug: {}
         otlphttp:
           endpoint: http://loki-gateway.observability.svc.cluster.local/otlp
           tls:
@@ -174,7 +175,7 @@ spec:
             processors: [resource, k8sattributes]
             receivers: [filelog]
           metrics:
-            exporters: [otlphttp]
+            exporters: [debug]
             processors: [memory_limiter, batch]
             receivers: [prometheus]
           # traces:
