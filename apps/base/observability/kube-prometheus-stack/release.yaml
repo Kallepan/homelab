@@ -1,0 +1,258 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: observability
+spec:
+  interval: 5m
+  timeout: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "68.x"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: observability
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    alertmanager:
+      alertmanagerSpec:
+        externalUrl: https://mgmt.infra.server.home/k8s/clusters/c-jgthw/api/v1/namespaces/monitoring/services/http:prometheus-kube-prometheus-alertmanager:9093/proxy/
+        secrets:
+          - alertmanager-mattermost-webhook-url
+          - alertmanager-ca
+        logLevel: debug
+      config:
+        global:
+          resolve_timeout: 5m
+          http_config:
+            tls_config:
+              ca_file: /etc/alertmanager/secrets/alertmanager-ca/ca.crt
+        inhibit_rules:
+          - source_matchers:
+              - "severity = critical"
+            target_matchers:
+              - "severity =~ warning|info"
+            equal:
+              - "namespace"
+          - source_matchers:
+              - "severity = warning"
+            target_matchers:
+              - "severity = info"
+            equal:
+              - "namespace"
+          - source_matchers:
+              - "alertname = InfoInhibitor"
+            target_matchers:
+              - "severity = info"
+            equal:
+              - "namespace"
+          - target_matchers:
+              - "alertname = InfoInhibitor"
+        route:
+          group_by: ["namespace"]
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: "mattermost-metrics-receiver"
+          routes:
+            - receiver: "null"
+              matchers:
+                - alertname = "Watchdog"
+              continue: false
+            - receiver: "mattermost-logging-receiver"
+              matchers:
+                - source = "loki"
+        receivers:
+          - name: "mattermost-logging-receiver"
+            slack_configs:
+              - api_url_file: /etc/alertmanager/secrets/alertmanager-mattermost-webhook-url/mattermost_logging_webhook_url
+                send_resolved: true
+          - name: "mattermost-metrics-receiver"
+            slack_configs:
+              - api_url_file: /etc/alertmanager/secrets/alertmanager-mattermost-webhook-url/mattermost_metrics_webhook_url
+                send_resolved: true
+          - name: "null"
+        templates:
+          - "/etc/alertmanager/config/*.tmpl"
+    additionalPrometheusRulesMap:
+      endpoint-alerts:
+        groups:
+          - name: endpoint-alerts
+            rules:
+              - alert: EndpointDown
+                expr: up{job="blackbox"} == 0 or probe_success{job="blackbox"} == 0
+                for: 1m
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "Endpoint {{ $labels.instance }} is down"
+                  description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+    defaultRules:
+      create: true
+      rules:
+        kubeControllerManager: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+        kubeProxy: false
+    grafana:
+      additionalDataSources:
+        - access: proxy
+          isDefault: false
+          name: loki
+          orgId: 1
+          type: loki
+          url: http://loki-query-frontend.observability.svc.cluster.local:3100
+          version: 2
+      enabled: true
+      extraSecretMounts:
+        - name: grafana-generic-oauth-secret-mount
+          defaultMode: 0440
+          secretName: grafana-generic-oauth-secret
+          mountPath: /etc/secrets/auth_generic_oauth
+          readOnly: true
+      grafana.ini:
+        server:
+          root_url: https://monitoring.prod.server.home
+        auth.anonymous:
+          enabled: true
+        auth.generic_oauth:
+          tls_skip_verify_insecure: true
+          auto_login: false
+          allow_assign_grafana_admin: false
+          allow_sign_up: true
+          api_url: https://sso.core.infra.server.home/realms/homelab/protocol/openid-connect/userinfo
+          auth_url: https://sso.core.infra.server.home/realms/homelab/protocol/openid-connect/auth
+          token_url: https://sso.core.infra.server.home/realms/homelab/protocol/openid-connect/token
+          client_id: $__file{/etc/secrets/auth_generic_oauth/client_id}
+          client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+          enabled: true
+          email_attribute_path: email
+          login_attribute_path: preferred_username
+          name_attribute_path: name
+          name: Keycloak-OAuth
+          role_attribute_path: >-
+            (resource_access.monitoring.role == 'admin' && 'Admin') ||
+            (resource_access.monitoring.role == 'editor' && 'Editor') ||
+            (resource_access.monitoring.role == 'viewer' && 'Viewer') || 'Viewer'
+          scopes: openid email profile offline_access roles
+          skip_org_role_sync: false
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        hosts:
+          - monitoring.prod.server.home
+        tls:
+          - secretName: monitoring-tls-secret
+            hosts:
+              - monitoring.prod.server.home
+      persistence:
+        accessModes:
+          - ReadWriteOnce
+        enabled: true
+        type: pvc
+        size: 2Gi
+        storageClassName: openebs-hostpath
+      sidecar:
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "1"
+          namespace: observability
+    prometheus:
+      prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: blackbox
+            metrics_path: /probe
+            params:
+              module: [http_2xx]
+            static_configs:
+              - targets:
+                  # Network Health
+                  - https://google.com
+                  # Core Cluster
+                  - https://gitlab.core.infra.server.home/users/sign_in?auto_sign_in=false
+                  - https://vault.core.infra.server.home
+                  - https://sso.core.infra.server.home
+                  # Production Cluster
+                  - https://homepage.prod.server.home
+                  # Docker Machine
+                  - https://docs.app.server.home
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: blackbox-prometheus-blackbox-exporter.observability.svc.cluster.local:9115
+          - job_name: istiod
+            kubernetes_sd_configs:
+              - role: endpoints
+                namespaces:
+                  names:
+                    - istio-system
+            relabel_configs:
+              - source_labels:
+                  [
+                    __meta_kubernetes_service_name,
+                    __meta_kubernetes_endpoint_port_name,
+                  ]
+                action: keep
+                regex: istiod;http-monitoring
+          - job_name: "envoy-stats"
+            metrics_path: /stats/prometheus
+            kubernetes_sd_configs:
+              - role: pod
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_pod_container_port_name]
+                action: keep
+                regex: ".*-envoy-prom"
+          - job_name: "kubernetes-pods"
+            kubernetes_sd_configs:
+              - role: pod
+            relabel_configs:
+              - source_labels:
+                  [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+                action: keep
+                regex: true
+              - source_labels: [__meta_kubernetes_pod_container_port_name]
+                action: keep
+                regex: metrics
+              - source_labels:
+                  [__meta_kubernetes_pod_annotation_prometheus_io_path]
+                action: replace
+                target_label: __metrics_path__
+                regex: (.+)
+              - source_labels:
+                  [__address__, __meta_kubernetes_pod_container_port_number]
+                action: replace
+                regex: (.+):(?:\d+);(\d+)
+                replacement: ${1}:${2}
+                target_label: __address__
+              - action: labelmap
+                regex: __meta_kubernetes_pod_label_(.+)
+              - source_labels: [__meta_kubernetes_namespace]
+                action: replace
+                target_label: kubernetes_namespace
+              - source_labels: [__meta_kubernetes_pod_name]
+                action: replace
+                target_label: kubernetes_pod_name
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 30Gi
+              storageClassName: openebs-hostpath
+    server:
+      global:
+        scrape_interval: 15s
+        evaluation_interval: 1m
+        scrape_timeout: 10s

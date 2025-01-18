@@ -7,9 +7,19 @@ resources:
   # Tracing (Jaeger)
   
   # Metrics (Prometheus)
+  - kube-prometheus-stack/cert.yaml
+  - kube-prometheus-stack/repository.yaml
+  - kube-prometheus-stack/release.yaml
+  - kube-prometheus-stack/blackbox-exporter/release.yaml
 
   # Logging (Loki)
   - loki/repository.yaml
   - loki/release.yaml
 
+  # Dashboards (Grafana)
+  - dashboards/istio.yaml
+  - dashboards/kube-metrics.yaml
+  - dashboards/loki-logs.yaml
+
+  # General
   - namespace.yaml
