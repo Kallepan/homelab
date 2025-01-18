@@ -56,6 +56,21 @@ spec:
         allow_structured_metadata: true
         volume_enabled: true
         retention_period: 168h # 7 days
+        otlp_config:
+          resource_attributes:
+            attributes_config:
+              - action: index_label
+                regex: service.group
+          scope_attributes:
+            - action: drop
+              attributes:
+                - method.name
+          log_attributes:
+            - action: structured_metadata
+              attributes:
+                - user.id
+            - action: drop
+              regex: .*
       storage_config:
         aws:
           s3: https://loki:tkEmZByzhmFvYL1TisUKu1B5lPwgrS0X@s3.infra.server.home:9000/loki-chunks
