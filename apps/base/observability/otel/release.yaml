@@ -150,26 +150,6 @@ spec:
               - k8s.pod.uid
               - k8s.deployment.name
               - k8s.node.name
-            annotations:
-              # Extracts the value of a pod annotation with key `annotation-one` and inserts it as a resource attribute with key `a1`
-              - tag_name: a1
-                key: annotation-one
-                from: pod
-              # Extracts the value of a namespaces annotation with key `annotation-two` with regexp and inserts it as a resource  with key `a2`
-              - tag_name: a2
-                key: annotation-two
-                regex: field=(?P<value>.+)
-                from: namespace
-            labels:
-              # Extracts the value of a namespaces label with key `label1` and inserts it as a resource attribute with key `l1`
-              - tag_name: l1
-                key: label1
-                from: namespace
-              # Extracts the value of a pod label with key `label2` with regexp and inserts it as a resource attribute with key `l2`
-              - tag_name: l2
-                key: label2
-                regex: field=(?P<value>.+)
-                from: pod
           pod_association: # How to associate the data to a pod (order matters)
             - sources: # First try to use the value of the resource attribute k8s.pod.ip
                 - from: resource_attribute
@@ -190,9 +170,17 @@ spec:
         extensions: [health_check]
         pipelines:
           logs:
-            receivers: [filelog]
-            processors: [resource, k8sattributes]
             exporters: [otlphttp]
+            processors: [resource, k8sattributes]
+            receivers: [filelog]
+          metrics:
+            exporters: [otlphttp]
+            processors: [memory_limiter, batch]
+            receivers: [prometheus]
+          # traces:
+          #   exporters: [otlphttp]
+          #   processors: [memory_limiter, batch]
+          #   receivers: [otlp, jaeger, zipkin]
         telemetry:
           metrics:
             address: ${env:MY_POD_IP}:8888
