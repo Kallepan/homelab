@@ -127,7 +127,7 @@ spec:
             exporters:
               - otlphttp/logs
             processors:
-              - k8sattributes
+              # - k8sattributes
               - memory_limiter
               - batch
             receivers:
