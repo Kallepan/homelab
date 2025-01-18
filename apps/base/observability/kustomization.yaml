@@ -8,5 +8,7 @@ resources:
   # Metrics (Prometheus)
 
   # Logging (Loki)
-  
+  - loki/repository.yaml
+  - loki/release.yaml
+
   - namespace.yaml
