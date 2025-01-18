@@ -120,6 +120,11 @@ spec:
                   name: k8s.pod.uid
             - sources: # If neither of those work, use the request's connection to get the pod IP.
                 - from: connection
+        resource:
+          attributes:
+            - key: cluster
+              value: "production"
+              action: upsert
 
       exporters:
         debug: {}
