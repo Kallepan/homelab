@@ -43,6 +43,13 @@ spec:
               group: events.k8s.io
               interval: 1m
 
+      processors:
+        resource:
+          attributes:
+            - key: service.name
+              value: "kube-events"
+              action: upsert
+
       exporters:
         debug: {}
         otlphttp/logs:
@@ -55,5 +62,7 @@ spec:
           logs:
             exporters:
               - otlphttp/logs
+            processors:
+              - resource
             receivers:
               - k8sobjects
