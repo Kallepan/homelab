@@ -6,7 +6,9 @@ resources:
   - otel/release.yaml
 
   # Tracing (Jaeger)
-  
+  - jaeger/cert.yaml
+  - jaeger/jaeger.yaml
+
   # Metrics (Prometheus)
   - kube-prometheus-stack/cert.yaml
   - kube-prometheus-stack/repository.yaml
