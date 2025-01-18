@@ -1,0 +1,38 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+  namespace: observability
+spec:
+  mode: deployment
+  ports:
+    - name: loki
+      port: 3500
+      protocol: TCP
+      targetPort: 3500
+  config: |
+    receivers:
+      loki:
+        protocols:
+          http:
+            endpoint: 0.0.0.0:3500
+        use_incoming_timestamp: true
+    processors:
+      attributes:
+        actions:
+          - action: insert
+            key: loki.attribute.labels
+            value: namespace,container,pod,level,traceId
+          - action: insert
+            key: loki.format
+            value: raw
+
+    exporters:
+      loki:
+        endpoint: http://loki-distributor.logging.svc.cluster.local:3100/loki/api/v1/push
+    service:
+      pipelines:
+        logs:
+          receivers: [loki]
+          processors: [attributes]
+          exporters: [loki]
