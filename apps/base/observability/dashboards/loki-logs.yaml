@@ -35,7 +35,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 109,
+      "id": 9,
       "links": [],
       "panels": [
         {
@@ -126,7 +126,7 @@ data:
                 "uid": "P982945308D3682D1"
               },
               "editorMode": "code",
-              "expr": "sum(count_over_time({namespace=~\"$namespace\", container =~\"$container\"} |= \"$query\" [$__interval]))",
+              "expr": "sum(count_over_time({k8s_namespace_name=~\"$namespace\", k8s_container_name=~\"$container\"} |= \"$query\" [$__interval]))",
               "instant": false,
               "legendFormat": "Log count",
               "queryType": "range",
@@ -172,7 +172,7 @@ data:
                 "uid": "P982945308D3682D1"
               },
               "editorMode": "code",
-              "expr": "{namespace=~\"$namespace\", container =~\"$container\"} |= \"$query\"",
+              "expr": "{k8s_namespace_name=~\"$namespace\", k8s_container_name=~\"$container\"} |= \"$query\"",
               "queryType": "range",
               "refId": "A"
             }
@@ -208,12 +208,8 @@ data:
           {
             "allValue": ".+",
             "current": {
-              "text": [
-                "All"
-              ],
-              "value": [
-                "$__all"
-              ]
+              "text": "All",
+              "value": "$__all"
             },
             "datasource": "P982945308D3682D1",
             "definition": "label_values(namespace)",
@@ -229,12 +225,8 @@ data:
           {
             "allValue": ".+",
             "current": {
-              "text": [
-                "All"
-              ],
-              "value": [
-                "$__all"
-              ]
+              "text": "All",
+              "value": "$__all"
             },
             "datasource": "P982945308D3682D1",
             "definition": "label_values(container)",
@@ -250,13 +242,13 @@ data:
         ]
       },
       "time": {
-        "from": "now-3h",
+        "from": "now-1h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "",
       "title": "Loki Kubernetes Logs",
       "uid": "o6-BGgnnk",
-      "version": 3,
+      "version": 1,
       "weekStart": ""
     }

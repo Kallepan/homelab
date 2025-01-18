@@ -130,7 +130,6 @@ spec:
           logs:
             exporters:
               - otlphttp/logs
-              - debug
             processors:
               - k8sattributes
               - memory_limiter
