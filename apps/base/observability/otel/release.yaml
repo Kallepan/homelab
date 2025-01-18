@@ -86,6 +86,7 @@ spec:
           check_interval: 5s
           limit_percentage: 80
           spike_limit_percentage: 25
+
         k8sattributes:
           extract:
             metadata: # extracted from the pod
