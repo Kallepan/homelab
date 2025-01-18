@@ -33,7 +33,7 @@ spec:
           grafana:
             enabled: true
             insecure_skip_verify: true
-            in_cluster_url: "http://prometheus-grafana.monitoring.svc.cluster.local"
+            in_cluster_url: "http://prometheus-grafana.observability.svc.cluster.local"
             url: "https://monitoring.prod.server.home"
             dashboards:
               - name: "Istio Service Dashboard"
@@ -50,8 +50,8 @@ spec:
               - name: "Istio Wasm Extension Dashboard"
           tracing:
             enabled: true
-            in_cluster_url: "http://jaeger-query.istio-system.svc.cluster.local:16685"
+            in_cluster_url: "http://jaeger-query.observability.svc.cluster.local:16685"
             use_grpc: true
           prometheus:
             enabled: true
-            url: "http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090"
+            url: "http://prometheus-kube-prometheus-prometheus.observability.svc.cluster.local:9090"
