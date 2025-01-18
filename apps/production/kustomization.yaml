@@ -18,6 +18,38 @@ resources:
   - ../base/observability
 patches:
   - patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: observability
+    target:
+      kind: ConfigMap
+      name: loki-logs
+      namespace: monitoring
+  - patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: observability
+    target:
+      kind: ConfigMap
+      name: kube-metrics
+      namespace: monitoring
+  - patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: observability
+    target:
+      kind: ConfigMap
+      name: istio-performance-dashboard
+      namespace: monitoring
+  - patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: observability
+    target:
+      kind: ConfigMap
+      name: istio-services-dashboard
+      namespace: monitoring
+  - patch: |
       - op: add
         path: /spec/addresses/-
         value: 10.30.0.10/32
