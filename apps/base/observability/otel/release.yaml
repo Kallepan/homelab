@@ -131,13 +131,13 @@ spec:
             exporters:
               - otlphttp/logs
               - debug
-            # processors:
-            #   - k8sattributes
-            #   - memory_limiter
-            #   - batch
-            # receivers:
-            #   - otlp
-            #   - filelog
+            processors:
+              - k8sattributes
+              - memory_limiter
+              - batch
+            receivers:
+              - otlp
+              - filelog
           metrics:
             exporters:
               - debug
