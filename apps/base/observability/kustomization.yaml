@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
   # OTel Collector
   - otel/repository.yaml
-  - otel/release.yaml
+  - otel/otel-deployment-release.yaml
+  - otel/otel-daemonset-release.yaml
   - otel/rbac.yaml
 
   # Tracing (Jaeger)
