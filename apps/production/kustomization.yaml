@@ -10,10 +10,8 @@ resources:
   - ../base/istio-system
   - ../base/it-tools
   - ../base/knative
-  - ../base/logging
   - ../base/mattermost
   - ../base/metallb-system
-  - ../base/monitoring
   - ../base/nextcloud
   - ../base/oauth2-proxy
   - ../base/observability
@@ -34,27 +32,3 @@ patches:
       kind: Certificate
       name: monitoring-cert
       namespace: istio-system
-  - patch: |
-      - op: replace
-        path: /spec/values/grafana/ingress/hosts/0
-        value: monitoring.prod.server.home
-      - op: replace
-        path: /spec/values/grafana/ingress/tls/0/hosts/0
-        value: monitoring.prod.server.home
-      - op: replace
-        path: /spec/values/grafana/grafana.ini/server/root_url
-        value: http://monitoring.prod.server.home
-      - op: remove
-        path: /spec/values/prometheus/prometheusSpec/additionalScrapeConfigs/0
-    target:
-      kind: HelmRelease
-      name: prometheus
-      namespace: monitoring
-  - patch: |
-      - op: replace
-        path: /spec/values/alertmanager/alertmanagerSpec/externalUrl
-        value: https://mgmt.infra.server.home/k8s/clusters/c-jgthw/api/v1/namespaces/monitoring/services/http:prometheus-kube-prometheus-alertmanager:9093/proxy/
-    target:
-      kind: HelmRelease
-      name: prometheus
-      namespace: monitoring
