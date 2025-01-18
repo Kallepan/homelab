@@ -163,7 +163,7 @@ spec:
       exporters:
         debug: {}
         otlphttp:
-          endpoint: http://loki-gateway.observability.svc.cluster.local/otlp
+          endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
           tls:
             insecure: true
 
