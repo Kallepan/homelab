@@ -5,6 +5,7 @@ metadata:
   name: otel
   namespace: observability
 spec:
+  interval: 1h
   chart:
     spec:
       chart: opentelemetry-collector
