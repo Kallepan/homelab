@@ -125,7 +125,7 @@ spec:
         pipelines:
           logs:
             exporters:
-              - oltphttp/logs
+              - otlphttp/logs
             processors:
               - k8sattributes
               - memory_limiter
