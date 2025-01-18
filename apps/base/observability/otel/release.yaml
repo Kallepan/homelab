@@ -27,15 +27,20 @@ spec:
         enabled: true
       kubernetesAttributes:
         enabled: true
-      # kubeletMetrics:
-      #   enabled: true
-      # hostMetrics:
-      #   enabled: true
     config:
       extensions:
         health_check: {}
 
       receivers:
+        jaeger:
+          protocols:
+            grpc:
+              endpoint: ${env:MY_POD_IP}:14250
+            thrift_compact:
+              endpoint: ${env:MY_POD_IP}:6831
+            thrift_http:
+              endpoint: ${env:MY_POD_IP}:14268
+
         otlp:
           protocols:
             grpc:
@@ -98,28 +103,8 @@ spec:
           preserve_trailing_whitespaces: true
           start_at: end
 
-        # I would rather use the node-exporter receiver, since it's more stable and has more metrics
-        # Therefore, I'm commenting out the kubeletstats receiver
-        # hostmetrics:
-        #   root_path: /hostfs
-        #   collection_interval: 10s
-        #   scrapers:
-        #     cpu:
-        #     load:
-        #     memory:
-        #     disk:
-        #     filesystem:
-        #     network:
-
-        # kubeletstats:
-        #   collection_interval: 10s
-        #   auth_type: 'serviceAccount'
-        #   endpoint: '${env:K8S_NODE_NAME}:10250'
-        #   insecure_skip_verify: true
-        #   metric_groups:
-        #     - node
-        #     - pod
-        #     - container
+        zipkin:
+          endpoint: ${env:MY_POD_IP}:9411
 
       processors:
         batch:
@@ -178,10 +163,10 @@ spec:
             exporters: [debug]
             processors: [memory_limiter, batch]
             receivers: [prometheus]
-          # traces:
-          #   exporters: [otlphttp]
-          #   processors: [memory_limiter, batch]
-          #   receivers: [otlp, jaeger, zipkin]
+          traces:
+            exporters: [debug]
+            processors: [memory_limiter, batch]
+            receivers: [otlp, jaeger, zipkin]
         telemetry:
           metrics:
             address: ${env:MY_POD_IP}:8888
