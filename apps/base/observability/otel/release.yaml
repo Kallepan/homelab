@@ -23,6 +23,10 @@ spec:
       repository: otel/opentelemetry-collector-k8s
 
     mode: daemonset
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
 
     presets:
       logsCollection:
