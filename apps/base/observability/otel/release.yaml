@@ -21,12 +21,15 @@ spec:
   values:
     image:
       repository: otel/opentelemetry-collector-k8s
+
     mode: daemonset
+
     presets:
       logsCollection:
         enabled: true
       kubernetesAttributes:
         enabled: true
+
     config:
       extensions:
         health_check:
@@ -129,7 +132,7 @@ spec:
               - otlphttp/logs
               - debug
             processors:
-              # - k8sattributes
+              - k8sattributes
               - memory_limiter
               - batch
             receivers:
