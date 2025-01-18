@@ -112,9 +112,9 @@ spec:
           #       rules:
           #         - alert: HighPercentageError
           #           expr: |
-          #             sum(rate({job=~".+"} |= "error" [5m])) by (job)
+          #             sum(rate({k8s_container_name=~".+"} |= "error" [5m])) by (k8s_container_name)
           #               /
-          #             sum(rate({job=~".+"}[5m])) by (job)
+          #             sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_container_name)
           #               > 0.05
           #           for: 10m
           #           labels:
@@ -127,78 +127,74 @@ spec:
                 rules:
                   - alert: HighPercentageWarn
                     expr: |
-                      sum(rate({job=~".+"} |= "warn" or "warning" [5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+"} |= "warn" or "warning" [5m])) by (k8s_namespace_name, k8s_pod_name)
                         /
-                      sum(rate({job=~".+"}[5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name)
                         > 0.10
                     for: 10m
                     labels:
                       severity: warning
-                      namespace: "{{ $labels.namespace }}"
-                      pod: "{{ $labels.pod }}"
+                      namespace: "{{ $labels.k8s_namespace_name }}"
+                      pod: "{{ $labels.k8s_pod_name }}"
                       cluster: "{{ $labels.cluster }}"
-                      instance: "{{ $labels.instance }}"
                       source: "loki"
                     annotations:
-                      summary: High percentage of warn logs detected in job {{ $labels.job }}.
-                      description: "{{ $labels.pod }} in {{ $labels.namespace }} has a warning rate above 10% over the last 10 minutes."
+                      summary: High percentage of warn logs detected in {{ $labels.k8s_pod_name }}.
+                      description: "{{ $labels.k8s_pod_name }} in {{ $labels.k8s_namespace_name }} has a warning rate above 10% over the last 10 minutes."
           high_error_rate.yaml: |
             groups:
               - name: high_error_rate
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({job=~".+", pod !~ "\\S+-postgres-\\d"} |= "error" [5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+", k8s_pod_name !~ "\\S+-postgres-\\d"} |= "error" [5m])) by (k8s_namespace_name, k8s_pod_name)
                         /
-                      sum(rate({job=~".+"}[5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name)
                         > 0.10
                     for: 10m
                     labels:
                       severity: critical
-                      namespace: "{{ $labels.namespace }}"
-                      pod: "{{ $labels.pod }}"
+                      namespace: "{{ $labels.k8s_namespace_name }}"
+                      pod: "{{ $labels.k8s_pod_name }}"
                       cluster: "{{ $labels.cluster }}"
-                      instance: "{{ $labels.instance }}"
                       source: "loki"
                     annotations:
-                      summary: High percentage of error logs detected in job {{ $labels.job }}.
-                      description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
+                      summary: High percentage of error logs detected in {{ $labels.k8s_container_name }}.
+                      description: "{{ $labels.k8s_pod_name }} in {{ $labels.k8s_namespace_name }} has an error rate above 10% over the last 10 minutes."
               - name: high_error_rate_postgres
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({job=~".+", pod =~ "\\S+-postgres-\\d"} |~ "\"level\":\"error\"" [5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+", k8s_pod_name =~ "\\S+-postgres-\\d"} |~ "\"level\":\"error\"" [5m])) by (k8s_namespace_name, k8s_pod_name)
                         /
-                      sum(rate({job=~".+"}[5m])) by (namespace, pod)
+                      sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name)
                         > 0.10
                     for: 10m
                     labels:
                       severity: critical
-                      namespace: "{{ $labels.namespace }}"
-                      pod: "{{ $labels.pod }}"
+                      namespace: "{{ $labels.k8s_namespace_name }}"
+                      pod: "{{ $labels.k8s_pod_name }}"
                       cluster: "{{ $labels.cluster }}"
-                      instance: "{{ $labels.instance }}"
                       source: "loki"
                     annotations:
-                      summary: High percentage of error logs detected in job {{ $labels.job }}.
-                      description: "{{ $labels.pod }} in {{ $labels.namespace }} has an error rate above 10% over the last 10 minutes."
+                      summary: High percentage of error logs detected in k8s_container_name {{ $labels.k8s_container_name }}.
+                      description: "{{ $labels.k8s_pod_name }} in {{ $labels.k8s_namespace_name }} has an error rate above 10% over the last 10 minutes."
           unauthorized_access_attempts.yaml: |
             groups:
               - name: UnauthorizedAccessAttempts
                 rules:
                   - alert: UnauthorizedAccessAttempts
                     expr: |
-                      sum by(job) (rate({job=~".+"} |= `unauthorized` or `failed login` or `invalid credentials` [1m])) > 2
+                      sum by(k8s_container_name) (rate({k8s_container_name=~".+"} |= `unauthorized` or `failed login` or `invalid credentials` [1m])) > 2
                     for: 5m
                     labels:
                       severity: critical
-                      namespace: "{{ $labels.namespace }}"
-                      pod: "{{ $labels.pod }}"
+                      namespace: "{{ $labels.k8s_namespace_name }}"
+                      pod: "{{ $labels.k8s_pod_name }}"
                       cluster: "{{ $labels.cluster }}"
-                      instance: "{{ $labels.instance }}"
                       source: "loki"
                     annotations:
-                      summary: Unauthorized access attempts detected in job {{ $labels.job }}
+                      summary: Unauthorized access attempts detected in {{ $labels.k8s_container_name }}
                       description: More than 2 unauthorized access attempts in the last 5 minutes.
           high_log_volume.yaml: |
             groups:
@@ -206,20 +202,19 @@ spec:
                 rules:
                   - alert: LogVolumeAnomaly
                     expr: |
-                      sum(rate({job=~".+"}[5m])) by (namespace,pod) 
+                      sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name) 
                         > 
-                      (sum(rate({job=~".+"}[5m])) by (namespace,pod) * 1.5)
+                      (sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name) * 1.5)
                     for: 10m
                     labels:
                       severity: warning
-                      namespace: "{{ $labels.namespace }}"
-                      pod: "{{ $labels.pod }}"
+                      namespace: "{{ $labels.k8s_namespace_name }}"
+                      pod: "{{ $labels.k8s_pod_name }}"
                       cluster: "{{ $labels.cluster }}"
-                      instance: "{{ $labels.instance }}"
                       source: "loki"
                     annotations:
-                      summary: Log volume anomaly detected for job {{ $labels.job }}
-                      description: Unusual increase in log volume detected for job {{ $labels.job }} over the last 10 minutes.
+                      summary: Log volume anomaly detected for {{ $labels.k8s_container_name }}
+                      description: Unusual increase in log volume detected for {{ $labels.k8s_container_name }} over the last 10 minutes.
     ingester:
       replicas: 3 # To ensure data durability with replication
     querier:
