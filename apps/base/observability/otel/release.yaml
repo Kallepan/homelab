@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     image:
-      repository: otel/opentelemetry-collector
+      repository: otel/opentelemetry-collector-k8s
     mode: daemonset
     presets:
       logsCollection:
