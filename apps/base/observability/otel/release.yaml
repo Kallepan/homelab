@@ -1,0 +1,202 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: otel
+  namespace: observability
+spec:
+  chart:
+    spec:
+      chart: opentelemetry-collector
+      version: "0.x"
+      sourceRef:
+        kind: HelmRepository
+        name: open-telemetry
+        namespace: observability
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    mode: daemonset
+    presets:
+      logsCollection:
+        enabled: true
+      kubernetesAttributes:
+        enabled: true
+      # kubeletMetrics:
+      #   enabled: true
+      # hostMetrics:
+      #   enabled: true
+    config:
+      extensions:
+        health_check: {}
+
+      receivers:
+        otlp:
+          protocols:
+            grpc:
+              endpoint: ${env:MY_POD_IP}:4317
+            http:
+              endpoint: ${env:MY_POD_IP}:4318
+
+        prometheus:
+          config:
+            scrape_configs:
+              - job_name: opentelemetry-collector
+                scrape_interval: 10s
+                static_configs:
+                  - targets:
+                      - ${env:MY_POD_IP}:8888
+
+        filelog:
+          include:
+            - /var/log/pods/*/*/*.log
+          exclude:
+            - /var/log/pods/*/otel-collector/*.log
+          include_file_path: true
+          include_file_name: false
+          operators:
+            - id: parser-containerd
+              output: containerd-recombine
+              regex: ^(?P<time>[^ Z]+Z)\s(?P<stream>stdout|stderr)\s(?P<logtag>[^ ]*)\s?(?P<log>.*)
+              type: regex_parser
+            - combine_field: attributes.log
+              combine_with: ""
+              id: containerd-recombine
+              is_last_entry: attributes.logtag == 'F'
+              max_log_size: 102400
+              output: extract_metadata_from_filepath
+              source_identifier: attributes["log.file.path"]
+              type: recombine
+            - id: extract_metadata_from_filepath
+              parse_from: attributes["log.file.path"]
+              regex: ^.*\/(?P<namespace>[^_]+)_(?P<pod_name>[^_]+)_(?P<uid>[a-f0-9\-]+)\/(?P<container_name>[^\._]+)\/(?P<restart_count>\d+)\.log$
+              type: regex_parser
+            - from: attributes.container_name
+              to: resource["k8s.container.name"]
+              type: move
+            - from: attributes.namespace
+              to: resource["k8s.namespace.name"]
+              type: move
+            - from: attributes.pod_name
+              to: resource["k8s.pod.name"]
+              type: move
+            - from: attributes.restart_count
+              to: resource["k8s.container.restart_count"]
+              type: move
+            - from: attributes.uid
+              to: resource["k8s.pod.uid"]
+              type: move
+            - from: attributes.log
+              to: body
+              type: move
+          preserve_leading_whitespaces: false
+          preserve_trailing_whitespaces: true
+          start_at: end
+
+        # I would rather use the node-exporter receiver, since it's more stable and has more metrics
+        # Therefore, I'm commenting out the kubeletstats receiver
+        # hostmetrics:
+        #   root_path: /hostfs
+        #   collection_interval: 10s
+        #   scrapers:
+        #     cpu:
+        #     load:
+        #     memory:
+        #     disk:
+        #     filesystem:
+        #     network:
+
+        # kubeletstats:
+        #   collection_interval: 10s
+        #   auth_type: 'serviceAccount'
+        #   endpoint: '${env:K8S_NODE_NAME}:10250'
+        #   insecure_skip_verify: true
+        #   metric_groups:
+        #     - node
+        #     - pod
+        #     - container
+
+      processors:
+        batch:
+          send_batch_size: 10000
+          timeout: 10s
+
+        memory_limiter:
+          check_interval: 5s
+          limit_percentage: 80
+          spike_limit_percentage: 25
+
+        resource:
+          attributes:
+            - action: insert
+              key: loki.format
+              value: raw
+            - action: insert
+              key: loki.resource.labels
+              value: pod, namespace, container, cluster, filename
+
+        k8sattributes:
+          auth_type: "serviceAccount"
+          extract:
+            metadata: # extracted from the pod
+              - k8s.namespace.name
+              - k8s.pod.name
+              - k8s.pod.start_time
+              - k8s.pod.uid
+              - k8s.deployment.name
+              - k8s.node.name
+            annotations:
+              # Extracts the value of a pod annotation with key `annotation-one` and inserts it as a resource attribute with key `a1`
+              - tag_name: a1
+                key: annotation-one
+                from: pod
+              # Extracts the value of a namespaces annotation with key `annotation-two` with regexp and inserts it as a resource  with key `a2`
+              - tag_name: a2
+                key: annotation-two
+                regex: field=(?P<value>.+)
+                from: namespace
+            labels:
+              # Extracts the value of a namespaces label with key `label1` and inserts it as a resource attribute with key `l1`
+              - tag_name: l1
+                key: label1
+                from: namespace
+              # Extracts the value of a pod label with key `label2` with regexp and inserts it as a resource attribute with key `l2`
+              - tag_name: l2
+                key: label2
+                regex: field=(?P<value>.+)
+                from: pod
+          pod_association: # How to associate the data to a pod (order matters)
+            - sources: # First try to use the value of the resource attribute k8s.pod.ip
+                - from: resource_attribute
+                  name: k8s.pod.ip
+            - sources: # Then try to use the value of the resource attribute k8s.pod.uid
+                - from: resource_attribute
+                  name: k8s.pod.uid
+            - sources: # If neither of those work, use the request's connection to get the pod IP.
+                - from: connection
+
+      exporters:
+        prometheus:
+          endpoint: 0.0.0.0:55999
+        otlphttp:
+          endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
+          tls:
+            insecure: true
+
+      service:
+        extensions: [health_check]
+        pipelines:
+          logs:
+            receivers: [filelog]
+            processors: [resource, k8sattributes]
+            exporters: [otlphttp]
+
+          metrics:
+            receivers: [otlp]
+            processors: [k8sattributes, memory_limiter, batch]
+            exporters: [prometheus]
+        telemetry:
+          metrics:
+            address: ${env:MY_POD_IP}:8888
