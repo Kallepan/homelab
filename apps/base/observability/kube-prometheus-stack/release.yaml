@@ -166,6 +166,8 @@ spec:
           namespace: observability
     prometheus:
       prometheusSpec:
+        additionalArgs:
+          - "--web.enable-otlp-receiver"
         additionalScrapeConfigs:
           - job_name: blackbox
             metrics_path: /probe
