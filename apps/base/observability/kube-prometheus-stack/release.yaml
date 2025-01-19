@@ -109,6 +109,12 @@ spec:
           type: loki
           url: http://loki-query-frontend.observability.svc.cluster.local:3100
           version: 2
+        - access: proxy
+          isDefault: false
+          name: jaeger
+          orgId: 1
+          type: jaeger
+          url: http://jaeger-query.observability.svc.cluster.local:16686
       enabled: true
       extraSecretMounts:
         - name: grafana-generic-oauth-secret-mount
