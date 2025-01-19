@@ -167,7 +167,8 @@ spec:
     prometheus:
       prometheusSpec:
         additionalArgs:
-          - "--web.enable-otlp-receiver"
+          - name: "web.enable-otlp-receiver"
+            value: ""
         additionalScrapeConfigs:
           - job_name: blackbox
             metrics_path: /probe
