@@ -10,3 +10,4 @@ resources:
   - ztunnel/release.yaml
 
   - telemetry.yaml
+  - ingressclass.yaml

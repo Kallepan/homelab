@@ -8,7 +8,6 @@ resources:
   - ../base/gitlab-agent
   - ../base/gitlab-runner
   - ../base/homepage
-  - ../base/istio-system
   - ../base/it-tools
   - ../base/knative
   - ../base/mattermost
