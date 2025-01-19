@@ -124,6 +124,10 @@ spec:
           endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
           tls:
             insecure: true
+        otlp/traces:
+          endpoint: http://jaeger-collector.observability.svc.cluster.local:4317
+          tls:
+            insecure: true
 
       service:
         extensions:
@@ -151,7 +155,7 @@ spec:
               - prometheus
           traces:
             exporters:
-              - debug
+              - otlp/traces
             processors:
               - k8sattributes
               - memory_limiter
