@@ -142,6 +142,7 @@ spec:
             exporters:
               - otlphttp/metrics
             processors:
+              - k8sattributes
               - memory_limiter
               - batch
             receivers:
