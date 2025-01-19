@@ -52,15 +52,6 @@ spec:
             http:
               endpoint: ${env:MY_POD_IP}:4318
 
-        prometheus:
-          config:
-            scrape_configs:
-              - job_name: opentelemetry-collector
-                scrape_interval: 10s
-                static_configs:
-                  - targets:
-                      - ${env:MY_POD_IP}:8888
-
         filelog:
           include:
             - /var/log/pods/*/*/*.log
@@ -151,12 +142,10 @@ spec:
             exporters:
               - otlphttp/metrics
             processors:
-              - k8sattributes
               - memory_limiter
               - batch
             receivers:
               - otlp
-              - prometheus
           traces:
             exporters:
               - otlp/traces
