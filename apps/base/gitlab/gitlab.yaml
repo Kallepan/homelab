@@ -95,7 +95,7 @@ spec:
                 key: omniauth.yml
         certificates:
           customCAs:
-            - secret: gitlab-ca
+            - secret: homelab-ca
               keys:
                 - gitlab.core.infra.server.home.crt
         edition: ee

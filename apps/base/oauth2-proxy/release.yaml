@@ -46,7 +46,7 @@ spec:
     extraVolumes:
       - name: ca-certs
         secret:
-          secretName: oauth2-proxy-ca-certs
+          secretName: homelab-ca
 
     extraVolumeMounts:
       - name: ca-certs

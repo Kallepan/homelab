@@ -66,7 +66,7 @@ spec:
       volumes:
         - name: certificate
           configMap:
-            name: root-ca
+            name: homelab-ca
       authModes:
         - sso
       sso:

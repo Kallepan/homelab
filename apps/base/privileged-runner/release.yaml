@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     gitlabUrl: https://gitlab.core.infra.server.home
-    certsSecretName: gitlab-ca
+    certsSecretName: homelab-ca
     rbac:
       create: true
     runners:
@@ -56,6 +56,6 @@ spec:
             mount_path = "/certs/client"
             medium = "Memory"
           [[runners.kubernetes.volumes.secret]]
-            name = "gitlab-ca"
+            name = "homelab-ca"
             mount_path = "/usr/local/share/ca-certificates"
             read_only = true

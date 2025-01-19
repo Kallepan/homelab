@@ -8,4 +8,4 @@ spec:
   secretRef:
     name: mattermost-webhook-url
   certSecretRef:
-    name: flux-ca
+    name: homelab-ca

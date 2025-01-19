@@ -14,7 +14,7 @@ spec:
       destinationPath: s3://backups/mattermost
       endpointURL: https://s3.infra.server.home:9000
       endpointCA:
-        name: s3-ca
+        name: homelab-ca
         key: ca.crt
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
@@ -39,7 +39,7 @@ spec:
   #       destinationPath: s3://backups/mattermost
   #       endpointURL: https://s3.infra.server.home:9000
   #       endpointCA:
-  #         name: s3-ca
+  #         name: homelab-ca
   #         key: ca.crt
   #       # When recovering from WAL or backup, change the value of
   #       # backup.barmanObjectStore.serverName so that the new WAL is written
