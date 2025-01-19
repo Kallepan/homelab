@@ -34,7 +34,7 @@ spec:
       volumeClaimName: mattermost-data
   volumeMounts:
     - name: ca-secret
-      mountPath: /usr/share/ca-certificates/homelab_ca.crt
+      mountPath: /etc/ssl/certs/homelab_ca.crt
       subPath: homelab_ca.crt
       readOnly: true
   volumes:
