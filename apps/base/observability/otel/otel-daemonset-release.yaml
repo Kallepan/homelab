@@ -121,11 +121,15 @@ spec:
       exporters:
         debug: {}
         otlphttp/logs:
-          endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
+          endpoint: "http://loki-distributor.observability.svc.cluster.local:3100/otlp"
+          tls:
+            insecure: true
+        otlphttp/metrics:
+          endpoint: "http://prometheus-kube-prometheus-prometheus.observability.svc.cluster.local:9090/api/v1/otlp"
           tls:
             insecure: true
         otlp/traces:
-          endpoint: http://jaeger-collector.observability.svc.cluster.local:4317
+          endpoint: "http://jaeger-collector.observability.svc.cluster.local:4317"
           tls:
             insecure: true
 
@@ -145,7 +149,7 @@ spec:
               - filelog
           metrics:
             exporters:
-              - debug
+              - otlphttp/metrics
             processors:
               - k8sattributes
               - memory_limiter
