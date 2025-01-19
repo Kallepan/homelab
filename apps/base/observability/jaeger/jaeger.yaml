@@ -1,26 +1,26 @@
-# apiVersion: jaegertracing.io/v1
-# kind: Jaeger
-# metadata:
-#   name: jaeger
-#   namespace: observability
-# spec:
-#   strategy: allInOne
-#   allInOne:
-#     options:
-#       log-level: debug
-#   storage:
-#     type: memory
-#     options:
-#       memory:
-#         max-traces: 100000
-#   ingress:
-#     enabled: true
-#     ingressClassName: istio
-#     hosts:
-#       - jaeger.prod.server.home
-#     tls:
-#       - secretName: jaeger-tls-secret
-#         hosts:
-#           - jaeger.prod.server.home
-#   agent:
-#     strategy: DaemonSet
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+  namespace: observability
+spec:
+  strategy: allInOne
+  allInOne:
+    options:
+      log-level: debug
+  storage:
+    type: memory
+    options:
+      memory:
+        max-traces: 100000
+  ingress:
+    enabled: true
+    ingressClassName: istio
+    hosts:
+      - jaeger.prod.server.home
+    tls:
+      - secretName: jaeger-tls-secret
+        hosts:
+          - jaeger.prod.server.home
+  agent:
+    strategy: DaemonSet
