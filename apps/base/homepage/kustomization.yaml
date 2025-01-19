@@ -10,10 +10,12 @@ resources:
   - ingress.yaml
   - service.yaml
   - serviceaccount.yaml
-commonLabels:
-  app.kubernetes.io/name: homepage
-  app.kubernetes.io/instance: homepage-production
-  app.kubernetes.io/version: "1.0"
-  app.kubernetes.io/component: web
-  app.kubernetes.io/part-of: homepage
-  app.kubernetes.io/managed-by: flux
+labels:
+  - includeSelectors: true
+    pairs:
+      - app.kubernetes.io/name: homepage
+      - app.kubernetes.io/instance: homepage-production
+      - app.kubernetes.io/version: "1.0"
+      - app.kubernetes.io/component: web
+      - app.kubernetes.io/part-of: homepage
+      - app.kubernetes.io/managed-by: flux
