@@ -32,3 +32,15 @@ spec:
   fileStore:
     externalVolume:
       volumeClaimName: mattermost-data
+  volumeMounts:
+    - name: ca-secret
+      mountPath: /usr/share/ca-certificates/homelab_ca.crt
+      subPath: homelab_ca.crt
+      readOnly: true
+  volumes:
+    - name: ca-secret
+      secret:
+        items:
+          - key: homelab_ca.crt
+            path: homelab_ca.crt
+        secretName: homelab-ca
