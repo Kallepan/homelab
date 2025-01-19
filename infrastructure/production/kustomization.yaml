@@ -46,9 +46,15 @@ patches:
       name: istiod
       namespace: istio-system
   - patch: |
-      - op: replace
-        path: /spec/values/meshConfig/defaultConfig/tracing/zipkin/address
-        value: "jaeger-collector.istio-system.svc.cluster.local:9411"
+      - op: add
+        path: /spec/values/meshConfig/extensionProviders/-
+        value:
+          name: "otel-tracing"
+          opentelemetry:
+            port: 4317
+            service: "otel-daemonset-opentelemetry-collector.observability.svc.cluster.local"
+            resource_detectors:
+              environment: {}
     target:
       kind: HelmRelease
       name: istiod
