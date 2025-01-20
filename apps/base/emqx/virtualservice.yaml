@@ -6,7 +6,7 @@ metadata:
   namespace: emqx
 spec:
   gateways:
-    - emqx-mqtt-gateway
+    - gateway-mqtt
   hosts:
     - mqtt.prod.server.home
   tcp:
