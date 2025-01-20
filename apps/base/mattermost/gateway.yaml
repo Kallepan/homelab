@@ -1,0 +1,28 @@
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: gateway-mattermost
+  namespace: mattermost
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - mattermost.prod.server.home
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - mattermost.prod.server.home
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: mattermost-tls-secret

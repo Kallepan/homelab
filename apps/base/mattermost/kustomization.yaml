@@ -6,5 +6,6 @@ resources:
   - pg-cluster.yaml
   - mattermost-installation.yaml
   - cert.yaml
-  - ingress.yaml
   - pvc.yaml
+  - gateway.yaml
+  - virtualservice.yaml

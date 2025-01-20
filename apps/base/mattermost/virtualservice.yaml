@@ -1,0 +1,20 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: virtualservice-mattermost
+  namespace: mattermost
+spec:
+  hosts:
+    - mattermost.prod.server.home
+  gateways:
+    - gateway-mattermost
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: mattermost.mattermost.svc.cluster.local
+            port:
+              number: 8065
