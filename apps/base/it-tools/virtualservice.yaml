@@ -1,0 +1,20 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: virtualservice-it-tools
+  namespace: it-tools
+spec:
+  hosts:
+    - it-tools.prod.server.home
+  gateways:
+    - gateway-it-tools
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: tools-svc.it-tools.svc.cluster.local
+            port:
+              number: 80
