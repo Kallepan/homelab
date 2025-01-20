@@ -22,7 +22,7 @@ spec:
   values:
     alertmanager:
       alertmanagerSpec:
-        externalUrl: https://mgmt.infra.server.home/k8s/clusters/c-jgthw/api/v1/namespaces/monitoring/services/http:prometheus-kube-prometheus-alertmanager:9093/proxy/
+        externalUrl: https://mgmt.infra.server.home/k8s/clusters/c-jgthw/api/v1/namespaces/observability/services/http:prometheus-kube-prometheus-alertmanager:9093/proxy/
         secrets:
           - alertmanager-mattermost-webhook-url
           - homelab-ca
