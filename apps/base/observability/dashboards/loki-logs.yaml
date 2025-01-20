@@ -35,7 +35,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 46,
+      "id": 120,
       "links": [],
       "panels": [
         {
@@ -254,12 +254,19 @@ data:
               "value": "$__all"
             },
             "datasource": "P982945308D3682D1",
-            "definition": "label_values(namespace)",
+            "definition": "",
+            "description": "",
             "includeAll": true,
+            "label": "Namespace",
             "multi": true,
             "name": "namespace",
             "options": [],
-            "query": "label_values(namespace)",
+            "query": {
+              "label": "k8s_namespace_name",
+              "refId": "LokiVariableQueryEditor-VariableQuery",
+              "stream": "",
+              "type": 1
+            },
             "refresh": 1,
             "regex": "",
             "type": "query"
@@ -271,12 +278,19 @@ data:
               "value": "$__all"
             },
             "datasource": "P982945308D3682D1",
-            "definition": "label_values(container)",
+            "definition": "",
+            "description": "",
             "includeAll": true,
+            "label": "Container",
             "multi": true,
             "name": "container",
             "options": [],
-            "query": "label_values(container)",
+            "query": {
+              "label": "k8s_container_name",
+              "refId": "LokiVariableQueryEditor-VariableQuery",
+              "stream": "",
+              "type": 1
+            },
             "refresh": 1,
             "regex": "",
             "type": "query"
@@ -291,6 +305,6 @@ data:
       "timezone": "",
       "title": "Loki Kubernetes Logs",
       "uid": "o6-BGgnnk",
-      "version": 1,
+      "version": 2,
       "weekStart": ""
     }
