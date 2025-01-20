@@ -1,0 +1,20 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: virtualservice-homepage
+  namespace: homepage
+spec:
+  hosts:
+    - homepage.prod.server.home
+  gateways:
+    - gateway-homepage
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: homepage.homepage.svc.cluster.local
+            port:
+              number: 3000

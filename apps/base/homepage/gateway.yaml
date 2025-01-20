@@ -1,0 +1,28 @@
+---
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: gateway-homepage
+  namespace: homepage
+spec:
+  selector:
+    app: istio-ingressgateway
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - homepage.prod.server.home
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - homepage.prod.server.home
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: homepage-tls-secret

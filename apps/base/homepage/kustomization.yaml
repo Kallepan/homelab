@@ -7,9 +7,10 @@ resources:
   - clusterrole.yaml
   - configmap.yaml
   - deployment.yaml
-  - ingress.yaml
   - service.yaml
   - serviceaccount.yaml
+  - gateway.yaml
+  - virtualservice.yaml
 labels:
   - includeSelectors: true
     pairs:

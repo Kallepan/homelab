@@ -18,8 +18,8 @@ spec:
       hosts:
         - sso.core.infra.server.home
     - port:
-        number: 443
         name: https
+        number: 443
         protocol: HTTPS
       tls:
         mode: SIMPLE
