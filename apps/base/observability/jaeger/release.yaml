@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jaeger
+  namespace: observability
+spec:
+  interval: 5m
+  timeout: 5m
+  chart:
+    spec:
+      chart: jaeger
+      version: "3.x"
+      sourceRef:
+        kind: HelmRepository
+        name: jaegertracing
+        namespace: observability
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    storage:
+      type: cassandra
+    query:
+      ingress:
+        enabled: true
+        ingressClassName: istio
+        hosts:
+          - jaeger.prod.server.home
+        tls:
+          - secretName: jaeger-tls-secret
+            hosts:
+              - jaeger.prod.server.home
+    agent:
+      enabled: false
