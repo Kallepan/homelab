@@ -22,7 +22,8 @@ spec:
   values:
     storage:
       type: cassandra
-    query:
+    allInOne:
+      enabled: true
       ingress:
         enabled: true
         ingressClassName: istio
@@ -35,5 +36,6 @@ spec:
     agent:
       enabled: false
     collector:
-      cmdlineParams:
-        collector.otlp.enabled: "true"
+      enabled: false
+    query:
+      enabled: true

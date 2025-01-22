@@ -121,7 +121,7 @@ spec:
           tls:
             insecure: true
         otlp/traces:
-          endpoint: "http://jaeger-collector.observability.svc.cluster.local:14250"
+          endpoint: "http://jaeger-collector.observability.svc.cluster.local:4317"
           tls:
             insecure: true
 
