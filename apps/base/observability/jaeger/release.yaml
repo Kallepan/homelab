@@ -20,6 +20,10 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    provisionDataStore:
+      cassandra: true
+      elasticsearch: false
+      kafka: false
     storage:
       type: cassandra
     allInOne:
