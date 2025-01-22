@@ -54,9 +54,6 @@ spec:
       namespace: it-tools
     - kind: HelmRepository
       name: "*"
-      namespace: jaeger-operator
-    - kind: HelmRepository
-      name: "*"
       namespace: kajkandeepan
     - kind: HelmRepository
       name: "*"

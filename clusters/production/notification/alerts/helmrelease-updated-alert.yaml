@@ -53,9 +53,6 @@ spec:
       namespace: it-tools
     - kind: HelmRelease
       name: "*"
-      namespace: jaeger-operator
-    - kind: HelmRelease
-      name: "*"
       namespace: kajkandeepan
     - kind: HelmRelease
       name: "*"
