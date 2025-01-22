@@ -46,15 +46,6 @@ data:
           description: Management UI for Docker.
           href: https://portainer.app.server.home/
           icon: portainer.png
-    - Storage:
-      - Nextcloud:
-          description: Files, contacts, calendars and more.
-          href: https://nextcloud.prod.server.home/
-          icon: nextcloud.png
-      - Minio:
-          description: S3 Object Storage.
-          href: https://s3.infra.server.home/
-          icon: minio.png
     - Git Instances:
       - GitLab:
           description: Fully integrated software development platform.
@@ -116,7 +107,7 @@ data:
       - Argo Workflows:
           description: Workflow engine for Kubernetes.
           href: https://argo-workflows.prod.server.home
-          icon: argocd.png
+          icon: argo-cd.png
       - KNative:
           description: Kubernetes-based platform to build, deploy, and manage modern serverless workloads.
           href: https://knative.prod.server.home/
@@ -130,6 +121,15 @@ data:
           description: Collection of tools useful for IT professionals.
           href: https://it-tools.prod.server.home/
           icon: it-tools.png
+    - Storage:
+      - Nextcloud:
+          description: Files, contacts, calendars and more.
+          href: https://nextcloud.prod.server.home/
+          icon: nextcloud.png
+      - Minio:
+          description: S3 Object Storage.
+          href: https://s3.infra.server.home/
+          icon: minio.png
   custom.css: ""
   custom.js: ""
   settings.yaml: |
@@ -162,6 +162,8 @@ data:
         icon: mdi-cogs
       Misc:
         icon: mdi-tools
+      Storage:
+        icon: mdi-cloud
   widgets.yaml: |
     - resources:
         backend: kubernetes
