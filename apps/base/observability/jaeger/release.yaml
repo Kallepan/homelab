@@ -34,3 +34,6 @@ spec:
               - jaeger.prod.server.home
     agent:
       enabled: false
+    collector:
+      cmdlineParams:
+        collector.otlp.enabled: "true"
