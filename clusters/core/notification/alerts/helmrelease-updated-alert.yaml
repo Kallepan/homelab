@@ -47,6 +47,9 @@ spec:
       namespace: it-tools
     - kind: HelmRelease
       name: "*"
+      namespace: jaeger-operator
+    - kind: HelmRelease
+      name: "*"
       namespace: keycloak
     - kind: HelmRelease
       name: "*"

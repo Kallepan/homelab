@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: jaegertracing
-  namespace: observability
+  namespace: jaeger-operator
 spec:
   interval: 1h
   url: https://jaegertracing.github.io/helm-charts

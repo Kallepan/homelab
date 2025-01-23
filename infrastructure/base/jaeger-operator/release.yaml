@@ -1,0 +1,34 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jaeger-operator
+  namespace: jaeger-operator
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: jaeger-operator
+      version: "2.x"
+      sourceRef:
+        kind: HelmRepository
+        name: jaegertracing
+        namespace: jaeger-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    rbac:
+      create: true
+      clusterRole: true
+    serviceAccount:
+      create: true
+      name: jaeger-operator
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi

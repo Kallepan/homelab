@@ -6,6 +6,7 @@ resources:
   - ../base/cnpg-operator
   - ../base/emqx-operator
   - ../base/istio-system
+  - ../base/jaeger-operator
   - ../base/kiali-operator
   - ../base/knative-operator
   - ../base/mattermost-operator

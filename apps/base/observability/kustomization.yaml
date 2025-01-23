@@ -8,8 +8,7 @@ resources:
 
   # Tracing (Jaeger)
   - jaeger/cert.yaml
-  - jaeger/repository.yaml
-  - jaeger/release.yaml
+  - jaeger/jaeger.yaml
 
   # Metrics (Prometheus)
   - kube-prometheus-stack/cert.yaml

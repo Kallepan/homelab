@@ -48,6 +48,9 @@ spec:
       namespace: it-tools
     - kind: HelmRepository
       name: "*"
+      namespace: jaeger-operator
+    - kind: HelmRepository
+      name: "*"
       namespace: keycloak
     - kind: HelmRepository
       name: "*"
