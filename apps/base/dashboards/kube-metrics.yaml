@@ -241,7 +241,7 @@ data:
                 "uid": "prometheus"
               },
               "editorMode": "code",
-              "expr": "apiserver_request:availability30d{verb=\"all\"}",
+              "expr": "apiserver_request:availability30d",
               "instant": false,
               "legendFormat": "availability",
               "range": true,
