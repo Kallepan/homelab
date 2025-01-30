@@ -32,7 +32,7 @@ spec:
           resolve_timeout: 5m
           http_config:
             tls_config:
-              ca_file: /etc/alertmanager/secrets/homelab-ca/ca.crt
+              ca_file: /etc/alertmanager/secrets/homelab-ca/homelab_ca.crt
         inhibit_rules:
           - source_matchers:
               - "severity = critical"
