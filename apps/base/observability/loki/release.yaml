@@ -147,7 +147,7 @@ spec:
                 rules:
                   - alert: HighPercentageError
                     expr: |
-                      sum(rate({k8s_container_name=~".+", k8s_pod_name !~ "(\\S+-postgres-\\d) | (loki-querier-.+)"}} |= "error" [5m])) by (k8s_namespace_name, k8s_pod_name)
+                      sum(rate({k8s_container_name=~".+", k8s_pod_name !~ "(\\S+-postgres-\\d) | (loki-querier-.+)"} |= "error" [5m])) by (k8s_namespace_name, k8s_pod_name)
                         /
                       sum(rate({k8s_container_name=~".+"}[5m])) by (k8s_namespace_name, k8s_pod_name)
                         > 0.10
