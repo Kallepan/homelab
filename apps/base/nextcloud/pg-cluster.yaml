@@ -15,7 +15,7 @@ spec:
       endpointURL: https://s3.infra.server.home:9000
       endpointCA:
         name: homelab-ca
-        key: ca.crt
+        key: homelab_ca.crt
       # When recovering from WAL or backup, change this value so that the new WAL
       # is written to a new directory in the bucket.
       # serverName: cluster-1
