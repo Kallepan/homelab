@@ -38,7 +38,7 @@ spec:
         upstreams=["static://200"]
 
         # SSL
-        provider_ca_files=["/etc/ssl/certs/homelab-homelab_ca.crt"]
+        provider_ca_files=["/etc/ssl/certs/homelab_ca.crt"]
 
         # Logout
         whitelist_domains=[".server.home"]
