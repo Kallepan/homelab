@@ -5,6 +5,9 @@ metadata:
   namespace: observability
 spec:
   config:
+    extensions:
+      health_check:
+        endpoint: ${env:MY_POD_IP}:13133
 
     exporters:
       debug: {}
@@ -62,6 +65,8 @@ spec:
               - set(severity_number, SEVERITY_NUMBER_WARN) where attributes["type"] == "Warning"
     
     service:
+      extensions:
+        - health_check
       pipelines:
         logs:
           exporters:

@@ -12,6 +12,31 @@ rules:
       - "get"
       - "list"
       - "watch"
+  - apiGroups:
+      - ""
+    resources:
+      - "pods"
+      - "namespaces"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "apps"
+    resources:
+      - "replicasets"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
+  - apiGroups:
+      - "extensions"
+    resources:
+      - "replicasets"
+    verbs:
+      - "get"
+      - "list"
+      - "watch"
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -24,4 +49,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: otel-deployment-collector
+    namespace: observability
+  - kind: ServiceAccount
+    name: otel-daemonset-collector
     namespace: observability
