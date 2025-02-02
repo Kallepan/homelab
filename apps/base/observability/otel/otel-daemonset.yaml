@@ -124,6 +124,7 @@ spec:
         traces:
           exporters:
             # - otlp/traces
+            - debug
           processors:
             - k8sattributes
             - memory_limiter
@@ -134,3 +135,21 @@ spec:
       telemetry:
         metrics:
           address: ${env:MY_POD_IP}:8888
+  
+  volumeMounts:
+    - name: varlogpods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: varlibdockercontainers
+      mountPath: /var/lib/docker/containers
+      readOnly: true
+
+  volumes:
+    - name: varlogpods
+      hostPath:
+        path: /var/log/pods
+        type: ''
+    - name: varlibdockercontainers
+      hostPath:
+        path: /var/lib/docker/containers
+        type: ''
