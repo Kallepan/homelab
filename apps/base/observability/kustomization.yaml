@@ -5,7 +5,6 @@ resources:
   - otel/repository.yaml
   - otel/rbac.yaml
   - otel/otel-deployment.yaml
-  - otel/otel-daemonset-release.yaml
   - otel/otel-daemonset.yaml
 
   # Tracing (Jaeger)
