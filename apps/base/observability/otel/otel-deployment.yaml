@@ -65,7 +65,7 @@ spec:
       pipelines:
         logs:
           exporters:
-            - debug
+            - otlphttp/logs
           processors:
             - transform/events
             - resource
