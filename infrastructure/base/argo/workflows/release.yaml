@@ -60,9 +60,9 @@ spec:
     server:
       volumeMounts:
         - name: certificate
-          mountPath: /etc/ssl/certs/rootCA.crt
+          mountPath: /etc/ssl/certs/homelab_ca.crt
           readOnly: true
-          subPath: rootCA.crt
+          subPath: homelab_ca.crt
       volumes:
         - name: certificate
           configMap:
