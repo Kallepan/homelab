@@ -14,11 +14,12 @@ spec:
           insecure: true
 
     receivers:
-      objects:
-        - name: events
-          mode: pull
-          group: events.k8s.io
-          interval: 1m
+      k8sobjects:
+        objects:
+          - name: events
+            mode: pull
+            group: events.k8s.io
+            interval: 1m
 
     processors:
       memory_limiter:
