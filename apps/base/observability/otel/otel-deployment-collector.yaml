@@ -1,0 +1,74 @@
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel-deployment-collector
+  namespace: observability
+spec:
+  config:
+
+    exporters:
+      debug: {}
+      otlphttp/logs:
+        endpoint: http://loki-distributor.observability.svc.cluster.local:3100/otlp
+        tls:
+          insecure: true
+
+    receivers:
+      objects:
+        - name: events
+          mode: pull
+          group: events.k8s.io
+          interval: 1m
+
+    processors:
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 75
+        spike_limit_percentage: 15
+      
+      batch:
+        send_batch_size: 1000
+        timeout: 1s
+
+      resource:
+        attributes:
+          - key: service.name
+            value: "kube-events"
+            action: upsert
+      transform/events:
+        error_mode: ignore
+        log_statements:
+          - context: log
+            statements:
+              # Maps the k8s.* attributes to the right Otel attribute
+              - set(attributes["watch-type"], body["type"]) where IsMap(body) and body["type"] != nil
+
+              - merge_maps(attributes, body, "upsert") where IsMap(body) and body["object"] == nil
+              - merge_maps(attributes, body["object"], "upsert") where IsMap(body) and body["object"] != nil
+
+              - merge_maps(attributes, attributes["metadata"], "upsert") where IsMap(attributes[ "metadata"])
+
+              # Maps the name of the resource to the right k8s.* attribute
+              - set(attributes["k8s.pod.name"], attributes["regarding"] ["name"]) where attributes["regarding"]["kind"] == "Pod"
+              - set(attributes["k8s.node.name"], attributes["regarding"]["name"]) where attributes["regarding"]["kind"] == "Node"
+              - set(attributes["k8s.job.name"], attributes["regarding"]["name"]) where attributes["regarding"]["kind"] == "Job"
+              - set(attributes["k8s.cronjob.name"], attributes["regarding"]["name"]) where attributes["regarding"]["kind"] == "CronJob"
+              - set(attributes["k8s.namespace.name"], attributes["regarding"]["namespace"]) where attributes["regarding"]["kind"] == "Pod" or attributes["regarding"]["kind"] == "Job" or attributes["regarding"]["kind"] == "CronJob"
+
+              # Converts event types to Otel log Severities
+              - set(severity_text, attributes["type"]) where attributes["type"] == "Normal" or attributes["type"] == "Warning"
+              - set(severity_number, SEVERITY_NUMBER_INFO) where attributes["type"] == "Normal"
+              - set(severity_number, SEVERITY_NUMBER_WARN) where attributes["type"] == "Warning"
+    
+    service:
+      pipelines:
+        logs:
+          exporters:
+            - debug
+          processors:
+            - transform/events
+            - resource
+            - memory_limiter
+            - batch
+          receivers:
+            - k8sobjects
