@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   # OTel Collector
-  - otel/repository.yaml
   - otel/rbac.yaml
   - otel/otel-deployment.yaml
   - otel/otel-daemonset.yaml
