@@ -53,7 +53,7 @@ patches:
           name: "otel-tracing"
           opentelemetry:
             port: 4317
-            service: "otel-daemonset-opentelemetry-collector.observability.svc.cluster.local"
+            service: "otel-daemonset-collector.observability.svc.cluster.local"
             resource_detectors:
               environment: {}
     target:
