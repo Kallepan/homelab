@@ -219,7 +219,7 @@ data:
               "refId": "A"
             }
           ],
-          "title": "Panel Title",
+          "title": "Kubernetes Warnings",
           "type": "logs"
         }
       ],
