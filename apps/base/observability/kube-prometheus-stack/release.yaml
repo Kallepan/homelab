@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: "68.x"
+      version: "69.x"
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -97,6 +97,9 @@ spec:
                 annotations:
                   summary: "Endpoint {{ $labels.instance }} is down"
                   description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+    crds:
+      upgradeJob:
+        enabled: true
     defaultRules:
       create: true
       rules:
