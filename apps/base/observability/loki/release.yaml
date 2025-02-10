@@ -118,7 +118,7 @@ spec:
           #               > 0.05
           #           for: 10m
           #           labels:
-          #               severity: page
+          #               severity: critical
           #           annotations:
           #               summary: High request latency
           high_warn_rate.yaml: |
