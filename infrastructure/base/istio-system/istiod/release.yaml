@@ -20,10 +20,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    profile: ambient
-    pilot:
-      cni:
-        enabled: true
     meshConfig:
       extensionProviders: []
       enableTracing: false

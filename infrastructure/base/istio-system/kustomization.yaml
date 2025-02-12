@@ -6,8 +6,6 @@ resources:
   - istio-base/release.yaml
   - istiod/release.yaml
   - istio-ingressgateway/release.yaml
-  - istio-cni/release.yaml
-  - ztunnel/release.yaml
 
   - telemetry.yaml
   - ingressclass.yaml
