@@ -121,6 +121,10 @@ data:
           description: Collection of tools useful for IT professionals.
           href: https://it-tools.prod.server.home/
           icon: it-tools.png
+      - Shlink:
+          description: Shorten URLs and serve them under your own short domain.
+          href: https://shlink.app.server.home/
+          icon: shlink.png
     - Storage:
       - Nextcloud:
           description: Files, contacts, calendars and more.
