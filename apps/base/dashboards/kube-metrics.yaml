@@ -29,7 +29,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 115,
+      "id": 372,
       "links": [],
       "panels": [
         {
@@ -128,11 +128,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -229,11 +230,12 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -302,7 +304,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -370,7 +372,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -485,11 +487,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -592,11 +595,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -699,11 +703,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -778,7 +783,7 @@ data:
             "textMode": "auto",
             "wideLayout": true
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -858,7 +863,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -960,11 +965,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1223,7 +1229,7 @@ data:
               }
             ]
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1452,11 +1458,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1559,11 +1566,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1680,11 +1688,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1787,11 +1796,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -1886,11 +1896,12 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2016,11 +2027,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2138,11 +2150,12 @@ data:
               "sortDesc": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2270,7 +2283,7 @@ data:
             "textMode": "value_and_name",
             "wideLayout": true
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2377,11 +2390,12 @@ data:
               "showLegend": true
             },
             "tooltip": {
+              "hideZeros": false,
               "mode": "single",
               "sort": "none"
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2465,7 +2479,7 @@ data:
               "reverse": false
             }
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "targets": [
             {
               "datasource": {
@@ -2505,6 +2519,7 @@ data:
             ],
             "groupMode": "default",
             "maxItems": 20,
+            "showInactiveAlerts": false,
             "sortOrder": 1,
             "stateFilter": {
               "error": true,
@@ -2515,9 +2530,131 @@ data:
             },
             "viewMode": "list"
           },
-          "pluginVersion": "11.4.0",
+          "pluginVersion": "11.5.1",
           "title": "Alerts",
           "type": "alertlist"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 109
+          },
+          "id": 34,
+          "panels": [],
+          "title": "Traffic",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "default": true,
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "decimals": 2,
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 110
+          },
+          "id": 35,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true,
+              "sortBy": "Last *",
+              "sortDesc": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.5.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "sum(rate(istio_requests_total[$__rate_interval])) by(destination_service_namespace)",
+              "instant": false,
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Istio Ingress Traffic",
+          "type": "timeseries"
         }
       ],
       "preload": false,
