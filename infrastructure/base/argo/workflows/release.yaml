@@ -83,6 +83,9 @@ spec:
         rbac:
           enabled: true
         scopes:
+          - openid
+          - profile
+          - email
           - groups
       ingress:
         enabled: true
