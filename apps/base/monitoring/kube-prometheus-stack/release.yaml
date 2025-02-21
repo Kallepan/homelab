@@ -84,19 +84,6 @@ spec:
           - name: "null"
         templates:
           - "/etc/alertmanager/config/*.tmpl"
-    additionalPrometheusRulesMap:
-      endpoint-alerts:
-        groups:
-          - name: endpoint-alerts
-            rules:
-              - alert: EndpointDown
-                expr: up{job="blackbox"} == 0 or probe_success{job="blackbox"} == 0
-                for: 1m
-                labels:
-                  severity: critical
-                annotations:
-                  summary: "Endpoint {{ $labels.instance }} is down"
-                  description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
     defaultRules:
       create: true
       rules:
