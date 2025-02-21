@@ -85,6 +85,7 @@ spec:
           - openid
           - profile
           - email
+          - groups
       ingress:
         enabled: true
         ingressClassName: istio
