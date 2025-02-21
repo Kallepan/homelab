@@ -6,14 +6,14 @@ This repository contains the configuration files for my homelab setup. The setup
 
 ### Network Devices on Proxmox
 
-| Interface | VLAN ID | Description | IP Address     |
-|-----------|---------|-------------|----------------|
-| enp5s0    | -       | Management  | 192.168.0.2/24 |
-| enp42s0   | -       | VMs         | -              |
+| Interface | VLAN ID | Description | IP Address     | Assigned To |
+|-----------|---------|-------------|----------------|-------------|
+| enp5s0    | -       | Management  | 192.168.0.2/24 | vmbr0       |
+| enp42s0   | -       | VMs         | -              | vmbr1       |
 
 ### IP Ranges
 
-| Interface | VLAN ID | Name    | CIDRv4         | CIDRv6         |
+| Bridge    | VLAN ID | Name    | CIDRv4         | CIDRv6         |
 |-----------|---------|---------|----------------|----------------|
 | vmbr1     | 10      | MGMT    | 10.10.0.0/24   | fd10::/64      |
 | vmbr1     | 30      | PROD    | 10.30.0.0/24   | fd30::/64      |
@@ -45,16 +45,16 @@ The repository is structured as follows:
 ├── apps # Application configuration (e.g. HelmReleases)
 │   ├── base
 │   ├── core
-│   ├── production
-│   └── test
-├── clusters # Flux CI/CD configuration
+│   └── production
+│
+├── clusters # Flux CI/CD configuration for each cluster
 │   ├── core
-│   ├── production
-│   └── test 
+│   └── production
+│
 ├── infrastructure # Core infrastructure configuration (e.g. operators, service meshes, cert-manager)
 │   ├── base
 │   ├── core
-│   ├── production
-│   └── test
+│   └── production
+│
 └── namespaces
 ```
