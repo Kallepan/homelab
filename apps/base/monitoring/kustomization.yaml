@@ -6,6 +6,3 @@ resources:
   - kube-prometheus-stack/cert.yaml
   - kube-prometheus-stack/release.yaml
   - kube-prometheus-stack/repository.yaml
-
-  # Endpoint monitoring
-  - blackbox/release.yaml
