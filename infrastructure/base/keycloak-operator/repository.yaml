@@ -9,4 +9,4 @@ spec:
   url: https://github.com/keycloak/keycloak-k8s-resources
   ref:
     # CHORE: https://www.keycloak.org/operator/installation#_installing_by_using_kubectl_without_operator_lifecycle_manager
-    tag: "26.0.7"
+    tag: "26.1.2"
