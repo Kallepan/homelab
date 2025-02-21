@@ -58,6 +58,8 @@ spec:
       workflowNamespaces:
         - workflows
     server:
+      logging:
+        level: debug
       volumeMounts:
         - name: certificate
           mountPath: /etc/ssl/certs/homelab_ca.crt
@@ -86,7 +88,6 @@ spec:
           - openid
           - profile
           - email
-          - groups
       ingress:
         enabled: true
         ingressClassName: istio
