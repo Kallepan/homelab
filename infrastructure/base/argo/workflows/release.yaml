@@ -58,8 +58,6 @@ spec:
       workflowNamespaces:
         - workflows
     server:
-      logging:
-        level: debug
       volumeMounts:
         - name: certificate
           mountPath: /etc/ssl/certs/homelab_ca.crt
@@ -71,7 +69,6 @@ spec:
             name: homelab-ca
       authModes:
         - sso
-        - client
       sso:
         enabled: true
         issuer: https://sso.core.infra.server.home/realms/homelab
