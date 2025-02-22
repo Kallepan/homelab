@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: knative-operator
 resources:
   # CHORE: https://github.com/knative/operator
-  - https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
+  - https://github.com/knative/operator/releases/download/knative-v1.17.0/operator.yaml
