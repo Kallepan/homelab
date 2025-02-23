@@ -20,6 +20,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    meshID: ""
     meshConfig:
       extensionProviders: []
       enableTracing: false

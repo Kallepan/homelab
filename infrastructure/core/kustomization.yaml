@@ -12,6 +12,14 @@ resources:
 patches:
   - patch: |
       - op: replace
+        path: /spec/values/meshID
+        value: core-cluster-mesh
+    target:
+      kind: HelmRelease
+      name: istiod
+      namespace: istio-system
+  - patch: |
+      - op: replace
         path: /spec/values/service/loadBalancerIP
         value: 10.10.0.10
     target:

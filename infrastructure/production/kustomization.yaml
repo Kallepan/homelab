@@ -24,6 +24,9 @@ patches:
       name: istio-ingressgateway
       namespace: istio-system
   - patch: |
+      - op: replace
+        path: /spec/values/meshID
+        value: "production-cluster-mesh"
       - op: add
         path: /spec/values/meshConfig/extensionProviders/-
         value:
