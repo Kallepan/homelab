@@ -92,6 +92,7 @@ spec:
         kubeSchedulerRecording: false
         kubeProxy: false
     grafana:
+      adminUser: administator
       additionalDataSources:
         - access: proxy
           isDefault: false

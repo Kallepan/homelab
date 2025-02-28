@@ -108,6 +108,7 @@ spec:
         kubeSchedulerRecording: false
         kubeProxy: false
     grafana:
+      adminUser: administator
       additionalDataSources:
         - access: proxy
           isDefault: false
@@ -130,6 +131,7 @@ spec:
           mountPath: /etc/secrets/auth_generic_oauth
           readOnly: true
       grafana.ini:
+        level: debug # TODO: Remove this line
         server:
           root_url: https://monitoring.prod.server.home
         auth.anonymous:
