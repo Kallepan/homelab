@@ -19,3 +19,5 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    metrics:
+      enabled: true
