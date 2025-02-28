@@ -137,7 +137,7 @@ spec:
         auth.generic_oauth:
           tls_skip_verify_insecure: true
           auto_login: false
-          allow_assign_grafana_admin: false
+          allow_assign_grafana_admin: true
           allow_sign_up: true
           api_url: https://sso.core.infra.server.home/realms/homelab/protocol/openid-connect/userinfo
           auth_url: https://sso.core.infra.server.home/realms/homelab/protocol/openid-connect/auth
