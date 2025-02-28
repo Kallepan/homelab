@@ -26,6 +26,9 @@ spec:
       namespace: cnpg-operator
     - kind: HelmRelease
       name: "*"
+      namespace: crossplane-system
+    - kind: HelmRelease
+      name: "*"
       namespace: elastic-operator
     - kind: HelmRelease
       name: "*"
