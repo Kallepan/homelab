@@ -65,13 +65,7 @@ spec:
       namespace: kiali-operator
     - kind: HelmRelease
       name: "*"
-      namespace: knative-eventing
-    - kind: HelmRelease
-      name: "*"
       namespace: knative-operator
-    - kind: HelmRelease
-      name: "*"
-      namespace: knative-serving
     - kind: HelmRelease
       name: "*"
       namespace: kubernetes-sigs

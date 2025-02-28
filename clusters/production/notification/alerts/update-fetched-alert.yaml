@@ -66,13 +66,7 @@ spec:
       namespace: kiali-operator
     - kind: HelmRepository
       name: "*"
-      namespace: knative-eventing
-    - kind: HelmRepository
-      name: "*"
       namespace: knative-operator
-    - kind: HelmRepository
-      name: "*"
-      namespace: knative-serving
     - kind: HelmRepository
       name: "*"
       namespace: kubernetes-sigs
