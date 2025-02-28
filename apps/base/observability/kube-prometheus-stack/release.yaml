@@ -150,9 +150,9 @@ spec:
           name_attribute_path: name
           name: Keycloak-OAuth
           role_attribute_path: >-
-            (resource_access.monitoring.role == 'admin' && 'Admin') ||
-            (resource_access.monitoring.role == 'editor' && 'Editor') ||
-            (resource_access.monitoring.role == 'viewer' && 'Viewer') || 'Viewer'
+            (resource_access.grafana.role == 'admin' && 'Admin') ||
+            (resource_access.grafana.role == 'editor' && 'Editor') ||
+            (resource_access.grafana.role == 'viewer' && 'Viewer') || 'Viewer'
           scopes: openid email profile offline_access roles
           skip_org_role_sync: false
       ingress:
