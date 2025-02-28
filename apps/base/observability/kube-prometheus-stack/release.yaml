@@ -149,9 +149,7 @@ spec:
           login_attribute_path: preferred_username
           name_attribute_path: name
           name: Keycloak-OAuth
-          role_attribute_path: >-
-            contains(resource_access.grafana.roles[*], 'admin') && 'Admin' ||
-            contains(resource_access.grafana.roles[*], 'editor') && 'Editor' || 'Viewer'
+          role_attribute_path: contains(resource_access.grafana.roles[*], 'admin') && 'Admin' || contains(resource_access.grafana.roles[*], 'editor') && 'Editor' || 'Viewer'
           scopes: openid email profile offline_access roles
           skip_org_role_sync: false
       ingress:
