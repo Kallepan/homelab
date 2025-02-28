@@ -131,8 +131,6 @@ spec:
           mountPath: /etc/secrets/auth_generic_oauth
           readOnly: true
       grafana.ini:
-        log:
-          level: debug # TODO: Remove this line
         server:
           root_url: https://monitoring.prod.server.home
         auth.anonymous:
