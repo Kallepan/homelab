@@ -5,6 +5,7 @@ resources:
   - ../base/cert-manager
   - ../base/cnpg-operator
   - ../base/crossplane
+  - ../base/eso-operator
   - ../base/emqx-operator
   - ../base/istio-system
   - ../base/jaeger-operator
