@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/cnpg-operator
-  - ../base/eso-operator
   - ../base/gitlab-operator
   - ../base/istio-system
   - ../base/keycloak-operator
