@@ -17,7 +17,7 @@ This repository contains the configuration files for my homelab setup. The setup
 |-----------|---------|---------|----------------|----------------|
 | vmbr1     | 10      | MGMT    | 10.10.0.0/24   | fd10::/64      |
 | vmbr1     | 30      | PROD    | 10.30.0.0/24   | fd30::/64      |
-| vmbr1     | 40      | STAG    | 10.40.0.0/24   | fd40::/64      |
+| vmbr1     | 40      | SVC     | 10.40.0.0/24   | fd40::/64      |
 | vmbr1     | 50      | STOR    | 10.50.0.0/24   | fd50::/64      |
 | vmbr1     | 100     | DMZ     | 172.16.0.0/24  | fd64:100::/64  |
 
@@ -31,7 +31,7 @@ This repository contains the configuration files for my homelab setup. The setup
 
 - `server.home`: Main domain
 - `prod.server.home`: Production domain
-- `staging.server.home`: Staging domain
+- `svc.server.home`: Service domain
 - `s3.infra.server.home`: S3
 - `bastion.infra.server.home`: Bastion
 - `mgmt.infra.server.home`: Management
