@@ -27,3 +27,11 @@ patches:
       kind: HelmRelease
       name: istiod
       namespace: istio-system
+  - patch: |
+      - op: replace
+        path: /spec/values/meshConfig/enableTracing
+        value: true
+    target:
+      kind: HelmRelease
+      name: istiod
+      namespace: istio-system
