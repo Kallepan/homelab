@@ -6,6 +6,8 @@ resources:
   - ../base/jaeger-operator
   - ../base/kiali-operator
   - ../base/metallb-system
+  - ../base/openebs
+  - ../base/otel-operator
 patches:
   - patch: |
       - op: replace

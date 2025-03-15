@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - istio.yaml
   - kube-metrics.yaml
+  - loki-logs.yaml
