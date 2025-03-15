@@ -91,4 +91,4 @@ spec:
               fail_if_all_match_regexp:
                 - ".*127.0.0.1"
               fail_if_not_matches_regexp:
-                - "srv-rancher.server.home.\t300\tIN\tA\t10.0.3.0"
+                - "mgmt.infra.server.home.\t300\tIN\tA\t10.10.0.50"

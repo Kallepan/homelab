@@ -17,8 +17,8 @@ spec:
     enabled: true
     ingressClassName: istio
     hosts:
-      - jaeger.prod.server.home
+      - jaeger.svc.server.home
     tls:
       - secretName: jaeger-tls-secret
         hosts:
-          - jaeger.prod.server.home
+          - jaeger.svc.server.home

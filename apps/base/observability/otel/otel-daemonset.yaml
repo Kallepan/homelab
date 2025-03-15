@@ -77,7 +77,7 @@ spec:
       resource:
         attributes:
           - key: cluster
-            value: "production"
+            value: "service"
             action: upsert
 
     exporters:

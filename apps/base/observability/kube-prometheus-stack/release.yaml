@@ -132,7 +132,7 @@ spec:
           readOnly: true
       grafana.ini:
         server:
-          root_url: https://monitoring.prod.server.home
+          root_url: https://monitoring.svc.server.home
         auth.anonymous:
           enabled: true
         auth.generic_oauth:
@@ -157,11 +157,11 @@ spec:
         enabled: true
         ingressClassName: istio
         hosts:
-          - monitoring.prod.server.home
+          - monitoring.svc.server.home
         tls:
           - secretName: monitoring-tls-secret
             hosts:
-              - monitoring.prod.server.home
+              - monitoring.svc.server.home
       persistence:
         accessModes:
           - ReadWriteOnce
