@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/istio-system
+  - ../base/jaeger-operator
+  - ../base/kiali-operator
   - ../base/metallb-system
 patches:
   - patch: |
