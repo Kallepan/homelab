@@ -75,3 +75,10 @@ patches:
       kind: HelmRelease
       name: istio-ingressgateway
       namespace: istio-system
+  - patch: |
+      - op: remove
+        path: /
+    target:
+      kind: Telemetry
+      name: otel-telemetry
+      namespace: istio-system
