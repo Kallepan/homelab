@@ -39,10 +39,3 @@ patches:
       kind: HelmRelease
       name: istiod
       namespace: istio-system
-  - patch: |
-      apiVersion: telemetry.istio.io/v1
-      kind: Telemetry
-      metadata:
-        name: otel-telemetry
-        namespace: istio-system
-      $patch: delete
