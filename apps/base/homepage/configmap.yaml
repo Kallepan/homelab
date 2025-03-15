@@ -56,25 +56,17 @@ data:
           href: https://gitea.app.server.home/
           icon: gitea.png
     - Observability:
-      - Monitoring (Production):
-          description: Monitoring of Production Infrastructure.
-          href: https://monitoring.prod.server.home/d/bdo2xwqvxu7swse/kubernetes-metrics
+      - Monitoring:
+          description: Monitoring instance.
+          href: https://monitoring.svc.server.home/
           icon: grafana.png
-      - Monitoring (Core):
-          description: Monitoring of Core Infrastructure.
-          href: https://monitoring.core.infra.server.home/d/bdo2xwqvxu7swse/kubernetes-metrics
-          icon: grafana.png
-      - Loki:
-          description: Log management and analysis.
-          href: https://monitoring.prod.server.home/d/o6-BGgnnk/loki-kubernetes-logs
-          icon: loki.png
       - Kiali:
           description: Service mesh observability.
-          href: https://kiali.prod.server.home/
+          href: https://kiali.svc.server.home/
           icon: traefik-proxy.png
       - Jaeger:
           description: Distributed tracing system.
-          href: https://jaeger.prod.server.home/
+          href: https://jaeger.svc.server.home/
           icon: jaeger.png
     - Communication:
       - Mattermost:

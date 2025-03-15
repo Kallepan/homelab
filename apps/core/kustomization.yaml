@@ -7,7 +7,6 @@ resources:
   - ../base/gitlab-runner
   - ../base/keycloak
   - ../base/metallb-system
-  - ../base/monitoring
   - ../base/privileged-runner
   - ../base/vault
 patches:
