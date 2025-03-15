@@ -36,9 +36,9 @@ patches:
       name: istiod
       namespace: istio-system
   - patch: |
-      - op: remove
-        path: /
-    target:
+      apiVersion: telemetry.istio.io/v1
       kind: Telemetry
-      name: otel-telemetry
-      namespace: istio-system
+      metadata:
+        name: otel-telemetry
+        namespace: istio-system
+      $patch: delete
