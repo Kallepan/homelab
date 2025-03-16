@@ -21,7 +21,7 @@ resources:
   - loki/release.yaml
 
   # Dashboards
-  - dashboards/loki-logs.yaml
+  - dashboards
 
   # General
   - namespace.yaml
