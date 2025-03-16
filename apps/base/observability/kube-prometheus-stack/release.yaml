@@ -265,3 +265,11 @@ spec:
         scrape_interval: 15s
         evaluation_interval: 1m
         scrape_timeout: 10s
+
+
+    # RKE2 Settings
+    kubeProxy:
+      serviceMonitor:
+        selector:
+          matchLabels:
+            component: kube-proxy
