@@ -19,6 +19,9 @@ resources:
   # Logging (Loki)
   - loki/repository.yaml
   - loki/release.yaml
+  - loki/cert.yaml
+  - loki/virtualservice.yaml
+  - loki/gateway.yaml
 
   # Dashboards
   - dashboards
