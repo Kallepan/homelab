@@ -19,6 +19,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    global:
+      dnsService: coredns
     chunksCache:
       allocatedMemory: 2048
 
