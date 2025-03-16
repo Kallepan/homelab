@@ -271,5 +271,4 @@ spec:
     kubeProxy:
       service:
         selector:
-          matchLabels:
-            component: kube-proxy
+          component: kube-proxy
