@@ -101,8 +101,6 @@ spec:
 
     ruler:
       enabled: true
-      replicas: 1
-      maxUnavailable: 0
       directories:
         fake:
           # Enable this to test the rule files
