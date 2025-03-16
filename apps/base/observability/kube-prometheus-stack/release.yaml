@@ -102,11 +102,6 @@ spec:
         enabled: true
     defaultRules:
       create: true
-      rules:
-        kubeControllerManager: false
-        kubeSchedulerAlerting: false
-        kubeSchedulerRecording: false
-        kubeProxy: false
     grafana:
       adminUser: administator
       additionalDataSources:
