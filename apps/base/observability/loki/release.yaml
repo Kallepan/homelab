@@ -20,7 +20,8 @@ spec:
     crds: CreateReplace
   values:
     global:
-      dnsService: coredns
+      dnsService: rke2-coredns-rke2-coredns
+
     chunksCache:
       allocatedMemory: 2048
 
