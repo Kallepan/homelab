@@ -37,14 +37,9 @@ spec:
         alertmanager_url: http://prometheus-kube-prometheus-alertmanager.observability.svc.cluster.local:9093
         enable_alertmanager_v2: true
         enable_api: true
-        rule_path: /var/loki/rules-temp
         ring:
           kvstore:
             store: inmemory
-        storage:
-          type: local
-          local:
-            directory: /etc/loki/rules
       ingester:
         chunk_encoding: snappy
       querier:
