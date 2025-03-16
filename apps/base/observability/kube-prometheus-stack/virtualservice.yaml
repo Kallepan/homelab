@@ -2,20 +2,19 @@
 apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
-  name: loki-virtual-service
+  name: prometheus-virtual-service
   namespace: observability
 spec:
   hosts:
-    - loki.svc.server.home
+    - prometheus.svc.server.home
   gateways:
-    - gateway-loki
+    - gateway-prometheus
   http:
     - match:
         - uri:
             prefix: /
       route:
         - destination:
-            host: loki-gateway.observability.svc.cluster.local
+            host: prometheus-kube-prometheus-prometheus.observability.svc.cluster.local
             port:
-              number: 80
-              
+              number: 9090

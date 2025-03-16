@@ -12,3 +12,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - monitoring.svc.server.home
+    - prometheus.svc.server.home
