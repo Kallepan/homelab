@@ -215,38 +215,4 @@ spec:
                     annotations:
                       summary: Log volume anomaly detected for {{ $labels.k8s_container_name }}
                       description: Unusual increase in log volume detected for {{ $labels.k8s_container_name }} over the last 10 minutes.
-    ingester:
-      replicas: 3 # To ensure data durability with replication
-    querier:
-      replicas: 3 # Improve query performance via parallelism
-      maxUnavailable: 2
-    queryFrontend:
-      replicas: 2
-      maxUnavailable: 1
-    queryScheduler:
-      replicas: 2
-    distributor:
-      replicas: 3
-      maxUnavailable: 2
-    compactor:
-      replicas: 1
-    indexGateway:
-      replicas: 2
-      maxUnavailable: 1
 
-    bloomPlanner:
-      replicas: 0
-    bloomBuilder:
-      replicas: 0
-    bloomGateway:
-      replicas: 0
-
-    backend:
-      replicas: 0
-    read:
-      replicas: 0
-    write:
-      replicas: 0
-
-    singleBinary:
-      replicas: 0
