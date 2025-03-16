@@ -221,10 +221,22 @@ spec:
     # Enable Scalable mode
     backend:
       replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClassName: openebs-hostpath
     read:
       replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClassName: openebs-hostpath
     write:
       replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClassName: openebs-hostpath
 
     # Disable Microservice components
     ingester:
