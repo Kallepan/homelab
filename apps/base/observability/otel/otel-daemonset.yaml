@@ -83,7 +83,7 @@ spec:
     exporters:
       debug: {}
       otlphttp/logs:
-        endpoint: "http://loki-distributor.observability.svc.cluster.local:3100/otlp"
+        endpoint: "http://loki-write.observability.svc.cluster.local:3100/otlp"
         tls:
           insecure: true
       otlphttp/metrics:

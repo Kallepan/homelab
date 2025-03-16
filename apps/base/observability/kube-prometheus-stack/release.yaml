@@ -115,7 +115,7 @@ spec:
           name: loki
           orgId: 1
           type: loki
-          url: http://loki-query-frontend.observability.svc.cluster.local:3100
+          url: http://loki-read.observability.svc.cluster.local:3100
           version: 2
         - access: proxy
           isDefault: false
