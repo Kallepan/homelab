@@ -216,3 +216,34 @@ spec:
                       summary: Log volume anomaly detected for {{ $labels.k8s_container_name }}
                       description: Unusual increase in log volume detected for {{ $labels.k8s_container_name }} over the last 10 minutes.
 
+    # Disable Monolithic components
+    singleBinary:
+      replicas: 0
+
+    # Enable Scalable mode
+    backend:
+      replicas: 1
+    read:
+      replicas: 1
+    write:
+      replicas: 1
+
+    # Disable Microservice components
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
