@@ -94,7 +94,7 @@ spec:
             response_header_timeout: 0s
             insecure_skip_verify: true
 
-    deploymentMode: Distributed
+    deploymentMode: SimpleScalable
 
     minio:
       enabled: false
