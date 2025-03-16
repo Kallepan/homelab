@@ -18,4 +18,3 @@ spec:
             host: loki-gateway.observability.svc.cluster.local
             port:
               number: 80
-              
