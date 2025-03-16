@@ -269,7 +269,7 @@ spec:
 
     # RKE2 Settings
     kubeProxy:
-      serviceMonitor:
+      service:
         selector:
           matchLabels:
             component: kube-proxy
