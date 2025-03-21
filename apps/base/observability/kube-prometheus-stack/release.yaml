@@ -26,7 +26,6 @@ spec:
         secrets:
           - alertmanager-mattermost-webhook-url
           - homelab-ca
-        logLevel: debug
       config:
         global:
           resolve_timeout: 5m
