@@ -176,7 +176,7 @@ spec:
           - name: "web.enable-otlp-receiver"
             value: ""
         additionalScrapeConfigs:
-          - job_name: blackbox
+          - job_name: blackbox_http
             metrics_path: /probe
             params:
               module: [http_2xx]
@@ -190,6 +190,19 @@ spec:
                   - https://sso.core.infra.server.home
                   # Production Cluster
                   - https://homepage.prod.server.home
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: blackbox-prometheus-blackbox-exporter.observability.svc.cluster.local:9115
+          - job_name: blackbox_http_auth
+            metrics_path: /probe
+            params:
+              module: [http_auth]
+            static_configs:
+              - targets:
                   # Docker Machine
                   - https://docs.app.server.home
             relabel_configs:
