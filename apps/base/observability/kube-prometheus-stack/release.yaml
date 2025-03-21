@@ -67,10 +67,12 @@ spec:
             - receiver: "mattermost-logging-receiver"
               matchers:
                 - source = "loki"
+              continue: false
             - receiver: "mattermost-metrics-receiver"
               matchers:
                 - source = "prometheus"
-                - severity =~ "warning|critical"
+                - severity =~ "critical|warning"
+              continue: false
         receivers:
           - name: "mattermost-logging-receiver"
             slack_configs:
