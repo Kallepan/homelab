@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../base/argo
   - ../base/cert-manager
-  - ../base/dashboards
   - ../base/emqx
   - ../base/gitlab-agent
   - ../base/gitlab-runner
@@ -13,32 +12,7 @@ resources:
   - ../base/metallb-system
   - ../base/nextcloud
   - ../base/oauth2-proxy
-  - ../base/observability
 patches:
-  - patch: |
-      - op: replace
-        path: /metadata/namespace
-        value: observability
-    target:
-      kind: ConfigMap
-      name: kube-metrics
-      namespace: monitoring
-  - patch: |
-      - op: replace
-        path: /metadata/namespace
-        value: observability
-    target:
-      kind: ConfigMap
-      name: istio-performance-dashboard
-      namespace: monitoring
-  - patch: |
-      - op: replace
-        path: /metadata/namespace
-        value: observability
-    target:
-      kind: ConfigMap
-      name: istio-services-dashboard
-      namespace: monitoring
   - patch: |
       - op: add
         path: /spec/addresses/-

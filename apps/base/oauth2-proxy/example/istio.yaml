@@ -1,3 +1,33 @@
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: basic-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+      istio: ingressgateway
+  url: oci://ghcr.io/istio-ecosystem/wasm-extensions/basic_auth:1.12.0
+  phase: AUTHN
+  pluginConfig:
+    basic_auth_rules:
+      - prefix: "/basic-auth"
+        hosts:
+          - oauth2.prod.server.home
+        request_methods:
+          - "GET"
+          - "POST"
+          - "PUT"
+          - "DELETE"
+          - "PATCH"
+          - "HEAD"
+          - "OPTIONS"
+          - "TRACE"
+          - "CONNECT"
+        credentials:
+          - "ok:test"
+          - "YWRtaW46YWRtaW4K"
 ---
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
@@ -8,6 +38,7 @@ spec:
   selector:
     matchLabels:
       app: istio-ingressgateway
+      istio: ingressgateway
   action: CUSTOM
   provider:
     name: "oauth2-proxy"
@@ -64,6 +95,15 @@ spec:
       redirect:
         scheme: https
         redirectCode: 302
+    ## Http Basic Auth
+    - match:
+        - uri:
+            prefix: /basic-auth
+      route:
+        - destination:
+            host: web-example.web-example.svc.cluster.local
+            port:
+              number: 80
     ## Oauth2-proxy
     - match:
         - uri:

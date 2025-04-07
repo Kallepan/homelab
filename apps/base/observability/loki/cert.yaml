@@ -3,12 +3,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: monitoring-cert
+  name: loki-cert
   namespace: istio-system
 spec:
-  secretName: monitoring-tls-secret
+  secretName: loki-tls-secret
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - monitoring.core.infra.server.home
+    - loki.svc.server.home

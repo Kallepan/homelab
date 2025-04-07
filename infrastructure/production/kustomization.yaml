@@ -5,6 +5,7 @@ resources:
   - ../base/cert-manager
   - ../base/cnpg-operator
   - ../base/crossplane
+  - ../base/eso-operator
   - ../base/emqx-operator
   - ../base/istio-system
   - ../base/jaeger-operator
@@ -52,28 +53,6 @@ patches:
       namespace: istio-system
   - patch: |
       - op: add
-        path: /spec/values/meshConfig/extensionProviders/-
-        value:
-          name: "otel-tracing"
-          opentelemetry:
-            port: 4317
-            service: "otel-daemonset-collector.observability.svc.cluster.local"
-            resource_detectors:
-              environment: {}
-    target:
-      kind: HelmRelease
-      name: istiod
-      namespace: istio-system
-  - patch: |
-      - op: replace
-        path: /spec/values/meshConfig/enableTracing
-        value: true
-    target:
-      kind: HelmRelease
-      name: istiod
-      namespace: istio-system
-  - patch: |
-      - op: add
         path: /spec/values/service/ports/-
         value:
           name: "mqtt-tls"
@@ -96,3 +75,10 @@ patches:
       kind: HelmRelease
       name: istio-ingressgateway
       namespace: istio-system
+  - patch: |
+      apiVersion: telemetry.istio.io/v1
+      kind: Telemetry
+      metadata:
+        name: otel-telemetry
+        namespace: istio-system
+      $patch: delete

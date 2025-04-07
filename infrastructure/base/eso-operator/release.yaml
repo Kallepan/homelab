@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: eso-operator
+  namespace: eso-operator
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: external-secrets
+      version: "0.x"
+      sourceRef:
+        kind: HelmRepository
+        name: external-secrets
+        namespace: eso-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values: {}

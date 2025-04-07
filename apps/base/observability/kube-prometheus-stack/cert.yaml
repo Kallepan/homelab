@@ -11,4 +11,5 @@ spec:
     name: cluster-issuer
     kind: ClusterIssuer
   dnsNames:
-    - monitoring.prod.server.home
+    - monitoring.svc.server.home
+    - prometheus.svc.server.home

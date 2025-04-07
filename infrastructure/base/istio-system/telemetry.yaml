@@ -11,4 +11,4 @@ spec:
       customTags:
         cluster:
           literal:
-            value: "production"
+            value: "service"

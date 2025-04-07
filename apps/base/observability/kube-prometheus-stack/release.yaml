@@ -26,7 +26,6 @@ spec:
         secrets:
           - alertmanager-mattermost-webhook-url
           - homelab-ca
-        logLevel: debug
       config:
         global:
           resolve_timeout: 5m
@@ -68,10 +67,12 @@ spec:
             - receiver: "mattermost-logging-receiver"
               matchers:
                 - source = "loki"
+              continue: false
             - receiver: "mattermost-metrics-receiver"
               matchers:
                 - source = "prometheus"
-                - severity =~ "warning|critical"
+                - severity =~ "critical|warning"
+              continue: false
         receivers:
           - name: "mattermost-logging-receiver"
             slack_configs:
@@ -102,11 +103,6 @@ spec:
         enabled: true
     defaultRules:
       create: true
-      rules:
-        kubeControllerManager: false
-        kubeSchedulerAlerting: false
-        kubeSchedulerRecording: false
-        kubeProxy: false
     grafana:
       adminUser: administator
       additionalDataSources:
@@ -115,7 +111,7 @@ spec:
           name: loki
           orgId: 1
           type: loki
-          url: http://loki-query-frontend.observability.svc.cluster.local:3100
+          url: http://loki-read.observability.svc.cluster.local:3100
           version: 2
         - access: proxy
           isDefault: false
@@ -132,7 +128,7 @@ spec:
           readOnly: true
       grafana.ini:
         server:
-          root_url: https://monitoring.prod.server.home
+          root_url: https://monitoring.svc.server.home
         auth.anonymous:
           enabled: true
         auth.generic_oauth:
@@ -157,11 +153,11 @@ spec:
         enabled: true
         ingressClassName: istio
         hosts:
-          - monitoring.prod.server.home
+          - monitoring.svc.server.home
         tls:
           - secretName: monitoring-tls-secret
             hosts:
-              - monitoring.prod.server.home
+              - monitoring.svc.server.home
       persistence:
         accessModes:
           - ReadWriteOnce
@@ -181,7 +177,7 @@ spec:
           - name: "web.enable-otlp-receiver"
             value: ""
         additionalScrapeConfigs:
-          - job_name: blackbox
+          - job_name: blackbox_http
             metrics_path: /probe
             params:
               module: [http_2xx]
@@ -195,6 +191,19 @@ spec:
                   - https://sso.core.infra.server.home
                   # Production Cluster
                   - https://homepage.prod.server.home
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: blackbox-prometheus-blackbox-exporter.observability.svc.cluster.local:9115
+          - job_name: blackbox_http_auth
+            metrics_path: /probe
+            params:
+              module: [http_auth]
+            static_configs:
+              - targets:
                   # Docker Machine
                   - https://docs.app.server.home
             relabel_configs:
@@ -270,3 +279,10 @@ spec:
         scrape_interval: 15s
         evaluation_interval: 1m
         scrape_timeout: 10s
+
+
+    # RKE2 Settings
+    kubeProxy:
+      service:
+        selector:
+          component: kube-proxy

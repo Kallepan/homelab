@@ -1,0 +1,20 @@
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: prometheus-virtual-service
+  namespace: observability
+spec:
+  hosts:
+    - prometheus.svc.server.home
+  gateways:
+    - gateway-prometheus
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: prometheus-kube-prometheus-prometheus.observability.svc.cluster.local
+            port:
+              number: 9090

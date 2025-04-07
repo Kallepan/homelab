@@ -19,11 +19,16 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    global:
+      dnsService: rke2-coredns-rke2-coredns
+
     chunksCache:
       allocatedMemory: 2048
 
     loki:
       auth_enabled: false
+      commonConfig:
+        replication_factor: 1
       schemaConfig:
         configs:
           - from: "2024-04-01"
@@ -37,14 +42,9 @@ spec:
         alertmanager_url: http://prometheus-kube-prometheus-alertmanager.observability.svc.cluster.local:9093
         enable_alertmanager_v2: true
         enable_api: true
-        rule_path: /var/loki/rules-temp
         ring:
           kvstore:
             store: inmemory
-        storage:
-          type: local
-          local:
-            directory: /etc/loki/rules
       ingester:
         chunk_encoding: snappy
       querier:
@@ -94,15 +94,58 @@ spec:
             response_header_timeout: 0s
             insecure_skip_verify: true
 
-    deploymentMode: Distributed
+    deploymentMode: SimpleScalable
 
     minio:
       enabled: false
 
+    # Disable Monolithic components
+    singleBinary:
+      replicas: 0
+
+    # Enable Scalable mode
+    backend:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClass: openebs-hostpath
+    read:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClass: openebs-hostpath
+    write:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 10Gi
+        storageClass: openebs-hostpath
+
+    # Disable Microservice components
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
     ruler:
       enabled: true
-      replicas: 1
-      maxUnavailable: 0
+      replicas: 0
+
       directories:
         fake:
           # Enable this to test the rule files
@@ -215,38 +258,3 @@ spec:
                     annotations:
                       summary: Log volume anomaly detected for {{ $labels.k8s_container_name }}
                       description: Unusual increase in log volume detected for {{ $labels.k8s_container_name }} over the last 10 minutes.
-    ingester:
-      replicas: 3 # To ensure data durability with replication
-    querier:
-      replicas: 3 # Improve query performance via parallelism
-      maxUnavailable: 2
-    queryFrontend:
-      replicas: 2
-      maxUnavailable: 1
-    queryScheduler:
-      replicas: 2
-    distributor:
-      replicas: 3
-      maxUnavailable: 2
-    compactor:
-      replicas: 1
-    indexGateway:
-      replicas: 2
-      maxUnavailable: 1
-
-    bloomPlanner:
-      replicas: 0
-    bloomBuilder:
-      replicas: 0
-    bloomGateway:
-      replicas: 0
-
-    backend:
-      replicas: 0
-    read:
-      replicas: 0
-    write:
-      replicas: 0
-
-    singleBinary:
-      replicas: 0

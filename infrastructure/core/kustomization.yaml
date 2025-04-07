@@ -9,6 +9,7 @@ resources:
   - ../base/metallb-system
   - ../base/metrics-server
   - ../base/openebs
+  - ../base/otel-operator
 patches:
   - patch: |
       - op: replace
@@ -26,3 +27,10 @@ patches:
       kind: HelmRelease
       name: istio-ingressgateway
       namespace: istio-system
+  - patch: |
+      apiVersion: telemetry.istio.io/v1
+      kind: Telemetry
+      metadata:
+        name: otel-telemetry
+        namespace: istio-system
+      $patch: delete

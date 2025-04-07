@@ -15,13 +15,18 @@ resources:
   - kube-prometheus-stack/repository.yaml
   - kube-prometheus-stack/release.yaml
   - kube-prometheus-stack/blackbox-exporter/release.yaml
+  - kube-prometheus-stack/virtualservice.yaml
+  - kube-prometheus-stack/gateway.yaml
 
   # Logging (Loki)
   - loki/repository.yaml
   - loki/release.yaml
+  - loki/cert.yaml
+  - loki/virtualservice.yaml
+  - loki/gateway.yaml
 
   # Dashboards
-  - dashboards/loki-logs.yaml
+  - dashboards
 
   # General
   - namespace.yaml
